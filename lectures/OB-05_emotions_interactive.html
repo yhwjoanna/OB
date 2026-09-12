@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OB CH 4 情緒與心情──互動教學版</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#F4F4F0; --ink:#232320; --red:#E61919; --gray:#666666; --mid:#6B6B64; --ok:#1F7A33; --soft:#E4E4DE; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--paper); color:var(--ink); font-family:'Noto Sans TC',sans-serif; line-height:1.7; }
+.mono { font-family:'JetBrains Mono',monospace; letter-spacing:.12em; }
+:focus-visible { outline:3px solid var(--red); outline-offset:2px; }
+/* ── top bar ── */
+.topbar { position:sticky; top:0; z-index:50; background:var(--paper); border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; align-items:center; padding:10px 22px; gap:12px; }
+.topbar .t { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.15em; font-weight:700; color:var(--mid); white-space:nowrap; }
+.progressbar { position:fixed; top:0; left:0; height:4px; background:var(--red); width:0%; z-index:60; transition:width .15s linear; }
+/* ── hero ── */
+.hero { border-bottom:2px solid var(--ink); padding:72px 8vw 56px; position:relative; overflow:hidden; }
+.hero .kicker { font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.2em; color:var(--mid); margin-bottom:14px; }
+.hero h1 { font-family:'Archivo Black','Noto Sans TC',sans-serif; font-weight:900; font-size:clamp(38px,6vw,74px); line-height:1.15; }
+.hero h1 .r { color:var(--red); }
+.hero p.lead { max-width:640px; margin-top:18px; font-size:17px; }
+.hero .stamp { position:absolute; right:6vw; top:60px; border:2.5px solid var(--red); color:var(--red); font-family:'JetBrains Mono',monospace; font-weight:700; letter-spacing:.15em; padding:8px 16px; transform:rotate(6deg); font-size:13px; }
+/* ── section frame ── */
+section.mod { border-bottom:2px solid var(--ink); padding:56px 8vw; }
+.modhead { display:flex; align-items:baseline; gap:18px; margin-bottom:8px; flex-wrap:wrap; }
+.modhead .no { font-family:'Archivo Black',sans-serif; font-size:44px; color:var(--red); }
+.modhead h2 { font-size:clamp(24px,3vw,34px); font-weight:800; }
+.modhead .en { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; color:var(--mid); }
+.retry { margin-left:auto; border:1.5px solid var(--mid); background:var(--paper); color:var(--mid); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; padding:6px 14px; cursor:pointer; }
+.retry:hover { border-color:var(--ink); color:var(--ink); }
+.modnote { font-size:15px; color:var(--gray); margin-bottom:26px; }
+.theory { border-left:5px solid var(--ink); background:#EFEFE9; padding:16px 20px; margin:22px 0; font-size:15.5px; }
+.theory b { color:var(--red); }
+/* ── flip cards ── */
+.cards3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+.flip { perspective:1000px; cursor:pointer; height:250px; }
+.flip .inner { position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.flip.on .inner { transform:rotateY(180deg); }
+.face { position:absolute; inset:0; backface-visibility:hidden; border:2px solid var(--ink); padding:22px; display:flex; flex-direction:column; justify-content:center; background:var(--paper); }
+.face.back { transform:rotateY(180deg); background:var(--ink); color:var(--paper); font-size:14px; justify-content:flex-start; padding-top:26px; }
+.face h3 { font-size:26px; font-weight:800; margin-bottom:6px; }
+.face .en { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--mid); }
+.face.back .en { color:#bbb; }
+.face .hint { margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--red); letter-spacing:.15em; }
+/* ── classify game ── */
+.quizwrap { display:flex; flex-direction:column; gap:14px; max-width:760px; }
+.stmt { border:2px solid var(--ink); padding:16px 18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.stmt .txt { flex:1 1 300px; font-size:15.5px; font-weight:500; }
+.stmt .btns { display:flex; gap:8px; }
+.stmt button { font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:14px; border:2px solid var(--ink); background:var(--paper); padding:10px 20px; cursor:pointer; }
+.stmt button:hover { background:var(--ink); color:var(--paper); }
+.stmt.done button { pointer-events:none; opacity:.45; }
+.stmt.done button.pick { opacity:1; }
+.stmt.right { border-color:var(--ok); }
+.stmt.right button.pick { background:var(--ok); border-color:var(--ok); color:#fff; }
+.stmt.wrong { border-color:var(--red); }
+.stmt.wrong button.pick { background:var(--red); border-color:var(--red); color:#fff; }
+.stmt .fb { flex-basis:100%; font-size:13.5px; color:var(--gray); display:none; }
+.stmt.done .fb { display:block; }
+.stmt.right .fb::before { content:'✓ 答對──'; color:var(--ok); font-weight:700; }
+.stmt.wrong .fb::before { content:'✗ 答錯──'; color:var(--red); font-weight:700; }
+.scoreline { font-family:'JetBrains Mono',monospace; font-weight:700; margin-top:10px; font-size:14px; }
+/* ── circumplex ── */
+.circwrap { display:flex; gap:36px; flex-wrap:wrap; align-items:flex-start; }
+.circbox { position:relative; width:min(560px,96vw); padding:48px 66px; flex:none; }
+.circbox .qlabel { position:absolute; font-size:12px; font-weight:900; color:var(--red); line-height:1.35; }
+.circbox .qlabel.tl { top:6px; left:10px; text-align:left; }
+.circbox .qlabel.tr { top:6px; right:10px; text-align:right; }
+.circbox .qlabel.bl { bottom:6px; left:10px; text-align:left; }
+.circbox .qlabel.br { bottom:6px; right:10px; text-align:right; }
+.circ { position:relative; width:100%; aspect-ratio:1; border:2px solid var(--ink); border-radius:50%; background:#ECECE6; cursor:crosshair; }
+.circ .axis { position:absolute; background:var(--mid); opacity:.5; }
+.circ .ax-h { left:2%; right:2%; top:50%; height:1.5px; }
+.circ .ax-v { top:2%; bottom:2%; left:50%; width:1.5px; }
+.circ .dot { position:absolute; width:18px; height:18px; background:var(--red); border-radius:50%; transform:translate(-50%,-50%); display:none; box-shadow:0 0 0 5px rgba(244,244,240,.8); }
+.circout { flex:1 1 260px; }
+.circout .word { font-family:'Archivo Black','Noto Sans TC',sans-serif; font-size:44px; min-height:64px; color:var(--red); font-weight:900; }
+.circout .desc { font-size:15px; margin-top:8px; }
+.circout .tag { display:inline-block; margin-top:14px; border:2px solid var(--mid); color:#55554F; padding:4px 12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.15em; }
+.kbdnote { font-size:12.5px; color:var(--mid); margin-top:10px; }
+/* ── AET simulator ── */
+.aet { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:8px; }
+.evcard { border:2px solid var(--ink); padding:16px; cursor:pointer; transition:.15s; background:var(--paper); text-align:left; font-family:'Noto Sans TC',sans-serif; }
+.evcard:hover { transform:translateY(-3px); box-shadow:4px 4px 0 var(--ink); }
+.evcard .k { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.15em; color:var(--mid); }
+.evcard h4 { font-size:16.5px; font-weight:800; margin:4px 0 6px; }
+.evcard p { font-size:13.5px; color:var(--gray); }
+.aetflow { margin-top:26px; display:none; }
+.aetflow.on { display:block; }
+.chain { display:flex; flex-wrap:wrap; gap:0; align-items:stretch; }
+.chip { border:2px solid var(--ink); padding:14px 16px; flex:1 1 150px; min-width:150px; opacity:0; transform:translateY(8px); transition:.4s; background:var(--paper); }
+.chip.red { background:var(--red); border-color:var(--red); color:var(--paper); }
+.chip.show { opacity:1; transform:none; }
+.chip .lab { font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.15em; color:var(--mid); }
+.chip.red .lab { color:#F3C8C8; }
+.chip .val { font-weight:800; font-size:15.5px; margin-top:3px; }
+.chip .sub { font-size:12.5px; margin-top:3px; }
+.arrowc { align-self:center; font-weight:900; font-size:20px; padding:0 8px; opacity:0; transition:.4s; }
+.arrowc.show { opacity:1; }
+@media (max-width:719px) {
+  .chain { flex-direction:column; }
+  .chip { min-width:0; }
+  .arrowc { transform:rotate(90deg); align-self:flex-start; padding:2px 0 2px 22px; }
+}
+.moodnote { margin-top:14px; font-size:14px; border-left:4px solid var(--red); padding-left:12px; color:var(--gray); display:none; }
+.moodnote.on { display:block; }
+/* ── emotional labor lab ── */
+.lab3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+.opt { border:2px solid var(--ink); padding:18px; cursor:pointer; transition:.15s; background:var(--paper); text-align:left; font-family:'Noto Sans TC',sans-serif; }
+.opt:hover { box-shadow:4px 4px 0 var(--ink); transform:translateY(-2px); }
+.opt h4 { font-weight:800; font-size:17px; }
+.opt .en { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--mid); letter-spacing:.15em; }
+.opt p { font-size:13.5px; margin-top:8px; }
+.labout { margin-top:24px; border:2px solid var(--ink); padding:20px 22px; display:none; }
+.labout.on { display:block; }
+.gauge { height:16px; border:2px solid var(--ink); margin:10px 0 4px; position:relative; max-width:420px; }
+.gauge .fill { height:100%; background:var(--red); width:0%; transition:width .6s; }
+.gaugelab { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; color:var(--mid); }
+/* ── EI ordering ── */
+.eiorder { display:flex; gap:14px; flex-wrap:wrap; }
+.eibtn { border:2px solid var(--ink); background:var(--paper); padding:14px 20px; font-size:15.5px; font-weight:700; cursor:pointer; font-family:'Noto Sans TC',sans-serif; }
+.eibtn.pickedd { background:var(--ink); color:var(--paper); pointer-events:none; }
+.eibtn.errshake { border-color:var(--red); color:var(--red); animation:shake .3s; }
+@keyframes shake { 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+.eislots { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; align-items:center; }
+.slot { border:2px dashed var(--mid); min-width:150px; padding:12px 16px; font-weight:700; font-size:14.5px; color:var(--mid); position:relative; }
+.slot .n { font-family:'Archivo Black',sans-serif; color:#DDDDD5; font-size:24px; position:absolute; right:8px; top:4px; }
+.slot.fill { border:2px solid var(--red); color:var(--ink); background:var(--paper); }
+.eidone { margin-top:14px; font-weight:700; color:var(--ok); display:none; }
+.eidone::before { content:'✓ '; }
+/* ── decision tree ── */
+.dtree { max-width:680px; }
+.dq { border:2px solid var(--ink); padding:18px 20px; margin-bottom:14px; background:var(--paper); }
+.dq h4 { font-size:16.5px; font-weight:800; margin-bottom:10px; }
+.dq .db { display:flex; gap:10px; }
+.dq button { border:2px solid var(--ink); background:var(--paper); font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:14.5px; padding:10px 24px; cursor:pointer; }
+.dq button.sel { background:var(--ink); color:var(--paper); }
+.dresult { border:2px solid var(--red); padding:20px 22px; display:none; background:var(--paper); }
+.dresult.on { display:block; }
+.dresult .k { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--red); }
+.dresult h4 { font-size:19px; font-weight:800; margin-top:4px; }
+/* ── final quiz ── */
+.fq { border:2px solid var(--ink); padding:18px 20px; margin-bottom:16px; max-width:760px; position:relative; }
+.fq .qn { position:absolute; top:-14px; left:16px; background:var(--red); color:#fff; font-family:'Archivo Black',sans-serif; font-size:14px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.fq h4 { font-size:16px; font-weight:800; margin-bottom:10px; padding-left:24px; }
+.fq .op { display:block; width:100%; text-align:left; border:2px solid var(--ink); background:var(--paper); font-family:'Noto Sans TC',sans-serif; font-size:14.5px; padding:10px 14px; margin-bottom:8px; cursor:pointer; }
+.fq .op:hover { background:var(--soft); }
+.fq.done .op { pointer-events:none; opacity:.5; }
+.fq.done .op.correct { opacity:1; border-color:var(--ok); background:#E7F2EA; }
+.fq.done .op.correct::after { content:'　✓ 正確答案'; color:var(--ok); font-weight:700; font-size:12.5px; }
+.fq.done .op.chosenwrong { opacity:1; border-color:var(--red); background:#FBE9E9; }
+.fq.done .op.chosenwrong::after { content:'　✗ 所選答案'; color:var(--red); font-weight:700; font-size:12.5px; }
+.fq .exp { display:none; font-size:13.5px; color:var(--gray); border-left:4px solid var(--red); padding-left:12px; margin-top:8px; }
+.fq.done .exp { display:block; }
+/* ── summary ── */
+.sumlist { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; max-width:900px; }
+.sumitem { border:2px solid var(--ink); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px; background:var(--paper); }
+.sumitem .nm { font-weight:700; font-size:14.5px; }
+.sumitem .st { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mid); white-space:nowrap; }
+.sumitem.ok { border-color:var(--ok); }
+.sumitem.ok .st { color:var(--ok); font-weight:700; }
+.finalmsg { margin-top:26px; border:2.5px solid var(--red); padding:22px 26px; display:none; max-width:900px; }
+.finalmsg.on { display:block; }
+.finalmsg h3 { font-size:22px; font-weight:800; color:var(--red); }
+.finalmsg p { font-size:15px; margin-top:6px; }
+footer { padding:44px 8vw; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.15em; color:var(--mid); flex-wrap:wrap; gap:8px; }
+.reveal { opacity:0; transform:translateY(18px); transition:.6s; }
+.reveal.in { opacity:1; transform:none; }
+</style>
+
+<style>
+/* ── 點圖放大（FIGZOOM v2）── */
+.fig-body img, .fig-body svg, .figimg img, .mini-fig svg,
+.fig-wrap img, .fig-wrap svg { cursor: zoom-in; }
+.figzoom { position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,.94);
+  display: flex; align-items: center; justify-content: center; padding: 1vmin; cursor: zoom-out; }
+.figzoom > img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom > svg { width: 100%; height: 100%; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom-tip { position: fixed; left: 50%; bottom: 2.2vmin; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  color: #F4F4F0; opacity: .7; pointer-events: none; }
+.figzoom { animation: fz-fade 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom > img, .figzoom > svg { animation: fz-rise 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes fz-fade { from { opacity: 0; } }
+@keyframes fz-rise { from { opacity: 0; transform: scale(0.97); } }
+.figzoom.closing { opacity: 0; transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom.closing > img, .figzoom.closing > svg { opacity: 0; transform: scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.fig-head button { transition: transform 100ms ease-out; }
+.fig-head button:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .figzoom > img, .figzoom > svg { animation: fz-fade 200ms ease; }
+  .figzoom.closing > img, .figzoom.closing > svg { transform: none; }
+}
+
+  /* ── PDFBTN v3：只在第一頁顯示，位置依舞台留白帶決定，不覆蓋頁首 ── */
+  body.pdfbtn-inset .meta-row > :last-child,
+  body.pdfbtn-inset .fig-head > :last-child,
+  body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
+  /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media print { body.pdfbtn-inset .meta-row > :last-child,
+    body.pdfbtn-inset .fig-head > :last-child,
+    body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
+  /* ── PDFBTN v1：右上角下載 PDF ── */
+  .pdfbtn { position: fixed; z-index: 9998; top: 14px; right: 14px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn .ar { font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    html, body { background: #fff !important; }
+    .pdfbtn { display: none !important; }
+    section, .card, figure, table { break-inside: avoid; page-break-inside: avoid; }
+    a { text-decoration: none; color: inherit; }
+  }</style>
+</head>
+<body>
+<div class="progressbar" id="pbar"></div>
+<div class="topbar"><span class="t">OB／CH 4 ── INTERACTIVE</span><span class="t" id="modchip">0／8 關</span><span class="t" id="scorechip" aria-live="polite">SCORE 0／225</span></div>
+
+<header class="hero">
+  <div class="kicker">ORGANIZATIONAL BEHAVIOR ── EMOTIONS ＆ MOODS</div>
+  <h1>情緒與心情<br><span class="r">互動實驗室</span></h1>
+  <p class="lead">為什麼有些日子做什麼都順，有些日子一封信就足以攪亂整個下午？本單元從情緒與心情的差異出發，一路走到情緒勞動、情感事件理論與情緒智力。八個關卡，每一關都需要實際判斷與選擇；完成全部關卡，就掌握了本章的核心概念。</p>
+  <div class="stamp">HANDS-ON EDITION</div>
+  <p class="mono" style="margin-top:16px;font-size:12px;color:var(--mid)">8 MODULES ── 約 15 分鐘 ── 滿分 225</p>
+</header>
+
+<!-- 01 三個概念 -->
+<section class="mod" id="m1">
+  <div class="modhead"><span class="no">01</span><h2>三個容易混淆的概念</h2><span class="en">AFFECT ── EMOTIONS ── MOODS</span></div>
+  <p class="modnote">點擊卡片翻面，比較三者的差異。三張都翻過即完成本關。</p>
+  <div class="cards3">
+    <div class="flip" data-i="0" tabindex="0" role="button" aria-label="情感卡片，按 Enter 翻面"><div class="inner">
+      <div class="face front"><h3>情感</h3><span class="en">AFFECT</span><p style="margin-top:10px;font-size:14px;color:var(--gray)">最上位的概念</p><span class="hint">CLICK TO FLIP →</span></div>
+      <div class="face back"><span class="en">AFFECT</span><p style="margin-top:8px">人們所經歷到的廣泛感覺的統稱，可以用情緒或心情兩種形式來經歷。</p></div>
+    </div></div>
+    <div class="flip" data-i="1" tabindex="0" role="button" aria-label="情緒卡片，按 Enter 翻面"><div class="inner">
+      <div class="face front"><h3>情緒</h3><span class="en">EMOTIONS</span><p style="margin-top:10px;font-size:14px;color:var(--gray)">短暫而強烈</p><span class="hint">CLICK TO FLIP →</span></div>
+      <div class="face back"><span class="en">EMOTIONS</span><p style="margin-top:8px">起因於特定事件、存續時間非常短（幾秒到幾分鐘）、本質特定而多樣（憤怒、恐懼、悲傷、愉快、討厭、驚訝），通常伴隨明顯表情，具行動導向。</p></div>
+    </div></div>
+    <div class="flip" data-i="2" tabindex="0" role="button" aria-label="心情卡片，按 Enter 翻面"><div class="inner">
+      <div class="face front"><h3>心情</h3><span class="en">MOODS</span><p style="margin-top:10px;font-size:14px;color:var(--gray)">綿長而模糊</p><span class="hint">CLICK TO FLIP →</span></div>
+      <div class="face back"><span class="en">MOODS</span><p style="margin-top:8px">起因通常籠統含糊、持續數小時或數天、只分正向與負向兩大構面，通常沒有明確表情，屬於認知層面。</p></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- 02 分類挑戰 -->
+<section class="mod" id="m2">
+  <div class="modhead"><span class="no">02</span><h2>情緒還是心情？</h2><span class="en">CLASSIFY IT</span><button class="retry" onclick="resetCLS()">RETRY ↻</button></div>
+  <p class="modnote">逐題判斷描述比較接近情緒（EMOTION）還是心情（MOOD）。</p>
+  <div class="quizwrap" id="clsgame"></div>
+  <div class="scoreline" id="clsscore" aria-live="polite"></div>
+  <div class="theory">情緒與心情的來源包括<b>人格</b>（情感強度因人而異）、一天當中的<b>時間</b>、<b>睡眠</b>、<b>運動</b>、<b>年齡</b>與<b>壓力</b>等。值得注意的是，天氣的影響多屬<b>錯覺相關</b>──覺得天氣影響心情，證據上卻幾乎沒有關聯。</div>
+</section>
+
+<!-- 03 心情的架構 -->
+<section class="mod" id="m3">
+  <div class="modhead"><span class="no">03</span><h2>心情打卡：環狀模型</h2><span class="en">AFFECT CIRCUMPLEX</span></div>
+  <p class="modnote">在圓盤上點選最接近此刻心情的位置，系統會給出對應的情緒詞與所屬構面。橫軸為效價（不愉快→愉快），縱軸為激發程度（低→高）。</p>
+  <div class="circwrap">
+    <div>
+      <div class="circbox">
+        <div class="qlabel tl">高度<br>負向情感</div>
+        <div class="qlabel tr">高度<br>正向情感</div>
+        <div class="qlabel bl">低度<br>正向情感</div>
+        <div class="qlabel br">低度<br>負向情感</div>
+        <div class="circ" id="circ" tabindex="0" role="application" aria-label="心情環狀模型。點選任一位置，或使用左右方向鍵在十六個情緒詞之間移動">
+          <div class="axis ax-h"></div><div class="axis ax-v"></div>
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><line x1="15" y1="15" x2="85" y2="85" stroke="#E61919" stroke-width="1.2"/><line x1="85" y1="15" x2="15" y2="85" stroke="#E61919" stroke-width="1.2"/></svg>
+          <div class="dot" id="cdot"></div>
+        </div>
+      </div>
+      <p class="kbdnote">鍵盤操作：聚焦圓盤後，以 ← → 方向鍵移動選取。</p>
+    </div>
+    <div class="circout" aria-live="polite">
+      <div class="word" id="cword">──</div>
+      <div class="desc" id="cdesc">尚未打卡。點圓盤任一位置。</div>
+      <span class="tag" id="ctag" style="display:none"></span>
+      <div class="theory" style="margin-top:22px">環狀模型把情緒排成一個圓：相鄰的情緒彼此相近、相對的情緒彼此相反。<b>正向情感</b>與<b>負向情感</b>是兩個獨立構面，而非同一條線的兩端──同一天可以同時高興又焦慮。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 AET 模擬器 -->
+<section class="mod" id="m4">
+  <div class="modhead"><span class="no">04</span><h2>情感事件理論模擬器</h2><span class="en">AET SIMULATOR</span></div>
+  <p class="modnote">選擇一個今天發生的工作事件，觀察它如何沿著 AET 的路徑產生影響；再切換性情設定，看同一事件的反應強度如何改變。</p>
+  <div style="margin-bottom:14px"><label class="mono" style="font-size:12px">個人性情：</label>
+    <button class="eibtn" id="dispA" onclick="setDisp('stable')" style="font-size:13.5px" aria-pressed="true">情緒穩定型</button>
+    <button class="eibtn" id="dispB" onclick="setDisp('neurotic')" style="font-size:13.5px" aria-pressed="false">高神經質型</button>
+  </div>
+  <div class="aet">
+    <button class="evcard" onclick="runAET('praise')"><span class="k">UPLIFT ↑</span><h4>提案在會議上被公開稱讚</h4><p>日常令人振奮的事</p></button>
+    <button class="evcard" onclick="runAET('hassle')"><span class="k">HASSLE ↓</span><h4>臨時被塞進一個週五截止的案子</h4><p>日常令人煩惱的事</p></button>
+    <button class="evcard" onclick="runAET('rude')"><span class="k">HASSLE ↓</span><h4>客戶來信語氣不佳、句句帶刺</h4><p>情緒勞動的需要</p></button>
+  </div>
+  <div class="aetflow" id="aetflow">
+    <div class="chain" id="aetchain"></div>
+    <div class="moodnote" id="aetnote" aria-live="polite"></div>
+  </div>
+  <div class="theory">情感事件理論（AET）的關鍵主張：單一事件引起的情緒起伏也許不大，但這些反應會<b>隨時間累積</b>，最終形塑工作滿意度與工作績效。管理者不該忽視看似微小的日常事件。</div>
+</section>
+
+<!-- 05 情緒勞動實驗室 -->
+<section class="mod" id="m5">
+  <div class="modhead"><span class="no">05</span><h2>情緒勞動實驗室</h2><span class="en">EMOTIONAL LABOR LAB</span></div>
+  <p class="modnote">情境：櫃檯人員面對一位大聲抱怨、要求立即退費的顧客，內心其實又累又委屈。組織的展示規則要求全程保持親切。接下來怎麼做？</p>
+  <div class="lab3">
+    <button class="opt" onclick="labPick(0)"><h4>表層演出</h4><span class="en">SURFACE ACTING</span><p>壓下真實感受，硬擠出微笑與親切語氣，內心翻騰照舊。</p></button>
+    <button class="opt" onclick="labPick(1)"><h4>深層演出</h4><span class="en">DEEP ACTING</span><p>試著換位思考：對方可能真的遇到麻煩。重新評估情境，讓親切由內而生。</p></button>
+    <button class="opt" onclick="labPick(2)"><h4>情緒失控</h4><span class="en">NO REGULATION</span><p>忍不住回嗆。當下痛快，之後再說。</p></button>
+  </div>
+  <div class="labout" id="labout" aria-live="polite">
+    <h4 id="labtitle" style="font-weight:800;font-size:18px"></h4>
+    <p id="labdesc" style="font-size:14.5px;margin-top:6px"></p>
+    <div style="margin-top:14px"><span class="gaugelab">情緒失調程度 EMOTIONAL DISSONANCE</span><div class="gauge"><div class="fill" id="g1"></div></div></div>
+    <div><span class="gaugelab">顧客體驗 CUSTOMER EXPERIENCE</span><div class="gauge"><div class="fill" id="g2" style="background:var(--ink)"></div></div></div>
+    <p id="labtheory" style="font-size:13.5px;color:var(--gray);margin-top:12px"></p>
+  </div>
+  <div class="theory"><b>情緒勞動</b>：工作要求在人際互動中展現組織期望的情緒。當展現的情緒與真實感受不一致，就產生<b>情緒失調</b>（emotional dissonance）；長期的失調與情緒耗竭、職業倦怠密切相關。</div>
+</section>
+
+<!-- 06 EI 排序 -->
+<section class="mod" id="m6">
+  <div class="modhead"><span class="no">06</span><h2>情緒智力的串聯</h2><span class="en">EI CASCADE</span><button class="retry" onclick="resetEI()">RETRY ↻</button></div>
+  <p class="modnote">情緒智力是一個有順序的歷程。依正確順序點選三個步驟。</p>
+  <div class="eiorder">
+    <button class="eibtn" data-ord="2" onclick="eiPick(this)">了解情緒的意義</button>
+    <button class="eibtn" data-ord="3" onclick="eiPick(this)">調節情緒</button>
+    <button class="eibtn" data-ord="1" onclick="eiPick(this)">察覺自己與他人的情緒</button>
+  </div>
+  <div class="eislots">
+    <div class="slot" id="slot1">STEP 1<span class="n">1</span></div><span style="font-weight:900" aria-hidden="true">→</span>
+    <div class="slot" id="slot2">STEP 2<span class="n">2</span></div><span style="font-weight:900" aria-hidden="true">→</span>
+    <div class="slot" id="slot3">STEP 3<span class="n">3</span></div>
+  </div>
+  <p class="eidone" id="eidone" aria-live="polite">正確！勤勉盡責性、認知明瞭與情緒穩定會分別支持這三個步驟（串聯模式）。</p>
+  <div class="theory">研究顯示 EI 與工作績效存在正向關聯，尤其在需要高度人際互動與情緒勞動的職務。批評者則提醒 EI 的測量與定義仍有爭議。</div>
+</section>
+
+<!-- 07 回應員工情緒 -->
+<section class="mod" id="m7">
+  <div class="modhead"><span class="no">07</span><h2>主管的回應決策</h2><span class="en">RESPONDING TO EMOTIONS</span><button class="retry" onclick="resetDT()">RETRY ↻</button></div>
+  <p class="modnote">兩個問題，決定此刻最合適的回應方式。</p>
+  <div class="dtree">
+    <div class="dq"><h4>Q1──員工正專注於有時效性的工作目標嗎？</h4><div class="db"><button onclick="dt(0,1,this)">是</button><button onclick="dt(0,0,this)">否</button></div></div>
+    <div class="dq"><h4>Q2──員工看起來有在處理情緒嗎？</h4><div class="db"><button onclick="dt(1,1,this)">是</button><button onclick="dt(1,0,this)">否</button></div></div>
+    <div class="dresult" id="dres" aria-live="polite"><span class="k">RECOMMENDED RESPONSE</span><h4 id="drestitle"></h4><p id="dresbody" style="font-size:14.5px;margin-top:6px"></p></div>
+  </div>
+</section>
+
+<!-- 08 快問快答 -->
+<section class="mod" id="m8">
+  <div class="modhead"><span class="no">08</span><h2>快問快答</h2><span class="en">FINAL CHECK</span><button class="retry" onclick="resetFQ()">RETRY ↻</button></div>
+  <p class="modnote">五題檢核本章重點，答錯會附上說明。</p>
+  <div id="fquiz"></div>
+  <div class="scoreline" id="fqscore" aria-live="polite"></div>
+</section>
+
+<!-- 09 總結 -->
+<section class="mod" id="m9">
+  <div class="modhead"><span class="no">09</span><h2>完成進度</h2><span class="en">PROGRESS</span></div>
+  <p class="modnote">各關卡的完成情況與得分一覽。</p>
+  <div class="sumlist" id="sumlist"></div>
+  <div class="finalmsg" id="finalmsg">
+    <h3>全部完成</h3>
+    <p id="finaltext">本章重點都走過一遍了：情緒與心情的區辨、環狀模型、AET、情緒勞動與情緒調節、EI 串聯，以及主管的回應原則。分數不理想的關卡可以按 RETRY 重玩。</p>
+  </div>
+</section>
+
+<footer><span>NSYSU ── HRM ／ OB CH 4</span><span>YU-HSUAN WANG</span><span>INTERACTIVE EDITION REV 2026.08</span></footer>
+
+<script>
+/* ───────── scoring core ───────── */
+const MODS = {
+  m1:{max:10,got:0,label:'01 三個概念'}, m2:{max:60,got:0,label:'02 情緒還是心情'},
+  m3:{max:10,got:0,label:'03 心情打卡'},  m4:{max:10,got:0,label:'04 AET 模擬器'},
+  m5:{max:10,got:0,label:'05 情緒勞動'},  m6:{max:15,got:0,label:'06 EI 串聯'},
+  m7:{max:10,got:0,label:'07 回應決策'},  m8:{max:100,got:0,label:'08 快問快答'} };
+const TOTAL = Object.values(MODS).reduce((s,m)=>s+m.max,0);
+const doneSet = new Set();
+function refresh(){
+  const tot = Object.values(MODS).reduce((s,m)=>s+m.got,0);
+  document.getElementById('scorechip').textContent = `SCORE ${tot}／${TOTAL}`;
+  document.getElementById('modchip').textContent = `${doneSet.size}／8 關`;
+  const list = document.getElementById('sumlist'); list.innerHTML = '';
+  for (const [id,m] of Object.entries(MODS)) {
+    const d = document.createElement('div');
+    d.className = 'sumitem' + (doneSet.has(id) ? ' ok' : '');
+    d.innerHTML = `<span class="nm">${m.label}</span><span class="st">${doneSet.has(id) ? '✓' : '…'} ${m.got}／${m.max}</span>`;
+    list.appendChild(d);
+  }
+  document.getElementById('finalmsg').classList.toggle('on', doneSet.size === 8);
+}
+function addPts(id, n, done){
+  MODS[id].got = Math.min(MODS[id].max, MODS[id].got + n);
+  if (done) doneSet.add(id);
+  refresh();
+}
+function clearMod(id){ MODS[id].got = 0; doneSet.delete(id); refresh(); }
+const isMobile = () => matchMedia('(max-width: 899px)').matches;
+
+/* progress bar + reveal */
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('pbar').style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100) + '%';
+});
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.1});
+document.querySelectorAll('section.mod').forEach(s => { s.classList.add('reveal'); io.observe(s); });
+
+/* ── 01 flip ── */
+const flipped = new Set();
+document.querySelectorAll('.flip').forEach(el => {
+  const act = () => { el.classList.toggle('on');
+    flipped.add(el.dataset.i);
+    if (flipped.size === 3 && !doneSet.has('m1')) addPts('m1', 10, true); };
+  el.addEventListener('click', act);
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
+});
+
+/* ── 02 classify ── */
+const CLS = [
+  ['整個下午都悶悶的，說不上原因', 'mood', '起因籠統、持續時間長──心情的特徵。'],
+  ['信件一打開看到升遷通知，瞬間狂喜', 'emotion', '特定事件觸發、強烈而短暫──情緒。'],
+  ['被同事當眾打斷，當場漲紅了臉', 'emotion', '有明確對象與表情反應，行動導向──情緒。'],
+  ['連日陰雨，這幾天提不起勁', 'mood', '綿長而模糊的狀態屬於心情。不過研究顯示天氣與心情的關聯多為錯覺相關──把低落歸因於天氣，往往是想像多於事實。'],
+  ['簡報前十分鐘心跳加速、手心冒汗', 'emotion', '特定事件（簡報）引起的短暫強烈反應。'],
+  ['睡飽後整個早上做事特別順', 'mood', '睡眠品質影響的是整體的正向心情。'],
+];
+let clsDone = 0, clsRight = 0;
+function buildCLS(){
+  clsDone = 0; clsRight = 0;
+  const box = document.getElementById('clsgame'); box.innerHTML = '';
+  document.getElementById('clsscore').textContent = '';
+  CLS.forEach(([txt, ans, fb]) => {
+    const d = document.createElement('div');
+    d.className = 'stmt';
+    d.innerHTML = `<span class="txt">${txt}</span><span class="btns">
+      <button data-v="emotion">情緒</button><button data-v="mood">心情</button></span><span class="fb">${fb}</span>`;
+    d.querySelectorAll('button').forEach(b => b.onclick = () => {
+      if (d.classList.contains('done')) return;
+      d.classList.add('done'); b.classList.add('pick');
+      const ok = b.dataset.v === ans;
+      d.classList.add(ok ? 'right' : 'wrong');
+      if (ok) { clsRight++; addPts('m2', 10, false); }
+      clsDone++;
+      if (clsDone === CLS.length) {
+        doneSet.add('m2'); refresh();
+        document.getElementById('clsscore').textContent = `RESULT ── ${clsRight}／${CLS.length}`;
+      }
+    });
+    box.appendChild(d);
+  });
+}
+function resetCLS(){ clearMod('m2'); buildCLS(); }
+buildCLS();
+
+/* ── 03 circumplex ── */
+const TERMS = [
+  [22.5,'警覺'],[45,'興奮'],[67.5,'得意'],[90,'愉快'],[112.5,'滿足'],[135,'安詳'],[157.5,'放鬆'],[180,'平靜'],
+  [202.5,'疲乏'],[225,'厭倦'],[247.5,'沮喪'],[270,'悲傷'],[292.5,'心煩'],[315,'壓力'],[337.5,'著急'],[360,'緊張']];
+const QUAD = [['高度正向情感','高激發×愉快：活力與投入的來源'],['高度負向情感','高激發×不愉快：壓力反應的典型區域'],
+              ['低度正向情感','低激發×不愉快：無聊與倦怠所在'],['低度負向情感','低激發×愉快：恢復與平靜的區域']];
+const circ = document.getElementById('circ');
+let kIdx = -1;
+function circSelect(clock, fx, fy){   // clock: deg from top, fx/fy fraction position for dot
+  const dot = document.getElementById('cdot');
+  dot.style.left = (fx*100)+'%'; dot.style.top = (fy*100)+'%'; dot.style.display = 'block';
+  let best = TERMS[0], bd = 999;
+  TERMS.forEach(t => { const d = Math.min(Math.abs(t[0]-clock), 360-Math.abs(t[0]-clock)); if (d < bd) { bd = d; best = t; } });
+  document.getElementById('cword').textContent = best[1];
+  const x = fx - .5, y = .5 - fy;
+  const q = x >= 0 ? (y >= 0 ? 0 : 3) : (y >= 0 ? 1 : 2);
+  document.getElementById('cdesc').textContent = QUAD[q][1];
+  const tag = document.getElementById('ctag');
+  tag.style.display = 'inline-block'; tag.textContent = QUAD[q][0];
+  if (!doneSet.has('m3')) addPts('m3', 10, true);
+  if (isMobile()) document.getElementById('cword').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+circ.addEventListener('click', function(e){
+  const r = this.getBoundingClientRect();
+  const px = (e.clientX - r.left)/r.width, py = (e.clientY - r.top)/r.height;
+  const x = px - .5, y = .5 - py;
+  if (Math.hypot(x,y) > .5) return;
+  let ang = Math.atan2(y,x)*180/Math.PI; if (ang < 0) ang += 360;
+  circSelect((90 - ang + 360) % 360, px, py);
+});
+circ.addEventListener('keydown', function(e){
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  e.preventDefault();
+  kIdx = kIdx < 0 ? 0 : (kIdx + (e.key === 'ArrowRight' ? 1 : 15)) % 16;
+  const [deg] = TERMS[kIdx];
+  const a = (90 - deg) * Math.PI/180;
+  circSelect(deg, .5 + .38*Math.cos(a), .5 - .38*Math.sin(a));
+});
+
+/* ── 04 AET ── */
+let DISP = 'stable';
+function setDisp(d){ DISP = d;
+  document.getElementById('dispA').classList.toggle('pickedd', d==='stable');
+  document.getElementById('dispA').setAttribute('aria-pressed', d==='stable');
+  document.getElementById('dispB').classList.toggle('pickedd', d==='neurotic');
+  document.getElementById('dispB').setAttribute('aria-pressed', d==='neurotic'); }
+setDisp('stable');
+const AET = {
+  praise: { ev:'公開被稱讚', reac:'正向情緒（喜悅、得意）', out1:'工作滿意度 ↑', out2:'後續任務更投入',
+    stable:'情緒穩定型：喜悅適度，動力平穩延續。', neurotic:'高神經質型：喜悅之外也開始擔心下次是否能維持水準。' },
+  hassle: { ev:'臨時插件、週五截止', reac:'負向情緒（焦慮、煩躁）', out1:'工作滿意度 ↓', out2:'可能出現退縮行為',
+    stable:'情緒穩定型：焦慮出現但快速消退，轉為排程行動。', neurotic:'高神經質型：焦慮被放大且持續，明顯干擾當日其他工作。' },
+  rude: { ev:'帶刺的客戶來信', reac:'負向情緒（憤怒、委屈）', out1:'情緒勞動需求 ↑', out2:'累積可能導致情緒耗竭',
+    stable:'情緒穩定型：重新評估後以公事公辦語氣回覆。', neurotic:'高神經質型：反覆重讀信件，情緒反應強且久。' }
+};
+function runAET(key){
+  const s = AET[key];
+  const flow = document.getElementById('aetflow'); flow.classList.add('on');
+  const chain = document.getElementById('aetchain');
+  chain.innerHTML = '';
+  const steps = [
+    ['WORK EVENT','工作事件', s.ev, false],
+    ['EMOTIONAL REACTION','情緒反應', s.reac, true],
+    ['OUTCOME 1','態度面', s.out1, false],
+    ['OUTCOME 2','行為面', s.out2, false]];
+  steps.forEach((st, i) => {
+    if (i) { const a = document.createElement('div'); a.className='arrowc'; a.textContent='→'; chain.appendChild(a); }
+    const c = document.createElement('div');
+    c.className = 'chip' + (st[3] ? ' red' : '');
+    c.innerHTML = `<div class="lab">${st[0]}</div><div class="val">${st[1]}</div><div class="sub">${st[2]}</div>`;
+    chain.appendChild(c);
+  });
+  [...chain.children].forEach((el, i) => setTimeout(() => el.classList.add('show'), 120*i + 60));
+  const note = document.getElementById('aetnote');
+  note.classList.add('on');
+  note.textContent = '性情調節 ── ' + s[DISP];
+  if (!doneSet.has('m4')) addPts('m4', 10, true);
+  if (isMobile()) flow.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ── 05 labor lab ── */
+const LAB = [
+  ['表層演出：情緒失調升高', '外在表現與內在感受脫節。當下過關，但失調感累積，長期與情緒耗竭、職業倦怠相關。', 85, 55,
+   '研究提醒：長期依賴表層演出的員工，較容易出現耗竭與離職意圖。'],
+  ['深層演出：由內而外的親切', '透過重新評估改變真實感受，內外一致。對顧客的效果更自然，失調感也較低，但需要認知資源的投入。', 25, 88,
+   'Grandey 的情緒調節觀點：深層演出屬於事前導向的調節（deep acting），效果與成本都優於事後硬撐。'],
+  ['情緒失控：短期痛快、全面失分', '違反展示規則，顧客體驗與專業形象同時受損，事後多半需要更大的修復成本。', 60, 8,
+   '情緒不是不能表達，而是需要選擇時機與方式──這正是情緒調節技巧的價值。']];
+function labPick(i){
+  const [t, d, g1, g2, th] = LAB[i];
+  const box = document.getElementById('labout'); box.classList.add('on');
+  document.getElementById('labtitle').textContent = t;
+  document.getElementById('labdesc').textContent = d;
+  document.getElementById('labtheory').textContent = th;
+  requestAnimationFrame(() => { document.getElementById('g1').style.width = g1+'%'; document.getElementById('g2').style.width = g2+'%'; });
+  if (!doneSet.has('m5')) addPts('m5', 10, true);
+  if (isMobile()) box.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ── 06 EI ordering ── */
+let eiNext = 1;
+function eiPick(btn){
+  const ord = +btn.dataset.ord;
+  if (ord !== eiNext) { btn.classList.add('errshake'); setTimeout(()=>btn.classList.remove('errshake'), 350); return; }
+  btn.classList.add('pickedd');
+  const slot = document.getElementById('slot'+ord);
+  slot.textContent = btn.textContent; slot.classList.add('fill');
+  eiNext++;
+  if (eiNext === 4) { document.getElementById('eidone').style.display='block'; addPts('m6', 15, true); }
+}
+function resetEI(){
+  clearMod('m6'); eiNext = 1;
+  document.getElementById('eidone').style.display = 'none';
+  document.querySelectorAll('#m6 .eibtn[data-ord]').forEach(b => b.classList.remove('pickedd'));
+  [1,2,3].forEach(i => { const s = document.getElementById('slot'+i); s.classList.remove('fill'); s.innerHTML = `STEP ${i}<span class="n">${i}</span>`; });
+}
+
+/* ── 07 decision tree ── */
+let DT = [null, null];
+const DTMAP = {
+  '0,0': ['先肯定對方的情緒，然後提供協助', '沒有急迫目標、情緒也還沒被處理──先接住情緒，再給實質協助。'],
+  '0,1': ['肯定對方的感受，但不要急著給建議', '對方正在自行處理情緒──傾聽與肯定就夠，建議先收起來。'],
+  '1,1': ['現在先別攀談，稍後再去詢問感受', '對方正專注趕工且情緒在掌控中──此刻打擾反而是干擾。'],
+  '1,0': ['介入並協助對方集中精神；事後再問候', '目標急迫但情緒失序──先幫忙把工作穩住，事後記得回頭關心。']
+};
+function dt(q, v, btn){
+  DT[q] = v;
+  btn.parentElement.querySelectorAll('button').forEach(b => { b.classList.remove('sel'); b.setAttribute('aria-pressed','false'); });
+  btn.classList.add('sel'); btn.setAttribute('aria-pressed','true');
+  if (DT[0] !== null && DT[1] !== null) {
+    const r = DTMAP[DT[0] + ',' + DT[1]];
+    const box = document.getElementById('dres'); box.classList.add('on');
+    document.getElementById('drestitle').textContent = r[0];
+    document.getElementById('dresbody').textContent = r[1];
+    if (!doneSet.has('m7')) addPts('m7', 10, true);
+    if (isMobile()) box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+function resetDT(){
+  clearMod('m7'); DT = [null, null];
+  document.getElementById('dres').classList.remove('on');
+  document.querySelectorAll('#m7 .dq button').forEach(b => { b.classList.remove('sel'); b.setAttribute('aria-pressed','false'); });
+}
+
+/* ── 08 final quiz ── */
+const FQ = [
+  ['關於情緒與心情的差異，正確的是？',
+   ['情緒持續時間比心情長','心情通常有明確的觸發事件','情緒通常伴隨明顯的臉部表情','心情的種類比情緒更多樣'], 2,
+   '情緒短暫、具體、伴隨表情且行動導向；心情綿長、模糊，只分正負兩大構面。'],
+  ['正向情感與負向情感的關係是？',
+   ['同一構面的兩端','兩個相互獨立的構面','完全相同的概念','僅適用於描述情緒勞動'], 1,
+   '兩者是獨立構面──同一時間可以同時經歷高正向與高負向情感。'],
+  ['深層演出與表層演出最關鍵的差別在於？',
+   ['是否面帶微笑','是否改變內在的真實感受','薪資高低','是否面對顧客'], 1,
+   '表層演出只改外顯表現；深層演出透過重新評估改變內在感受，情緒失調較低。'],
+  ['依據情感事件理論（AET），情緒反應的直接前因是？',
+   ['薪資水準','工作事件','組織結構','績效考核制度'], 1,
+   'AET 的核心路徑：工作環境 → 工作事件 → 情緒反應（受個人性情調節）→ 態度與行為。'],
+  ['EI 串聯模式的正確順序是？',
+   ['調節 → 察覺 → 了解','察覺 → 了解 → 調節','了解 → 調節 → 察覺','察覺 → 調節 → 了解'], 1,
+   '先察覺自己與他人的情緒，再了解其意義，最後才能有效調節。']];
+let fqDone = 0, fqRight = 0;
+function buildFQ(){
+  fqDone = 0; fqRight = 0;
+  const box = document.getElementById('fquiz'); box.innerHTML = '';
+  document.getElementById('fqscore').textContent = '';
+  FQ.forEach(([q, ops, ans, exp], qi) => {
+    const d = document.createElement('div'); d.className = 'fq';
+    d.innerHTML = `<span class="qn">${qi+1}</span><h4>${q}</h4>` +
+      ops.map((o,i)=>`<button class="op" data-i="${i}">${String.fromCharCode(65+i)}．${o}</button>`).join('') +
+      `<div class="exp">${exp}</div>`;
+    d.querySelectorAll('.op').forEach(b => b.onclick = () => {
+      if (d.classList.contains('done')) return;
+      d.classList.add('done');
+      const i = +b.dataset.i;
+      d.querySelectorAll('.op')[ans].classList.add('correct');
+      if (i === ans) { fqRight++; addPts('m8', 20, false); } else b.classList.add('chosenwrong');
+      fqDone++;
+      if (fqDone === FQ.length) {
+        doneSet.add('m8'); refresh();
+        document.getElementById('fqscore').textContent = `FINAL ── ${fqRight}／${FQ.length}`;
+      }
+    });
+    box.appendChild(d);
+  });
+}
+function resetFQ(){ clearMod('m8'); buildFQ(); }
+buildFQ();
+refresh();
+</script>
+<script>
+/* 中文標籤斷行保護：短標籤在窄欄位換行時，避免最後一行只剩一個字 */
+(function () {
+  var SEL = 'h3,.zh,.lab,.k>span,th,.cap,.tl';
+  var CJK = /^[\u3000-\u303F\u4E00-\u9FFF\uFF00-\uFFEF（）·、，。／]+$/;
+  function fix(root) {
+    root.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.noOrphan) return;
+      if (el.children.length) return;
+      var t = (el.textContent || '').trim();
+      if (t.length < 3 || t.length > 14) return;
+      if (!CJK.test(t)) return;
+      el.dataset.noOrphan = '1';
+      el.textContent = t.slice(0, -2);
+      var s = document.createElement('span');
+      s.style.whiteSpace = 'nowrap';
+      s.textContent = t.slice(-2);
+      el.appendChild(s);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { fix(document); });
+  } else { fix(document); }
+})();
+</script>
+
+<script>
+/* ── 點圖放大（FIGZOOM v2）── */
+(function () {
+  var SEL = '.fig-body img, .fig-body svg, .figimg img, .mini-fig svg, .fig-wrap img, .fig-wrap svg';
+  var ov = null;
+
+  function close() {
+    if (!ov || ov.__closing) return;
+    var el = ov;
+    el.__closing = true;
+    el.classList.add('closing');
+    try { if (document.fullscreenElement || document.webkitFullscreenElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
+    } } catch (e) {}
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (ov === el) ov = null;
+    }, 160);
+  }
+
+
+  /* 放大時把 viewBox 收到實際內容，去掉圖檔本身的空白邊 */
+  function tighten(svg) {
+    try {
+      var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+      if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+      var total = vb[2] * vb[3];
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, n = 0;
+      Array.prototype.forEach.call(svg.children, function (el) {
+        var b; try { b = el.getBBox(); } catch (e) { return; }
+        if (!b || b.width <= 0 || b.height <= 0) return;
+        if (b.width * b.height >= total * 0.97) return;   /* 跳過整張底色 */
+        if (b.x < minX) minX = b.x;
+        if (b.y < minY) minY = b.y;
+        if (b.x + b.width > maxX) maxX = b.x + b.width;
+        if (b.y + b.height > maxY) maxY = b.y + b.height;
+        n++;
+      });
+      if (!n || !isFinite(minX)) return;
+      var w = maxX - minX, h = maxY - minY;
+      if (w <= 0 || h <= 0) return;
+      var m = Math.max(w, h) * 0.02;
+      svg.setAttribute('viewBox', (minX - m) + ' ' + (minY - m) + ' ' + (w + 2 * m) + ' ' + (h + 2 * m));
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    } catch (e) {}
+  }
+
+  function open(el) {
+    if (ov) return;
+    ov = document.createElement('div');
+    ov.className = 'figzoom';
+    var c = el.cloneNode(true);
+    c.removeAttribute('style');
+    c.removeAttribute('class');
+    ov.appendChild(c);
+    var tip = document.createElement('span');
+    tip.className = 'figzoom-tip';
+    tip.textContent = '點一下或按 ESC 關閉';
+    ov.appendChild(tip);
+    document.body.appendChild(ov);
+    if (c.tagName && c.tagName.toLowerCase() === 'svg') tighten(c);
+    ov.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    try {
+      var fn = ov.requestFullscreen || ov.webkitRequestFullscreen;
+      if (fn) { var p = fn.call(ov); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    if (ov) { e.stopPropagation(); e.preventDefault(); close(); return; }
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var fig = t.closest(SEL);
+    if (!fig) return;
+    e.stopPropagation(); e.preventDefault();
+    open(fig);
+  }, true);
+
+  document.addEventListener('keydown', function (e) {
+    if (!ov) return;
+    e.stopPropagation();
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+  }, true);
+
+  document.addEventListener('fullscreenchange', function () {
+    if (ov && !document.fullscreenElement) close();
+  });
+})();
+</script>
+
+<script>
+/* PDFBTN v1：列印成 PDF。列印前先解除窄螢幕的流式模式，列印後還原 */
+(function () {
+  if (document.querySelector('.pdfbtn')) return;
+  var flowWas = false;
+  function before() { flowWas = document.body.classList.contains('flow'); document.body.classList.remove('flow'); }
+  function after() { if (flowWas) document.body.classList.add('flow'); }
+  window.addEventListener('beforeprint', before);
+  window.addEventListener('afterprint', after);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'pdfbtn';
+  b.innerHTML = '<span class="ar">\u2193</span><span>PDF</span>';
+  b.title = '下載為 PDF：在列印視窗把目的地選成另存為 PDF';
+  b.setAttribute('aria-label', '下載為 PDF');
+  b.addEventListener('click', function (e) { e.stopPropagation(); before(); window.print(); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'p') before();
+  });
+  document.body.appendChild(b);
+
+  /* 位置：優先放進舞台上方的留白帶，其次右側留白帶；兩邊都不夠時貼回右上角，
+     並把頁首的右內距讓出按鈕的寬度，避免蓋住 REV 與圖說。 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    /* 媒體查詢把按鈕藏起來時不需要讓位，否則頁首會被推到換行 */
+    if (!b.offsetWidth) { document.body.classList.remove('pdfbtn-inset'); return; }
+    var bw = b.offsetWidth || 70, bh = b.offsetHeight || 30, gap = 10;
+    /* 流式模式沒有縮放，舞台寬度不是 1280，不能拿來推算比例 */
+    var scale = document.body.classList.contains('flow') ? 1 : (r.width / 1280 || 1);
+    b.style.left = 'auto';
+    if (r.top >= bh + gap * 2) {
+      b.style.top = Math.round(r.top - bh - gap) + 'px';
+      b.style.right = Math.round(Math.max(0, innerWidth - r.right)) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else if (innerWidth - r.right >= bw + gap * 2) {
+      b.style.top = Math.round(r.top + gap) + 'px';
+      b.style.right = Math.round((innerWidth - r.right - bw) / 2) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else {
+      b.style.top = '14px'; b.style.right = '14px';
+      var over = Math.max(0, r.right - (innerWidth - 14 - bw)) + gap;
+      document.documentElement.style.setProperty('--pdfbtn-inset', Math.min(140, Math.round(over / scale)) + 'px');
+      document.body.classList.add('pdfbtn-inset');
+    }
+  }
+  /* 只在第一頁顯示。沒有舞台結構的流式頁面（互動版）一律顯示。 */
+  var firstSlide = document.querySelector('#stage .slide');
+  function onFirst() { return !firstSlide || firstSlide.classList.contains('active'); }
+  function sync() {
+    if (onFirst()) { b.style.display = ''; place(); }
+    else { b.style.display = 'none'; }
+  }
+  if (firstSlide) new MutationObserver(sync).observe(firstSlide, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 60); setTimeout(sync, 400);
+  var _before = before;
+  before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
+  window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2410 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／CH 13 權力與政治</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>
+  function imgErr(el) {
+    if (!el.dataset.tried && el.dataset.cdn) { el.dataset.tried = 1; el.src = el.dataset.cdn; }
+    else { el.outerHTML = '<div class="img-fallback">FIG NOT LOADED<br>圖片未能載入</div>'; }
+  }
+</script>
+<style>
+  :root {
+    --paper: #F4F4F0;
+    --ink: #0A0A0A;
+    --red: #E61919;
+    --gray: #666666;
+    --sans: 'Noto Sans TC', sans-serif;
+    --disp: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: var(--paper); font-family: var(--sans); color: var(--ink); overflow: hidden; }
+
+  #viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: var(--paper); border: 3px solid var(--ink);
+    overflow: hidden; transform-origin: center center;
+  }
+
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; }
+  .slide.active { display: flex; animation: snap 120ms linear; }
+  @keyframes snap { from { transform: translateX(14px); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 44px; border-bottom: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .meta-row .m { color: var(--ink); }
+  .meta-row .m.g { color: var(--gray); }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 40px; border-top: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .footer-row .pagenum { color: var(--ink); font-weight: 700; }
+  .main { flex: 1; min-height: 0; display: grid; }
+
+  /* 封面 */
+  .cover-main { grid-template-columns: 2.2fr 1fr; background: var(--ink); gap: 1px; }
+  .cover-left { background: var(--paper); padding: 40px 48px 32px; display: flex; flex-direction: column; position: relative; }
+  .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4em; line-height: 1.05; letter-spacing: 0.01em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.55em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
+  .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
+  .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
+  .cover-right { background: var(--ink); display: grid; grid-template-rows: repeat(4, 1fr); gap: 1px; }
+  .data-cell { background: var(--paper); padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .data-cell .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .data-cell .val { font-weight: 700; font-size: 16px; line-height: 1.45; }
+
+  /* 標題列 */
+  .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: 0.01em; line-height: 1.15; }
+  .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .title-row .note {
+    border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    max-width: 300px; line-height: 1.7;
+  }
+  .def-band { padding: 13px 28px; border-bottom: 1px solid var(--ink); font-size: 17px; font-weight: 700; line-height: 1.65; }
+
+  /* 格線 */
+  .grid2, .grid3, .grid4 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .grid3 { grid-template-columns: repeat(3, 1fr); }
+  .grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
+  .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cell h3 { font-weight: 900; font-size: 1.55em; letter-spacing: 0.01em; }
+  .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
+  .cell p { font-size: 16.5px; line-height: 1.7; }
+  .cell ul, .cell ol { margin-left: 1.15em; }
+  .cell li { font-size: 16px; line-height: 1.68; margin-bottom: 7px; }
+  .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
+  .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
+  .cell .quote { font-size: 13.5px; color: var(--gray); }
+  .keyline { border-top: 2px solid var(--ink); padding: 13px 28px; font-size: 15px; font-weight: 700; text-align: center; }
+  .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
+
+  /* 提問頁 */
+  .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
+  .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
+  .q-text { font-weight: 900; font-size: 2.9em; line-height: 1.35; letter-spacing: 0.01em; max-width: 1040px; }
+  .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
+  .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
+  .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
+
+  /* 定義列 */
+  .axis-list { background: var(--paper); display: flex; flex-direction: column; min-height: 0; flex: 1; }
+  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: 0; }
+  .axis-row:last-child { border-bottom: none; }
+  .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.28em; }
+  .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .axis-row .v { padding: 13px 24px; font-size: 16.5px; line-height: 1.7; display: flex; align-items: center; }
+
+  /* 圖片頁 */
+  .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
+  .fig-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 22px; border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .fig-head a { color: var(--ink); }
+  .fig-body { flex: 1; min-height: 0; padding: 18px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .fig-body img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .fig-body .ch { position: absolute; font-family: var(--mono); font-size: 13px; }
+  .ch.tl { left: 10px; top: 6px; } .ch.tr { right: 10px; top: 6px; }
+  .ch.bl { left: 10px; bottom: 6px; } .ch.br { right: 10px; bottom: 6px; }
+  .cite {
+    border-top: 1px solid var(--ink); padding: 10px 22px;
+    font-size: 12.5px; color: var(--gray); line-height: 1.6;
+  }
+  .cite i { font-style: italic; }
+
+  /* 量表頁 */
+  .scale-instr { padding: 12px 28px; border-bottom: 1px solid var(--ink); font-size: 13px; line-height: 1.6; }
+  .scale-instr .anchors { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--gray); display: block; margin-top: 4px; }
+  .scale-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); gap: 1px; }
+  .scale-col { background: var(--paper); padding: 18px 30px; }
+  .scale-col ol { margin-left: 1.4em; }
+  .scale-col li { font-size: 13.5px; line-height: 1.75; margin-bottom: 7px; }
+  .scale-col .rv { font-family: var(--mono); font-size: 10px; color: var(--red); }
+
+  .img-fallback {
+    width: 100%; height: 100%; min-height: 180px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--gray); line-height: 2; text-transform: uppercase;
+    background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(10,10,10,0.05) 14px 15px);
+    padding: 20px;
+  }
+
+  /* 窄視窗流式模式 */
+  body.flow { overflow: auto; }
+  body.flow #viewport { position: static; display: block; height: 100vh; overflow-y: auto; }
+  body.flow #stage { width: auto; max-width: 860px; height: auto; min-height: 100vh; margin: 0 auto; transform: none !important; }
+  body.flow .slide.active { position: static; min-height: calc(100vh - 6px); animation: none; }
+  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+  body.flow .cover-main { grid-template-columns: 1fr; }
+  body.flow .cover-left { padding: 32px 30px 28px; }
+  body.flow .cover-code { font-size: 5.2em; }
+  body.flow .cover-title { font-size: 2.6em; }
+  body.flow .cover-en { font-size: 1.1em; }
+  body.flow .cover-agenda { margin-top: 28px; }
+  body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
+  body.flow .title-row { grid-template-columns: 120px 1fr; }
+  body.flow .title-row .note { display: none; }
+  body.flow .title-row .idx { font-size: 2.2em; }
+  body.flow .title-row .t h2 { font-size: 1.5em; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4 { grid-template-columns: 1fr; grid-template-rows: none; }
+  body.flow .cell { padding: 22px 26px; overflow: visible; }
+  body.flow .axis-row { grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink); }
+  body.flow .fig-body { min-height: 240px; }
+  body.flow .fig-body img { max-height: 70vh; }
+  body.flow .scale-cols { grid-template-columns: 1fr; }
+  body.flow .quote-main { padding: 60px 30px; }
+  body.flow .q-text { font-size: 1.9em; }
+
+.fig-body svg{width:100%;height:100%;display:block}
+body.flow .fig-body svg{height:auto;max-height:520px}
+
+/* ── 重點先行補充頁通用樣式（2026-09） ── */
+.rs-grid .cell { padding: 15px 24px 14px; gap: 6px; }
+.rs-grid .cell h3 { font-size: 1.3em; }
+.rs-grid .cell ul { margin-left: 1.1em; }
+.rs-grid .cell li { font-size: 13.8px; line-height: 1.5; margin-bottom: 2px; }
+.rs-page .src a, .rs-page .cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+body.flow .rs-grid .cell { padding: 22px 26px; }
+
+    /* ── RF：章末參考文獻（2026-09） ── */
+    .rf-page .rf { flex: 1; display: flex; flex-direction: column; padding: 13px 28px 8px; min-height: 0; overflow: hidden; }
+    .rf-cols { flex: 1; min-height: 0; }
+    .rf-cols.c2 { column-count: 2; column-gap: 30px; }
+    .rf-grp { break-inside: avoid-column; margin-bottom: 11px; }
+    .rf-grp:last-child { margin-bottom: 0; }
+    .rf-grp h3 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #B03028; margin: 0 0 6px; font-weight: 700; }
+    .rf-grp p { font-size: 11.6px; line-height: 1.52; margin: 0 0 6px; text-indent: -1.45em; padding-left: 1.45em;
+      color: #46443F; break-inside: avoid; }
+    .rf-cols.c1 .rf-grp p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp { margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp h3 { margin-bottom: 4px; }
+    .rf-cols.dense .rf-grp p { font-size: 10.9px; line-height: 1.46; margin-bottom: 4px; }
+    .rf-cols.airy { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .rf-cols.airy .rf-grp { margin-bottom: 18px; }
+    .rf-cols.airy .rf-grp h3 { margin-bottom: 9px; }
+    .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
+    .rf-grp p i { font-style: italic; }
+    .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
+    .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
+</style>
+<style>
+  /* ── Topic 9 追加樣式 ── */
+  .flow-note { border-top: 2px solid var(--ink); padding: 13px 24px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .flow-note .r { color: var(--red); font-weight: 700; }
+  .cmp-wrap { flex: 1; min-height: 0; padding: 20px 30px; display: flex; flex-direction: column; gap: 12px; }
+  table.cmp { width: 100%; border-collapse: collapse; flex: 1; }
+  table.cmp th, table.cmp td { border: 1px solid var(--ink); padding: 10px 14px; text-align: left; vertical-align: top; }
+  table.cmp th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+  table.cmp td { font-size: 15px; line-height: 1.6; }
+  table.cmp td.k { font-weight: 900; font-size: 15.5px; }
+  body.flow .cmp-wrap { overflow-x: auto; }
+  .grid5 { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(6, 1fr); background: var(--ink); gap: 1px; }
+  .grid5 .cell { grid-column: span 2; }
+  .grid5 .cell:nth-child(4), .grid5 .cell:nth-child(5) { grid-column: span 3; }
+  body.flow .grid5 { grid-template-columns: 1fr; }
+  body.flow .grid5 .cell { grid-column: span 1 !important; }
+  .scen { flex: 1; min-height: 0; display: grid; grid-template-columns: 3fr 2fr; background: var(--ink); gap: 1px; }
+  .scen .cell p, .scen .cell li { font-size: 15px; line-height: 1.72; }
+  body.flow .scen { grid-template-columns: 1fr; }
+</style>
+<style>
+  /* 內容垂直置中：留白均分於上下 */
+  .grid2 .cell h3, .grid3 .cell h3, .grid4 .cell h3, .grid3r .cell h3, .grid5 .cell h3, .grid6 .cell h3, .grid8 .cell h3 { margin-top: auto; }
+  .grid2 .cell > *:last-child, .grid3 .cell > *:last-child, .grid4 .cell > *:last-child, .grid3r .cell > *:last-child, .grid5 .cell > *:last-child, .grid6 .cell > *:last-child, .grid8 .cell > *:last-child { margin-bottom: auto; }
+  /* 窄版面：固定高度的圖框改為自然高度 */
+  body.flow .fig-wrap { height: auto !important; flex: none !important; }
+  body.flow .fig-body { overflow: visible; }
+  body.flow .fig-body img { width: 100%; height: auto; max-height: none; }
+</style>
+
+<style>
+:root, body { --ink: #232320; }
+.cell h3, .grid2 h3, .grid3 h3, .grid4 h3, .grid3r h3, .grid5 h3, .grid6 h3, .grid8 h3 { font-weight: 700 !important; }
+.cell .tag, .meta-row .m, .footer-row span, .pagenum { color: #8A8A82 !important; letter-spacing: .08em !important; }
+.cell .tag { font-size: 11px !important; }
+.title-row .t h2 { font-weight: 800; }
+.title-row .note { color: #8A8A82; }
+.corner { color: #B9B9B0 !important; }
+</style>
+
+<style>
+/* ── 點圖放大（FIGZOOM v2）── */
+.fig-body img, .fig-body svg, .figimg img, .mini-fig svg,
+.fig-wrap img, .fig-wrap svg { cursor: zoom-in; }
+.figzoom { position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,.94);
+  display: flex; align-items: center; justify-content: center; padding: 1vmin; cursor: zoom-out; }
+.figzoom > img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom > svg { width: 100%; height: 100%; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom-tip { position: fixed; left: 50%; bottom: 2.2vmin; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  color: #F4F4F0; opacity: .7; pointer-events: none; }
+.figzoom { animation: fz-fade 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom > img, .figzoom > svg { animation: fz-rise 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes fz-fade { from { opacity: 0; } }
+@keyframes fz-rise { from { opacity: 0; transform: scale(0.97); } }
+.figzoom.closing { opacity: 0; transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom.closing > img, .figzoom.closing > svg { opacity: 0; transform: scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.fig-head button { transition: transform 100ms ease-out; }
+.fig-head button:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .figzoom > img, .figzoom > svg { animation: fz-fade 200ms ease; }
+  .figzoom.closing > img, .figzoom.closing > svg { transform: none; }
+}
+
+  /* ── PDFBTN v3：只在第一頁顯示，位置依舞台留白帶決定，不覆蓋頁首 ── */
+  body.pdfbtn-inset .meta-row > :last-child,
+  body.pdfbtn-inset .fig-head > :last-child,
+  body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
+  /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media print { body.pdfbtn-inset .meta-row > :last-child,
+    body.pdfbtn-inset .fig-head > :last-child,
+    body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
+  /* ── PDFBTN v1：右上角下載 PDF ── */
+  .pdfbtn { position: fixed; z-index: 9998; top: 14px; right: 14px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn .ar { font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- P.01 封面 -->
+    <section class="slide active">
+      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.09</span></div>
+      <div class="main cover-main">
+        <div class="cover-left">
+          <span class="crosshair">+</span>
+          <span class="kicker">CH／13 ── POWER ＆ POLITICS</span>
+          <div class="cover-code">13</div>
+          <h1 class="cover-title">權力與政治</h1>
+          <div class="cover-en">Power and Politics</div>
+          <div class="cover-agenda">
+            <span class="lbl">[ AGENDA ]</span>
+            <div class="items">權力的定義與本質 ── 權力的基礎 ── 依賴性 ── 社會網絡分析 ── 權力戰術與情境演練 ── 政治技能 ── 權力對人的影響 ── 性騷擾 ── 組織政治 ── 防衛行為 ── 印象管理 ── 政治生涯地圖</div>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="data-cell"><span class="lbl">INSTRUCTOR</span><span class="val">王豫萱</span></div>
+          <div class="data-cell"><span class="lbl">INSTITUTE</span><span class="val">國立中山大學<br>人力資源管理研究所</span></div>
+          <div class="data-cell"><span class="lbl">TEXTBOOK</span><span class="val" style="font-size: 12.5px; font-weight: 500; line-height: 1.55;">Robbins, S. P., &amp; Judge, T. A. (2024). Organizational behavior (19th ed., Global ed.). Pearson.</span></div>
+          <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／53</span></div>
+    </section>
+
+    <!-- P.02 權力的定義與本質 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">02</div>
+        <div class="t"><h2>權力的定義與本質</h2><span class="en">WHAT IS POWER?</span></div>
+        <div class="note">[ DEFINITION ]</div>
+      </div>
+      <div class="def-band">權力（power）指A擁有能影響B之行為的能力，致使B依照A所希望的去做。權力可以存在而不被使用。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／CAPACITY ]</span>
+          <h3>權力是一種潛能</h3>
+          <span class="en-term">A CAPACITY</span>
+          <p>權力是影響力的潛在能力，不必實際行使即可存在。一個人可以擁有權力，卻選擇不使用。權力最重要的面向，是它作為一種蓄而不發的能量。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／DEPENDENCY ]</span>
+          <h3>權力的本質：依賴性</h3>
+          <span class="en-term">DEPENDENCY</span>
+          <p>權力最重要之處在於它的依賴性（dependency）。只有在A控制B想要的事物時，A對B才有權力。依賴性愈大，權力愈大——這是貫穿本章的核心邏輯。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／53</span></div>
+    </section>
+
+    <!-- P.03 權力與領導的區別 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>權力與領導的區別</h2><span class="en">POWER VS. LEADERSHIP</span></div>
+        <div class="note">[ 3 CONTRASTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／GOALS ]</span>
+          <h3>目標一致性</h3>
+          <span class="en-term">GOAL COMPATIBILITY</span>
+          <p>領導需要領導者與被領導者目標一致；權力並不需要目標一致，只要有依賴性存在即可。權力可以被用來服務組織，也可以被用來服務私利。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／DIRECTION ]</span>
+          <h3>影響方向</h3>
+          <span class="en-term">DIRECTION OF INFLUENCE</span>
+          <p>領導研究著重由上往下對部屬的影響力；權力的研究則涵蓋向上、向下與橫向等各種影響方向。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／FOCUS ]</span>
+          <h3>研究重點</h3>
+          <span class="en-term">RESEARCH EMPHASIS</span>
+          <p>領導方面的研究多強調領導者的風格；權力的研究則聚焦於取得順從的戰術與依賴關係。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／53</span></div>
+    </section>
+
+    <!-- P.04 權力的基礎來源 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">04</div>
+        <div class="t"><h2>權力的基礎來源</h2><span class="en">BASES OF POWER</span></div>
+        <div class="note">[ 2 CATEGORIES ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／FORMAL ]</span>
+          <h3>正式權力</h3>
+          <span class="en-term">FORMAL POWER</span>
+          <p>來自組織中的正式職位，包括強制權、獎賞權與合法權三種類型。職位變動時，正式權力隨之而來、也隨之而去。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／PERSONAL ]</span>
+          <h3>個人權力</h3>
+          <span class="en-term">PERSONAL POWER</span>
+          <p>來自個人特質和專業知識，及他人的尊敬與讚賞，包括專家權與參考權兩種類型。個人權力附著在人身上，離開職位依然存在。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／53</span></div>
+    </section>
+
+    <!-- P.05 正式權力的三種類型 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">05</div>
+        <div class="t"><h2>正式權力的三種類型</h2><span class="en">FORMAL POWER</span></div>
+        <div class="note">[ 3 TYPES ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／COERCIVE ]</span>
+          <h3>強制權</h3>
+          <span class="en-term">COERCIVE POWER</span>
+          <p>基於恐懼、害怕，個體擔心若不順從可能會帶來負面後果，例如懲處、調職或解僱。也包括扣留關鍵資訊等隱性手段。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／REWARD ]</span>
+          <h3>獎賞權</h3>
+          <span class="en-term">REWARD POWER</span>
+          <p>人們順從乃因為他們預期這樣可以帶來好處，例如加薪、升遷或值得嚮往的工作指派。獎賞權是強制權的鏡像：一個給糖，一個給棒。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／LEGITIMATE ]</span>
+          <h3>合法權</h3>
+          <span class="en-term">LEGITIMATE POWER</span>
+          <p>來自於可以掌握並使用組織資源的正式職權，是正式權力中範圍最廣的一種。成員接受職權階層，便是接受了合法權的基礎。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／53</span></div>
+    </section>
+
+    <!-- P.06 個人權力的兩種類型 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">06</div>
+        <div class="t"><h2>個人權力的兩種類型</h2><span class="en">PERSONAL POWER</span></div>
+        <div class="note">[ 2 TYPES ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／EXPERT ]</span>
+          <h3>專家權</h3>
+          <span class="en-term">EXPERT POWER</span>
+          <p>藉由專業技術、特殊技能或知識來發揮影響力。這種權力來自於個人的專業能力和經驗。知識經濟時代，專家權的份量與日俱增。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／REFERENT ]</span>
+          <h3>參考權</h3>
+          <span class="en-term">REFERENT POWER</span>
+          <p>基礎為某人擁有令人渴望的資源或個人特質。這種權力來自於他人對個人的尊敬和讚賞。名人代言正是參考權的商業運用。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／53</span></div>
+    </section>
+
+    <!-- P.07 哪一項權力基礎最有效 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">07</div>
+        <div class="t"><h2>哪一項權力基礎最有效？</h2><span class="en">WHICH BASES ARE MOST EFFECTIVE?</span></div>
+        <div class="note">[ 4 FINDINGS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01 ]</span>
+          <h3>個人權力最有效</h3>
+          <p>專家權和參考權與員工滿意度、組織承諾和績效呈正相關，是最有效的權力基礎。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02 ]</span>
+          <h3>正式權力效果有限</h3>
+          <p>獎賞權和合法權似乎與這些結果無關——職位給的權力，買不到真心的投入與認同。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03 ]</span>
+          <h3>強制權反效果</h3>
+          <p>強制權與員工滿意度及承諾呈負相關。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04 ]</span>
+          <h3>參考權的重要性</h3>
+          <p>參考權是一個強大的激勵因子。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／53</span></div>
+    </section>
+
+    <!-- P.08 依賴性：權力的關鍵 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">08</div>
+        <div class="t"><h2>依賴性：權力的關鍵</h2><span class="en">DEPENDENCE: THE KEY TO POWER</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／POSTULATE ]</span>
+          <h3>基本假設</h3>
+          <span class="en-term">GENERAL DEPENDENCE POSTULATE</span>
+          <p>若B愈依賴A，則A對B的權力愈大。這條通則是理解組織權力關係的起點。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／CONTROL ]</span>
+          <h3>控制資源</h3>
+          <span class="en-term">RESOURCE CONTROL</span>
+          <p>當個體獨自控制他人所欲求的資源時，他人便會對其產生依賴。獨占是關鍵：可以被繞過的資源，換不到權力。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／ALTERNATIVES ]</span>
+          <h3>選擇多樣性</h3>
+          <span class="en-term">ALTERNATIVES</span>
+          <p>可選擇的替代方案愈多，愈能避免受他人控制。多元的技能與人脈，是個人降低被支配的最佳保險。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／53</span></div>
+    </section>
+
+    <!-- P.09 創造依賴性的因素 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">09</div>
+        <div class="t"><h2>創造依賴性的因素</h2><span class="en">WHAT CREATES DEPENDENCE?</span></div>
+        <div class="note">[ 3 FACTORS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／IMPORTANCE ]</span>
+          <h3>重要性</h3>
+          <span class="en-term">IMPORTANCE</span>
+          <p>資源對他人的重要程度。若沒有人對所控制的資源有所求，依賴性即不存在。能化解組織關鍵不確定性的部門，權力自然最大。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／SCARCITY ]</span>
+          <h3>稀少性</h3>
+          <span class="en-term">SCARCITY</span>
+          <p>資源稀少程度與依賴性成正比，可進一步由各類職業的權力情況看出。人才市場上供不應求的職能，議價能力隨之水漲船高。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／NONSUB ]</span>
+          <h3>不可替代性</h3>
+          <span class="en-term">NONSUBSTITUTABILITY</span>
+          <p>資源愈沒有替代品，控制者的權力愈大。人工智慧的發展正使部分技能逐漸變得可被替代。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／53</span></div>
+    </section>
+
+    <!-- P.10 正式小團體網絡（補充） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">10</div>
+        <div class="t"><h2>正式小團體網絡</h2><span class="en">FORMAL SMALL-GROUP NETWORKS</span></div>
+        <div class="note">[ 3 TYPES ]</div>
+      </div>
+      <div class="def-band">正式的組織網絡可能相當複雜，資訊沿著網絡流動，對組織中的權力與影響力具有重大意涵。常見的小團體網絡可濃縮為三種類型。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／CHAIN ]</span>
+          <h3>鏈型</h3>
+          <span class="en-term">CHAIN</span>
+          <p>嚴格遵循正式的指揮鏈，近似於層級嚴明之三層式組織中的溝通管道。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／WHEEL ]</span>
+          <h3>輪型</h3>
+          <span class="en-term">WHEEL</span>
+          <p>依賴一位居中的人物作為所有溝通的樞紐，近似於由管理者主導的工作團體。居中的角色享有多元資訊、支持與較高的權力和地位。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／ALL-CHANNEL ]</span>
+          <h3>全方位型</h3>
+          <span class="en-term">ALL-CHANNEL</span>
+          <p>允許所有成員彼此積極溝通，常見於自我管理團隊，沒有單一的領導角色。許多組織以此為理想型態。</p>
+        </div>
+      </div>
+      <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── <span class="r">非正式網絡</span>同樣蘊含強大的權力與政治影響力</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／53</span></div>
+    </section>
+
+    <!-- P.11 小團體網絡與效能準則（補充） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">11</div>
+        <div class="t"><h2>小團體網絡與效能準則</h2><span class="en">NETWORKS AND EFFECTIVENESS CRITERIA</span></div>
+        <div class="note">[ COMPARISON ]</div>
+      </div>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <tr><th>準則</th><th>鏈型</th><th>輪型</th><th>全方位型</th></tr>
+          <tr><td class="k">速度</td><td>中等</td><td>快</td><td>快</td></tr>
+          <tr><td class="k">正確性</td><td>高</td><td>高</td><td>中等</td></tr>
+          <tr><td class="k">領導者的出現</td><td>中等</td><td>高</td><td>無</td></tr>
+          <tr><td class="k">成員滿意度</td><td>中等</td><td>低</td><td>高</td></tr>
+        </table>
+        <div class="cite">網絡的效能取決於所關注的結果：輪型有利於領導者的出現，全方位型有利於成員滿意度，鏈型則有利於正確性。SRC：ROBBINS ＆ JUDGE（2024）</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／53</span></div>
+    </section>
+
+    <!-- P.12 社會網絡分析 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">12</div>
+        <div class="t"><h2>社會網絡分析</h2><span class="en">SOCIAL NETWORK ANALYSIS</span></div>
+        <div class="note">[ 4 POINTS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／DEFINITION ]</span>
+          <h3>定義</h3>
+          <p>社會網絡分析（social network analysis）是評估組織內部資源交換及依賴性的工具。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／FUNCTION ]</span>
+          <h3>功能</h3>
+          <p>檢視組織成員間的溝通型態，確認資訊如何流動。節點（node）之間的連結稱為連帶（tie），頻繁交換資源者具有強連帶。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／SOCIOGRAM ]</span>
+          <h3>社會關係圖</h3>
+          <p>社會關係圖（sociogram）描述社會網絡中個體間相互關係，如同非正式版本的組織圖。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／BROKER ]</span>
+          <h3>比較與中介者</h3>
+          <p>正式組織圖顯示職權應該如何流動，社會關係圖顯示資源的實際流動。居於中介位置者（broker）因掌握不同群體的獨特資源而擁有較大權力。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／53</span></div>
+    </section>
+
+    <!-- P.13 FIG 組織社會關係圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／N-01 組織社會關係圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 720" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="720" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="26.9" font-weight="900" fill="#0A0A0A">組織社會關係圖</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.6" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">SOCIOGRAM ── SRC: ROBBINS ＆ JUDGE (2024)</text>
+<ellipse cx="700" cy="245" rx="105" ry="58" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="700" y="231" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">營運部</text>
+<rect x="648" y="253" width="14" height="20" fill="#0A0A0A"/>
+<rect x="678" y="253" width="14" height="20" fill="#0A0A0A"/>
+<rect x="708" y="253" width="14" height="20" fill="#0A0A0A"/>
+<rect x="738" y="253" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="930" cy="138" rx="95" ry="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="930" y="124" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">供應商</text>
+<rect x="878" y="146" width="14" height="20" fill="#0A0A0A"/>
+<rect x="908" y="146" width="14" height="20" fill="#0A0A0A"/>
+<rect x="938" y="146" width="14" height="20" fill="#0A0A0A"/>
+<rect x="968" y="146" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="295" cy="483" rx="110" ry="55" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="295" y="469" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">業務行銷部</text>
+<rect x="243" y="491" width="14" height="20" fill="#0A0A0A"/>
+<rect x="273" y="491" width="14" height="20" fill="#0A0A0A"/>
+<rect x="303" y="491" width="14" height="20" fill="#0A0A0A"/>
+<rect x="333" y="491" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="930" cy="465" rx="95" ry="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="930" y="451" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">財務部</text>
+<rect x="878" y="473" width="14" height="20" fill="#0A0A0A"/>
+<rect x="908" y="473" width="14" height="20" fill="#0A0A0A"/>
+<rect x="938" y="473" width="14" height="20" fill="#0A0A0A"/>
+<rect x="968" y="473" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="210" cy="641" rx="95" ry="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="210" y="627" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">顧客</text>
+<rect x="158" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="188" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="218" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="248" y="649" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="650" cy="641" rx="100" ry="52" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="650" y="627" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">客服部</text>
+<rect x="598" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="628" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="658" y="649" width="14" height="20" fill="#0A0A0A"/>
+<rect x="688" y="649" width="14" height="20" fill="#0A0A0A"/>
+<ellipse cx="250" cy="228" rx="138" ry="76" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250" y="196" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">專案團隊</text>
+<rect x="168" y="222" width="14" height="20" fill="#0A0A0A"/>
+<rect x="198" y="222" width="14" height="20" fill="#0A0A0A"/>
+<rect x="228" y="222" width="14" height="20" fill="#0A0A0A"/>
+<rect x="308" y="208" width="14" height="20" fill="#E61919"/>
+<text x="315" y="198" text-anchor="middle" font-size="13.6" font-weight="400" fill="#0A0A0A" font-family="JetBrains Mono, monospace" letter-spacing="1">ERIC</text>
+<rect x="271" y="252" width="14" height="20" fill="#E61919"/>
+<text x="278" y="292" text-anchor="middle" font-size="13.6" font-weight="400" fill="#0A0A0A" font-family="JetBrains Mono, monospace" letter-spacing="1">ALBERT</text>
+<rect x="483" y="380" width="14" height="20" fill="#E61919"/>
+<text x="490" y="424" text-anchor="middle" font-size="13.6" font-weight="400" fill="#0A0A0A" font-family="JetBrains Mono, monospace" letter-spacing="1">THOMAS</text>
+<rect x="583" y="470" width="14" height="20" fill="#E61919"/>
+<text x="590" y="514" text-anchor="middle" font-size="13.6" font-weight="400" fill="#0A0A0A" font-family="JetBrains Mono, monospace" letter-spacing="1">MARTHA</text>
+<rect x="708" y="405" width="14" height="20" fill="#E61919"/>
+<text x="715" y="396" text-anchor="middle" font-size="13.6" font-weight="400" fill="#0A0A0A" font-family="JetBrains Mono, monospace" letter-spacing="1">ANNE</text>
+<line x1="395.9857819705379" y1="228.41281254969226" x2="587.0142180294621" y2="241.58718745030774" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M593.0 242.0 L581.7 246.1 L582.4 236.4 z" fill="#0A0A0A"/>
+<path d="M390.0 228.0 L401.3 223.9 L400.6 233.6 z" fill="#0A0A0A"/>
+<line x1="787.3095093342919" y1="205.20552140300427" x2="852.6904906657081" y2="170.79447859699573" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M858.0 168.0 L850.6 177.4 L846.0 168.8 z" fill="#0A0A0A"/>
+<path d="M782.0 208.0 L789.4 198.6 L794.0 207.2 z" fill="#0A0A0A"/>
+<line x1="272.78654182974776" y1="310.9482225874674" x2="287.21345817025224" y2="420.0517774125326" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M288.0 426.0 L281.7 415.8 L291.4 414.5 z" fill="#0A0A0A"/>
+<path d="M272.0 305.0 L278.3 315.2 L268.6 316.5 z" fill="#0A0A0A"/>
+<line x1="404.73611330425797" y1="454.3163563189105" x2="467.26388669574203" y2="405.6836436810895" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M472.0 402.0 L466.4 412.6 L460.3 404.9 z" fill="#0A0A0A"/>
+<path d="M400.0 458.0 L405.6 447.4 L411.7 455.1 z" fill="#0A0A0A"/>
+<line x1="476.72988874695085" y1="369.13191224323856" x2="340.27011125304915" y2="294.86808775676144" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M335.0 292.0 L347.0 292.9 L342.3 301.5 z" fill="#0A0A0A"/>
+<path d="M482.0 372.0 L470.0 371.1 L474.7 362.5 z" fill="#0A0A0A"/>
+<line x1="507.45664238825816" y1="406.0172551105426" x2="569.5433576117418" y2="461.9827448894574" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M574.0 466.0 L562.6 462.3 L569.1 455.0 z" fill="#0A0A0A"/>
+<path d="M503.0 402.0 L514.4 405.7 L507.9 413.0 z" fill="#0A0A0A"/>
+<line x1="611.4477563070027" y1="467.4856509352295" x2="691.5522436929973" y2="430.5143490647705" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M697.0 428.0 L689.1 437.0 L685.0 428.1 z" fill="#0A0A0A"/>
+<path d="M606.0 470.0 L613.9 461.0 L618.0 469.9 z" fill="#0A0A0A"/>
+<line x1="715.3585363632978" y1="392.03438817867027" x2="706.6414636367022" y2="310.96561182132973" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M706.0 305.0 L712.0 315.4 L702.3 316.4 z" fill="#0A0A0A"/>
+<path d="M716.0 398.0 L710.0 387.6 L719.7 386.6 z" fill="#0A0A0A"/>
+<line x1="737.7197816395781" y1="421.81220804422276" x2="827.2802183604219" y2="450.18779195577724" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M833.0 452.0 L821.1 453.4 L824.0 444.0 z" fill="#0A0A0A"/>
+<path d="M732.0 420.0 L743.9 418.6 L741.0 428.0 z" fill="#0A0A0A"/>
+<line x1="598.5143490647705" y1="501.4477563070027" x2="635.4856509352295" y2="581.5522436929973" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M638.0 587.0 L629.0 579.1 L637.9 575.0 z" fill="#0A0A0A"/>
+<path d="M596.0 496.0 L605.0 503.9 L596.1 508.0 z" fill="#0A0A0A"/>
+<line x1="255.61144129186303" y1="544.5040700665764" x2="237.38855870813697" y2="586.4959299334236" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M235.0 592.0 L234.9 580.0 L243.9 583.9 z" fill="#0A0A0A"/>
+<path d="M258.0 539.0 L258.1 551.0 L249.1 547.1 z" fill="#0A0A0A"/>
+<line x1="312.99979340265816" y1="643.9502091833805" x2="542.0002065973418" y2="642.0497908166195" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M548.0 642.0 L537.1 647.0 L537.0 637.2 z" fill="#0A0A0A"/>
+<path d="M307.0 644.0 L317.9 639.0 L318.0 648.8 z" fill="#0A0A0A"/>
+<text x="530" y="708" text-anchor="middle" font-size="14.6" font-weight="700" fill="#E61919" font-family="Noto Sans TC, PingFang TC, sans-serif">紅色節點＝跨群體的中介者（BROKER），掌握群體之間的資源流動</text></svg>
+        </div>
+        <div class="cite">Thomas、Martha 與 Anne 等人扮演中介者（broker）的角色，連結原本互不相通的部門與群體，因而在網絡中累積可觀的權力。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／53</span></div>
+    </section>
+
+    <!-- P.14 權力戰術（一） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">14</div>
+        <div class="t"><h2>權力戰術（一）</h2><span class="en">POWER TACTICS</span></div>
+        <div class="note">[ 01-04／09 ]</div>
+      </div>
+      <div class="def-band">權力戰術（power tactics）是運用權力影響他人的具體方法，是管理者在組織中發揮影響力的重要工具。共有九種主要的權力戰術。</div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／LEGITIMACY ]</span>
+          <h3>合法</h3>
+          <span class="en-term">LEGITIMACY</span>
+          <p>依據自己的職位或組織政策來要求他人遵從，通常用於正式的組織架構中，效果取決於職位權力的強度。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／RATIONAL ]</span>
+          <h3>理性說服</h3>
+          <span class="en-term">RATIONAL PERSUASION</span>
+          <p>使用邏輯論證和事實證據來說服他人，是最普遍且專業的影響方式，特別適用於專業性的決策過程。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／INSPIRATIONAL ]</span>
+          <h3>鼓舞式訴求</h3>
+          <span class="en-term">INSPIRATIONAL APPEALS</span>
+          <p>訴諸他人的價值觀、理想和抱負，激發熱情和承諾，特別適合在推動變革或重大專案時使用。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／CONSULTATION ]</span>
+          <h3>商議</h3>
+          <span class="en-term">CONSULTATION</span>
+          <p>邀請他人參與決策過程，讓其提供建議和意見，可以增加決策的接受度和承諾度。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／53</span></div>
+    </section>
+
+    <!-- P.15 權力戰術（二） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">15</div>
+        <div class="t"><h2>權力戰術（二）</h2><span class="en">POWER TACTICS</span></div>
+        <div class="note">[ 05-09／09 ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row"><div class="k"><span class="zh">交換</span><span class="ax">EXCHANGE</span></div><div class="v">提供利益交換或互惠條件來獲得支持，建立在互利的基礎上，但需要確保交換的公平性。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">個人式訴求</span><span class="ax">PERSONAL APPEALS</span></div><div class="v">基於友誼或私人關係請求支持，依賴良好的人際關係，但需謹慎使用以避免濫用友誼。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">逢迎</span><span class="ax">INGRATIATION</span></div><div class="v">通過讚美或友好行為來取得他人好感，需要真誠，過度使用可能產生反效果。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">施壓</span><span class="ax">PRESSURE</span></div><div class="v">使用要求、威脅或持續檢查來達成目標，是較強制性的戰術，可能產生負面影響，應審慎使用。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">聯盟</span><span class="ax">COALITIONS</span></div><div class="v">尋求他人支持來強化影響力，通過集體力量實現目標，但需要妥善管理各方利益。</div></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／53</span></div>
+    </section>
+
+    <!-- P.16 情境演練導言 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="q-label">[ ACTIVITY／POWER TACTICS ]</span>
+        <div class="q-text" style="font-size: 2.2em;">以下有許多職場情境，請思考要用哪一種<span class="ul-red">權力戰術</span>來與對方溝通。</div>
+        <span class="q-label">SCENARIOS ── NEWCOMER ＋ FIRST-LINE MANAGER</span>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／53</span></div>
+    </section>
+
+    <!-- P.17 職場新鮮人篇 divider -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="q-label">[ PART A ]</span>
+        <div class="q-text">職場新鮮人篇</div>
+        <span class="q-label">SCENARIO 01-04 ── THE NEWCOMER</span>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／53</span></div>
+    </section>
+
+    <!-- P.18 新鮮人情境1 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">A1</div>
+        <div class="t"><h2>情境 1：招募會場志願者安排</h2><span class="en">RECRUITING EVENT VOLUNTEERS</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>你是公司人力資源部的新進員工，第一次參與校園招募會的籌備工作。這場活動規模較大，預計會吸引 500 名學生參與，公司需要在現場設置攤位、進行宣講並安排模擬面試，但目前的人手不足。主管希望你聯絡各部門，邀請至少 10 名同事擔任志願者，協助現場工作，包括接待學生、分發資料和回答簡單問題。然而，多數同事因為工作繁忙，對參與活動意興闌珊，部分人甚至明確表示不願參加。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <p>在不影響部門日常工作的情況下，運用不同的權力戰術，說服同事擔任志願者，並協調好人力安排，確保活動順利進行。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／53</span></div>
+    </section>
+
+    <!-- P.19 新鮮人情境2 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">A2</div>
+        <div class="t"><h2>情境 2：新人教育訓練教材改版</h2><span class="en">ONBOARDING MATERIALS REDESIGN</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>公司正在準備更新新人教育訓練的教材，希望內容能更加貼合新世代員工的需求，並反映最新的公司制度和文化。你被指派為專案負責人，但這是你第一次參與這類專案。主管建議你訪談各部門的資深員工，蒐集第一線的實際經驗與建議。然而，當你聯繫這些資深員工時，他們大多抱怨自己日常工作繁忙，沒有時間配合。有些人甚至認為，這類教育訓練的內容應由 HR 自行完成，沒必要麻煩其他部門。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <p>透過不同的權力戰術，說服資深員工提供意見與協助，讓教材內容更有深度和實用性，並贏得主管的認可。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／53</span></div>
+    </section>
+
+    <!-- P.20 新鮮人情境3 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">A3</div>
+        <div class="t"><h2>情境 3：公司福委會活動提案</h2><span class="en">EMPLOYEE WELFARE PROPOSAL</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>公司福委會計畫舉辦年度員工家庭日活動，這是公司文化中的重要事件，旨在增進員工家庭的凝聚力和歸屬感。你被指派負責策劃這次活動，並需要在福委會的提案會議中說服委員批准你的方案。你提出的活動包括親子趣味競賽、現場抽獎和餐飲服務等，並預估活動費用為 50 萬元。然而，在提案會議中，部分委員認為方案花費過高，建議簡化內容；有些委員則質疑這種活動對增進公司文化的實際效果。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <p>利用不同的權力戰術，說服福委會成員支持你的提案，並取得足夠的經費來執行活動。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／53</span></div>
+    </section>
+
+    <!-- P.21 新鮮人情境4 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">A4</div>
+        <div class="t"><h2>情境 4：處理考勤問題</h2><span class="en">ATTENDANCE SYSTEM ROLLOUT</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>公司最近導入了一套新的考勤系統，旨在提升員工的打卡效率並降低人工處理錯誤的可能性。然而，因為系統操作不直觀，導致多數員工在使用時遇到困難，經常忘記打卡或操作錯誤，進而影響薪資計算。部分部門主管已經多次向 HR 抱怨，表示系統問題導致他們需要花更多時間處理員工薪資糾紛。你的主管要求你負責解決這個問題，但員工普遍認為這套系統麻煩，對 HR 的介入感到不滿，甚至有人抵制新系統。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <p>使用不同的權力戰術，協助員工熟悉系統，化解抵觸情緒，並提升新系統的接受度，最終減少出錯率和投訴。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／53</span></div>
+    </section>
+
+    <!-- P.22 基層主管篇 divider -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="q-label">[ PART B ]</span>
+        <div class="q-text">基層主管篇</div>
+        <span class="q-label">SCENARIO 01-04 ── THE FIRST-LINE MANAGER</span>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／53</span></div>
+    </section>
+
+    <!-- P.23 主管情境1 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">B1</div>
+        <div class="t"><h2>情境 1：績效考核結果溝通與說服</h2><span class="en">COMMUNICATING APPRAISAL RESULTS</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>你是公司 HR 部門的小主管，剛協助完成年度績效考核報告，並將結果提交給各部門主管審核。經過討論後，某些員工因為績效未達標，被評為需要改進或表現不佳。當這些員工收到評估結果時，立即對考核標準和流程提出質疑，認為主管未充分考量他們的實際貢獻，例如臨時支援其他專案或超時工作等努力。此外，員工之間開始私下討論，質疑考核的公平性，甚至有人威脅要向勞動部檢舉。主管要求你協助處理這些員工的抱怨與質疑，安撫情緒，並說服他們接受考核結果，同時確保此事件不會影響團隊士氣和信任關係。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <ol>
+            <li>針對績效考核的程序與標準，合理解釋與回應員工疑慮。</li>
+            <li>運用不同的權力戰術說服員工接受考核結果，並提供改善建議或後續支持方案，如培訓計劃或輔導計畫。</li>
+            <li>維護部門士氣，確保團隊信任感不受影響。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／53</span></div>
+    </section>
+
+    <!-- P.24 主管情境2 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">B2</div>
+        <div class="t"><h2>情境 2：部門間的人力資源爭奪戰</h2><span class="en">TALENT ALLOCATION CONFLICT</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>公司正在拓展業務，研發部與行銷部兩個核心部門同時需要招聘一名具備數據分析與專案管理能力的專業人才。由於市場上的相關人才稀缺，你成功找到一位條件符合的候選人，但只能滿足一個部門的需求。兩位部門主管都認為這名人才對他們的團隊至關重要，並向你施壓，希望優先提供人選給自己的部門。他們甚至向總經理報告，希望總經理介入決定，但總經理反而將這個決策責任交回給你，要求你提出一個符合公司利益的解決方案。目前兩位主管已經因資源競爭而出現緊張關係，影響合作氛圍。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <ol>
+            <li>運用不同的權力戰術協調兩位主管的需求，降低對立情緒。</li>
+            <li>設計合理的資源配置方案，並說服主管接受該方案，例如分階段提供支持，或安排共享人力資源。</li>
+            <li>維護跨部門合作關係，確保未來不因這次競爭造成持續衝突。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／53</span></div>
+    </section>
+
+    <!-- P.25 主管情境3 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">B3</div>
+        <div class="t"><h2>情境 3：裁員計畫的員工溝通與支持</h2><span class="en">LAYOFF COMMUNICATION</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>公司近期決定調整組織架構，將部分業務外包以降低成本，因此需要裁減 20 名員工。你被指派負責執行裁員計畫，並與即將被裁員的員工進行面談，說明原因與後續安排，包括資遣費、轉職輔導和心理支持服務。然而，部分被裁員的員工對公司決策極為不滿，認為自己是替罪羊，甚至有人在內部社群平台發文指責公司不近人情，引發其他員工共鳴，士氣明顯低落。此外，還有少數被裁員的員工準備向勞動主管機關提出申訴，認為公司違反勞基法，甚至在社群上開始對公司做匿名的爆料。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <ol>
+            <li>運用不同的權力戰術安撫被裁員員工情緒，確保他們理解公司決策與補償方案。</li>
+            <li>減少負面情緒擴散，維持留任員工的士氣與信任感。</li>
+            <li>預防法律糾紛，確保裁員流程與法規一致，並降低公司風險。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／53</span></div>
+    </section>
+
+    <!-- P.26 主管情境4 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">B4</div>
+        <div class="t"><h2>情境 4：推動薪酬調整政策改革</h2><span class="en">COMPENSATION REFORM</span></div>
+        <div class="note">[ SCENARIO ]</div>
+      </div>
+      <div class="scen">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 背景描述 ]</span>
+          <p>你注意到公司目前的薪酬制度已落後市場標準，造成招募困難與關鍵人才流失率上升。你提出了一套薪酬改革方案，包括：增加績效獎金比例，激勵高績效員工；調整津貼與補助標準，提高市場競爭力；增加薪酬透明度，讓獎金結構與加薪幅度都可以跟績效評估掛鉤。然而，部分資深主管擔心薪資改革會導致總成本上升，並引發內部員工間的比較與不滿。財務部更表達對預算壓力的擔憂，拒絕批准調整方案。此外，現行薪資架構多年未變動，部分高層不願意輕易改變現狀。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 目標 ]</span>
+          <ol>
+            <li>運用不同的權力戰術說服高層支持改革方案，強調改革對人才留任與市場競爭力的長期效益。</li>
+            <li>取得財務單位的合作，讓預算配置合理且可行。</li>
+            <li>向員工解釋薪酬改革的目的與優勢，並協助建立接受變革的文化。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／53</span></div>
+    </section>
+
+    <!-- P.27 FIG 由影響方向決定合適的權力戰術 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／T-01 由影響方向決定合適的權力戰術</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 620" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="620" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="24.0" font-weight="900" fill="#0A0A0A">由影響方向決定合適的權力戰術</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="11.7" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">PREFERRED POWER TACTICS BY DIRECTION</text>
+<rect x="60" y="110" width="300" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="110" width="6" height="44" fill="#0A0A0A"/>
+<text x="74" y="138.0" font-size="16.0" font-weight="700" fill="#232320">向上影響</text>
+<text x="346" y="137.0" text-anchor="end" font-size="11.7" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">UPWARD</text>
+<rect x="60" y="154" width="300" height="380" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="84" y="181" width="7" height="7" fill="#0A0A0A"/>
+<text x="100" y="190" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">理性的說服</text>
+<rect x="380" y="110" width="300" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="380" y="110" width="6" height="44" fill="#0A0A0A"/>
+<text x="394" y="138.0" font-size="16.0" font-weight="700" fill="#232320">向下影響</text>
+<text x="666" y="137.0" text-anchor="end" font-size="11.7" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">DOWNWARD</text>
+<rect x="380" y="154" width="300" height="380" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="404" y="181" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="190" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">理性的說服</text>
+<rect x="404" y="225" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="234" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">鼓舞式的訴求</text>
+<rect x="404" y="269" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="278" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">施壓</text>
+<rect x="404" y="313" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="322" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">商議</text>
+<rect x="404" y="357" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="366" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">逢迎</text>
+<rect x="404" y="401" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="410" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">交換</text>
+<rect x="404" y="445" width="7" height="7" fill="#0A0A0A"/>
+<text x="420" y="454" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">合法</text>
+<rect x="700" y="110" width="300" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="700" y="110" width="6" height="44" fill="#0A0A0A"/>
+<text x="714" y="138.0" font-size="16.0" font-weight="700" fill="#232320">橫向影響</text>
+<text x="986" y="137.0" text-anchor="end" font-size="11.7" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">LATERAL</text>
+<rect x="700" y="154" width="300" height="380" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="724" y="181" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="190" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">理性的說服</text>
+<rect x="724" y="225" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="234" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">商議</text>
+<rect x="724" y="269" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="278" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">逢迎</text>
+<rect x="724" y="313" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="322" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">交換</text>
+<rect x="724" y="357" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="366" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">合法</text>
+<rect x="724" y="401" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="410" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">個人式的訴求</text>
+<rect x="724" y="445" width="7" height="7" fill="#0A0A0A"/>
+<text x="740" y="454" text-anchor="start" font-size="16.0" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">聯盟</text>
+<text x="530" y="580" text-anchor="middle" font-size="12.0" font-weight="400" fill="#E61919" font-family="JetBrains Mono, monospace" letter-spacing="1.5">理性的說服是唯一在三個方向皆有效的戰術</text></svg>
+        </div>
+        <div class="cite">理性的說服是唯一在向上、向下與橫向影響皆有效的戰術；戰術的選擇應配合影響的方向。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／53</span></div>
+    </section>
+
+    <!-- P.28 利用權力戰術 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">28</div>
+        <div class="t"><h2>利用權力戰術</h2><span class="en">USING POWER TACTICS</span></div>
+        <div class="note">[ 3 FINDINGS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／EFFECTIVENESS ]</span>
+          <h3>效能差異</h3>
+          <p>戰術之間的效能並不相同。理性的說服、鼓舞式的訴求及商議等三項戰術最為有效。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／PRESSURE ]</span>
+          <h3>施壓效果</h3>
+          <p>施壓可說是經常適得其反，效能最差的。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／COMBINATION ]</span>
+          <h3>減輕負面反應</h3>
+          <p>使用逢迎與合法兩戰術，可以減輕因上司命令所產生的負面反應。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／53</span></div>
+    </section>
+
+    <!-- P.29 權力戰術的文化偏好 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CULTURE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">29</div>
+        <div class="t"><h2>權力戰術的文化偏好</h2><span class="en">CULTURAL PREFERENCES</span></div>
+        <div class="note">[ 2 VIEWS ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／INDIVIDUALIST ]</span>
+          <h3>個人主義文化</h3>
+          <span class="en-term">INDIVIDUALIST CULTURES</span>
+          <p>個人主義國家的人們習慣以個人化角度來看待權力，視權力為邁向個人目的的正當方式。使用權力前，宜先理解對象所處的文化脈絡。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／COLLECTIVIST ]</span>
+          <h3>集體主義文化</h3>
+          <span class="en-term">COLLECTIVIST CULTURES</span>
+          <p>集體主義國家的人們則是站在社會角度，認為權力是一種可以幫助他人的合理方式。相同的戰術，在不同文化中的正當性感受並不相同。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／53</span></div>
+    </section>
+
+    <!-- P.30 政治技能 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POLITICAL SKILL</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">30</div>
+        <div class="t"><h2>應用權力戰術：政治技能</h2><span class="en">POLITICAL SKILL</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／DEFINITION ]</span>
+          <h3>定義</h3>
+          <span class="en-term">POLITICAL SKILL</span>
+          <p>政治技能（political skill）是用某種方式來影響他人以藉此提升自我目標的能力。政治技能高者能建立自我效能與人脈，提升績效與生產力。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／FEATURE ]</span>
+          <h3>特點</h3>
+          <span class="en-term">UNDETECTED INFLUENCE</span>
+          <p>政治技能在他人沒有察覺下才能發揮影響力。一旦被識破是刻意操作，效果便大打折扣。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／CONTEXT ]</span>
+          <h3>組織影響</h3>
+          <span class="en-term">ORGANIZATIONAL CONTEXT</span>
+          <p>組織支持開放且公平地使用規章制度時，政治技能往往與工作績效評比呈負相關。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／53</span></div>
+    </section>
+
+    <!-- P.31 權力對人的影響 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">31</div>
+        <div class="t"><h2>權力對人的影響</h2><span class="en">HOW POWER AFFECTS PEOPLE</span></div>
+        <div class="note">[ 4 EFFECTS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／CORRUPTION ]</span>
+          <h3>腐化傾向</h3>
+          <p>權力會誘使人將私利凌駕於他人的需求或目標之上。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／DEFENSE ]</span>
+          <h3>自我防衛</h3>
+          <p>具權力者在其能力遭受威脅時，都會做出回應，尤其是負面回應。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／OVERCONFIDENCE ]</span>
+          <h3>過度自信</h3>
+          <p>權力會導致當事人做出過度自信的決定。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／DIFFERENCES ]</span>
+          <h3>個體差異</h3>
+          <p>權力對每個人的影響方式不盡相同，有時甚至會帶來一些正面效應。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／53</span></div>
+    </section>
+
+    <!-- P.32 權力變數 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">32</div>
+        <div class="t"><h2>權力變數</h2><span class="en">POWER VARIABLES</span></div>
+        <div class="note">[ 4 VARIABLES ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／PERSONALITY ]</span>
+          <h3>人格影響</h3>
+          <p>權力的毒性效應取決於行使權力者的人格。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／SYSTEMS ]</span>
+          <h3>組織制度</h3>
+          <p>權力的腐蝕效應可能受到組織體制的遏止。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／STATUS ]</span>
+          <h3>身分地位</h3>
+          <p>身分地位低令人產生一種無助的壓迫感加上恐懼感，使得當事人在日後得到權力時，轉而以負面的方式展現行為。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／VALUES ]</span>
+          <h3>價值觀</h3>
+          <p>權力顯露了行使者所重視的價值。對於道德認同強烈者，權力可以強化他們的道德知覺和行動意願。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／53</span></div>
+    </section>
+
+    <!-- P.33 性騷擾 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">33</div>
+        <div class="t"><h2>性騷擾：職場中不平等的權力</h2><span class="en">SEXUAL HARASSMENT</span></div>
+        <div class="note">[ 2 POINTS ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／DEFINITION ]</span>
+          <h3>定義</h3>
+          <span class="en-term">SEXUAL HARASSMENT</span>
+          <p>性騷擾（sexual harassment）指任何非意願且與性本質有關的行為，而此行為會影響個人的工作，並造就不友善的工作環境。其本質是職場中不平等權力的濫用。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／RESPONSIBILITY ]</span>
+          <h3>管理者責任</h3>
+          <span class="en-term">MANAGERIAL RESPONSIBILITY</span>
+          <p>管理者的基本責任是保護員工免受不友善環境的對待。管理者也許不易察覺員工之中有誰遭受到性騷擾，但不能因此不保護員工和組織。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／53</span></div>
+    </section>
+
+    <!-- P.34 管理者在防止性騷擾中的角色 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">34</div>
+        <div class="t"><h2>管理者在防止性騷擾中的角色</h2><span class="en">THE MANAGER'S ROLE</span></div>
+        <div class="note">[ 5 ACTIONS ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row"><div class="k"><span class="zh">制定政策</span><span class="ax">ACTION／01</span></div><div class="v">確保政策已經適當界定何者構成性騷擾，告知員工若性騷擾其他員工將被解僱，且建立被害者申訴的流程與管道。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">保護申訴者</span><span class="ax">ACTION／02</span></div><div class="v">如果員工提出控訴，確保其不會遭致報復。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">調查申訴</span><span class="ax">ACTION／03</span></div><div class="v">調查每一項申訴案，並通報法務與人力資源部門。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">懲處違法者</span><span class="ax">ACTION／04</span></div><div class="v">確定違法者已被懲處或解僱。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">提高意識</span><span class="ax">ACTION／05</span></div><div class="v">舉辦公司內部研討會，以提升員工對性騷擾議題的了解。</div></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／53</span></div>
+    </section>
+
+    <!-- P.35 政治：權力的運作 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">35</div>
+        <div class="t"><h2>政治：權力的運作</h2><span class="en">POLITICS: POWER IN ACTION</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／DEFINITION ]</span>
+          <h3>定義</h3>
+          <span class="en-term">POLITICAL BEHAVIOR</span>
+          <p>政治行為（political behavior）是那些並非員工正式職責所需從事的活動，卻足以影響或試圖影響組織內有利與不利事物的分配。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／FEATURES ]</span>
+          <h3>特徵</h3>
+          <span class="en-term">CHARACTERISTICS</span>
+          <ol>
+            <li>超出個人工作上的要求</li>
+            <li>起源於個人企圖運用本身的權力基礎</li>
+            <li>包括隱瞞資訊、結盟、告密、散布謠言等行為</li>
+          </ol>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／SKILL ]</span>
+          <h3>政治技能</h3>
+          <span class="en-term">POLITICAL SKILL</span>
+          <p>擁有良好政治技能的人，有能力將其權力基礎做最有效地運用。政治不但無法逃避，甚至還不可或缺。與其否認政治的存在，不如理解並善用它。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／53</span></div>
+    </section>
+
+    <!-- P.36 FIG OB投票所 組織政治的重要性 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／P-01 OB 投票所──組織政治的重要性</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 620" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="620" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="24.0" font-weight="900" fill="#0A0A0A">組織政治的重要性</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="11.7" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">OB POLL ── 組織中員工出人頭地的途徑</text>
+<line x1="140" y1="500.0" x2="920" y2="500.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="504.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">0%</text>
+<line x1="140" y1="440.0" x2="920" y2="440.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="444.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">10%</text>
+<line x1="140" y1="380.0" x2="920" y2="380.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="384.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">20%</text>
+<line x1="140" y1="320.0" x2="920" y2="320.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="324.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">30%</text>
+<line x1="140" y1="260.0" x2="920" y2="260.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="264.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">40%</text>
+<line x1="140" y1="200.0" x2="920" y2="200.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="204.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">50%</text>
+<line x1="140" y1="140.0" x2="920" y2="140.0" stroke="#666666" stroke-width="0.8"/>
+<text x="128" y="144.0" text-anchor="end" font-size="12.0" font-weight="400" fill="#666666" font-family="JetBrains Mono, monospace">60%</text>
+<rect x="220" y="476.0" width="110" height="24.0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="275.0" y="464.0" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">4%</text>
+<text x="275.0" y="530" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">創造力</text>
+<rect x="400" y="392.0" width="110" height="108.0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="455.0" y="380.0" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">18%</text>
+<text x="455.0" y="530" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">進取心</text>
+<rect x="580" y="338.0" width="110" height="162.0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="635.0" y="326.0" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">27%</text>
+<text x="635.0" y="530" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">努力工作</text>
+<rect x="760" y="194.0" width="110" height="306.0" fill="#E61919" stroke="#E61919" stroke-width="1.5"/>
+<text x="815.0" y="182.0" text-anchor="middle" font-size="18.0" font-weight="900" fill="#E61919" font-family="Noto Sans TC, PingFang TC, sans-serif">51%</text>
+<text x="815.0" y="530" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">政治</text>
+<line x1="140" y1="500" x2="920" y2="500" stroke="#0A0A0A" stroke-width="2"/></svg>
+        </div>
+        <div class="cite">調查顯示，員工認為組織中出人頭地的最主要途徑是政治（51％），遠高於努力工作（27％）、進取心（18％）與創造力（4％）。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／53</span></div>
+    </section>
+
+    <!-- P.37 政治的事實 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">37</div>
+        <div class="t"><h2>政治的事實</h2><span class="en">THE REALITY OF POLITICS</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／MANAGERS ]</span>
+          <h3>管理者觀點</h3>
+          <p>管理者多數相信政治行為是組織生命中的重要部分。只要不直接造成任何人的傷害，許多管理者在道德考量或必要之下會使用某些政治行為。多數管理者也同意：想往上爬，政治手腕難以迴避。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／RESOURCES ]</span>
+          <h3>資源分配</h3>
+          <p>導致組織內政治行為產生的最重要因素，是將分配有限資源的事實加以無限地詮釋。資源有限、標準模糊，就是政治行為的溫床。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／POLITICKING ]</span>
+          <h3>個人利益</h3>
+          <p>組織內的成員會運用一切能動用的影響力來詮釋事實，以支持本身的目標及利益，這樣的行為稱之為從事以個人利益為主的政治活動（politicking）。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／53</span></div>
+    </section>
+
+    <!-- P.38 無政治活動的組織可能嗎 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">38</div>
+        <div class="t"><h2>無政治活動的組織可能嗎？</h2><span class="en">A POLITICS-FREE ORGANIZATION?</span></div>
+        <div class="note">[ 3＋1 ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／GOALS ]</span>
+          <h3>目標一致</h3>
+          <p>當組織內所有成員有相同目標及利益時。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／RESOURCES ]</span>
+          <h3>資源充足</h3>
+          <p>當組織的資源不虞匱乏時。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／PERFORMANCE ]</span>
+          <h3>績效明確</h3>
+          <p>當績效結果完全清楚且客觀時。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／REALITY ]</span>
+          <h3>現實情況</h3>
+          <p>上述條件並非大多數組織的真實樣貌，因此政治活動難以完全消失。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／53</span></div>
+    </section>
+
+    <!-- P.39 助長政治行為的因素 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">39</div>
+        <div class="t"><h2>助長政治行為的因素</h2><span class="en">CAUSES OF POLITICAL BEHAVIOR</span></div>
+        <div class="note">[ 2 SOURCES ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／INDIVIDUAL ]</span>
+          <h3>個人因素</h3>
+          <span class="en-term">INDIVIDUAL FACTORS</span>
+          <p>高度自我監控、內控型性格、高度權謀、在組織中的投資、知覺到工作機會的多寡、對政治行為成功與否的預測。投注在組織的沉沒成本愈高、外部選項愈少，愈傾向以政治手段自保。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／ORGANIZATIONAL ]</span>
+          <h3>組織因素</h3>
+          <span class="en-term">ORGANIZATIONAL FACTORS</span>
+          <p>資源重分配、升遷機會、低度信賴、角色模糊、績效評估制度不明確、零和性質的報酬分配、決策民主化、高度績效壓力、自私的高階經理人。制度愈不透明，政治行為的報酬愈高。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／53</span></div>
+    </section>
+
+    <!-- P.40 FIG 影響政治行為的因素 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／P-02 影響政治行為的因素</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 700" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="700" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="30.0" font-weight="900" fill="#0A0A0A">影響政治行為的因素</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.8" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">FACTORS THAT INFLUENCE POLITICAL BEHAVIOR</text>
+<rect x="60" y="110" width="330" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="110" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="136.0" font-size="20.0" font-weight="700" fill="#232320">個人因素</text>
+<text x="376" y="135.0" text-anchor="end" font-size="13.2" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">INDIVIDUAL</text>
+<rect x="60" y="150" width="330" height="200" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="80" y="173" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="182" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">高度自我監控</text>
+<rect x="80" y="200" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="209" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">內控型性格</text>
+<rect x="80" y="227" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="236" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">高度權謀</text>
+<rect x="80" y="254" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="263" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">在組織中的投資</text>
+<rect x="80" y="281" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="290" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">知覺到工作機會的多寡</text>
+<rect x="80" y="308" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="317" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">對政治行為成功與否的預測</text>
+<rect x="60" y="380" width="330" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="380" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="406.0" font-size="20.0" font-weight="700" fill="#232320">組織因素</text>
+<text x="376" y="405.0" text-anchor="end" font-size="13.2" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">ORGANIZATIONAL</text>
+<rect x="60" y="420" width="330" height="250" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="80" y="443" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="452" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">資源重分配、升遷機會</text>
+<rect x="80" y="470" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="479" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">低度信賴、角色模糊</text>
+<rect x="80" y="497" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="506" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">績效評估制度不明確</text>
+<rect x="80" y="524" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="533" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">零和性質的報酬分配</text>
+<rect x="80" y="551" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="560" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">決策民主化</text>
+<rect x="80" y="578" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="587" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">高度績效壓力</text>
+<rect x="80" y="605" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="614" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">自私的高階經理人</text>
+<rect x="490" y="330" width="260" height="110" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="620" y="375" text-anchor="middle" font-size="23.8" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">政治行為</text>
+<text x="536" y="412" text-anchor="middle" font-size="16.3" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">低</text>
+<line x1="556" y1="407" x2="684" y2="407" stroke="#E61919" stroke-width="2.5"/>
+<path d="M688 407 l-11 -6 v12 z" fill="#E61919"/>
+<text x="704" y="412" text-anchor="middle" font-size="16.3" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">高</text>
+<rect x="840" y="330" width="170" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="840" y="330" width="6" height="40" fill="#0A0A0A"/>
+<text x="854" y="356.0" font-size="20.0" font-weight="700" fill="#232320">有利的結果</text>
+
+<rect x="840" y="370" width="170" height="90" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="858" y="393" width="7" height="7" fill="#0A0A0A"/>
+<text x="874" y="402" text-anchor="start" font-size="17.5" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">獎賞</text>
+<rect x="858" y="421" width="7" height="7" fill="#0A0A0A"/>
+<text x="874" y="430" text-anchor="start" font-size="17.5" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">避免處罰</text>
+<line x1="390" y1="385" x2="484" y2="385" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M488 385 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="390" y1="250" x2="440" y2="250" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="440" y1="250" x2="440" y2="372" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="440" y1="372" x2="484" y2="372" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M488 372 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="390" y1="545" x2="440" y2="545" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="440" y1="545" x2="440" y2="405" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="750" y1="385" x2="834" y2="385" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M838 385 l-11 -6 v12 z" fill="#0A0A0A"/></svg>
+        </div>
+        <div class="cite">個人因素與組織因素共同推升政治行為的程度，政治行為則帶來獎賞與避免處罰等有利的結果。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／53</span></div>
+    </section>
+
+    <!-- P.41 FIG 員工對組織政治的反應 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／P-03 員工對組織政治的反應</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 560" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="560" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="24.0" font-weight="900" fill="#0A0A0A">員工對組織政治的反應</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="11.0" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">EMPLOYEE RESPONSES TO ORGANIZATIONAL POLITICS</text>
+<rect x="80" y="230" width="300" height="110" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="230" y="275" text-anchor="middle" font-size="17.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">組織政治對員工</text>
+<text x="230" y="303" text-anchor="middle" font-size="17.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">可能的威脅</text>
+<rect x="560" y="130" width="320" height="62" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="720" y="168" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">降低工作滿足感</text>
+<line x1="380" y1="285" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="161" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="161" x2="552" y2="161" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M556 161 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="560" y="222" width="320" height="62" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="720" y="260" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">增加焦慮與壓力</text>
+<line x1="380" y1="285" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="253" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="253" x2="552" y2="253" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M556 253 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="560" y="314" width="320" height="62" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="720" y="352" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">增加離職傾向</text>
+<line x1="380" y1="285" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="345" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="345" x2="552" y2="345" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M556 345 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="560" y="406" width="320" height="62" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="720" y="444" text-anchor="middle" font-size="16.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">不利績效表現</text>
+<line x1="380" y1="285" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="437" x2="470" y2="285" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="470" y1="437" x2="552" y2="437" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M556 437 l-11 -6 v12 z" fill="#0A0A0A"/></svg>
+        </div>
+        <div class="cite">組織政治對員工可能的威脅包括：降低工作滿足感、增加焦慮與壓力、增加離職傾向以及不利績效表現。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／53</span></div>
+    </section>
+
+    <!-- P.42 人們如何回應組織政治 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">42</div>
+        <div class="t"><h2>人們如何回應組織政治？</h2><span class="en">RESPONSES TO ORGANIZATIONAL POLITICS</span></div>
+        <div class="note">[ 4 FINDINGS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／PERFORMANCE ]</span>
+          <h3>績效衰退</h3>
+          <p>操弄政治行為將致使員工績效衰退，或許因為員工知覺到政治行為讓環境變得不公平，所以失去動力且日益消極。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／PERCEPTION ]</span>
+          <h3>個人認知</h3>
+          <p>個人對組織政治如何與為什麼存在的體認，會影響政治行為和績效的關係。看得懂政治的人，較不會被政治傷害。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／ETHICAL ]</span>
+          <h3>道德領導</h3>
+          <p>職場的政治行為能調節道德領導的效果：政治氛圍濃厚時，道德領導的正面影響會被稀釋。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／DEFENSIVE ]</span>
+          <h3>防衛行為</h3>
+          <p>當員工視政治行為為威脅時，通常會以防衛行為回應——敏銳和保護行為，以避免行動、受責或改變。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／53</span></div>
+    </section>
+
+    <!-- P.43 FIG 防衛行為 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── DEFENSIVE</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／P-04 防衛行為</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 720" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="720" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="31.4" font-weight="900" fill="#0A0A0A">防衛行為</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="14.4" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">DEFENSIVE BEHAVIORS</text>
+<rect x="60" y="104" width="300" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="104" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="130.0" font-size="21.0" font-weight="700" fill="#232320">避免行動</text>
+<text x="346" y="129.0" text-anchor="end" font-size="13.6" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">AVOIDING ACTION</text>
+<rect x="60" y="144" width="300" height="540" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="76" y="178" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">過度遵從</text>
+<text x="158.0" y="178" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（overconforming）</text>
+<text x="76" y="200" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">以規定明文為由，從嚴解釋職責</text>
+<text x="76" y="236" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">推諉責任</text>
+<text x="158.0" y="236" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（buck passing）</text>
+<text x="76" y="258" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">把任務或決策轉移給他人執行</text>
+<text x="76" y="294" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">裝聾作啞</text>
+<text x="158.0" y="294" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（playing dumb）</text>
+<text x="76" y="316" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">謊稱無知，避開不想做的工作</text>
+<text x="76" y="352" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">延伸</text>
+<text x="120.0" y="352" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（stretching）</text>
+<text x="76" y="374" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">拉長工作時間，讓自己顯得忙碌</text>
+<text x="76" y="410" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">支吾其詞</text>
+<text x="158.0" y="410" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（stalling）</text>
+<text x="76" y="432" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">表面支持，私下並不作為</text>
+<rect x="380" y="104" width="300" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="380" y="104" width="6" height="40" fill="#0A0A0A"/>
+<text x="394" y="130.0" font-size="21.0" font-weight="700" fill="#232320">避免受責</text>
+<text x="666" y="129.0" text-anchor="end" font-size="13.6" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">AVOIDING BLAME</text>
+<rect x="380" y="144" width="300" height="540" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="396" y="178" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">建立緩衝</text>
+<text x="478.0" y="178" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（buffing）</text>
+<text x="396" y="200" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">以嚴謹文書預留退路、塑造形象</text>
+<text x="396" y="236" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">尋求安全</text>
+<text x="478.0" y="236" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（playing safe）</text>
+<text x="396" y="258" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">只做成功率高、已獲核准的事</text>
+<text x="396" y="294" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">正當化</text>
+<text x="459.0" y="294" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（justifying）</text>
+<text x="396" y="316" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">為負面結果辯解或表達悔意</text>
+<text x="396" y="352" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">找代罪羔羊</text>
+<text x="497.0" y="352" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（scapegoating）</text>
+<text x="396" y="374" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">把責難轉移到外在因素</text>
+<text x="396" y="410" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">虛偽陳述</text>
+<text x="478.0" y="410" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（misrepresenting）</text>
+<text x="396" y="432" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">扭曲、模糊或選擇性揭露資訊</text>
+<rect x="700" y="104" width="300" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="700" y="104" width="6" height="40" fill="#0A0A0A"/>
+<text x="714" y="130.0" font-size="21.0" font-weight="700" fill="#232320">避免改變</text>
+<text x="986" y="129.0" text-anchor="end" font-size="13.6" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">AVOIDING CHANGE</text>
+<rect x="700" y="144" width="300" height="540" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="716" y="178" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">預防</text>
+<text x="760.0" y="178" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（prevention）</text>
+<text x="716" y="200" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">事先防範不利於己的變化發生</text>
+<text x="716" y="236" text-anchor="start" font-size="19.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">自我保護</text>
+<text x="798.0" y="236" text-anchor="start" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">（self-protection）</text>
+<text x="716" y="258" text-anchor="start" font-size="16.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">變革中壟斷資訊，保障自身利益</text></svg>
+        </div>
+        <div class="cite">防衛行為分為三大類：避免行動（過度遵從、推諉責任、裝聾作啞、延伸、支吾其詞）、避免受責（建立緩衝、尋求安全、正當化、找代罪羔羊、虛偽陳述）與避免改變（預防、自我保護）。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／53</span></div>
+    </section>
+
+    <!-- P.44 印象管理 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">44</div>
+        <div class="t"><h2>印象管理</h2><span class="en">IMPRESSION MANAGEMENT</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／DEFINITION ]</span>
+          <h3>定義</h3>
+          <span class="en-term">IMPRESSION MANAGEMENT, IM</span>
+          <p>印象管理（impression management, IM）是個體試圖控制他人對其印象之形成的過程。面試、簡報與績效面談，都是 IM 的主場。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／FEATURES ]</span>
+          <h3>特徵</h3>
+          <span class="en-term">CHARACTERISTICS</span>
+          <p>從事高度自我監控者致力於IM。IM者所傳達的訊息，在其他情況下可能是真實的——印象管理不必然等於欺騙。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／RISK ]</span>
+          <h3>風險</h3>
+          <span class="en-term">RISKS</span>
+          <p>虛偽陳述要付出相當高的代價。印象管理者必須小心謹慎，以免讓人覺得不誠實或有操縱之嫌。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／53</span></div>
+    </section>
+
+    <!-- P.45 印象管理技巧（面試情境） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">45</div>
+        <div class="t"><h2>面試中的印象管理</h2><span class="en">IM IN INTERVIEWS</span></div>
+        <div class="note">[ 3 FORMS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／APPEARANCE ]</span>
+          <h3>外表導向努力</h3>
+          <span class="en-term">APPEARANCE-ORIENTED EFFORTS</span>
+          <p>例如看起來很專業。服裝儀容與整潔度，是最直接的無聲訊號。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／EXPLICIT ]</span>
+          <h3>明確的戰術</h3>
+          <span class="en-term">EXPLICIT TACTICS</span>
+          <p>例如諂媚面試官或吹捧自己的成就。適度自我推銷有效，過度則顯得浮誇。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／VERBAL ]</span>
+          <h3>口頭線索</h3>
+          <span class="en-term">VERBAL CUES</span>
+          <p>例如使用正面的詞語及展現熱忱。語氣與能量的感染力，常比內容本身更早被記住。</p>
+        </div>
+      </div>
+      <div class="flow-note">多數求職者與面試官都會在面試中使用 IM 技巧，且確實<span class="r">有效</span>──面試官多半無法察覺</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／53</span></div>
+    </section>
+
+    <!-- P.46 印象管理的八種技巧（補充） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM TECHNIQUES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">46</div>
+        <div class="t"><h2>印象管理的八種技巧</h2><span class="en">IM TECHNIQUES</span></div>
+        <div class="note">[ 8 TECHNIQUES ]</div>
+      </div>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <tr><th>技巧</th><th>類型</th><th>說明</th></tr>
+          <tr><td class="k">順從（conformity）</td><td>逢迎型</td><td>同意他人的意見，以獲得對方的認可。</td></tr>
+          <tr><td class="k">施惠（favors）</td><td>逢迎型</td><td>為他人做一些貼心的事，以獲得對方的認可。</td></tr>
+          <tr><td class="k">藉口（excuses）</td><td>防衛型</td><td>對造成困境的事件加以解釋，以降低事態的嚴重性。</td></tr>
+          <tr><td class="k">道歉（apologies）</td><td>防衛型</td><td>承認對不當事件的責任，同時尋求對方的原諒。</td></tr>
+          <tr><td class="k">自我推銷（self-promotion）</td><td>自我聚焦型</td><td>凸顯自身優點、淡化缺點，並強調個人成就。</td></tr>
+          <tr><td class="k">誇大（enhancement）</td><td>自我聚焦型</td><td>宣稱自己所做的事，比多數組織成員所認為的更有價值。</td></tr>
+          <tr><td class="k">諂媚（flattery）</td><td>主張型</td><td>讚美他人的優點，使自己顯得敏銳且討人喜歡。</td></tr>
+          <tr><td class="k">以身作則（exemplification）</td><td>主張型</td><td>做得比實際所需更多，以展現敬業與努力的形象。</td></tr>
+        </table>
+        <div class="cite">補充自 ROBBINS ＆ JUDGE（2024）；原始資料：Bolino, Kacmar, Turnley, &amp; Gilstrap（2008）, Journal of Management, 34（6）, 1080-1109。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／53</span></div>
+    </section>
+
+    <!-- P.47 績效評估與印象管理 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM ＆ APPRAISAL</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">47</div>
+        <div class="t"><h2>績效評估與印象管理</h2><span class="en">IM AND PERFORMANCE EVALUATIONS</span></div>
+        <div class="note">[ 3 FINDINGS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／INGRATIATION ]</span>
+          <h3>逢迎效果</h3>
+          <p>逢迎與績效評等呈正相關；然而，自我推銷者實際上得到較低的績效評等。對主管好一點有用，自吹自擂則常適得其反。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／SKILL ]</span>
+          <h3>政治技巧影響</h3>
+          <p>擁有高度政治技巧者能將IM轉化成高績效評估，低度政治技巧者反而可能因試圖展現IM而受傷。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／HORIZON ]</span>
+          <h3>長期與短期</h3>
+          <p>逢迎者總是在經營關係，而自我推銷者可能只有在面試時用心經營，實際工作時則否。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／53</span></div>
+    </section>
+    <section class="slide rs-page">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM RESEARCH</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">48</div>
+        <div class="t"><h2>補充研究：開放式人格測驗比量表更難造假</h2><span class="en">FAKING ON OPEN-ENDED PERSONALITY ASSESSMENTS ── SPEER ET AL.</span></div>
+        <div class="note">[ JAP 2026 ]<br>N＝2,039／7 LLMS</div>
+      </div>
+      <div class="def-band">求職者的印象管理會讓人格量表分數膨脹。同一批人在誠實與求職兩種指示下作答：量表分數的上移為 d̄＝.65，以自然語言處理評分的開放式書寫題只有 d̄＝.26；AI 代寫的回答分數通常高於真人，但客製化的偵測模型可近乎完全辨識，誤判率 1%。</div>
+      <div class="grid4 rs-grid">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／PUZZLE ]</span><h3>造假在書寫題裡怎麼發生</h3>
+          <ul>
+            <li>自陳量表的造假是甄選的老問題；開放式測驗要求受測者用文字描述自己，被認為較難造假</li>
+            <li>論文提出兩種書寫層次的印象管理：精心鋪陳（elaborate responding）與選擇性揭露（只講好的、不講壞的）</li>
+            <li>對照印象管理的八種技巧：選擇性揭露就是自我推銷與誇大的文字版</li>
+          </ul></div>
+        <div class="cell"><span class="tag">[ 02／DESIGN ]</span><h3>資料與方法</h3>
+          <ul>
+            <li>2,039 名成人隨機分派誠實作答或求職指示（假設正在應徵一份很想要的工作），3 至 7 天後再誠實填量表</li>
+            <li>466 份書寫回答由專家評精心鋪陳與選擇性揭露的程度；全部回答以自然語言處理評分</li>
+            <li>另比較七種大型語言模型生成、以及人機混合改寫的回答</li>
+          </ul></div>
+        <div class="cell"><span class="tag">[ 03／FINDINGS ]</span><h3>主要發現</h3>
+          <ul>
+            <li>求職指示下精心鋪陳 d＝.29、選擇性揭露 d＝.72 都上升；特質較高者更會鋪陳與挑好話講</li>
+            <li>造假的分數上移：量表 d̄＝.65，開放式題 d̄＝.26；評分模型若改以人工評分訓練，上移回到 .63</li>
+            <li>訓練樣本混合誠實與求職回答時抗造假性最好；AI 回答分數高但可被辨識</li>
+          </ul></div>
+        <div class="cell"><span class="tag">[ 04／IMPLICATIONS ]</span><h3>對甄選與印象管理的意涵</h3>
+          <ul>
+            <li>印象管理不會消失，但可以用題型與評分方式壓低它的報酬</li>
+            <li>抗造假性來自評分模型的設計，不是題型本身：模型學什麼，就會獎勵什麼</li>
+            <li>AI 代寫是新的印象管理管道，偵測層是甄選公平性的必要配備</li>
+          </ul></div>
+      </div>
+      <div class="keyline">造假的報酬取決於評分怎麼設計，開放式書寫加自然語言處理評分把報酬壓到量表的四成</div>
+      <div class="cite">Speer, A. B., Chawota, T. A., Rudolph, C., &amp; Qaqish, A. (2026). The impact of impression management on writing tendencies: Investigating faking susceptibility of open-ended personality assessments. <i>Journal of Applied Psychology</i>. Advance online publication. <a href="https://doi.org/10.1037/apl0001397" target="_blank" rel="noopener" style="color: var(--gray);">https://doi.org/10.1037/apl0001397</a></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.48／53</span></div>
+    </section>
+
+
+    <!-- P.48 政治行為的道德性 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 9 ── ETHICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">49</div>
+        <div class="t"><h2>政治行為的道德性</h2><span class="en">THE ETHICS OF BEHAVING POLITICALLY</span></div>
+        <div class="note">[ 3 QUESTIONS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／UTILITY ]</span>
+          <h3>效用評估</h3>
+          <p>從事政治行為的效用為何？行為帶來的整體利益，是否大於所耗費的資源與信任？</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／HARM ]</span>
+          <h3>利弊權衡</h3>
+          <p>從事政治行為的效用如何彌補對他人的任何傷害或潛在傷害？若利益集中於自己、傷害由他人承受，道德上便站不住腳。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／JUSTICE ]</span>
+          <h3>公平原則</h3>
+          <p>政治活動是否符合公平及公正原則？三個問題都能坦然回答，政治行為才站得住腳。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／53</span></div>
+    </section>
+
+    <!-- P.49 勾勒政治生涯地圖（補充） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">50</div>
+        <div class="t"><h2>勾勒政治生涯地圖</h2><span class="en">MAPPING YOUR POLITICAL CAREER</span></div>
+        <div class="note">[ 3 STEPS ]</div>
+      </div>
+      <div class="def-band">努力工作只是入場的門票——競爭者同樣在努力工作。政治是讓努力得到回報的關鍵因素之一。政治地圖（political map）可用來描繪職涯所依賴之關鍵人物的關係網絡。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／AMBITIONS ]</span>
+          <h3>釐清抱負</h3>
+          <p>職涯的抱負為何？誰有權力協助達成這些目標？先把目標與關鍵人物寫下來，地圖才畫得出來。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／RELATIONS ]</span>
+          <h3>盤點關係</h3>
+          <p>與這些關鍵人物的關係現況如何？屬於密切、鬆散，或完全沒有關係？誠實盤點現況，才知道該經營哪些連結。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／INDIRECT ]</span>
+          <h3>間接影響</h3>
+          <p>影響他人最好的方式之一是間接的：透過關鍵人物網絡中的其他成員（如舊同事、好友）來建立影響力與更密切的關係。</p>
+        </div>
+      </div>
+      <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── 權力與政治是<span class="r">組織生活的一部分</span>，競爭者可能也有一張自己的地圖</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.50／53</span></div>
+    </section>
+
+    <!-- P.50 FIG 勾勒你的政治地圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／M-01 勾勒你的政治地圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 700" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="700" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="28.8" font-weight="900" fill="#0A0A0A">勾勒政治地圖</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.2" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">DRAWING A POLITICAL MAP</text>
+<line x1="250.0" y1="350.0" x2="480" y2="198" stroke="#E61919" stroke-width="4"/>
+<line x1="250.0" y1="350.0" x2="475" y2="350" stroke="#E61919" stroke-width="4"/>
+<line x1="250.0" y1="350.0" x2="480" y2="502" stroke="#0A0A0A" stroke-width="1.5"/>
+<line x1="250.0" y1="322.0" x2="250.0" y2="155" stroke="#666666" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="250.0" y1="378.0" x2="250.0" y2="545" stroke="#666666" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="590" y1="180" x2="800" y2="84" stroke="#0A0A0A" stroke-width="1.2"/>
+<line x1="590" y1="180" x2="800" y2="152" stroke="#0A0A0A" stroke-width="1.2"/>
+<line x1="590" y1="180" x2="800" y2="220" stroke="#0A0A0A" stroke-width="1.2"/>
+<line x1="590" y1="180" x2="800" y2="288" stroke="#0A0A0A" stroke-width="1.2"/>
+<line x1="590" y1="180" x2="800" y2="356" stroke="#0A0A0A" stroke-width="1.2"/>
+<rect x="190" y="322" width="120" height="56" fill="#E61919" stroke="#E61919" stroke-width="1.5"/>
+<text x="250.0" y="348.0" text-anchor="middle" font-size="19.2" font-weight="900" fill="#F4F4F0" font-family="Noto Sans TC, PingFang TC, sans-serif">你</text>
+<text x="250.0" y="368.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#F4F4F0" font-family="JetBrains Mono, monospace" letter-spacing="1.5">YOU</text>
+<rect x="470" y="152" width="120" height="56" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="530.0" y="179.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Noura</text>
+<text x="530.0" y="198.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">營運部主管</text>
+<rect x="470" y="322" width="120" height="56" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="530.0" y="349.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Margot</text>
+<text x="530.0" y="368.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">財務部</text>
+<rect x="470" y="492" width="120" height="56" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="530.0" y="519.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Lane</text>
+<text x="530.0" y="538.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">人資部</text>
+<rect x="190" y="105" width="120" height="50" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250.0" y="129.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Jia</text>
+<text x="250.0" y="148.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">業務部</text>
+<rect x="190" y="545" width="120" height="50" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250.0" y="569.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Marty</text>
+<text x="250.0" y="588.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">資訊部</text>
+<rect x="800" y="60" width="118" height="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="859.0" y="83.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Anna</text>
+<text x="859.0" y="102.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">資深副總</text>
+<rect x="800" y="128" width="118" height="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="859.0" y="151.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Tamar</text>
+<text x="859.0" y="170.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">摯友</text>
+<rect x="800" y="196" width="118" height="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="859.0" y="219.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Mark</text>
+<text x="859.0" y="238.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">舊同事</text>
+<rect x="800" y="264" width="118" height="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="859.0" y="287.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Destiny</text>
+<text x="859.0" y="306.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">配偶</text>
+<rect x="800" y="332" width="118" height="48" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="859.0" y="355.0" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">CJ</text>
+<text x="859.0" y="374.0" text-anchor="middle" font-size="13.2" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">部落客</text>
+<text x="660" y="470" text-anchor="start" font-size="17.4" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">影響 Noura 身邊的人，</text>
+<text x="660" y="494" text-anchor="start" font-size="17.4" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">往往就是間接影響 Noura 的路徑</text>
+<line x1="60" y1="622" x2="1000" y2="622" stroke="#0A0A0A" stroke-width="1"/>
+<line x1="85" y1="655" x2="130" y2="655" stroke="#E61919" stroke-width="4"/>
+<text x="142" y="660" text-anchor="start" font-size="16.2" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">關係密切</text>
+<line x1="255" y1="655" x2="300" y2="655" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="312" y="660" text-anchor="start" font-size="16.2" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">關係鬆散</text>
+<line x1="425" y1="655" x2="470" y2="655" stroke="#666666" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="482" y="660" text-anchor="start" font-size="16.2" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">尚無關係</text>
+<text x="1000" y="660" text-anchor="end" font-size="14.4" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">晉升與否，取決於這五個人</text></svg>
+        </div>
+        <div class="cite">紅色圈圈表示關係密切、黑色圈圈表示關係鬆散、白色圈圈表示完全沒有關係；下半部為局部放大細分圖，呈現間接影響的路徑。</div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.51／53</span></div>
+    </section>
+
+    <!-- P.51 對管理者的啟示 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 11 ── IMPLICATIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">52</div>
+        <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
+        <div class="note">[ 4 POINTS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／MAXIMIZE ]</span>
+          <h3>極大化權力</h3>
+          <p>將自身權力極大化，並使他人更加依賴自己。例如發展上司所需的知識或技能，且被認為無人可替代，即可增加權力。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／BALANCE ]</span>
+          <h3>權力平衡</h3>
+          <p>建立權力基礎並非單向：當一方嘗試極小化對別人的依賴、提升別人對自身的依賴時，員工與同事也在進行同樣的嘗試。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／EMPOWER ]</span>
+          <h3>避免剝奪他人權力</h3>
+          <p>避免把他人放進一個會讓其覺得毫無權力的位置上。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 04／FRAME ]</span>
+          <h3>政治框架評估</h3>
+          <p>在政治框架中評估他人，可以更準確預測其行為，並利用此資訊形成對自身與工作團隊有益的政治策略。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.52／53</span></div>
+    </section>
+    <section class="slide rf-page">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">53</div>
+        <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
+        <div class="note">[ APA 7 ]<br>2 ITEMS</div>
+      </div>
+      <div class="rf">
+        <div class="rf-cols c1 airy">
+          <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
+            <p>Bolino, M. C., Kacmar, K. M., Turnley, W. H., &amp; Gilstrap, J. B. (2008). A multi-level review of impression management motives and behaviors. <i>Journal of Management, 34</i>(6), 1080–1109.</p>
+            <p>Speer, A. B., Chawota, T. A., Rudolph, C., &amp; Qaqish, A. (2026). The impact of impression management on writing tendencies: Investigating faking susceptibility of open-ended personality assessments. <i>Journal of Applied Psychology</i>. 提前線上出版。https://doi.org/10.1037/apl0001397</p>
+          </div>
+        </div>
+      </div>
+      <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示；標為提前線上出版者，卷期與頁碼尚未確定。教科書見封面。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.53／53</span></div>
+    </section>
+
+
+
+
+
+
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const stage = document.getElementById('stage');
+  const viewport = document.getElementById('viewport');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    viewport.scrollTop = 0;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let downX = 0, downY = 0;
+  stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('a, iframe')) return;
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString().length > 0) return;
+    const r = stage.getBoundingClientRect();
+    (e.clientX - r.left) / r.width < 0.3 ? show(i - 1) : show(i + 1);
+  });
+  function fit() {
+    const flow = innerWidth < 980 || (innerWidth / innerHeight) < 1.3;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = 'none'; return; }
+    const s = Math.min(innerWidth / 1330, innerHeight / 770);
+    stage.style.transform = 'scale(' + Math.min(s, 1.4) + ')';
+  }
+  addEventListener('resize', fit);
+  fit();
+  show(0);
+</script>
+
+<script>
+/* 卡片標題水平對齊：同一列的 h3 起始位置一致，整組內容仍維持垂直置中 */
+(function () {
+  var SEL = '.grid2,.grid3,.grid4,.grid3r,.grid5,.grid6,.grid8';
+  function alignIn(scope) {
+    scope.querySelectorAll(SEL).forEach(function (g) {
+      var cells = Array.prototype.filter.call(g.children, function (c) {
+        return c.classList && c.classList.contains('cell');
+      });
+      if (cells.length < 2) return;
+      var blocks = [];
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        var h3 = c.querySelector(':scope > h3');
+        if (!h3) return;
+        var kids = Array.prototype.filter.call(c.children, function (el) {
+          return !el.classList.contains('corner');
+        });
+        var last = kids[kids.length - 1];
+        if (!last) return;
+        blocks.push({ c: c, h3: h3, last: last });
+      }
+      blocks.forEach(function (b) { b.h3.style.marginTop = '0px'; });
+      var data = blocks.map(function (b) {
+        var cr = b.c.getBoundingClientRect();
+        var sc = b.c.offsetWidth ? cr.width / b.c.offsetWidth : 1;
+        if (!(sc > 0.05)) sc = 1;
+        var top = b.h3.getBoundingClientRect().top;
+        var bot = b.last.getBoundingClientRect().bottom;
+        var padB = parseFloat(getComputedStyle(b.c).paddingBottom) || 0;
+        return { h3: b.h3, h: bot - top, avail: cr.bottom - padB * sc - top, sc: sc };
+      });
+      var bad = data.some(function (d) { return !(d.h > 0) || !(d.avail > 0); });
+      if (bad) { blocks.forEach(function (b) { b.h3.style.marginTop = ''; }); return; }
+      var maxH = Math.max.apply(null, data.map(function (d) { return d.h; }));
+      var minAvail = Math.min.apply(null, data.map(function (d) { return d.avail; }));
+      var off = Math.max(0, (minAvail - maxH) / 2);
+      data.forEach(function (d) { d.h3.style.marginTop = (off / d.sc).toFixed(1) + 'px'; });
+    });
+  }
+  function run() {
+    if (document.body.classList.contains('flow')) { alignIn(document); return; }
+    var a = document.querySelector('section.slide.active');
+    alignIn(a || document);
+  }
+  var t;
+  function later() { clearTimeout(t); t = setTimeout(run, 60); }
+  addEventListener('resize', later);
+  addEventListener('load', run);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  /* 同步在換頁的同一幀完成量測，避免看到文字位移 */
+  var mo = new MutationObserver(function (recs) {
+    for (var i = 0; i < recs.length; i++) {
+      var el = recs[i].target;
+      if (el.classList && el.classList.contains('active')) { alignIn(el); }
+    }
+  });
+  document.querySelectorAll('section.slide').forEach(function (s) {
+    mo.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+  run();
+  setTimeout(run, 300);
+})();
+</script>
+<script>
+/* 中文標籤斷行保護：短標籤在窄欄位換行時，避免最後一行只剩一個字 */
+(function () {
+  var SEL = 'h3,.zh,.lab,.k>span,th,.cap,.tl';
+  var CJK = /^[\u3000-\u303F\u4E00-\u9FFF\uFF00-\uFFEF（）·、，。／]+$/;
+  function fix(root) {
+    root.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.noOrphan) return;
+      if (el.children.length) return;
+      var t = (el.textContent || '').trim();
+      if (t.length < 3 || t.length > 14) return;
+      if (!CJK.test(t)) return;
+      el.dataset.noOrphan = '1';
+      el.textContent = t.slice(0, -2);
+      var s = document.createElement('span');
+      s.style.whiteSpace = 'nowrap';
+      s.textContent = t.slice(-2);
+      el.appendChild(s);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { fix(document); });
+  } else { fix(document); }
+})();
+</script>
+
+<script>
+/* ── 點圖放大（FIGZOOM v2）── */
+(function () {
+  var SEL = '.fig-body img, .fig-body svg, .figimg img, .mini-fig svg, .fig-wrap img, .fig-wrap svg';
+  var ov = null;
+
+  function close() {
+    if (!ov || ov.__closing) return;
+    var el = ov;
+    el.__closing = true;
+    el.classList.add('closing');
+    try { if (document.fullscreenElement || document.webkitFullscreenElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
+    } } catch (e) {}
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (ov === el) ov = null;
+    }, 160);
+  }
+
+
+  /* 放大時把 viewBox 收到實際內容，去掉圖檔本身的空白邊 */
+  function tighten(svg) {
+    try {
+      var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+      if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+      var total = vb[2] * vb[3];
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, n = 0;
+      Array.prototype.forEach.call(svg.children, function (el) {
+        var b; try { b = el.getBBox(); } catch (e) { return; }
+        if (!b || b.width <= 0 || b.height <= 0) return;
+        if (b.width * b.height >= total * 0.97) return;   /* 跳過整張底色 */
+        if (b.x < minX) minX = b.x;
+        if (b.y < minY) minY = b.y;
+        if (b.x + b.width > maxX) maxX = b.x + b.width;
+        if (b.y + b.height > maxY) maxY = b.y + b.height;
+        n++;
+      });
+      if (!n || !isFinite(minX)) return;
+      var w = maxX - minX, h = maxY - minY;
+      if (w <= 0 || h <= 0) return;
+      var m = Math.max(w, h) * 0.02;
+      svg.setAttribute('viewBox', (minX - m) + ' ' + (minY - m) + ' ' + (w + 2 * m) + ' ' + (h + 2 * m));
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    } catch (e) {}
+  }
+
+  function open(el) {
+    if (ov) return;
+    ov = document.createElement('div');
+    ov.className = 'figzoom';
+    var c = el.cloneNode(true);
+    c.removeAttribute('style');
+    c.removeAttribute('class');
+    ov.appendChild(c);
+    var tip = document.createElement('span');
+    tip.className = 'figzoom-tip';
+    tip.textContent = '點一下或按 ESC 關閉';
+    ov.appendChild(tip);
+    document.body.appendChild(ov);
+    if (c.tagName && c.tagName.toLowerCase() === 'svg') tighten(c);
+    ov.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    try {
+      var fn = ov.requestFullscreen || ov.webkitRequestFullscreen;
+      if (fn) { var p = fn.call(ov); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    if (ov) { e.stopPropagation(); e.preventDefault(); close(); return; }
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var fig = t.closest(SEL);
+    if (!fig) return;
+    e.stopPropagation(); e.preventDefault();
+    open(fig);
+  }, true);
+
+  document.addEventListener('keydown', function (e) {
+    if (!ov) return;
+    e.stopPropagation();
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+  }, true);
+
+  document.addEventListener('fullscreenchange', function () {
+    if (ov && !document.fullscreenElement) close();
+  });
+})();
+</script>
+
+<script>
+/* PDFBTN v1：列印成 PDF。列印前先解除窄螢幕的流式模式，列印後還原 */
+(function () {
+  if (document.querySelector('.pdfbtn')) return;
+  var flowWas = false;
+  function before() { flowWas = document.body.classList.contains('flow'); document.body.classList.remove('flow'); }
+  function after() { if (flowWas) document.body.classList.add('flow'); }
+  window.addEventListener('beforeprint', before);
+  window.addEventListener('afterprint', after);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'pdfbtn';
+  b.innerHTML = '<span class="ar">\u2193</span><span>PDF</span>';
+  b.title = '下載為 PDF：在列印視窗把目的地選成另存為 PDF';
+  b.setAttribute('aria-label', '下載為 PDF');
+  b.addEventListener('click', function (e) { e.stopPropagation(); before(); window.print(); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'p') before();
+  });
+  document.body.appendChild(b);
+
+  /* 位置：優先放進舞台上方的留白帶，其次右側留白帶；兩邊都不夠時貼回右上角，
+     並把頁首的右內距讓出按鈕的寬度，避免蓋住 REV 與圖說。 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    /* 媒體查詢把按鈕藏起來時不需要讓位，否則頁首會被推到換行 */
+    if (!b.offsetWidth) { document.body.classList.remove('pdfbtn-inset'); return; }
+    var bw = b.offsetWidth || 70, bh = b.offsetHeight || 30, gap = 10;
+    /* 流式模式沒有縮放，舞台寬度不是 1280，不能拿來推算比例 */
+    var scale = document.body.classList.contains('flow') ? 1 : (r.width / 1280 || 1);
+    b.style.left = 'auto';
+    if (r.top >= bh + gap * 2) {
+      b.style.top = Math.round(r.top - bh - gap) + 'px';
+      b.style.right = Math.round(Math.max(0, innerWidth - r.right)) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else if (innerWidth - r.right >= bw + gap * 2) {
+      b.style.top = Math.round(r.top + gap) + 'px';
+      b.style.right = Math.round((innerWidth - r.right - bw) / 2) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else {
+      b.style.top = '14px'; b.style.right = '14px';
+      var over = Math.max(0, r.right - (innerWidth - 14 - bw)) + gap;
+      document.documentElement.style.setProperty('--pdfbtn-inset', Math.min(140, Math.round(over / scale)) + 'px');
+      document.body.classList.add('pdfbtn-inset');
+    }
+  }
+  /* 只在第一頁顯示。沒有舞台結構的流式頁面（互動版）一律顯示。 */
+  var firstSlide = document.querySelector('#stage .slide');
+  function onFirst() { return !firstSlide || firstSlide.classList.contains('active'); }
+  function sync() {
+    if (onFirst()) { b.style.display = ''; place(); }
+    else { b.style.display = 'none'; }
+  }
+  if (firstSlide) new MutationObserver(sync).observe(firstSlide, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 60); setTimeout(sync, 400);
+  var _before = before;
+  before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
+  window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+</body>
+</html>

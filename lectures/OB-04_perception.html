@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／CH 6 知覺與個人決策</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>
+  function imgErr(el) {
+    if (!el.dataset.tried && el.dataset.cdn) { el.dataset.tried = 1; el.src = el.dataset.cdn; }
+    else { el.outerHTML = '<div class="img-fallback">FIG NOT LOADED<br>圖片未能載入</div>'; }
+  }
+</script>
+<style>
+  :root {
+    --paper: #F4F4F0;
+    --ink: #0A0A0A;
+    --red: #E61919;
+    --gray: #666666;
+    --sans: 'Noto Sans TC', sans-serif;
+    --disp: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: var(--paper); font-family: var(--sans); color: var(--ink); overflow: hidden; }
+
+  #viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: var(--paper); border: 3px solid var(--ink);
+    overflow: hidden; transform-origin: center center;
+  }
+
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; }
+  .slide.active { display: flex; animation: snap 120ms linear; }
+  @keyframes snap { from { transform: translateX(14px); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 44px; border-bottom: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .meta-row .m { color: var(--ink); }
+  .meta-row .m.g { color: var(--gray); }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 40px; border-top: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .footer-row .pagenum { color: var(--ink); font-weight: 700; }
+  .main { flex: 1; min-height: 0; display: grid; }
+
+  /* 封面 */
+  .cover-main { grid-template-columns: 2.2fr 1fr; background: var(--ink); gap: 1px; }
+  .cover-left { background: var(--paper); padding: 40px 48px 32px; display: flex; flex-direction: column; position: relative; }
+  .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4em; line-height: 1.05; letter-spacing: 0.01em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.55em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
+  .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
+  .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
+  .cover-right { background: var(--ink); display: grid; grid-template-rows: repeat(4, 1fr); gap: 1px; }
+  .data-cell { background: var(--paper); padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .data-cell .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .data-cell .val { font-weight: 700; font-size: 16px; line-height: 1.45; }
+
+  /* 標題列 */
+  .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: 0.01em; line-height: 1.15; }
+  .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .title-row .note {
+    border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    max-width: 300px; line-height: 1.7;
+  }
+  .def-band { padding: 13px 28px; border-bottom: 1px solid var(--ink); font-size: 17px; font-weight: 700; line-height: 1.65; }
+
+  /* 格線 */
+  .grid2, .grid3, .grid4 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .grid3 { grid-template-columns: repeat(3, 1fr); }
+  .grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
+  .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cell h3 { font-weight: 900; font-size: 1.55em; letter-spacing: 0.01em; }
+  .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
+  .cell p { font-size: 16.5px; line-height: 1.7; }
+  .cell ul, .cell ol { margin-left: 1.15em; }
+  .cell li { font-size: 16px; line-height: 1.68; margin-bottom: 7px; }
+  .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
+  .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
+  .cell .quote { font-size: 13.5px; color: var(--gray); }
+  .keyline { border-top: 2px solid var(--ink); padding: 13px 28px; font-size: 15px; font-weight: 700; text-align: center; }
+  .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
+
+  /* 提問頁 */
+  .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
+  .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
+  .q-text { font-weight: 900; font-size: 2.9em; line-height: 1.35; letter-spacing: 0.01em; max-width: 1040px; }
+  .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
+  .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
+  .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
+
+  /* 定義列 */
+  .axis-list { background: var(--paper); display: flex; flex-direction: column; min-height: 0; flex: 1; }
+  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: 0; }
+  .axis-row:last-child { border-bottom: none; }
+  .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.28em; }
+  .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .axis-row .v { padding: 13px 24px; font-size: 16.5px; line-height: 1.7; display: flex; align-items: center; }
+
+  /* 圖片頁 */
+  .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
+  .fig-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 22px; border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .fig-head a { color: var(--ink); }
+  .fig-body { flex: 1; min-height: 0; padding: 18px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .fig-body img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .fig-body .ch { position: absolute; font-family: var(--mono); font-size: 13px; }
+  .ch.tl { left: 10px; top: 6px; } .ch.tr { right: 10px; top: 6px; }
+  .ch.bl { left: 10px; bottom: 6px; } .ch.br { right: 10px; bottom: 6px; }
+  .cite {
+    border-top: 1px solid var(--ink); padding: 10px 22px;
+    font-size: 12.5px; color: var(--gray); line-height: 1.6;
+  }
+  .cite i { font-style: italic; }
+
+  /* 量表頁 */
+  .scale-instr { padding: 12px 28px; border-bottom: 1px solid var(--ink); font-size: 13px; line-height: 1.6; }
+  .scale-instr .anchors { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--gray); display: block; margin-top: 4px; }
+  .scale-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); gap: 1px; }
+  .scale-col { background: var(--paper); padding: 18px 30px; }
+  .scale-col ol { margin-left: 1.4em; }
+  .scale-col li { font-size: 13.5px; line-height: 1.75; margin-bottom: 7px; }
+  .scale-col .rv { font-family: var(--mono); font-size: 10px; color: var(--red); }
+
+  .img-fallback {
+    width: 100%; height: 100%; min-height: 180px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--gray); line-height: 2; text-transform: uppercase;
+    background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(10,10,10,0.05) 14px 15px);
+    padding: 20px;
+  }
+
+  /* 窄視窗流式模式 */
+  body.flow { overflow: auto; }
+  body.flow #viewport { position: static; display: block; height: 100vh; overflow-y: auto; }
+  body.flow #stage { width: auto; max-width: 860px; height: auto; min-height: 100vh; margin: 0 auto; transform: none !important; }
+  body.flow .slide.active { position: static; min-height: calc(100vh - 6px); animation: none; }
+  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+  body.flow .cover-main { grid-template-columns: 1fr; }
+  body.flow .cover-left { padding: 32px 30px 28px; }
+  body.flow .cover-code { font-size: 5.2em; }
+  body.flow .cover-title { font-size: 2.6em; }
+  body.flow .cover-en { font-size: 1.1em; }
+  body.flow .cover-agenda { margin-top: 28px; }
+  body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
+  body.flow .title-row { grid-template-columns: 120px 1fr; }
+  body.flow .title-row .note { display: none; }
+  body.flow .title-row .idx { font-size: 2.2em; }
+  body.flow .title-row .t h2 { font-size: 1.5em; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4 { grid-template-columns: 1fr; grid-template-rows: none; }
+  body.flow .cell { padding: 22px 26px; overflow: visible; }
+  body.flow .axis-row { grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink); }
+  body.flow .fig-body { min-height: 240px; }
+  body.flow .fig-body img { max-height: 70vh; }
+  body.flow .scale-cols { grid-template-columns: 1fr; }
+  body.flow .quote-main { padding: 60px 30px; }
+  body.flow .q-text { font-size: 1.9em; }
+
+.fig-body svg{width:100%;height:100%;display:block}
+body.flow .fig-body svg{height:auto;max-height:520px}
+  /* ── 課堂影片頁 ── */
+  .vid-main { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 1fr; background: var(--ink); gap: 1px; }
+  .vidcell { background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 26px 30px; gap: 13px; }
+  .vidcell a.vlink { position: relative; display: block; width: 100%; max-width: 560px; }
+  .vidcell a.vlink img { width: 100%; display: block; border: 1px solid var(--ink); filter: grayscale(28%); }
+  .vidcell .vplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 0; height: 0; border-left: 34px solid var(--red); border-top: 21px solid transparent; border-bottom: 21px solid transparent; }
+  .vidcell .vtag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .vid-obs { display: grid; grid-template-rows: 1fr 1fr 1fr; background: var(--ink); gap: 1px; min-height: 0; }
+  .vid-obs .cell { padding: 16px 22px; }
+  .vid-obs .cell p { font-size: 14px; line-height: 1.62; }
+  body.flow .vid-main { grid-template-columns: 1fr; }
+  body.flow .vid-obs { grid-template-rows: none; }
+
+    /* ── RF：章末參考文獻（2026-09） ── */
+    .rf-page .rf { flex: 1; display: flex; flex-direction: column; padding: 13px 28px 8px; min-height: 0; overflow: hidden; }
+    .rf-cols { flex: 1; min-height: 0; }
+    .rf-cols.c2 { column-count: 2; column-gap: 30px; }
+    .rf-grp { break-inside: avoid-column; margin-bottom: 11px; }
+    .rf-grp:last-child { margin-bottom: 0; }
+    .rf-grp h3 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #B03028; margin: 0 0 6px; font-weight: 700; }
+    .rf-grp p { font-size: 11.6px; line-height: 1.52; margin: 0 0 6px; text-indent: -1.45em; padding-left: 1.45em;
+      color: #46443F; break-inside: avoid; }
+    .rf-cols.c1 .rf-grp p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp { margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp h3 { margin-bottom: 4px; }
+    .rf-cols.dense .rf-grp p { font-size: 10.9px; line-height: 1.46; margin-bottom: 4px; }
+    .rf-cols.airy { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .rf-cols.airy .rf-grp { margin-bottom: 18px; }
+    .rf-cols.airy .rf-grp h3 { margin-bottom: 9px; }
+    .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
+    .rf-grp p i { font-style: italic; }
+    .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
+    .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
+</style>
+<style>
+  /* ── Topic 4 追加樣式 ── */
+  .grid3r { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--ink); gap: 1px; }
+  .grid3r .cell h3 { margin-top: auto; }
+  .grid3r .cell > *:last-child { margin-bottom: auto; }
+  body.flow .grid3r { grid-template-columns: 1fr; }
+  .dlg { font-size: 15px; line-height: 1.75; }
+  .dlg b { font-weight: 900; }
+  .link-page { flex: 1; min-height: 0; display: grid; place-items: center; padding: 40px; }
+  .link-card2 {
+    border: 2px solid var(--ink); background: var(--paper);
+    padding: 36px 44px; max-width: 720px; width: 100%;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .link-card2 .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .link-card2 h3 { font-weight: 900; font-size: 1.5em; }
+  .link-card2 a { font-family: var(--mono); font-size: 13.5px; color: var(--ink); word-break: break-all; line-height: 1.7; }
+</style>
+<style>
+  /* 內容垂直置中：留白均分於上下 */
+  .grid2 .cell h3, .grid3 .cell h3, .grid4 .cell h3, .grid3r .cell h3, .grid5 .cell h3, .grid6 .cell h3, .grid8 .cell h3 { margin-top: auto; }
+  .grid2 .cell > *:last-child, .grid3 .cell > *:last-child, .grid4 .cell > *:last-child, .grid3r .cell > *:last-child, .grid5 .cell > *:last-child, .grid6 .cell > *:last-child, .grid8 .cell > *:last-child { margin-bottom: auto; }
+  /* 窄版面：固定高度的圖框改為自然高度 */
+  body.flow .fig-wrap { height: auto !important; flex: none !important; }
+  body.flow .fig-body { overflow: visible; }
+  body.flow .fig-body img { width: 100%; height: auto; max-height: none; }
+</style>
+
+<style>
+:root, body { --ink: #232320; }
+.cell h3, .grid2 h3, .grid3 h3, .grid4 h3, .grid3r h3, .grid5 h3, .grid6 h3, .grid8 h3 { font-weight: 700 !important; }
+.cell .tag, .meta-row .m, .footer-row span, .pagenum { color: #8A8A82 !important; letter-spacing: .08em !important; }
+.cell .tag { font-size: 11px !important; }
+.title-row .t h2 { font-weight: 800; }
+.title-row .note { color: #8A8A82; }
+.corner { color: #B9B9B0 !important; }
+
+  .src { border-top: 1px solid var(--ink); padding: 9px 28px; font-size: 11.5px; color: #8A8A82; line-height: 1.62; }
+  .src i { font-style: italic; }
+  .mini-fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .mini-fig svg { width: 100%; height: 100%; display: block; }
+  body.flow .mini-fig svg { height: auto; max-height: 420px; }
+</style>
+
+<style>
+/* ── 點圖放大（FIGZOOM v2）── */
+.fig-body img, .fig-body svg, .figimg img, .mini-fig svg,
+.fig-wrap img, .fig-wrap svg { cursor: zoom-in; }
+.figzoom { position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,.94);
+  display: flex; align-items: center; justify-content: center; padding: 1vmin; cursor: zoom-out; }
+.figzoom > img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom > svg { width: 100%; height: 100%; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom-tip { position: fixed; left: 50%; bottom: 2.2vmin; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  color: #F4F4F0; opacity: .7; pointer-events: none; }
+.figzoom { animation: fz-fade 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom > img, .figzoom > svg { animation: fz-rise 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes fz-fade { from { opacity: 0; } }
+@keyframes fz-rise { from { opacity: 0; transform: scale(0.97); } }
+.figzoom.closing { opacity: 0; transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom.closing > img, .figzoom.closing > svg { opacity: 0; transform: scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.fig-head button { transition: transform 100ms ease-out; }
+.fig-head button:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .figzoom > img, .figzoom > svg { animation: fz-fade 200ms ease; }
+  .figzoom.closing > img, .figzoom.closing > svg { transform: none; }
+}
+
+  /* ── PDFBTN v3：只在第一頁顯示，位置依舞台留白帶決定，不覆蓋頁首 ── */
+  body.pdfbtn-inset .meta-row > :last-child,
+  body.pdfbtn-inset .fig-head > :last-child,
+  body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
+  /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media print { body.pdfbtn-inset .meta-row > :last-child,
+    body.pdfbtn-inset .fig-head > :last-child,
+    body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
+  /* ── PDFBTN v1：右上角下載 PDF ── */
+  .pdfbtn { position: fixed; z-index: 9998; top: 14px; right: 14px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn .ar { font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- P.01 封面 -->
+    <section class="slide active">
+      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.09</span></div>
+      <div class="main cover-main">
+        <div class="cover-left">
+          <span class="crosshair">+</span>
+          <span class="kicker">CH／6 ── PERCEPTION ＆ DECISION MAKING</span>
+          <div class="cover-code">06</div>
+          <h1 class="cover-title">知覺與個人決策</h1>
+          <div class="cover-en">Perception and Individual Decision Making</div>
+          <div class="cover-agenda">
+            <span class="lbl">[ AGENDA ]</span>
+            <div class="items">知覺與其影響因素 ── 歸因理論 ── 知覺捷徑與偏誤 ── 決策模式 ── 決策偏差 ── 個人差異與組織限制 ── 道德決策 ── 創造力與創新</div>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="data-cell"><span class="lbl">INSTRUCTOR</span><span class="val">王豫萱</span></div>
+          <div class="data-cell"><span class="lbl">INSTITUTE</span><span class="val">國立中山大學<br>人力資源管理研究所</span></div>
+          <div class="data-cell"><span class="lbl">TEXTBOOK</span><span class="val" style="font-size: 12.5px; font-weight: 500; line-height: 1.55;">Robbins, S. P., &amp; Judge, T. A. (2024). Organizational behavior (19th ed., Global ed.). Pearson.</span></div>
+          <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／46</span></div>
+    </section>
+
+    <!-- P.02 開場情境 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 0 ── WARM-UP</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="badge-red">SCENARIO</span>
+        <div class="q-text">有一個員工，上班的時候一直低頭看自己的手機，沒有看電腦螢幕……</div>
+        <span class="q-label">WHAT DO YOU SEE? ── WHAT DO YOU INFER?</span>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／46</span></div>
+    </section>
+
+    <!-- P.03 何謂知覺 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 1 ── PERCEPTION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>何謂知覺（perception）</h2><span class="en">WHAT IS PERCEPTION?</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>知覺是人們將感官印象組織、解讀並賦予意義的過程。同一個對象，不同人可以有截然不同的知覺；行為依據的是知覺到的世界，不是客觀事實。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPORTANCE ]</span><h3>重要性</h3><p>人們根據對事實的知覺，而非事實本身來決定行為。管理上重要的不是客觀現實，而是員工如何知覺薪資、主管與制度。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／FACTORS ]</span><h3>影響因素</h3><p>知覺受知覺者、目標物和情境因素影響。三類因素在知覺形成的瞬間交互作用，任何一環改變，看見的樣貌就會不同。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／46</span></div>
+    </section>
+
+    <!-- P.04 影響知覺的因素 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 1 ── PERCEPTION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">04</div>
+        <div class="t"><h2>影響知覺的因素</h2><span class="en">FACTORS THAT INFLUENCE PERCEPTION</span></div>
+        <div class="note">[ 3 SOURCES ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／PERCEIVER ]</span><h3>知覺者</h3><p>個人特質如態度、人格、動機、興趣、過往經驗和期望影響知覺。期望尤其強大：預期對方偷懶，便容易把中性行為解讀為怠惰。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／TARGET ]</span><h3>目標物</h3><p>目標物通常不是單獨存在的，目標物與背景的關係影響知覺，人們常將距離相近或類似的事物歸為同類。新奇、移動、聲音、大小等屬性，決定了目標物被注意到的機率。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／CONTEXT ]</span><h3>情境</h3><p>出現的時間點、地點、光線、溫度等情境因素影響知覺。同一個人出現在夜店與教室，引發的知覺截然不同——情境改變了解讀。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／46</span></div>
+    </section>
+
+    <!-- P.05 金句 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 1 ── PERCEPTION</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="q-label">[ KEY IDEA ]</span>
+        <div class="q-text">我們只聽到自己想聽、看到自己<span class="ul-red">想看</span>的事物，並非根據事實，只因為那符合我們的想法。</div>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／46</span></div>
+    </section>
+
+    <!-- P.06 知覺因素圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 1 ── PERCEPTION</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／P-01 影響知覺的因素</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 700" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="700" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="27.9" font-weight="900" fill="#0A0A0A">影響知覺的因素</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.2" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">FACTORS THAT INFLUENCE PERCEPTION</text>
+<rect x="400" y="100" width="260" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="400" y="100" width="6" height="40" fill="#0A0A0A"/>
+<text x="414" y="126.0" font-size="18.6" font-weight="700" fill="#232320">知覺者的因素</text>
+<text x="646" y="125.0" text-anchor="end" font-size="13.2" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">PERCEIVER</text>
+<rect x="400" y="140" width="260" height="150" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="420" y="159" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="168" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">態度、動機</text>
+<rect x="420" y="187" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="196" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">興趣、經驗</text>
+<rect x="420" y="215" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="224" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">期望</text>
+<rect x="60" y="260" width="240" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="260" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="286.0" font-size="18.6" font-weight="700" fill="#232320">情境因素</text>
+<text x="286" y="285.0" text-anchor="end" font-size="13.2" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">SITUATION</text>
+<rect x="60" y="300" width="240" height="118" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="80" y="319" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="328" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">時間</text>
+<rect x="80" y="347" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="356" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">工作場合</text>
+<rect x="80" y="375" width="7" height="7" fill="#0A0A0A"/>
+<text x="96" y="384" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">社交場所</text>
+<rect x="400" y="470" width="260" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="400" y="470" width="6" height="40" fill="#0A0A0A"/>
+<text x="414" y="496.0" font-size="18.6" font-weight="700" fill="#232320">目標物的因素</text>
+<text x="646" y="495.0" text-anchor="end" font-size="13.2" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">TARGET</text>
+<rect x="400" y="510" width="260" height="150" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<rect x="420" y="529" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="538" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">新奇、動作、聲音</text>
+<rect x="420" y="557" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="566" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">尺寸大小、背景</text>
+<rect x="420" y="585" width="7" height="7" fill="#0A0A0A"/>
+<text x="436" y="594" text-anchor="start" font-size="16.9" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">接近程度、相似程度</text>
+<rect x="760" y="330" width="180" height="70" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="850" y="372" text-anchor="middle" font-size="23.3" font-weight="900" fill="#F4F4F0" font-family="Noto Sans TC, PingFang TC, sans-serif">知覺</text>
+<line x1="530" y1="290" x2="530" y2="310" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="530" y1="310" x2="850" y2="310" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="850" y1="310" x2="850" y2="320" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M850 330 l-6 -11 h12 z" fill="#0A0A0A"/>
+<line x1="300" y1="360" x2="754" y2="360" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M760 360 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="530" y1="470" x2="530" y2="420" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="530" y1="420" x2="850" y2="420" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="850" y1="420" x2="850" y2="410" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M850 400 l-6 11 h12 z" fill="#0A0A0A"/></svg>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／46</span></div>
+    </section>
+
+    <!-- P.07 歸因理論 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 2 ── ATTRIBUTION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">07</div>
+        <div class="t"><h2>歸因理論</h2><span class="en">ATTRIBUTION THEORY</span></div>
+        <div class="note">[ INTERNAL vs. EXTERNAL ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>歸因理論解釋我們如何判斷他人行為，是由內在或外在因素引起。對行為原因的判斷，決定了後續的獎懲與互動方式。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／INTERNAL ]</span><h3>內在因素</h3><p>可由個人掌控的行為原因，例如能力不足、不夠努力或個性使然；內歸因常伴隨究責。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／EXTERNAL ]</span><h3>外在因素</h3><p>迫於外部環境而產生的行為原因，例如塞車、制度限制或運氣不佳；外歸因傾向寬容以對。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／46</span></div>
+    </section>
+
+    <!-- P.08 歸因理論的要素 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 2 ── ATTRIBUTION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">08</div>
+        <div class="t"><h2>歸因理論的要素</h2><span class="en">DISTINCTIVENESS ── CONSENSUS ── CONSISTENCY</span></div>
+        <div class="note">[ 3 ELEMENTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell">
+          <span class="tag">[ 01／DISTINCTIVENESS ]</span>
+          <h3>特殊性</h3>
+          <p>指個人行為在不同情境下是否有所不同。如果一個人在特定情境中有特殊表現，表示該情境具高特殊性。</p>
+          <p class="quote">如果小明上早上九點的 OB 課和 HRM 課都會遲到，行為一致，特殊性低；只在 OB 課遲到而不在 HRM 課遲到，特殊性高。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／CONSENSUS ]</span>
+          <h3>共同性</h3>
+          <p>指其他人在相同情境下，是否也有相同行為。如果大多數人都一樣，則共同性高，反之則低。</p>
+          <p class="quote">如果小明和小花都在早上九點的 OB 課遲到，共同性高；只有小明遲到，其他人準時，共同性低。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／CONSISTENCY ]</span>
+          <h3>一致性</h3>
+          <p>指個人在不同時間下遇到相同情境時，行為是否相同。行為在多個時間點都一致，表示一致性高。</p>
+          <p class="quote">如果小明不論 OB 課是早上九點或下午兩點都遲到，一致性高；只在早上九點遲到，一致性低。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／46</span></div>
+    </section>
+
+    <!-- P.09 歸因模式圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 2 ── ATTRIBUTION</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／A-01 歸因理論模式</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 700" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="700" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="27.0" font-weight="900" fill="#0A0A0A">歸因理論</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.2" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">ATTRIBUTION THEORY ── KELLEY</text>
+<text x="430" y="118" text-anchor="middle" font-size="16.9" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">觀察</text>
+<text x="620" y="118" text-anchor="middle" font-size="16.9" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">解釋</text>
+<text x="860" y="118" text-anchor="middle" font-size="16.9" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">歸因</text>
+<line x1="470" y1="113" x2="566" y2="113" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M570 113 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="660" y1="113" x2="806" y2="113" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M810 113 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="60" y="350" width="150" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="135" y="383" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">個人行為</text>
+<line x1="240" y1="200" x2="240" y2="580" stroke="#0A0A0A" stroke-width="2.5"/>
+<line x1="210" y1="378" x2="240" y2="378" stroke="#0A0A0A" stroke-width="2.5"/>
+<rect x="300" y="172" width="140" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="370" y="205" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">特殊性</text>
+<line x1="240" y1="200" x2="294" y2="200" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M298 200 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="440" y1="200" x2="480" y2="200" stroke="#0A0A0A" stroke-width="2"/>
+<line x1="480" y1="168" x2="480" y2="232" stroke="#0A0A0A" stroke-width="2"/>
+<text x="492" y="160" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">高</text>
+<line x1="480" y1="168" x2="556" y2="168" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 168 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="146" width="110" height="44" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.8"/>
+<text x="617" y="174" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">外在</text>
+
+
+<text x="492" y="248" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">低</text>
+<line x1="480" y1="232" x2="556" y2="232" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 232 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="210" width="110" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="562" y="210" width="6" height="44" fill="#E61919"/>
+<text x="617" y="238" text-anchor="middle" font-size="17.4" font-weight="700" fill="#232320" font-family="Noto Sans TC, PingFang TC, sans-serif">內在</text>
+<rect x="300" y="362" width="140" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="370" y="395" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">共同性</text>
+<line x1="240" y1="390" x2="294" y2="390" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M298 390 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="440" y1="390" x2="480" y2="390" stroke="#0A0A0A" stroke-width="2"/>
+<line x1="480" y1="358" x2="480" y2="422" stroke="#0A0A0A" stroke-width="2"/>
+<text x="492" y="350" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">高</text>
+<line x1="480" y1="358" x2="556" y2="358" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 358 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="336" width="110" height="44" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.8"/>
+<text x="617" y="364" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">外在</text>
+
+
+<text x="492" y="438" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">低</text>
+<line x1="480" y1="422" x2="556" y2="422" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 422 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="400" width="110" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="562" y="400" width="6" height="44" fill="#E61919"/>
+<text x="617" y="428" text-anchor="middle" font-size="17.4" font-weight="700" fill="#232320" font-family="Noto Sans TC, PingFang TC, sans-serif">內在</text>
+<rect x="300" y="552" width="140" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="370" y="585" text-anchor="middle" font-size="18.0" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">一致性</text>
+<line x1="240" y1="580" x2="294" y2="580" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M298 580 l-11 -6 v12 z" fill="#0A0A0A"/>
+<line x1="440" y1="580" x2="480" y2="580" stroke="#0A0A0A" stroke-width="2"/>
+<line x1="480" y1="548" x2="480" y2="612" stroke="#0A0A0A" stroke-width="2"/>
+<text x="492" y="540" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">高</text>
+<line x1="480" y1="548" x2="556" y2="548" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 548 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="526" width="110" height="44" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="562" y="526" width="6" height="44" fill="#E61919"/>
+<text x="617" y="554" text-anchor="middle" font-size="17.4" font-weight="700" fill="#232320" font-family="Noto Sans TC, PingFang TC, sans-serif">內在</text>
+
+
+<text x="492" y="628" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">低</text>
+<line x1="480" y1="612" x2="556" y2="612" stroke="#0A0A0A" stroke-width="2"/>
+<path d="M560 612 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="562" y="590" width="110" height="44" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.8"/>
+<text x="617" y="618" text-anchor="middle" font-size="17.4" font-weight="900" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">外在</text>
+<text x="770" y="240" text-anchor="start" font-size="15.2" font-weight="700" fill="#E61919" font-family="Noto Sans TC, PingFang TC, sans-serif">內在歸因＝個人因素所致</text>
+<text x="770" y="266" text-anchor="start" font-size="15.2" font-weight="700" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">外在歸因＝情境因素所致</text>
+<text x="770" y="330" text-anchor="start" font-size="14.1" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">特殊性：不同情境是否有不同行為</text>
+<text x="770" y="354" text-anchor="start" font-size="14.1" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">共同性：他人是否有相同反應</text>
+<text x="770" y="378" text-anchor="start" font-size="14.1" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">一致性：長期是否一再出現</text></svg>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／46</span></div>
+    </section>
+
+    <!-- 課堂影片：第一印象的反差（倒敘開場） -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">10</div>
+        <div class="t"><h2>影片：舞台上的第一印象反差</h2><span class="en">FIRST IMPRESSIONS ON STAGE</span></div>
+        <div class="note">[ VIDEO ]<br>AGT AUDITION</div>
+      </div>
+      <div class="vid-main">
+        <div class="vidcell">
+          <a class="vlink" href="https://www.youtube.com/watch?v=TKgAas-84D0" target="_blank" rel="noopener"><img src="data:image/jpeg;base64,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" alt="AGT 試鏡影片預覽"><span class="vplay"></span></a>
+          <span class="vtag">PLAY ON YOUTUBE ↗ ── 16-YEAR-OLD NENE ROYAL SINGS ZOMBIE</span>
+        </div>
+        <div class="vid-obs">
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 01／BEFORE ]</span><h3>開唱前的線索</h3><p>年齡、怯場的談吐與肢體。記下此刻對表演水準的預期，以及這個預期建立在哪些線索上。</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 02／AFTER ]</span><h3>轉折之後</h3><p>評審與觀眾的驚訝反應本身就是證據：驚訝表示先前已形成預期，而且預期明顯偏低。接下來各頁介紹的偏誤，都能在這兩分鐘裡找到對應。</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 03／QUESTION ]</span><h3>看完各偏誤再回答</h3><p>剛才的預期用了哪些偏誤？預期被推翻，靠的又是什麼條件？各偏誤介紹完之後，第一印象的統合分析會回到這兩個問題。</p></div>
+        </div>
+      </div>
+      <div class="src">America's Got Talent. (2025). 16-year-old Nene Royal is shy... until she starts singing "Zombie" [影片]. YouTube. https://www.youtube.com/watch?v=TKgAas-84D0</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／46</span></div>
+    </section>
+
+    <!-- P.10 基本歸因誤差 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">11</div>
+        <div class="t"><h2>基本歸因誤差</h2><span class="en">FUNDAMENTAL ATTRIBUTION ERROR</span></div>
+        <div class="note">[ BIAS／01 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>判斷他人行為時，低估外在因素、高估內在因素的傾向。評價他人時，性格解釋往往壓過情境解釋，即使情境證據明顯。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／EXAMPLE ]</span><h3>例子</h3><p>業務主管常把業績衰退歸咎於業務員的怠惰，較少歸因於競爭者的創新產品或市場景氣等外部因素。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／IMPACT ]</span><h3>影響</h3><p>可能導致對他人行為的錯誤判斷。對部屬的錯誤內歸因會侵蝕信任，也讓真正的制度問題被忽略。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／46</span></div>
+    </section>
+
+    <!-- P.11 自利性偏差 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">12</div>
+        <div class="t"><h2>自利性偏差</h2><span class="en">SELF-SERVING BIAS</span></div>
+        <div class="note">[ BIAS／02 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>將模糊含混的訊息往正面方向解讀，接受正面回饋，否認負面回饋。成功歸功自己、失敗歸咎外界，是自利性偏差的典型樣貌。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPACT ]</span><h3>影響</h3><p>可能導致對自身行為和能力的錯誤評估。團隊成員彼此推責時，績效檢討容易流於形式。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理啟示</h3><p>管理者應意識到這種偏差，以更客觀地評估自己和他人。回饋面談時提供具體行為證據，可降低當事人防衛性的解讀。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／46</span></div>
+    </section>
+
+    <!-- P.12 選擇性知覺 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">13</div>
+        <div class="t"><h2>選擇性知覺</h2><span class="en">SELECTIVE PERCEPTION</span></div>
+        <div class="note">[ BIAS／03 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>人們傾向注意突出的特質，影響對人事物的知覺。我們看見的常是想看見的：突出、與己相關的訊息最容易被接收。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／REASON ]</span><h3>原因</h3><p>無法全面關注周遭事物，根據興趣、背景、經驗和態度選擇。注意力有限是天生限制，選擇性本身無可避免，問題在於未經檢核。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／IMPACT ]</span><h3>影響</h3><p>可能導致在模糊情境下形成不可靠的推斷。例如主管巡視時只注意到犯錯的部門，忽略一路穩定的團隊。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／46</span></div>
+    </section>
+
+    <!-- P.13 月暈效果 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">14</div>
+        <div class="t"><h2>月暈效果</h2><span class="en">HALO EFFECT</span></div>
+        <div class="note">[ BIAS／04 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>根據個人單一特質形成整體印象的傾向。單一亮點或污點像光暈一樣，渲染了其他所有面向的評價。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／EXAMPLE ]</span><h3>例子</h3><p>可能因聰明才智、社交能力或外型而對整體印象產生偏見。面試研究顯示，衣著與談吐等表面線索常左右整體評價。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理啟示</h3><p>管理者應謹慎，不要從小線索斷然推論。績效評估時分項逐一評分、再行彙總，可減少月暈效果。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／46</span></div>
+    </section>
+
+    <!-- P.14 對比效果 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">15</div>
+        <div class="t"><h2>對比效果</h2><span class="en">CONTRAST EFFECT</span></div>
+        <div class="note">[ BIAS／05 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>最近遇到的其他人會影響對眼前這個人的評價。評價從來不是在真空中進行：前一位表現的高低，改變了眼前這位的分數。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPACT ]</span><h3>影響</h3><p>可能導致對個人能力或表現的錯誤評估。面試順序效應是典型例子——排在傑出者之後的人容易被低估。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／CAUTION ]</span><h3>注意事項</h3><p>在評估他人時應考慮到這種效果，避免不公平比較。集中在同一時段評分、使用固定評分基準，可降低對比效果。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／46</span></div>
+    </section>
+
+    <!-- P.15 刻板印象 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 3 ── BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">16</div>
+        <div class="t"><h2>刻板印象</h2><span class="en">STEREOTYPING</span></div>
+        <div class="note">[ BIAS／06 ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>根據對某團體的知覺來判斷個人的傾向。以群體的平均印象取代對個人的認識，是認知上的省力捷徑。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPACT ]</span><h3>影響</h3><p>可能導致對個人能力或特質的錯誤假設。刻板印象威脅（stereotype threat）還會反過來影響被貼標籤者的實際表現。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理啟示</h3><p>管理者應意識到刻板印象的存在，努力客觀評估每個人。以具體行為與實績作為人事決策依據，是對抗刻板印象最實際的方式。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／46</span></div>
+    </section>
+
+    <!-- P.16 課堂活動 對話一至三 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">ACTIVITY／A-01</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx" style="font-size: 1.1em; letter-spacing: 0.1em; background: var(--red); color: var(--paper);">ACT</div>
+        <div class="t"><h2>認知偏誤判讀（一）</h2><span class="en">SPOT THE BIAS ── DIALOGUES 01-03</span></div>
+        <div class="note">[ 6 DIALOGUES ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話一</span><span class="ax">DIALOGUE／01</span></div>
+          <div class="v"><p class="dlg"><b>經理</b>：我發現小明最近工作效率很差，肯定是他不夠努力，總是心不在焉。<br><b>專案主管</b>：但我聽說小明最近生病了，而且他家裡也有一些急事。<br><b>經理</b>：哎，這只是藉口，他就是沒有工作動力。</p></div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話二</span><span class="ax">DIALOGUE／02</span></div>
+          <div class="v"><p class="dlg"><b>小花</b>：經理，我這次的報告做得很好，團隊的正面回應證明了我真的很有能力。<br><b>經理</b>：的確不錯，但你上次的表現沒有這麼好，為什麼呢？<br><b>小花</b>：上次是因為資料給我的時間太倉促了，還有一些資料不全，也不是我的問題。</p></div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話三</span><span class="ax">DIALOGUE／03</span></div>
+          <div class="v"><p class="dlg"><b>經理</b>：我覺得小李一定會在這次的工作中做得很棒，因為他從名校畢業，我對名校出身的人總是充滿信心。<br><b>專案主管</b>：可是，我們應該看實際表現，而不是單憑學歷做結論吧？</p></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／46</span></div>
+    </section>
+
+    <!-- P.17 課堂活動 對話四至六 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">ACTIVITY／A-01</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx" style="font-size: 1.1em; letter-spacing: 0.1em; background: var(--red); color: var(--paper);">ACT</div>
+        <div class="t"><h2>認知偏誤判讀（二）</h2><span class="en">SPOT THE BIAS ── DIALOGUES 04-06</span></div>
+        <div class="note">[ 6 DIALOGUES ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話四</span><span class="ax">DIALOGUE／04</span></div>
+          <div class="v"><p class="dlg"><b>專案主管</b>：今天我看到新來的員工小李工作效率特別高，簡直是個天才。<br><b>經理</b>：是啊，和小明比起來，他真是亮眼。小明總是動作很慢，效率太低了。</p></div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話五</span><span class="ax">DIALOGUE／05</span></div>
+          <div class="v"><p class="dlg"><b>經理</b>：小花真是我們的明星員工，自從她參加了這個專案，我發現她什麼事都做得很出色，我們應該提拔她。<br><b>專案主管</b>：可是她在其他專案中也有過一些問題，我們應該更仔細評估一下。<br><b>經理</b>：不用啦，她這麼能幹，這次肯定也沒問題。</p></div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">對話六</span><span class="ax">DIALOGUE／06</span></div>
+          <div class="v"><p class="dlg"><b>專案主管</b>：經理，關於小明的表現，我注意到他上週加班了好幾次來完成專案。<br><b>經理</b>：我沒收到他的加班單，我只記得他好幾次遲到了，這根本就是他不負責任的表現，所以才拖這麼晚。</p></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／46</span></div>
+    </section>
+
+    <!-- P.18 提問 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">Q／01</span><span class="m">REV 2026.09</span></div>
+      <div class="main"><div class="quote-main">
+        <span class="q-label">[ QUESTION／01 ]</span>
+        <div class="q-text">職場中是否有類似的情況？<br>要如何改變這種<span class="ul-red">認知上的偏誤</span>？</div>
+      </div></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／46</span></div>
+    </section>
+
+    <!-- P.19 人際知覺在組織中的應用 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 4 ── APPLICATIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">20</div>
+        <div class="t"><h2>人際知覺在組織中的應用</h2><span class="en">PERSON PERCEPTION IN ORGANIZATIONS</span></div>
+        <div class="note">[ 3 AREAS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／INTERVIEW ]</span><h3>甄選面談</h3><p>主試者常在面談開始 4 至 5 分鐘內就形成整體印象，可能影響最終決策。第一印象一旦形成，後續資訊常被用來確認而非修正它。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／EXPECTATION ]</span><h3>績效期望</h3><p>自我實現預言（self-fulfilling prophecy，又稱比馬龍效應 Pygmalion effect）顯示個人行為會受到他人期望影響。主管期望高，部屬表現往往真的更好——期望透過日常互動自我實現。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／APPRAISAL ]</span><h3>績效評估</h3><p>主觀評估可能受到各種偏差影響，如選擇性知覺、對比效果、月暈效果等。評估者訓練與多元評量來源，能稀釋單一知覺偏差的影響。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／46</span></div>
+    </section>
+
+    <!-- 補充研究：第一印象有多難改 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 4 ── FIRST IMPRESSIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">21</div>
+        <div class="t"><h2>補充研究：第一印象不會隨相處自動修正</h2><span class="en">FIRST IMPRESSIONS DO NOT SELF-CORRECT</span></div>
+        <div class="note">[ PERSONNEL PSYCH 2026 ]<br>204 SAMPLES</div>
+      </div>
+      <div class="def-band">匯總 204 個獨立樣本的統合分析：第一印象形成後不隨相處自動修正，一個月後與後續印象的相關仍達 .51，各時間區段之間無顯著差異。</div>
+      <div class="grid4 fi-grid">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／CONCEPT ]</span><h3>總評式的結構</h3><p>職場第一印象收斂為整體性的總評，能力與溫暖等面向並非各自獨立運作。總評形成後會滲透後續的面試評分、績效評等與人際對待，月暈效果（halo effect）在相識初期即啟動。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／FINDINGS ]</span><h3>主要數據</h3><ul>
+<li>一個月後，第一印象與後續印象的相關為 .51，各時間區段之間無顯著差異</li>
+<li>溝通線索的預測力 .52，高於外表 .31 與履歷等內容線索 .23</li>
+<li>印象對後續結果的預測力由 .48 隨時間衰減至 .28</li>
+</ul></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MECHANISM ]</span><h3>為什麼不會修正</h3><p>確認偏誤（confirmation bias）使評估者偏向蒐集支持既有印象的訊息；自我實現預言（self-fulfilling prophecy）使對待方式引出符合預期的行為。相處增加熟悉，修正需要與預期直接矛盾的明確證據——開場影片正是這種條件。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 04／IMPLICATIONS ]</span><h3>意涵</h3><ul>
+<li>評估端：降低偏誤需靠制度設計，包括結構化面談（structured interview）、標準化評分準則與多位評分者</li>
+<li>受評端：溝通線索的權重最高，表達與互動的準備報酬高於外表與履歷</li>
+</ul></div>
+        </div>
+      <div class="src">Yang, J., Swider, B. W., Lu, B., Wang, K., &amp; Harris, T. B. (2026). First impressions at work: A meta-analytic review. <i>Personnel Psychology</i>. 提前線上出版。https://doi.org/10.1111/peps.70037</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／46</span></div>
+    </section>
+
+    <!-- P.20 知覺與個人決策之關聯性 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 5 ── DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">22</div>
+        <div class="t"><h2>知覺與個人決策之關聯性</h2><span class="en">PERCEPTION ＆ DECISION MAKING</span></div>
+        <div class="note">[ 3 LINKS ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row">
+          <div class="k"><span class="zh">問題識別</span><span class="ax">STEP／01</span></div>
+          <div class="v">知覺影響如何界定問題和理想狀態之間的差距。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">資訊收集</span><span class="ax">STEP／02</span></div>
+          <div class="v">知覺影響哪些資訊被認為相關且重要。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">方案評估</span><span class="ax">STEP／03</span></div>
+          <div class="v">知覺影響如何分析和評估不同方案的優缺點。</div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／46</span></div>
+    </section>
+
+    <!-- P.21 理性決策模式 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 5 ── DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">23</div>
+        <div class="t"><h2>理性決策模式</h2><span class="en">RATIONAL DECISION-MAKING MODEL</span></div>
+        <div class="note">[ 6 STEPS ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row"><div class="k"><span class="zh">界定問題</span><span class="ax">STEP／01</span></div><div class="v">明確定義需要解決的問題。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">確認決策準則</span><span class="ax">STEP／02</span></div><div class="v">確定評估方案的標準。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">分配權重</span><span class="ax">STEP／03</span></div><div class="v">為每個準則分配重要性權重。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">發展方案</span><span class="ax">STEP／04</span></div><div class="v">提出可能的解決方案。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">評估方案</span><span class="ax">STEP／05</span></div><div class="v">根據準則評估每個方案。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">選擇最佳方案</span><span class="ax">STEP／06</span></div><div class="v">選擇評分最高的方案。</div></div>
+      </div>
+      <div class="keyline">此模式假設決策者擁有<span class="r">完整資訊</span>、能毫無偏誤地找出所有相關選項，並選出效用最高的方案——現實中很少成立</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／46</span></div>
+    </section>
+
+    <!-- P.22 有限理性 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 5 ── DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">24</div>
+        <div class="t"><h2>有限理性</h2><span class="en">BOUNDED RATIONALITY</span></div>
+        <div class="note">[ SIMON ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>人類在處理複雜問題時，傾向將其簡化到容易理解的程度。完全理性要求掌握所有資訊與選項，現實中幾乎不可能。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／FEATURES ]</span><h3>特點</h3><p>建立簡化模型，在有限範圍內進行理性決策，依序檢視方案，遇到第一個夠好的就停下。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／RESULT ]</span><h3>結果</h3><p>常選擇夠好的（suboptimal decision）而非最佳方案。滿意即可不是懶惰，而是資訊、時間與運算能力有限之下的理性。</p></div>
+      </div>
+      <div class="keyline">有限理性的展現之一是<span class="r">滿意即可</span>（satisficing）：尋求足夠好、可接受但未必最佳的解</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／46</span></div>
+    </section>
+
+    <!-- P.23 決策陷阱圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── BIASES IN DECISIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／D-01 決策中的心智陷阱</span><span><a href="https://www.simonesmerilli.com/life/decision-making" target="_blank" rel="noopener">SIMONESMERILLI.COM／LIFE／DECISION-MAKING</a></span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 620" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1400" height="620" fill="#F4F4F0"/>
+<text x="700.0" y="44" text-anchor="middle" font-size="24.0" font-weight="900" fill="#0A0A0A">有限理性的決策模式</text>
+<text x="700.0" y="68" text-anchor="middle" font-size="11.7" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">BOUNDED RATIONALITY ── SIMON</text>
+<rect x="100" y="120" width="300" height="70" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250" y="162" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">認知能力的限制</text>
+<line x1="402" y1="155" x2="518.5150523588222" y2="221.0949330462663" stroke="#0A0A0A" stroke-width="2.2"/>
+<path d="M529 227 L516.1 225.5 L521.0 216.7 z" fill="#0A0A0A"/>
+<rect x="100" y="265" width="300" height="70" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250" y="307" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">資訊不完整</text>
+<line x1="402" y1="300" x2="498.0" y2="300.0" stroke="#0A0A0A" stroke-width="2.2"/>
+<path d="M510 300 L498.0 305.1 L498.0 294.9 z" fill="#0A0A0A"/>
+<rect x="100" y="410" width="300" height="70" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="250" y="452" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">時間壓力</text>
+<line x1="402" y1="445" x2="518.5150523588222" y2="378.9050669537337" stroke="#0A0A0A" stroke-width="2.2"/>
+<path d="M529 373 L521.0 383.3 L516.1 374.5 z" fill="#0A0A0A"/>
+<circle cx="660" cy="300" r="138" fill="#E61919"/>
+<text x="660" y="290" text-anchor="middle" font-size="22.0" font-weight="900" fill="#F4F4F0" font-family="Noto Sans TC, PingFang TC, sans-serif">有限理性</text>
+<text x="660" y="320" text-anchor="middle" font-size="11.7" font-weight="400" fill="#F4F4F0" font-family="JetBrains Mono, monospace" letter-spacing="1.5">BOUNDED RATIONALITY</text>
+<line x1="800" y1="300" x2="876" y2="300" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M880 300 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="882" y="262" width="200" height="76" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="982" y="296" text-anchor="middle" font-size="17.0" font-weight="900" fill="#F4F4F0" font-family="Noto Sans TC, PingFang TC, sans-serif">滿意法則</text>
+<text x="982" y="320" text-anchor="middle" font-size="11.7" font-weight="400" fill="#F4F4F0" font-family="JetBrains Mono, monospace" letter-spacing="1.5">SATISFICING</text>
+<line x1="1082" y1="300" x2="1126" y2="300" stroke="#0A0A0A" stroke-width="2.5"/>
+<path d="M1130 300 l-11 -6 v12 z" fill="#0A0A0A"/>
+<rect x="1132" y="262" width="190" height="76" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="1227" y="290" text-anchor="middle" font-size="15.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">夠好但未必</text>
+<text x="1227" y="316" text-anchor="middle" font-size="15.0" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">最佳的決策</text>
+<text x="700" y="560" text-anchor="middle" font-size="13.5" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">找到「夠好」的方案就停止搜尋，而非窮盡所有選項追求最佳解</text></svg>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／46</span></div>
+    </section>
+
+    <!-- P.24 直覺決策 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 5 ── DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">26</div>
+        <div class="t"><h2>直覺決策</h2><span class="en">INTUITIVE DECISION MAKING</span></div>
+        <div class="note">[ FAST＋RISKY ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>基於經驗的無意識決策過程。直覺源自長期經驗累積的組型辨識，快而不必然錯。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／FEATURES ]</span><h3>特點</h3><p>快速、受情感主導，能將看似不相關的資訊整合。在時間壓力大、資訊模糊的情境中，直覺常是唯一可用的引擎。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／APPLICATION ]</span><h3>應用</h3><p>適用於提出假設，但需要客觀數據和理性分析來驗證。最佳實務：讓直覺出題、讓證據閱卷。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／46</span></div>
+    </section>
+
+    <!-- P.25 決策偏差一 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── BIASES IN DECISIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">27</div>
+        <div class="t"><h2>決策中常見的偏差及錯誤（一）</h2><span class="en">COMMON BIASES ＆ ERRORS</span></div>
+        <div class="note">[ 3 BIASES ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell">
+          <span class="tag">[ 01／OVERCONFIDENCE ]</span>
+          <h3>過度自信</h3>
+          <span class="en-term">OVERCONFIDENCE BIAS</span>
+          <p>對自己和他人能力的過度自信。研究顯示，智力與人際能力愈弱的人，愈容易高估自己的能力與表現。</p>
+          <p>反之可能為冒牌者症候群（imposter syndrome）。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／ANCHORING ]</span>
+          <h3>定錨偏差</h3>
+          <span class="en-term">ANCHORING BIAS</span>
+          <p>被最初訊息鎖住，難以根據後續訊息調整。談判中先開價者往往佔優勢，正是善用了定錨效果。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／CONFIRMATION ]</span>
+          <h3>肯證偏差</h3>
+          <span class="en-term">CONFIRMATION BIAS</span>
+          <p>傾向蒐集支持自己想法的資訊，忽視相反證據。人們對支持性訊息照單全收，卻用放大鏡檢視相反的資訊。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／46</span></div>
+    </section>
+
+    
+
+    <!-- P.27 現成偏差和升高承諾 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── BIASES IN DECISIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">28</div>
+        <div class="t"><h2>現成偏差和升高承諾</h2><span class="en">AVAILABILITY ＆ ESCALATION</span></div>
+        <div class="note">[ 2 BIASES ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell">
+          <span class="tag">[ 01／AVAILABILITY ]</span>
+          <h3>現成偏差</h3>
+          <span class="en-term">AVAILABILITY BIAS</span>
+          <p>傾向利用手邊現成的資訊進行判斷。鮮明、情緒強烈或近期發生的事件最容易被提取，例如空難新聞使人高估飛航風險。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／ESCALATION ]</span>
+          <h3>升高承諾</h3>
+          <span class="en-term">ESCALATION OF COMMITMENT</span>
+          <p>即使知道決策錯誤，仍堅持原先決定。當自己是最初決策者、且覺得必須為結果負責時，升高承諾最為明顯。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／MANAGEMENT ]</span>
+          <h3>管理啟示</h3>
+          <p>定期評估已投入成本，考慮是否值得繼續投資，避免沉沒成本（sunk cost）。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／46</span></div>
+    </section>
+
+    <!-- P.28 延伸閱讀 二 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── FURTHER READING</span><span class="m">REV 2026.09</span></div>
+      <div class="link-page">
+        <div class="link-card2">
+          <span class="tag">[ ARTICLE ]</span>
+          <h3>天下雜誌文章</h3>
+          <p style="font-size: 14px; line-height: 1.65;">升高承諾與沉沒成本的延伸閱讀。</p>
+          <a href="https://www.cw.com.tw/article/5091459" target="_blank" rel="noopener">CW.COM.TW／ARTICLE／5091459</a>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／46</span></div>
+    </section>
+
+    <!-- P.29 隨機誤差和風險規避 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── BIASES IN DECISIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">30</div>
+        <div class="t"><h2>隨機誤差和風險規避</h2><span class="en">RANDOMNESS ERROR ＆ RISK AVERSION</span></div>
+        <div class="note">[ 2 BIASES ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell">
+          <span class="tag">[ 01／RANDOMNESS ]</span>
+          <h3>隨機誤差</h3>
+          <span class="en-term">RANDOMNESS ERROR</span>
+          <p>相信可以預知隨機事件結果，可能導致錯誤決策。迷信與儀式化行為，常是把隨機結果錯認為有規律可循。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／RISK AVERSION ]</span>
+          <h3>風險規避</h3>
+          <span class="en-term">RISK AVERSION</span>
+          <p>偏好確定狀況，不喜歡不確定結果。多數人寧可接受確定的較小報酬，也不願冒險爭取期望值更高的結果。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／IMPACT ]</span>
+          <h3>影響</h3>
+          <p>可能導致錯失機會或做出不理性決策。薪酬設計上，風險規避使員工偏好固定薪資勝於變動獎金。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／46</span></div>
+    </section>
+
+    <!-- P.30 後見之明偏差 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── BIASES IN DECISIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">31</div>
+        <div class="t"><h2>後見之明偏差</h2><span class="en">HINDSIGHT BIAS</span></div>
+        <div class="note">[ BIAS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>事件發生後，誤以為事前就已精準預知結果的傾向。事後看來一切理所當然，是因為結果已知、線索被重新編排。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPACT ]</span><h3>影響</h3><p>可能導致對過去決策的錯誤評估和學習。它讓人高估自己的預測能力，阻礙從經驗中誠實學習。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理啟示</h3><p>在評估過去決策時，應考慮當時可用的資訊和環境。以決策當下的品質、而非事後的結果來評價決策。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／46</span></div>
+    </section>
+
+    <!-- 新增：降低偏誤與錯誤的方法 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 6 ── REDUCING BIASES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">32</div>
+        <div class="t"><h2>降低偏誤與錯誤的方法</h2><span class="en">REDUCING BIASES AND ERRORS</span></div>
+        <div class="note">[ 4 STRATEGIES ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="tag">[ 01／FOCUS ON GOALS ]</span>
+          <h3>聚焦目標</h3>
+          <p>沒有目標就無法理性：不知道需要什麼資訊、分不清資訊是否相關，也難以在方案間取捨。明確的目標讓決策更容易，並可剔除與自身利益不符的選項。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／DISCONFIRM ]</span>
+          <h3>尋找反證資訊</h3>
+          <p>主動尋找與自身信念、假設相矛盾的資訊，是對抗過度自信、肯證偏差與後見之明偏差最有效的方法之一；公開思考自己可能錯在哪裡，能挑戰自以為聰明的傾向。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／NO FALSE MEANING ]</span>
+          <h3>不要在隨機事件中找意義</h3>
+          <p>受過訓練的心智習慣尋找因果，找不到理由時常會自行發明。必須接受生活中有些事件不可控制，並自問：模式是有意義的，還是只是巧合。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 04／MORE OPTIONS ]</span>
+          <h3>增加選項</h3>
+          <p>最終決策的品質，不會超過選項集合中最好的那一個。增加並多樣化決策選項、發揮創意產生更多元的方案，找到出色選項的機會就更大。</p>
+        </div>
+      </div>
+      <div class="cite">Based on Robbins, S. P. (2004). Decide &amp; conquer: Making winning decisions and taking control of your life. Financial Times／Prentice Hall.（教科書 Exhibit 6-4）</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／46</span></div>
+    </section>
+
+    <!-- P.31 影響決策的個人差異 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 7 ── INDIVIDUAL DIFFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">33</div>
+        <div class="t"><h2>影響決策的個人差異</h2><span class="en">INDIVIDUAL DIFFERENCES IN DECISION MAKING</span></div>
+        <div class="note">[ 3 FACTORS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／PERSONALITY ]</span><h3>人格</h3><p>勤勉盡責性和追求成就可能影響決策風格。追求成就者更容易升高承諾，盡忠職守者則較會顧及組織整體利益。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／GENDER ]</span><h3>性別</h3><p>女性可能比男性更傾向於深思熟慮的決策過程。反覆沉思在分析上有其優點，但過度時也與負面情緒相關。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／ABILITY ]</span><h3>心智能力</h3><p>聰明者可能更快學會避免決策偏差，但聰明並不能自動免疫——聰明人同樣會過度自信與定錨，只是經提醒後修正得較快。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／46</span></div>
+    </section>
+
+    <!-- P.32 個人差異圖 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 7 ── INDIVIDUAL DIFFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／I-01 決策的個人差異——補充圖</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 720" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="720" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="28.7" font-weight="900" fill="#0A0A0A">減少偏差及錯誤的方法</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="13.6" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">REDUCING BIASES AND ERRORS</text>
+<rect x="60" y="110" width="940" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="110" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="136.0" font-size="19.2" font-weight="700" fill="#232320">專注於目標</text>
+<rect x="60" y="150" width="940" height="78" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="84" y="178" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">沒有目標就難以理性：不知道需要什麼資訊、無法判斷資訊的相關性，</text>
+<text x="84" y="204" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">選擇方案也變得困難。明確的目標能讓決策更容易，並有助於剔除不合乎利益的方案。</text>
+<rect x="60" y="258" width="940" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="258" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="284.0" font-size="19.2" font-weight="700" fill="#232320">尋找與自我信念相反的資訊</text>
+<rect x="60" y="298" width="940" height="78" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="84" y="326" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">克服過度自信、肯證偏差與後見之明偏差最有效的作法，</text>
+<text x="84" y="352" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">是積極尋找與既有信念及假設相牴觸的資訊，蓄意考量自己可能是錯的。</text>
+<rect x="60" y="406" width="940" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="406" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="432.0" font-size="19.2" font-weight="700" fill="#232320">別替隨機事件創造意義</text>
+<rect x="60" y="446" width="940" height="78" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="84" y="474" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">遇到事情總想問為什麼，找不到理由時就容易自行創造。</text>
+<text x="84" y="500" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">現實中有些事無法掌控，若純粹只是巧合，不必為巧合之事賦予任何意義。</text>
+<rect x="60" y="554" width="940" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="60" y="554" width="6" height="40" fill="#0A0A0A"/>
+<text x="74" y="580.0" font-size="19.2" font-weight="700" fill="#232320">增加選項</text>
+<rect x="60" y="594" width="940" height="78" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="84" y="622" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">最終答案必定落在所列選項組成的集合之中。盡可能發揮創造力拓展更多元的選項；</text>
+<text x="84" y="648" text-anchor="start" font-size="17.4" font-weight="400" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">選項愈多、愈分歧，就愈有機會找到最好的結果。</text></svg>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／46</span></div>
+    </section>
+
+    <!-- P.33 文化差異 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 7 ── CULTURE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">35</div>
+        <div class="t"><h2>文化差異對決策的影響</h2><span class="en">CULTURAL DIFFERENCES IN DECISION MAKING</span></div>
+        <div class="note">[ 3 ASPECTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／PROBLEM ]</span><h3>問題界定</h3><p>不同文化背景影響如何界定和分析問題。有些文化強調就事論事地解決問題，有些文化則傾向接受現狀、順勢調整。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／PREFERENCE ]</span><h3>決策偏好</h3><p>某些文化偏好個人決策，而其他文化強調集體決策。集體主義文化中，決策前的共識醞釀往往比會議本身更重要。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／TIME ]</span><h3>時間觀念</h3><p>不同文化對決策速度的期望可能有所不同。有些文化視快速拍板為果斷，有些文化則將深思熟慮視為慎重與尊重。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／46</span></div>
+    </section>
+
+    <!-- P.34 組織限制 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 7 ── ORGANIZATIONAL CONSTRAINTS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">36</div>
+        <div class="t"><h2>組織限制對決策的影響</h2><span class="en">ORGANIZATIONAL CONSTRAINTS</span></div>
+        <div class="note">[ 4 CONSTRAINTS ]</div>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row"><div class="k"><span class="zh">績效評估</span><span class="ax">CONSTRAINT／01</span></div><div class="v">評估標準影響員工決策。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">獎勵系統</span><span class="ax">CONSTRAINT／02</span></div><div class="v">影響管理者選擇對個人有利的方案。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">公司常規</span><span class="ax">CONSTRAINT／03</span></div><div class="v">限制決策者的自由選擇空間。</div></div>
+        <div class="axis-row"><div class="k"><span class="zh">時間限制</span><span class="ax">CONSTRAINT／04</span></div><div class="v">影響收集和評估資料的能力。</div></div>
+      </div>
+      <div class="keyline">組織也能反向設計決策環境：助推（nudging）以預設選項與資訊呈現方式改變選擇，例如預設加入退休提撥</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／46</span></div>
+    </section>
+
+    <!-- P.35 延伸閱讀 三 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 8 ── FURTHER READING</span><span class="m">REV 2026.09</span></div>
+      <div class="link-page">
+        <div class="link-card2">
+          <span class="tag">[ ARTICLE ]</span>
+          <h3>地球圖輯隊文章</h3>
+          <p style="font-size: 14px; line-height: 1.65;">道德決策的延伸閱讀。</p>
+          <a href="https://dq.yam.com/post/16282" target="_blank" rel="noopener">DQ.YAM.COM／POST／16282</a>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／46</span></div>
+    </section>
+
+    <!-- P.36 道德決策準則 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 8 ── ETHICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">38</div>
+        <div class="t"><h2>道德決策準則</h2><span class="en">THREE ETHICAL DECISION CRITERIA</span></div>
+        <div class="note">[ 3 CRITERIA ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell">
+          <span class="tag">[ 01／UTILITARIANISM ]</span>
+          <h3>功利主義</h3>
+          <p>考量決策結果，目的是為多數人謀福利。</p>
+          <p>此觀點主導商業決策，與理性、效率、生產力和高獲利等目標一致；但組織的最佳利益也可能被用來合理化裁員等有爭議的行動。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02／RIGHTS ]</span>
+          <h3>權益</h3>
+          <p>強調不可妨害他人的基本自由權及法定權利，例如隱私、言論自由與正當程序；吹哨者保護正是以權益準則為基礎。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03／JUSTICE ]</span>
+          <h3>公平正義</h3>
+          <p>要求訂定並強制實施公平合理的規則，讓利益與成本的分配符合公平；同工同酬的主張即源於此準則。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／46</span></div>
+    </section>
+
+    <!-- P.37 行為道德 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 8 ── ETHICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">39</div>
+        <div class="t"><h2>行為道德與組織決策</h2><span class="en">BEHAVIORAL ETHICS</span></div>
+        <div class="note">[ WHY GOOD PEOPLE<br>DO BAD THINGS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>分析人們在面對道德困境時的反應行為——研究為什麼好人仍會做出壞事。多數人重視道德，但道德判斷深受情境壓力與框架影響。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／CHALLENGE ]</span><h3>挑戰</h3><p>人們不一定遵守組織或個人的道德標準，道德行為在不同情境間變動很大。時間壓力、業績目標與從眾心理，都會讓道德標準悄悄鬆動。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／IMPROVEMENT ]</span><h3>改善方法</h3><p>鼓勵道德對話、注意道德盲點、強調文化對道德決策的重要性。把道德議題放進日常決策的檢核清單，而不是等出事才討論。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／46</span></div>
+    </section>
+
+    <!-- P.38 撒謊與組織決策 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 8 ── ETHICS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">40</div>
+        <div class="t"><h2>撒謊與組織決策</h2><span class="en">LYING ＆ DECISION MAKING</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／IMPACT ]</span><h3>影響</h3><p>扭曲事實會阻礙正確決策。以謊言為基礎的資訊流，會讓整個組織的判斷系統失靈。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／CHALLENGE ]</span><h3>挑戰</h3><p>撒謊是日常可能縱容的不道德行為。研究顯示謊言難以被準確偵測，多數人高估自己辨識謊言的能力。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理啟示</h3><p>建立誠實文化，鼓勵坦誠溝通。讓說真話的成本降低：誠實揭露壞消息不受懲罰，說謊的誘因隨之下降。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／46</span></div>
+    </section>
+
+    <!-- P.39 組織創造力 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 9 ── CREATIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">41</div>
+        <div class="t"><h2>組織創造力</h2><span class="en">CREATIVITY IN ORGANIZATIONS</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>製造新奇且實用想法的能力。新奇而不實用是空想，實用而不新奇是例行——創造力必須兩者兼備。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPORTANCE ]</span><h3>重要性</h3><p>幫助決策者更清楚了解問題，發現他人未見的機會。在快速變動的環境中，創造力是組織適應與生存的關鍵能力。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／PROCESS ]</span><h3>過程</h3><p>包括問題形成、資訊收集、構想產生和評估。四個階段並非直線前進，而是來回迭代的歷程。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／46</span></div>
+    </section>
+
+    <!-- P.40 創造力三階段 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 9 ── CREATIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／C-01 創造力三階段模式（THREE-STAGE MODEL OF CREATIVITY）</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
+        <div class="fig-body">
+          <span class="ch tl">+</span><span class="ch tr">+</span><span class="ch bl">+</span><span class="ch br">+</span>
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 640" font-family="Noto Sans TC, PingFang TC, sans-serif"><rect x="0" y="0" width="1060" height="640" fill="#F4F4F0"/>
+<text x="530.0" y="44" text-anchor="middle" font-size="24.0" font-weight="900" fill="#0A0A0A">組織創造力的三階段模式</text>
+<text x="530.0" y="68" text-anchor="middle" font-size="12.0" letter-spacing="2" fill="#666666" font-family="JetBrains Mono, monospace">THREE-STAGE MODEL OF CREATIVITY</text>
+<rect x="120" y="120" width="820" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="120" y="120" width="6" height="40" fill="#E61919"/>
+<text x="134" y="146.0" font-size="16.0" font-weight="700" fill="#232320">創意行為的成因</text>
+<text x="926" y="145.0" text-anchor="end" font-size="12.0" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">CAUSES</text>
+<rect x="120" y="160" width="820" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="325.0" y="194" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">創意潛能</text>
+<path d="M523.0 188 l10 0 l-5 -6 z" fill="#E61919" transform="rotate(90 530.0 188)"/>
+<line x1="530.0" y1="160" x2="530.0" y2="216" stroke="#0A0A0A" stroke-width="1"/>
+<text x="735.0" y="194" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">創意環境</text>
+<line x1="530" y1="216" x2="530" y2="258" stroke="#E61919" stroke-width="3"/>
+<path d="M530 262 l-6 -11 h12 z" fill="#E61919"/>
+<rect x="120" y="266" width="820" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="120" y="266" width="6" height="40" fill="#E61919"/>
+<text x="134" y="292.0" font-size="16.0" font-weight="700" fill="#232320">創意行為</text>
+<text x="926" y="291.0" text-anchor="end" font-size="12.0" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">BEHAVIOR</text>
+<rect x="120" y="306" width="820" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="222.5" y="340" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">形成問題</text>
+<path d="M318.0 334 l10 0 l-5 -6 z" fill="#E61919" transform="rotate(90 325.0 334)"/>
+<line x1="325.0" y1="306" x2="325.0" y2="362" stroke="#0A0A0A" stroke-width="1"/>
+<text x="427.5" y="340" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">蒐集資訊</text>
+<path d="M523.0 334 l10 0 l-5 -6 z" fill="#E61919" transform="rotate(90 530.0 334)"/>
+<line x1="530.0" y1="306" x2="530.0" y2="362" stroke="#0A0A0A" stroke-width="1"/>
+<text x="632.5" y="340" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">產生構想</text>
+<path d="M728.0 334 l10 0 l-5 -6 z" fill="#E61919" transform="rotate(90 735.0 334)"/>
+<line x1="735.0" y1="306" x2="735.0" y2="362" stroke="#0A0A0A" stroke-width="1"/>
+<text x="837.5" y="340" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">評估構想</text>
+<line x1="530" y1="362" x2="530" y2="404" stroke="#E61919" stroke-width="3"/>
+<path d="M530 408 l-6 -11 h12 z" fill="#E61919"/>
+<rect x="120" y="412" width="820" height="40" fill="#F4F4F0" stroke="#232320" stroke-width="1.5"/><rect x="120" y="412" width="6" height="40" fill="#0A0A0A"/>
+<text x="134" y="438.0" font-size="16.0" font-weight="700" fill="#232320">創意結果（創新）</text>
+<text x="926" y="437.0" text-anchor="end" font-size="12.0" letter-spacing="1.5" fill="#6B6B64" font-family="JetBrains Mono, monospace">OUTCOMES</text>
+<rect x="120" y="452" width="820" height="56" fill="none" stroke="#0A0A0A" stroke-width="1.5"/>
+<text x="325.0" y="486" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">新穎性</text>
+<path d="M523.0 480 l10 0 l-5 -6 z" fill="#E61919" transform="rotate(90 530.0 480)"/>
+<line x1="530.0" y1="452" x2="530.0" y2="508" stroke="#0A0A0A" stroke-width="1"/>
+<text x="735.0" y="486" text-anchor="middle" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">實用性</text>
+<text x="530" y="570" text-anchor="middle" font-size="13.0" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">三個階段依序推進：成因 → 行為 → 結果</text></svg>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／46</span></div>
+    </section>
+
+    <!-- P.41 創意行為的原因 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 9 ── CREATIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">43</div>
+        <div class="t"><h2>創意行為的原因</h2><span class="en">CAUSES OF CREATIVE BEHAVIOR</span></div>
+        <div class="note">[ 3 CAUSES ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／POTENTIAL ]</span><h3>創意潛能</h3><p>包括聰明才智、人格特質、專業技術和道德觀。開放性高、具內在動機且累積深厚專業者，創意潛能最高。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／ENVIRONMENT ]</span><h3>創意環境</h3><p>文化、領導和多元化等因素影響創意表現。支持嘗試錯誤、容忍失敗的環境，比口號更能催生創意。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／SOFT SKILLS ]</span><h3>軟實力</h3><p>有助於將構想轉變為結果。溝通、說服與協作等軟實力，決定好點子能否被組織接住。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／46</span></div>
+    </section>
+
+    <!-- P.42 創新與決策 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 9 ── INNOVATION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">44</div>
+        <div class="t"><h2>創新與決策</h2><span class="en">INNOVATION ＆ DECISION MAKING</span></div>
+        <div class="note">[ 3 POINTS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／DEFINITION ]</span><h3>定義</h3><p>被利害關係人認為新穎且有用的構想或方案。創意是原料，創新是把原料變成被採用的成品。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／PROCESS ]</span><h3>過程</h3><p>將創意構想轉變為結果是一種社會過程，需要爭取支持、整合資源、化解抗拒。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／KEY FACTORS ]</span><h3>關鍵因素</h3><p>需要運用權力、政治、領導和激勵等組織行為概念。點子的命運，往往取決於推動者的組織行為功力。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／46</span></div>
+    </section>
+
+    <!-- P.43 對管理者的啟示 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">SEC 10 ── IMPLICATIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">45</div>
+        <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
+        <div class="note">[ 4 TAKEAWAYS ]</div>
+      </div>
+      <div class="grid4">
+        <div class="cell"><span class="tag">[ 01／PERCEPTION ]</span><h3>評估知覺</h3><p>了解員工對工作的感受，以影響其行為。員工依知覺行事：管理知覺，就是管理行為的起點。</p></div>
+        <div class="cell"><span class="tag">[ 02／DECISIONS ]</span><h3>改善決策</h3><p>辨識常見偏見和錯誤，結合理性分析與直覺。重大決策放慢速度、引入反方意見，是最便宜的除錯機制。</p></div>
+        <div class="cell"><span class="tag">[ 03／CREATIVITY ]</span><h3>提升創造力</h3><p>鼓勵新思維，從多角度看問題，使用類比推導。指派唱反調的角色，能有效突破團體盲點。</p></div>
+        <div class="cell"><span class="tag">[ 04／CULTURE ]</span><h3>文化適應</h3><p>根據當地文化和組織準則調整決策風格。決策沒有放諸四海皆準的最佳模式，效果取決於與情境的適配程度。</p></div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／46</span></div>
+    </section>
+    <section class="slide rf-page">
+      <div class="meta-row"><span class="m">OB／CH 6</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">46</div>
+        <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
+        <div class="note">[ APA 7 ]<br>5 ITEMS</div>
+      </div>
+      <div class="rf">
+        <div class="rf-cols c1">
+          <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
+            <p>Robbins, S. P. (2004). <i>Decide &amp; conquer: Making winning decisions and taking control of your life</i>. Financial Times／Prentice Hall.</p>
+            <p>Yang, J., Swider, B. W., Lu, B., Wang, K., &amp; Harris, T. B. (2026). First impressions at work: A meta-analytic review. <i>Personnel Psychology</i>. 提前線上出版。https://doi.org/10.1111/peps.70037</p>
+          </div>
+          <div class="rf-grp"><h3>報告、新聞與影音 ── REPORTS, NEWS ＆ MEDIA</h3>
+            <p>America&#39;s Got Talent. (2025). <i>16-year-old Nene Royal is shy... until she starts singing “Zombie”</i> [影片]. YouTube. https://www.youtube.com/watch?v=TKgAas-84D0</p>
+          </div>
+          <div class="rf-grp links"><h3>延伸閱讀連結 ── FURTHER READING</h3>
+            <p>天下雜誌　https://www.cw.com.tw/article/5091459</p>
+            <p>地球圖輯隊　https://dq.yam.com/post/16282</p>
+          </div>
+        </div>
+      </div>
+      <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示；標為提前線上出版者，卷期與頁碼尚未確定。教科書見封面。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／46</span></div>
+    </section>
+
+
+
+
+
+
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const stage = document.getElementById('stage');
+  const viewport = document.getElementById('viewport');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    viewport.scrollTop = 0;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let downX = 0, downY = 0;
+  stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('a, iframe')) return;
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString().length > 0) return;
+    const r = stage.getBoundingClientRect();
+    (e.clientX - r.left) / r.width < 0.3 ? show(i - 1) : show(i + 1);
+  });
+  function fit() {
+    const flow = innerWidth < 980 || (innerWidth / innerHeight) < 1.3;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = 'none'; return; }
+    const s = Math.min(innerWidth / 1330, innerHeight / 770);
+    stage.style.transform = 'scale(' + Math.min(s, 1.4) + ')';
+  }
+  addEventListener('resize', fit);
+  fit();
+  show(0);
+</script>
+
+<script>
+/* 卡片標題水平對齊：同一列的 h3 起始位置一致，整組內容仍維持垂直置中 */
+(function () {
+  var SEL = '.grid2,.grid3,.grid4,.grid3r,.grid5,.grid6,.grid8';
+  function alignIn(scope) {
+    scope.querySelectorAll(SEL).forEach(function (g) {
+      var cells = Array.prototype.filter.call(g.children, function (c) {
+        return c.classList && c.classList.contains('cell');
+      });
+      if (cells.length < 2) return;
+      var blocks = [];
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        var h3 = c.querySelector(':scope > h3');
+        if (!h3) return;
+        var kids = Array.prototype.filter.call(c.children, function (el) {
+          return !el.classList.contains('corner');
+        });
+        var last = kids[kids.length - 1];
+        if (!last) return;
+        blocks.push({ c: c, h3: h3, last: last });
+      }
+      blocks.forEach(function (b) { b.h3.style.marginTop = '0px'; });
+      var data = blocks.map(function (b) {
+        var cr = b.c.getBoundingClientRect();
+        var sc = b.c.offsetWidth ? cr.width / b.c.offsetWidth : 1;
+        if (!(sc > 0.05)) sc = 1;
+        var top = b.h3.getBoundingClientRect().top;
+        var bot = b.last.getBoundingClientRect().bottom;
+        var padB = parseFloat(getComputedStyle(b.c).paddingBottom) || 0;
+        return { h3: b.h3, h: bot - top, avail: cr.bottom - padB * sc - top, sc: sc };
+      });
+      var bad = data.some(function (d) { return !(d.h > 0) || !(d.avail > 0); });
+      if (bad) { blocks.forEach(function (b) { b.h3.style.marginTop = ''; }); return; }
+      var maxH = Math.max.apply(null, data.map(function (d) { return d.h; }));
+      var minAvail = Math.min.apply(null, data.map(function (d) { return d.avail; }));
+      var off = Math.max(0, (minAvail - maxH) / 2);
+      data.forEach(function (d) { d.h3.style.marginTop = (off / d.sc).toFixed(1) + 'px'; });
+    });
+  }
+  function run() {
+    if (document.body.classList.contains('flow')) { alignIn(document); return; }
+    var a = document.querySelector('section.slide.active');
+    alignIn(a || document);
+  }
+  var t;
+  function later() { clearTimeout(t); t = setTimeout(run, 60); }
+  addEventListener('resize', later);
+  addEventListener('load', run);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  /* 同步在換頁的同一幀完成量測，避免看到文字位移 */
+  var mo = new MutationObserver(function (recs) {
+    for (var i = 0; i < recs.length; i++) {
+      var el = recs[i].target;
+      if (el.classList && el.classList.contains('active')) { alignIn(el); }
+    }
+  });
+  document.querySelectorAll('section.slide').forEach(function (s) {
+    mo.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+  run();
+  setTimeout(run, 300);
+})();
+</script>
+<script>
+/* 中文標籤斷行保護：短標籤在窄欄位換行時，避免最後一行只剩一個字 */
+(function () {
+  var SEL = 'h3,.zh,.lab,.k>span,th,.cap,.tl';
+  var CJK = /^[\u3000-\u303F\u4E00-\u9FFF\uFF00-\uFFEF（）·、，。／]+$/;
+  function fix(root) {
+    root.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.noOrphan) return;
+      if (el.children.length) return;
+      var t = (el.textContent || '').trim();
+      if (t.length < 3 || t.length > 14) return;
+      if (!CJK.test(t)) return;
+      el.dataset.noOrphan = '1';
+      el.textContent = t.slice(0, -2);
+      var s = document.createElement('span');
+      s.style.whiteSpace = 'nowrap';
+      s.textContent = t.slice(-2);
+      el.appendChild(s);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { fix(document); });
+  } else { fix(document); }
+})();
+</script>
+
+<script>
+/* ── 點圖放大（FIGZOOM v2）── */
+(function () {
+  var SEL = '.fig-body img, .fig-body svg, .figimg img, .mini-fig svg, .fig-wrap img, .fig-wrap svg';
+  var ov = null;
+
+  function close() {
+    if (!ov || ov.__closing) return;
+    var el = ov;
+    el.__closing = true;
+    el.classList.add('closing');
+    try { if (document.fullscreenElement || document.webkitFullscreenElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
+    } } catch (e) {}
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (ov === el) ov = null;
+    }, 160);
+  }
+
+
+  /* 放大時把 viewBox 收到實際內容，去掉圖檔本身的空白邊 */
+  function tighten(svg) {
+    try {
+      var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+      if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+      var total = vb[2] * vb[3];
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, n = 0;
+      Array.prototype.forEach.call(svg.children, function (el) {
+        var b; try { b = el.getBBox(); } catch (e) { return; }
+        if (!b || b.width <= 0 || b.height <= 0) return;
+        if (b.width * b.height >= total * 0.97) return;   /* 跳過整張底色 */
+        if (b.x < minX) minX = b.x;
+        if (b.y < minY) minY = b.y;
+        if (b.x + b.width > maxX) maxX = b.x + b.width;
+        if (b.y + b.height > maxY) maxY = b.y + b.height;
+        n++;
+      });
+      if (!n || !isFinite(minX)) return;
+      var w = maxX - minX, h = maxY - minY;
+      if (w <= 0 || h <= 0) return;
+      var m = Math.max(w, h) * 0.02;
+      svg.setAttribute('viewBox', (minX - m) + ' ' + (minY - m) + ' ' + (w + 2 * m) + ' ' + (h + 2 * m));
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    } catch (e) {}
+  }
+
+  function open(el) {
+    if (ov) return;
+    ov = document.createElement('div');
+    ov.className = 'figzoom';
+    var c = el.cloneNode(true);
+    c.removeAttribute('style');
+    c.removeAttribute('class');
+    ov.appendChild(c);
+    var tip = document.createElement('span');
+    tip.className = 'figzoom-tip';
+    tip.textContent = '點一下或按 ESC 關閉';
+    ov.appendChild(tip);
+    document.body.appendChild(ov);
+    if (c.tagName && c.tagName.toLowerCase() === 'svg') tighten(c);
+    ov.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    try {
+      var fn = ov.requestFullscreen || ov.webkitRequestFullscreen;
+      if (fn) { var p = fn.call(ov); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    if (ov) { e.stopPropagation(); e.preventDefault(); close(); return; }
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var fig = t.closest(SEL);
+    if (!fig) return;
+    e.stopPropagation(); e.preventDefault();
+    open(fig);
+  }, true);
+
+  document.addEventListener('keydown', function (e) {
+    if (!ov) return;
+    e.stopPropagation();
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+  }, true);
+
+  document.addEventListener('fullscreenchange', function () {
+    if (ov && !document.fullscreenElement) close();
+  });
+})();
+</script>
+
+<script>
+/* PDFBTN v1：列印成 PDF。列印前先解除窄螢幕的流式模式，列印後還原 */
+(function () {
+  if (document.querySelector('.pdfbtn')) return;
+  var flowWas = false;
+  function before() { flowWas = document.body.classList.contains('flow'); document.body.classList.remove('flow'); }
+  function after() { if (flowWas) document.body.classList.add('flow'); }
+  window.addEventListener('beforeprint', before);
+  window.addEventListener('afterprint', after);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'pdfbtn';
+  b.innerHTML = '<span class="ar">\u2193</span><span>PDF</span>';
+  b.title = '下載為 PDF：在列印視窗把目的地選成另存為 PDF';
+  b.setAttribute('aria-label', '下載為 PDF');
+  b.addEventListener('click', function (e) { e.stopPropagation(); before(); window.print(); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'p') before();
+  });
+  document.body.appendChild(b);
+
+  /* 位置：優先放進舞台上方的留白帶，其次右側留白帶；兩邊都不夠時貼回右上角，
+     並把頁首的右內距讓出按鈕的寬度，避免蓋住 REV 與圖說。 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    /* 媒體查詢把按鈕藏起來時不需要讓位，否則頁首會被推到換行 */
+    if (!b.offsetWidth) { document.body.classList.remove('pdfbtn-inset'); return; }
+    var bw = b.offsetWidth || 70, bh = b.offsetHeight || 30, gap = 10;
+    /* 流式模式沒有縮放，舞台寬度不是 1280，不能拿來推算比例 */
+    var scale = document.body.classList.contains('flow') ? 1 : (r.width / 1280 || 1);
+    b.style.left = 'auto';
+    if (r.top >= bh + gap * 2) {
+      b.style.top = Math.round(r.top - bh - gap) + 'px';
+      b.style.right = Math.round(Math.max(0, innerWidth - r.right)) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else if (innerWidth - r.right >= bw + gap * 2) {
+      b.style.top = Math.round(r.top + gap) + 'px';
+      b.style.right = Math.round((innerWidth - r.right - bw) / 2) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else {
+      b.style.top = '14px'; b.style.right = '14px';
+      var over = Math.max(0, r.right - (innerWidth - 14 - bw)) + gap;
+      document.documentElement.style.setProperty('--pdfbtn-inset', Math.min(140, Math.round(over / scale)) + 'px');
+      document.body.classList.add('pdfbtn-inset');
+    }
+  }
+  /* 只在第一頁顯示。沒有舞台結構的流式頁面（互動版）一律顯示。 */
+  var firstSlide = document.querySelector('#stage .slide');
+  function onFirst() { return !firstSlide || firstSlide.classList.contains('active'); }
+  function sync() {
+    if (onFirst()) { b.style.display = ''; place(); }
+    else { b.style.display = 'none'; }
+  }
+  if (firstSlide) new MutationObserver(sync).observe(firstSlide, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 60); setTimeout(sync, 400);
+  var _before = before;
+  before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
+  window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+</body>
+</html>
