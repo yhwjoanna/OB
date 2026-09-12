@@ -271,6 +271,9 @@ dl.facts dd{margin:0}
 .due .ref{margin-top:.5rem;padding-left:.7rem;border-left:2px solid var(--line-2);
   font-size:.8125rem;line-height:1.6;letter-spacing:.006em;color:var(--faint)}
 .due .getrow{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.due .cnote{margin-top:.55rem;font-size:.75rem;line-height:1.65;letter-spacing:.008em;color:var(--faint);text-wrap:pretty}
+.due .cnote a{color:var(--muted);text-underline-offset:.2em}
+.due .cnote a:hover{color:var(--text)}
 .due .getrow a{display:inline-block;font:600 .75rem/1 var(--sans);letter-spacing:-.005em;
   padding:.45rem .7rem;border:1px solid var(--line-2);border-radius:999px;
   color:var(--text);text-decoration:none;background:var(--paper)}
@@ -510,6 +513,8 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
       todo: '各組上傳教學短影片並上台報告' }
   ];
 
+  var JOIN = 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0?cjc=jom37a4a';
+
   var DUES = [
     { name: '個人作業一', date: '2026-10-18', at: '第 3 次上課',
       desc: '閱讀 Bankins 等人（2024）關於人工智慧與組織行為的多層次回顧，撰寫 2 頁閱讀心得。',
@@ -723,6 +728,17 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
           row.appendChild(a);
         });
         left.appendChild(row);
+        /* Classroom 的深層連結會用瀏覽器當下的預設帳號去解析，帳號不對時只會顯示找不到課程，
+           畫面本身不會說明原因，因此在按鈕下方補一行取用說明 */
+        if (d.links.some(function (L) { return L.href.indexOf('classroom.google.com') >= 0; })) {
+          var note = el('p', 'cnote');
+          note.appendChild(document.createTextNode('文獻存放在課程的 Google Classroom。若畫面顯示找不到課程，多半是瀏覽器或手機 App 停在別的 Google 帳號，切換為選課使用的帳號即可。尚未加入課程者，請先用課程代碼 jom37a4a '));
+          var j = el('a', null, '加入課程');
+          j.href = JOIN; j.target = '_blank'; j.rel = 'noopener noreferrer';
+          note.appendChild(j);
+          note.appendChild(document.createTextNode('。'));
+          left.appendChild(note);
+        }
       }
       item.appendChild(left);
       var w = el('div', 'w');
