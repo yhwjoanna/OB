@@ -128,7 +128,7 @@ h1 em span{white-space:nowrap}   /* 窄螢幕只在全形空白處換行，班�
 
 /* ═══ 元件 ═══ */
 .chip{
-  display:inline-flex;align-items:center;gap:.3rem;
+  display:inline-flex;align-items:center;gap:.3rem;flex:none;white-space:nowrap;
   font:600 .625rem/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;
   padding:.36rem .6rem;border-radius:999px;border:1px solid var(--line-2);color:var(--muted)}
 .chip.now{background:var(--red);border-color:var(--red);color:var(--on-red)}
@@ -215,10 +215,13 @@ dl.facts dd{margin:0}
 .ses .box{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
   padding:.95rem 1.15rem 1.05rem;box-shadow:var(--sh-1)}
 .ses .top{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
-.ses h4{margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.012em;line-height:1.45}
+.ses h4{margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.012em;line-height:1.45;
+  text-wrap:balance;text-wrap:pretty;min-width:0}
 .ses .pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
 .ses .pills .btn{font-size:.8125rem;letter-spacing:.004em;padding:.45rem .7rem;min-height:2.125rem;border-radius:var(--r-sm)}
 .ses .todo{display:flex;gap:.5rem;align-items:baseline;margin-top:.75rem;font-size:.8125rem;letter-spacing:.006em;color:var(--muted)}
+/* 末行只剩一個字會讀成斷掉的句子，讓瀏覽器把前一行的字挪下來 */
+.ses .todo > span:last-child,.ses .read,.ses .note,.due .t,.card p,.lede{text-wrap:pretty}
 .ses .todo .mk{flex:none;font:600 .5625rem/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .ses .note{margin:.7rem 0 0;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
 /* 現在這一次：整頁唯一被抬起的卡片，教材按鈕放大為主要動作 */
@@ -226,7 +229,7 @@ dl.facts dd{margin:0}
 .ses.is-now .rail .d{color:var(--red);font-weight:400;font-size:1.625rem}
 .ses.is-now .rail .n{color:var(--red)}
 .ses.is-now .box{border-color:var(--line-2);box-shadow:var(--sh-2);padding:1.35rem 1.5rem 1.5rem}
-.ses.is-now h4{font-size:1.375rem;font-weight:700;letter-spacing:-.024em;line-height:1.3}
+.ses.is-now h4{font-size:1.375rem;font-weight:700;letter-spacing:-.024em;line-height:1.3;text-wrap:balance;text-wrap:pretty}
 .ses.is-now .when{margin:.55rem 0 0;font:400 .8125rem/1.5 var(--mono);letter-spacing:.02em;color:var(--muted)}
 .ses.is-now .when b{color:var(--text);font-weight:600}
 .ses.is-now .read{margin:1.05rem 0 .55rem;font-size:.8125rem;font-weight:600;color:var(--muted)}
@@ -313,6 +316,8 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   .due .w{text-align:left;display:flex;align-items:baseline;gap:.5rem}
   .links .wide{grid-column:span 1}
   .stats{gap:1.5rem}
+  /* 本次的標題字級最大，與徽章並排時窄螢幕擠不下，徽章改放標題上方，標題取得整個卡片寬度 */
+  .ses.is-now .top{flex-direction:column-reverse;align-items:flex-start;gap:.55rem}
 }
 
 /* ═══ 系統偏好 ═══ */

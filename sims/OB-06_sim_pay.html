@@ -229,10 +229,18 @@
       border: 0 !important; box-shadow: none !important; overflow: visible !important; }
     .slide { position: relative !important; inset: auto !important; display: flex !important;
       width: 1280px !important; height: 720px !important; overflow: hidden !important;
-      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
-    .slide:last-child { break-after: auto; page-break-after: auto; }
+      break-inside: avoid; page-break-inside: avoid;
+      break-after: auto; page-break-after: auto; }
+    /* 分頁改由下一頁的頁首帶起，最後一頁之後不再留一個空白頁 */
+    .slide + .slide { break-before: page; page-break-before: always; }
+    /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
+    .slide.ix-page { display: none !important; }
     .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
   }
+
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
 </style>
 </head>
 <body>

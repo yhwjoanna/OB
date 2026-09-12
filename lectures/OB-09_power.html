@@ -215,6 +215,109 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .rf-grp p i { font-style: italic; }
     .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
     .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
+/* ── IX：課堂互動頁（2026-09） ── */
+    .ix-page .ix { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .ix-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--ink); padding: 10px 28px; font-size: 14px; font-weight: 700; line-height: 1.6; flex: none; }
+    .ix-bar .ctl { display: flex; gap: 8px; flex: none; }
+    .ix-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); padding: 7px 14px; cursor: pointer; line-height: 1; }
+    .ix-btn { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease, color 120ms ease; }
+    .ix-btn:hover { background: var(--ink); color: var(--paper); }
+    .ix-btn:active { transform: scale(0.96); }
+    .ix-btn.red { border-color: var(--red); color: var(--red); }
+    .ix-btn.red:hover { background: var(--red); color: #fff; }
+    .ix-btn:disabled { opacity: .35; cursor: default; }
+    .ix-btn:disabled:hover { background: var(--paper); color: var(--ink); }
+    .ix-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); font-weight: 400; }
+    /* 分類練習 */
+    .ix-sort { flex: 1; display: flex; flex-direction: column; background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-pool { background: var(--paper); padding: 12px 28px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; flex: none; }
+    .ix-pool .tag { width: 100%; }
+    .ix-pool .tag, .ix-bucket .tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+    .ix-chip { border: 1px solid var(--ink); background: var(--paper); padding: 6px 12px; font-size: 14px; line-height: 1.4; cursor: pointer; text-align: left; font-family: var(--sans); color: var(--ink); }
+    .ix-chip { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-chip:hover { background: #E4E4DE; }
+    .ix-chip:active { transform: scale(0.97); }
+    .ix-chip.sel { border: 2px solid var(--red); padding: 5px 11px; }
+    .ix-chip.done { background: var(--ink); color: var(--paper); cursor: default; border-color: var(--ink); }
+    .ix-chip.done::before { content: '✓ '; color: var(--red); }
+    .ix-buckets { display: grid; background: var(--ink); gap: 1px; flex: 1; min-height: 0; }
+    .ix-buckets.c4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .ix-buckets.c2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .ix-bucket { background: var(--paper); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; position: relative; min-height: 0; }
+    .ix-bucket { touch-action: manipulation; transition: transform 110ms ease-out, background 140ms ease; }
+    .ix-bucket:hover { background: #ECECE6; }
+    .ix-bucket:active { transform: scale(0.995); }
+    .ix-bucket h3 { font-weight: 900; font-size: 1.25em; line-height: 1.2; }
+    .ix-bucket.hit { animation: ix-hit .45s; }
+    .ix-bucket.miss { animation: ix-miss .45s; }
+    @keyframes ix-hit { 0% { background: #DDEBDD; } 100% { background: var(--paper); } }
+    @keyframes ix-miss { 0%, 100% { transform: translateX(0); background: var(--paper); } 25% { transform: translateX(-5px); background: #F5D5D5; } 75% { transform: translateX(5px); background: #F5D5D5; } }
+    .ix-bucket .drop { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ix-bucket .drop .ix-chip { font-size: 13.5px; padding: 5px 10px; }
+    .ix-bucket .hint { margin-top: auto; font-size: 12.5px; color: var(--gray); line-height: 1.55; display: none; }
+    .ix-sort.finished .ix-bucket .hint { display: block; }
+    .ix-sort.finished .ix-pool .tag::after { content: ' ── 全部歸類完成，各格底部為教科書定義'; color: var(--red); }
+    .ix-scn { border-bottom: 1px solid var(--ink); padding: 11px 28px; font-size: 14.5px; line-height: 1.65; flex: none; }
+    .ix-fb .lb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--red); margin: 0 6px 0 0; }
+    .ix-fb .lb:not(:first-of-type)::before { content: ''; display: block; height: 3px; }
+    .ix-fb b + .lb { margin-left: 10px; }
+    /* 判斷題與自我檢核（一次一題） */
+    .ix-card { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 48px 14px; gap: 18px; min-height: 0; }
+    .ix-stmt { border: 2px solid var(--ink); padding: 24px 30px; font-size: 28px; font-weight: 900; line-height: 1.38; letter-spacing: -0.016em; }
+    .ix-stmt .q { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; font-weight: 400; }
+    .ix-opts { display: grid; gap: 10px; }
+    .ix-opts.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ix-opts.c2 { grid-template-columns: 1fr 1fr; }
+    .ix-opt { border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; font-weight: 700; padding: 14px 18px; text-align: left; cursor: pointer; line-height: 1.5; display: flex; gap: 12px; align-items: flex-start; }
+    .ix-opt .k { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); padding-top: 4px; flex: none; }
+    .ix-opt { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-opt:hover { background: #E4E4DE; }
+    .ix-opt:active { transform: scale(0.985); }
+    .ix-card.answered .ix-opt { cursor: default; }
+    .ix-card.answered .ix-opt:hover { background: var(--paper); }
+    .ix-card.answered .ix-opt.right { background: var(--ink); color: var(--paper); }
+    .ix-card.answered .ix-opt.right .k { color: var(--paper); }
+    .ix-card.answered .ix-opt.wrong { border: 2px solid var(--red); padding: 13px 17px; }
+    .ix-card.answered .ix-opt.wrong .k::after { content: ' ✗'; color: var(--red); }
+    .ix-card.answered .ix-opt.right .k::after { content: ' ✓'; color: var(--red); }
+    .ix-card.answered .ix-opt:not(.right):not(.wrong) { opacity: .45; }
+    .ix-fb { border-top: 2px solid var(--ink); padding: 12px 0 0; font-size: 15.5px; line-height: 1.7; visibility: hidden; min-height: 96px; }
+    .ix-card.answered .ix-fb { visibility: visible; }
+    .ix-fb b { font-weight: 900; }
+    .ix-fb .topic { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; color: var(--gray); text-transform: uppercase; margin-top: 4px; display: block; }
+    .ix-done { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; }
+    .ix-done .big { font-family: var(--disp); font-size: 72px; color: var(--red); line-height: 1; letter-spacing: -0.04em; }
+    .ix-done p { font-size: 16px; font-weight: 700; max-width: 760px; line-height: 1.7; }
+    .ev-page .ix-stmt { font-size: 23px; padding: 16px 26px; }
+    .ev-page .ix-card { gap: 12px; padding: 12px 48px 10px; }
+    .ev-page .ix-opt { padding: 11px 16px; font-size: 16px; }
+    .ev-page .ix-card.answered .ix-opt.wrong { padding: 10px 15px; }
+    .ev-page .ix-fb { min-height: 120px; font-size: 15px; line-height: 1.65; }
+    /* 預測再揭曉 */
+    .ix-pred { flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-row { background: var(--paper); display: grid; grid-template-columns: 250px 1fr 300px; gap: 1px; background: var(--ink); }
+    .ix-row > div { background: var(--paper); padding: 12px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .ix-row .lab b { font-size: 17px; font-weight: 900; }
+    .ix-row .lab span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray); }
+    .ix-row .opts { flex-direction: row; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .ix-row .opts .ix-opt { font-size: 14.5px; padding: 9px 14px; flex: 1; }
+    .ix-row .opts .ix-opt.pick { border: 2px solid var(--red); padding: 8px 13px; }
+    .ix-row .opts .ix-opt.pick::after { content: '預測'; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--red); margin-left: auto; align-self: center; white-space: nowrap; }
+    .ix-pred.revealed .ix-opt.truth { background: var(--ink); color: var(--paper); }
+    .ix-pred.revealed .ix-opt:not(.truth):not(.pick) { opacity: .4; }
+    .ix-tally { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray);
+      align-self: center; white-space: nowrap; }
+    .ix.ix-ready .ix-tally { color: var(--red); }
+    .ix-row .res { display: flex; flex-direction: column; justify-content: center; position: relative;
+      font-size: 13.5px; line-height: 1.6; color: transparent; }
+    .ix-row .res b { font-weight: 900; }
+    .ix-row .res::after { content: '看答案後顯示'; position: absolute; left: 20px; right: 20px;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: #B9B9B0; }
+    .ix-pred.revealed .ix-row .res { color: #46443F; }
+    .ix-pred.revealed .ix-row .res b { color: var(--ink); }
+    .ix-pred.revealed .ix-row .res::after { content: none; }
+    body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
+
 </style>
 <style>
   /* ── Topic 9 追加樣式 ── */
@@ -316,10 +419,18 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       border: 0 !important; box-shadow: none !important; overflow: visible !important; }
     .slide { position: relative !important; inset: auto !important; display: flex !important;
       width: 1280px !important; height: 720px !important; overflow: hidden !important;
-      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
-    .slide:last-child { break-after: auto; page-break-after: auto; }
+      break-inside: avoid; page-break-inside: avoid;
+      break-after: auto; page-break-after: auto; }
+    /* 分頁改由下一頁的頁首帶起，最後一頁之後不再留一個空白頁 */
+    .slide + .slide { break-before: page; page-break-before: always; }
+    /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
+    .slide.ix-page { display: none !important; }
     .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
   }
+
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
 </style>
 </head>
 <body>
@@ -349,7 +460,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／54</span></div>
     </section>
 
     <!-- P.02 權力的定義與本質 -->
@@ -377,7 +488,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力最重要之處在於它的依賴性（dependency）。只有在A控制B想要的事物時，A對B才有權力。依賴性愈大，權力愈大——這是貫穿本章的核心邏輯。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／54</span></div>
     </section>
 
     <!-- P.03 權力與領導的區別 -->
@@ -411,7 +522,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>領導方面的研究多強調領導者的風格；權力的研究則聚焦於取得順從的戰術與依賴關係。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／54</span></div>
     </section>
 
     <!-- P.04 權力的基礎來源 -->
@@ -438,7 +549,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>來自個人特質和專業知識，及他人的尊敬與讚賞，包括專家權與參考權兩種類型。個人權力附著在人身上，離開職位依然存在。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／54</span></div>
     </section>
 
     <!-- P.05 正式權力的三種類型 -->
@@ -472,7 +583,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>來自於可以掌握並使用組織資源的正式職權，是正式權力中範圍最廣的一種。成員接受職權階層，便是接受了合法權的基礎。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／54</span></div>
     </section>
 
     <!-- P.06 個人權力的兩種類型 -->
@@ -499,7 +610,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>基礎為某人擁有令人渴望的資源或個人特質。這種權力來自於他人對個人的尊敬和讚賞。名人代言正是參考權的商業運用。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／54</span></div>
     </section>
 
     <!-- P.07 哪一項權力基礎最有效 -->
@@ -536,7 +647,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>參考權是一個強大的激勵因子。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／54</span></div>
     </section>
 
     <!-- P.08 依賴性：權力的關鍵 -->
@@ -570,7 +681,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>可選擇的替代方案愈多，愈能避免受他人控制。多元的技能與人脈，是個人降低被支配的最佳保險。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／54</span></div>
     </section>
 
     <!-- P.09 創造依賴性的因素 -->
@@ -604,7 +715,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>資源愈沒有替代品，控制者的權力愈大。人工智慧的發展正使部分技能逐漸變得可被替代。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／54</span></div>
     </section>
 
     <!-- P.10 正式小團體網絡（補充） -->
@@ -640,7 +751,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── <span class="r">非正式網絡</span>同樣蘊含強大的權力與政治影響力</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／54</span></div>
     </section>
 
     <!-- P.11 小團體網絡與效能準則（補充） -->
@@ -661,7 +772,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </table>
         <div class="cite">網絡的效能取決於所關注的結果：輪型有利於領導者的出現，全方位型有利於成員滿意度，鏈型則有利於正確性。SRC：ROBBINS ＆ JUDGE（2024）</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／54</span></div>
     </section>
 
     <!-- P.12 社會網絡分析 -->
@@ -698,7 +809,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>正式組織圖顯示職權應該如何流動，社會關係圖顯示資源的實際流動。居於中介位置者（broker）因掌握不同群體的獨特資源而擁有較大權力。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／54</span></div>
     </section>
 
     <!-- P.13 FIG 組織社會關係圖 -->
@@ -802,7 +913,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">Thomas、Martha 與 Anne 等人扮演中介者（broker）的角色，連結原本互不相通的部門與群體，因而在網絡中累積可觀的權力。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／54</span></div>
     </section>
 
     <!-- P.14 權力戰術（一） -->
@@ -844,7 +955,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>邀請他人參與決策過程，讓其提供建議和意見，可以增加決策的接受度和承諾度。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／54</span></div>
     </section>
 
     <!-- P.15 權力戰術（二） -->
@@ -862,7 +973,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">施壓</span><span class="ax">PRESSURE</span></div><div class="v">使用要求、威脅或持續檢查來達成目標，是較強制性的戰術，可能產生負面影響，應審慎使用。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">聯盟</span><span class="ax">COALITIONS</span></div><div class="v">尋求他人支持來強化影響力，通過集體力量實現目標，但需要妥善管理各方利益。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／54</span></div>
     </section>
 
     <!-- P.16 情境演練導言 -->
@@ -873,7 +984,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text" style="font-size: 2.2em;">以下有許多職場情境，請思考要用哪一種<span class="ul-red">權力戰術</span>來與對方溝通。</div>
         <span class="q-label">SCENARIOS ── NEWCOMER ＋ FIRST-LINE MANAGER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／54</span></div>
     </section>
 
     <!-- P.17 職場新鮮人篇 divider -->
@@ -884,7 +995,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text">職場新鮮人篇</div>
         <span class="q-label">SCENARIO 01-04 ── THE NEWCOMER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／54</span></div>
     </section>
 
     <!-- P.18 新鮮人情境1 -->
@@ -907,7 +1018,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>在不影響部門日常工作的情況下，運用不同的權力戰術，說服同事擔任志願者，並協調好人力安排，確保活動順利進行。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／54</span></div>
     </section>
 
     <!-- P.19 新鮮人情境2 -->
@@ -930,7 +1041,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>透過不同的權力戰術，說服資深員工提供意見與協助，讓教材內容更有深度和實用性，並贏得主管的認可。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／54</span></div>
     </section>
 
     <!-- P.20 新鮮人情境3 -->
@@ -953,7 +1064,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>利用不同的權力戰術，說服福委會成員支持你的提案，並取得足夠的經費來執行活動。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／54</span></div>
     </section>
 
     <!-- P.21 新鮮人情境4 -->
@@ -976,7 +1087,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>使用不同的權力戰術，協助員工熟悉系統，化解抵觸情緒，並提升新系統的接受度，最終減少出錯率和投訴。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／54</span></div>
     </section>
 
     <!-- P.22 基層主管篇 divider -->
@@ -987,7 +1098,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text">基層主管篇</div>
         <span class="q-label">SCENARIO 01-04 ── THE FIRST-LINE MANAGER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／54</span></div>
     </section>
 
     <!-- P.23 主管情境1 -->
@@ -1014,7 +1125,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／54</span></div>
     </section>
 
     <!-- P.24 主管情境2 -->
@@ -1041,7 +1152,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／54</span></div>
     </section>
 
     <!-- P.25 主管情境3 -->
@@ -1068,7 +1179,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／54</span></div>
     </section>
 
     <!-- P.26 主管情境4 -->
@@ -1095,7 +1206,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／54</span></div>
     </section>
 
     <!-- P.27 FIG 由影響方向決定合適的權力戰術 -->
@@ -1154,7 +1265,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">理性的說服是唯一在向上、向下與橫向影響皆有效的戰術；戰術的選擇應配合影響的方向。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／54</span></div>
     </section>
 
     <!-- P.28 利用權力戰術 -->
@@ -1185,7 +1296,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>使用逢迎與合法兩戰術，可以減輕因上司命令所產生的負面反應。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／54</span></div>
     </section>
 
     <!-- P.29 權力戰術的文化偏好 -->
@@ -1212,7 +1323,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>集體主義國家的人們則是站在社會角度，認為權力是一種可以幫助他人的合理方式。相同的戰術，在不同文化中的正當性感受並不相同。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／54</span></div>
     </section>
 
     <!-- P.30 政治技能 -->
@@ -1246,7 +1357,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>組織支持開放且公平地使用規章制度時，政治技能往往與工作績效評比呈負相關。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／54</span></div>
     </section>
 
     <!-- P.31 權力對人的影響 -->
@@ -1283,7 +1394,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力對每個人的影響方式不盡相同，有時甚至會帶來一些正面效應。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／54</span></div>
     </section>
 
     <!-- P.32 權力變數 -->
@@ -1320,7 +1431,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力顯露了行使者所重視的價值。對於道德認同強烈者，權力可以強化他們的道德知覺和行動意願。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／54</span></div>
     </section>
 
     <!-- P.33 性騷擾 -->
@@ -1347,7 +1458,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>管理者的基本責任是保護員工免受不友善環境的對待。管理者也許不易察覺員工之中有誰遭受到性騷擾，但不能因此不保護員工和組織。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／54</span></div>
     </section>
 
     <!-- P.34 管理者在防止性騷擾中的角色 -->
@@ -1365,7 +1476,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">懲處違法者</span><span class="ax">ACTION／04</span></div><div class="v">確定違法者已被懲處或解僱。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">提高意識</span><span class="ax">ACTION／05</span></div><div class="v">舉辦公司內部研討會，以提升員工對性騷擾議題的了解。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／54</span></div>
     </section>
 
     <!-- P.35 政治：權力的運作 -->
@@ -1403,7 +1514,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>擁有良好政治技能的人，有能力將其權力基礎做最有效地運用。政治不但無法逃避，甚至還不可或缺。與其否認政治的存在，不如理解並善用它。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／54</span></div>
     </section>
 
     <!-- P.36 FIG OB投票所 組織政治的重要性 -->
@@ -1446,7 +1557,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">調查顯示，員工認為組織中出人頭地的最主要途徑是政治（51％），遠高於努力工作（27％）、進取心（18％）與創造力（4％）。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／54</span></div>
     </section>
 
     <!-- P.37 政治的事實 -->
@@ -1477,7 +1588,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>組織內的成員會運用一切能動用的影響力來詮釋事實，以支持本身的目標及利益，這樣的行為稱之為從事以個人利益為主的政治活動（politicking）。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／54</span></div>
     </section>
 
     <!-- P.38 無政治活動的組織可能嗎 -->
@@ -1514,7 +1625,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>上述條件並非大多數組織的真實樣貌，因此政治活動難以完全消失。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／54</span></div>
     </section>
 
     <!-- P.39 助長政治行為的因素 -->
@@ -1541,7 +1652,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>資源重分配、升遷機會、低度信賴、角色模糊、績效評估制度不明確、零和性質的報酬分配、決策民主化、高度績效壓力、自私的高階經理人。制度愈不透明，政治行為的報酬愈高。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／54</span></div>
     </section>
 
     <!-- P.40 FIG 影響政治行為的因素 -->
@@ -1615,7 +1726,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">個人因素與組織因素共同推升政治行為的程度，政治行為則帶來獎賞與避免處罰等有利的結果。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／54</span></div>
     </section>
 
     <!-- P.41 FIG 員工對組織政治的反應 -->
@@ -1658,7 +1769,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">組織政治對員工可能的威脅包括：降低工作滿足感、增加焦慮與壓力、增加離職傾向以及不利績效表現。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／54</span></div>
     </section>
 
     <!-- P.42 人們如何回應組織政治 -->
@@ -1695,7 +1806,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>當員工視政治行為為威脅時，通常會以防衛行為回應——敏銳和保護行為，以避免行動、受責或改變。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／54</span></div>
     </section>
 
     <!-- P.43 FIG 防衛行為 -->
@@ -1759,7 +1870,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">防衛行為分為三大類：避免行動（過度遵從、推諉責任、裝聾作啞、延伸、支吾其詞）、避免受責（建立緩衝、尋求安全、正當化、找代罪羔羊、虛偽陳述）與避免改變（預防、自我保護）。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／54</span></div>
     </section>
 
     <!-- P.44 印象管理 -->
@@ -1793,7 +1904,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>虛偽陳述要付出相當高的代價。印象管理者必須小心謹慎，以免讓人覺得不誠實或有操縱之嫌。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／54</span></div>
     </section>
 
     <!-- P.45 印象管理技巧（面試情境） -->
@@ -1828,7 +1939,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">多數求職者與面試官都會在面試中使用 IM 技巧，且確實<span class="r">有效</span>──面試官多半無法察覺</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／54</span></div>
     </section>
 
     <!-- P.46 印象管理的八種技巧（補充） -->
@@ -1853,7 +1964,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </table>
         <div class="cite">補充自 ROBBINS ＆ JUDGE（2024）；原始資料：Bolino, Kacmar, Turnley, &amp; Gilstrap（2008）, Journal of Management, 34（6）, 1080-1109。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／54</span></div>
     </section>
 
     <!-- P.47 績效評估與印象管理 -->
@@ -1884,7 +1995,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>逢迎者總是在經營關係，而自我推銷者可能只有在面試時用心經營，實際工作時則否。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／54</span></div>
     </section>
     <section class="slide rs-page">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM RESEARCH</span><span class="m">REV 2026.09</span></div>
@@ -1922,7 +2033,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">造假的報酬取決於評分怎麼設計，開放式書寫加自然語言處理評分把報酬壓到量表的四成</div>
       <div class="cite">Speer, A. B., Chawota, T. A., Rudolph, C., &amp; Qaqish, A. (2026). The impact of impression management on writing tendencies: Investigating faking susceptibility of open-ended personality assessments. <i>Journal of Applied Psychology</i>. Advance online publication. <a href="https://doi.org/10.1037/apl0001397" target="_blank" rel="noopener" style="color: var(--gray);">https://doi.org/10.1037/apl0001397</a></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.48／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.48／54</span></div>
     </section>
 
 
@@ -1954,7 +2065,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>政治活動是否符合公平及公正原則？三個問題都能坦然回答，政治行為才站得住腳。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／54</span></div>
     </section>
 
     <!-- P.49 勾勒政治生涯地圖（補充） -->
@@ -1987,7 +2098,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── 權力與政治是<span class="r">組織生活的一部分</span>，競爭者可能也有一張自己的地圖</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.50／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.50／54</span></div>
     </section>
 
     <!-- P.50 FIG 勾勒你的政治地圖 -->
@@ -2056,7 +2167,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">紅色圈圈表示關係密切、黑色圈圈表示關係鬆散、白色圈圈表示完全沒有關係；下半部為局部放大細分圖，呈現間接影響的路徑。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.51／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.51／54</span></div>
     </section>
 
     <!-- P.51 對管理者的啟示 -->
@@ -2093,12 +2204,41 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>在政治框架中評估他人，可以更準確預測其行為，並利用此資訊形成對自身與工作團隊有益的政治策略。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.52／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.52／54</span></div>
     </section>
-    <section class="slide rf-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+        <section class="slide ix-page">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 12 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
         <div class="idx">53</div>
+        <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
+        <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
+      </div>
+      <div class="ix" data-ix="quiz">
+        <div class="ix-bar"><span>每題單選；點選答案後顯示解說，十題答完顯示成績。</span><div class="ctl"><span class="ix-count">第 <span class="cur">1</span>／<span class="tot">10</span> 題 ── 答對 <span class="score">0</span></span><button class="ix-btn prev">上一題</button><button class="ix-btn next">下一題</button><button class="ix-btn reset">重新開始</button></div></div>
+        <div class="ix-card" data-cols="2" data-final="1">
+          <script type="application/json">[
+            {"s": "關於權力的本質，下列敘述何者最為正確？", "o": ["權力必須被實際行使出來，否則不能算是權力", "權力是影響行為的潛在能力，可以存在而不被使用，其最重要之處在於依賴性", "權力的大小完全取決於職位層級的高低，與依賴關係無關", "只要控制任何一項資源即可產生權力，無須考量對方是否需要該資源"], "a": 1, "fb": "權力指 A 擁有能影響 B 之行為的能力，是一種蓄而不發的潛能；只有在 A 控制 B 想要的事物時權力才成立，依賴性愈大，權力愈大。", "t": "權力的定義與本質"},
+            {"s": "關於權力與領導的差異，下列敘述何者正確？", "o": ["權力與領導同樣要求領導者與被領導者的目標一致", "領導研究涵蓋向上、向下與橫向的影響，權力研究則只討論由上往下的影響", "權力研究聚焦於領導者的風格，領導研究則聚焦於取得順從的戰術", "領導需要目標一致，權力則不需要，只要依賴性存在即可"], "a": 3, "fb": "領導研究著重由上往下對部屬的影響並強調風格，權力研究則涵蓋向上、向下與橫向各種方向，聚焦於取得順從的戰術與依賴關係；權力可用來服務組織，也可用來服務私利。", "t": "權力與領導的區別"},
+            {"s": "依研究結果，哪一組權力基礎最為有效？", "o": ["專家權與參考權，兩者與員工滿意度、組織承諾和績效呈正相關", "獎賞權與合法權，因為來自正式職位而效果最為穩定", "強制權，雖然造成不滿但對績效具有正面作用", "合法權，是唯一與員工組織承諾呈正相關的權力基礎"], "a": 0, "fb": "個人權力來自專業技術與受到的尊敬和讚賞，附著在人身上；獎賞權與合法權似乎與這些結果無關，強制權則與滿意度及承諾呈負相關，參考權是強大的激勵因子。", "t": "權力基礎的效果"},
+            {"s": "一項資源要讓控制者取得權力，依講義所述須同時具備的三個條件為何？", "o": ["重要性、合法性與稀少性", "稀少性、可見度與正式職權", "重要性、稀少性與不可替代性", "不可替代性、強制性與合法性"], "a": 2, "fb": "若無人對所控制的資源有所求，依賴性便不存在；資源愈稀少、愈沒有替代品，控制者的權力愈大，人工智慧的發展正使部分技能逐漸變得可被替代。", "t": "創造依賴性的因素"},
+            {"s": "依小團體網絡與效能準則的比較，若首要目標是提高成員滿意度，較合適的網絡型態及其代價為何？", "o": ["輪型，代價是正確性只有中等", "全方位型，代價是正確性只有中等且沒有單一領導角色", "鏈型，代價是溝通速度偏慢", "輪型，代價是領導者不易出現"], "a": 1, "fb": "全方位型允許所有成員彼此積極溝通，速度快且成員滿意度高，常見於自我管理團隊；輪型在領導者的出現上表現最佳，成員滿意度卻最低，鏈型則有利於正確性。", "t": "小團體網絡與效能"},
+            {"s": "關於社會網絡分析與社會關係圖，下列敘述何者正確？", "o": ["社會關係圖與正式組織圖呈現的是相同的資訊", "連帶是指組織正式指揮鏈上的層級隸屬關係", "節點之間交換資源愈頻繁，彼此的連帶愈弱", "正式組織圖顯示職權應該如何流動，社會關係圖則顯示資源的實際流動"], "a": 3, "fb": "社會網絡分析是評估組織內部資源交換及依賴性的工具，節點之間的連結稱為連帶，頻繁交換資源者具有強連帶；居於中介位置者因掌握不同群體的獨特資源而擁有較大權力。", "t": "社會網絡分析"},
+            {"s": "一名基層主管需要說服上級支持一項跨部門專案。依權力戰術效能的研究發現，較合適的作法為何？", "o": ["以持續檢查與威脅施壓，確保對方盡快表態", "主要訴諸私人交情，以個人式訴求取代論證", "以邏輯論證和事實證據進行理性說服，並輔以商議邀請對方參與決策", "直接援引自身職位與組織政策，要求上級配合"], "a": 2, "fb": "研究發現理性說服、鼓舞式訴求與商議三項戰術最為有效，施壓則經常適得其反、效能最差；理性說服也是唯一在向上、向下與橫向影響皆有效的戰術。", "t": "權力戰術的效能"},
+            {"s": "關於政治技能，下列敘述何者正確？", "o": ["政治技能須在未被察覺的情況下才能發揮影響力，一旦被識破是刻意操作，效果便大打折扣", "政治技能的高低與自我效能及人脈的建立並無關聯", "組織愈是開放且公平地使用規章制度，政治技能與工作績效評比的正相關愈強", "政治技能指的是運用正式職權要求部屬服從的能力"], "a": 0, "fb": "政治技能是以某種方式影響旁人以提升自我目標的能力，高者能建立自我效能與人脈並提升績效；當組織支持開放且公平地使用規章制度時，政治技能往往與工作績效評比呈負相關。", "t": "政治技能"},
+            {"s": "依講義引述的調查結果與論點，關於組織政治的判讀何者正確？", "o": ["員工認為出人頭地的最主要途徑是努力工作，比例為 51%", "只要提高整體薪酬水準，組織中的政治活動即可完全消除", "政治行為產生的最重要因素是員工個人的道德水準偏低", "員工認為出人頭地的最主要途徑是政治，比例為 51%，遠高於努力工作的 27%"], "a": 3, "fb": "同一份調查中進取心佔 18%、創造力佔 4%；導致政治行為的最重要因素是將分配有限資源的事實加以無限地詮釋，唯有目標與利益一致、資源不虞匱乏且績效完全客觀時，政治活動才可能消失。", "t": "組織政治的事實"},
+            {"s": "依印象管理與績效評估的研究發現，下列敘述何者正確？", "o": ["自我推銷與逢迎同樣能有效提高績效評等", "逢迎與績效評等呈正相關，自我推銷者實際上得到較低的績效評等", "政治技巧低者更能把印象管理轉化為高績效評估", "印象管理在面試中普遍無效，面試官多半能夠察覺"], "a": 1, "fb": "逢迎者總是在經營關係，自我推銷者則可能只在面試時用心經營、實際工作時則否；高政治技巧者能將印象管理轉化成高績效評估，低政治技巧者反而可能因嘗試印象管理而受傷。", "t": "印象管理與績效評估"}
+          ]</script>
+          <div class="ix-stmt"><span class="q">題目／01</span><span class="txt"></span></div>
+          <div class="ix-opts c2"></div>
+          <div class="ix-fb"></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.53／54</span></div>
+    </section>
+<section class="slide rf-page">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">54</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
         <div class="note">[ APA 7 ]<br>2 ITEMS</div>
       </div>
@@ -2111,7 +2251,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示；標為提前線上出版者，卷期與頁碼尚未確定。教科書見封面。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.53／53</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.54／54</span></div>
     </section>
 
 
@@ -2141,7 +2281,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   let downX = 0, downY = 0;
   stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
   stage.addEventListener('click', (e) => {
-    if (e.target.closest('a, iframe')) return;
+    if (e.target.closest('a, iframe, video, .video-cell, .ix')) return;
     if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
     const sel = window.getSelection();
     if (sel && sel.toString().length > 0) return;
@@ -2404,6 +2544,118 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   var _before = before;
   before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
   window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+<script>
+/* IX：課堂互動頁（分類練習、判斷題、預測揭曉、自我檢核）── 2026-09 */
+(function () {
+  const $ = (el, q) => el.querySelector(q);
+  const $$ = (el, q) => Array.from(el.querySelectorAll(q));
+  /* 分類練習 */
+  function initSort(root) {
+    const pool = $(root, '.ix-pool'), chips = $$(root, '.ix-chip'), buckets = $$(root, '.ix-bucket');
+    const doneEl = $(root, '.done'), missEl = $(root, '.miss'), sort = $(root, '.ix-sort');
+    let sel = null, done = 0, miss = 0;
+    const home = chips.map(c => c.nextSibling);
+    function refresh() { doneEl.textContent = done; missEl.textContent = miss; sort.classList.toggle('finished', done === chips.length); }
+    chips.forEach(c => c.addEventListener('click', () => {
+      if (c.classList.contains('done')) return;
+      if (sel) sel.classList.remove('sel');
+      sel = (sel === c) ? null : c; if (sel) sel.classList.add('sel');
+    }));
+    buckets.forEach(b => b.addEventListener('click', (e) => {
+      if (!sel) return;
+      b.classList.remove('hit', 'miss'); void b.offsetWidth;
+      if (b.dataset.key === sel.dataset.key) {
+        sel.classList.remove('sel'); sel.classList.add('done'); $(b, '.drop').appendChild(sel); sel = null; done++; b.classList.add('hit');
+      } else { miss++; b.classList.add('miss'); }
+      refresh();
+    }));
+    $(root, '.reset').addEventListener('click', () => {
+      chips.forEach((c, k) => { c.classList.remove('done', 'sel'); pool.appendChild(c); });
+      sel = null; done = 0; miss = 0; refresh();
+    });
+  }
+  /* 一次一題：判斷題與自我檢核 */
+  function initQuiz(root) {
+    const card = $(root, '.ix-card'), items = JSON.parse($(card, 'script').textContent);
+    const labels = (card.dataset.labels || '').split('|').filter(Boolean), cols = card.dataset.cols || '2';
+    const stmt = $(card, '.ix-stmt'), txt = $(stmt, '.txt'), qlab = $(stmt, '.q'), opts = $(card, '.ix-opts'), fb = $(card, '.ix-fb');
+    const cur = $(root, '.cur'), score = $(root, '.score'), prevB = $(root, '.prev'), nextB = $(root, '.next');
+    const prefix = qlab.textContent.split('／')[0];
+    const picks = new Array(items.length).fill(null);
+    let n = 0, finalEl = null;
+    $(root, '.tot').textContent = items.length;
+    function count() { return picks.filter((p, k) => p !== null && p === items[k].a).length; }
+    function render() {
+      if (finalEl) { finalEl.remove(); finalEl = null; stmt.hidden = false; opts.hidden = false; fb.hidden = false; }
+      const it = items[n], choices = it.o || labels;
+      qlab.textContent = prefix + '／' + String(n + 1).padStart(2, '0');
+      txt.textContent = it.s; opts.innerHTML = ''; opts.className = 'ix-opts c' + cols;
+      choices.forEach((c, k) => {
+        const b = document.createElement('button'); b.className = 'ix-opt';
+        b.innerHTML = '<span class="k">' + String.fromCharCode(65 + k) + '</span><span>' + c + '</span>';
+        b.addEventListener('click', () => { if (picks[n] !== null) return; picks[n] = k; paint(); });
+        opts.appendChild(b);
+      });
+      paint();
+    }
+    function paint() {
+      const it = items[n], p = picks[n], bs = $$(opts, '.ix-opt');
+      card.classList.toggle('answered', p !== null);
+      bs.forEach((b, k) => { b.classList.toggle('right', p !== null && k === it.a); b.classList.toggle('wrong', p !== null && k === p && k !== it.a); });
+      const verdict = it.o ? '' : '<b>判定：' + labels[it.a] + '</b>　';
+      fb.innerHTML = p === null ? '' : verdict + it.fb + '<span class="topic">相關主題：' + it.t + '</span>';
+      cur.textContent = n + 1; score.textContent = count();
+      prevB.disabled = n === 0; nextB.disabled = p === null;
+      nextB.textContent = (n === items.length - 1) ? (card.dataset.final ? '看成績' : '下一題') : '下一題';
+    }
+    function finish() {
+      stmt.hidden = true; opts.hidden = true; fb.hidden = true;
+      finalEl = document.createElement('div'); finalEl.className = 'ix-done';
+      const c = count(), tot = items.length;
+      const msg = c === tot ? '十題全部答對。' : '答錯的題目各附相關主題，對應本章該節的內容。';
+      finalEl.innerHTML = '<div class="big">' + c + '／' + tot + '</div><p>' + msg + '</p>';
+      card.appendChild(finalEl); nextB.disabled = true;
+    }
+    prevB.addEventListener('click', () => { if (n > 0) { n--; render(); } });
+    nextB.addEventListener('click', () => { if (n < items.length - 1) { n++; render(); } else if (card.dataset.final) finish(); });
+    $(root, '.reset').addEventListener('click', () => { picks.fill(null); n = 0; render(); });
+    render();
+  }
+  /* 預測再揭曉 */
+  function initPred(root) {
+    const pred = $(root, '.ix-pred'), rows = $$(root, '.ix-row');
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', () => {
+      if (pred.classList.contains('revealed')) return;
+      if (r.dataset.multi) b.classList.toggle('pick');
+      else { $$(r, '.ix-opt').forEach(x => x.classList.remove('pick')); b.classList.add('pick'); }
+    })));
+    const revealBtn = $(root, '.reveal'), tally = $(root, '.ix-tally');
+    function sync() {
+      const done = rows.filter(r => $$(r, '.ix-opt').some(b => b.classList.contains('pick'))).length;
+      const all = done === rows.length;
+      if (!pred.classList.contains('revealed')) revealBtn.disabled = !all;
+      revealBtn.title = all ? '' : '四列都選好之後才能看答案';
+      if (tally) tally.textContent = done + '／' + rows.length;
+      root.classList.toggle('ix-ready', all);
+    }
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', sync)));
+    $(root, '.reveal').addEventListener('click', () => {
+      if (revealBtn.disabled) return;
+      $$(root, '.ix-opt').forEach(b => b.classList.toggle('truth', b.dataset.truth === '1'));
+      pred.classList.add('revealed');
+    });
+    $(root, '.reset').addEventListener('click', () => {
+      pred.classList.remove('revealed'); $$(root, '.ix-opt').forEach(b => b.classList.remove('pick', 'truth'));
+      sync();
+    });
+    sync();
+  }
+  document.querySelectorAll('.ix').forEach(root => {
+    const t = root.dataset.ix;
+    if (t === 'sort') initSort(root); else if (t === 'quiz') initQuiz(root); else if (t === 'pred') initPred(root);
+  });
 })();
 </script>
 </body>

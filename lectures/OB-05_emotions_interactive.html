@@ -225,7 +225,11 @@ footer { padding:44px 8vw; display:flex; justify-content:space-between; font-fam
     .pdfbtn { display: none !important; }
     section, .card, figure, table { break-inside: avoid; page-break-inside: avoid; }
     a { text-decoration: none; color: inherit; }
-  }</style>
+  }
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+</style>
 </head>
 <body>
 <div class="progressbar" id="pbar"></div>
