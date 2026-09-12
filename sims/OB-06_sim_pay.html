@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB-6 變動薪資計劃獎勵──模擬遊戲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F2E9DC;
+    --panel: #FBF7EE;
+    --ink: #1F2933;
+    --slate: #40505E;
+    --line: #D6CBB6;
+    --coral: #D9541E;
+    --teal: #2E7D74;
+    --sun: #F0B429;
+    --sky: #3D6E9C;
+    --grape: #6B5B8E;
+    --pink: #B8615C;
+    --round: 'Archivo Black', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    --num: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: #E4D9C6;
+    font-family: var(--sans); color: var(--ink);
+    overflow: hidden;
+  }
+  #viewport { height: 100%; display: grid; place-items: center; overflow: hidden; }
+  #stage {
+    width: 1280px; height: 720px; position: relative; flex: none;
+    background: var(--cream);
+    border: 10px solid var(--ink);
+    box-shadow: 0 18px 44px rgba(31,41,51,0.30);
+    overflow: hidden;
+  }
+  .slide { display: none; position: absolute; inset: 0; padding: 0; flex-direction: column; }
+  .slide.active { display: flex; }
+
+  /* ── 頁面骨架 ── */
+  .meta {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 30px; height: 54px; flex: none;
+    background: var(--ink); color: var(--cream);
+    font-family: var(--num); font-weight: 500; font-size: 13px; letter-spacing: .13em; text-transform: uppercase;
+  }
+  .meta .rev { color: var(--sun); letter-spacing: .13em; }
+  .meta .chip {
+    background: var(--sun); color: var(--ink); border: none;
+    padding: 4px 14px; font-weight: 700; font-size: 12.5px; letter-spacing: .13em;
+  }
+  .foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 30px; height: 44px; flex: none;
+    background: var(--ink); color: rgba(242,233,220,0.72);
+    font-family: var(--num); font-size: 12px; letter-spacing: .13em; text-transform: uppercase;
+  }
+  .foot .pg { background: var(--sun); color: var(--ink); padding: 3px 13px; font-weight: 700; letter-spacing: .1em; }
+  .body-wrap { flex: 1; min-height: 0; padding: 20px 34px 22px; display: flex; flex-direction: column; gap: 14px; }
+
+  .h-title { font-family: var(--round); font-weight: 900; font-size: 34px; line-height: 1.24; letter-spacing: .01em; }
+  .h-title .accent { color: var(--coral); }
+  .h-sub { font-family: var(--num); font-size: 13px; letter-spacing: 0.14em; color: var(--slate); text-transform: uppercase; }
+
+  /* ── 卡片 ── */
+  .card {
+    background: var(--panel); border: 3px solid var(--ink); border-radius: 0;
+    box-shadow: 6px 6px 0 var(--ink); padding: 16px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .card h3 { font-family: var(--round); font-weight: 900; font-size: 20px; line-height: 1.35; letter-spacing: .01em; }
+  .card p, .card li { font-size: 16.6px; line-height: 1.76; }
+  .card ol, .card ul { padding-left: 20px; }
+  .pill {
+    align-self: flex-start; font-family: var(--num); font-weight: 700; font-size: 12px;
+    border: none; border-radius: 0; padding: 4px 12px; letter-spacing: 0.13em; text-transform: uppercase;
+    background: var(--ink); color: var(--cream);
+  }
+  .pill.coral { background: var(--coral); color: #fff; }
+  .pill.teal { background: var(--teal); color: #fff; }
+  .pill.sun { background: var(--sun); color: var(--ink); }
+  .pill.sky { background: var(--sky); color: #fff; }
+  .pill.grape { background: var(--grape); color: #fff; }
+  .pill.pink { background: var(--pink); color: #fff; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; flex: 1; min-height: 0; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1; min-height: 0; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; flex: 1; min-height: 0; }
+
+  .callout {
+    background: var(--sun); border: 3px solid var(--ink); border-radius: 0;
+    box-shadow: 5px 5px 0 var(--ink); padding: 12px 18px;
+    font-size: 16.6px; line-height: 1.72; font-weight: 500;
+  }
+  .formula {
+    background: var(--ink); color: var(--cream); border-radius: 0;
+    padding: 12px 18px; font-family: var(--num); font-weight: 500; font-size: 15.5px;
+    line-height: 1.9; border: 3px solid var(--ink); box-shadow: 5px 5px 0 rgba(31,41,51,0.28);
+  }
+  .formula .hl { color: var(--sun); }
+
+  /* ── 封面 ── */
+  .cover-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.3fr 1fr;
+    gap: 40px; align-items: stretch; position: relative; padding: 40px 46px 44px; text-align: left; }
+  .cover-left { display: flex; flex-direction: column; }
+  .cover-kicker {
+    align-self: flex-start; font-family: var(--num); font-weight: 700; font-size: 12.5px; letter-spacing: 0.18em;
+    background: var(--ink); color: var(--sun); border: none; border-radius: 0;
+    padding: 6px 15px; box-shadow: none; transform: none; text-transform: uppercase;
+  }
+  .cover-title { font-family: var(--round); font-weight: 900; font-size: 62px; line-height: 1.1; margin-top: 20px; letter-spacing: .01em; }
+  .cover-title .accent { color: var(--coral); }
+  .cover-sub { font-size: 17px; line-height: 1.92; color: var(--slate); margin-top: 18px; max-width: 560px; }
+  .cover-goal {
+    background: var(--panel); border: 3px solid var(--ink); border-radius: 0; box-shadow: 6px 6px 0 var(--ink);
+    padding: 13px 18px; font-size: 16px; font-weight: 700; transform: none; margin-top: 20px;
+  }
+  .cover-specs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 22px; }
+  .cover-specs span { background: var(--ink); color: var(--cream); font-family: var(--num);
+    font-size: 12.5px; letter-spacing: .1em; padding: 8px 13px; display: inline-flex; gap: 8px; }
+  .cover-specs span em { font-style: normal; color: var(--sun); font-weight: 700; }
+  .cover-art { background: var(--ink); position: relative; overflow: hidden; display: grid; place-items: center; }
+  .cover-hint { font-family: var(--num); font-size: 11.5px; letter-spacing: .12em; color: var(--slate);
+    text-transform: uppercase; margin-top: 14px; }
+  .plane { position: absolute; pointer-events: none; }
+
+  /* ── 步驟列 ── */
+  .steps { display: flex; flex-direction: column; gap: 13px; flex: 1; min-height: 0; justify-content: center; }
+  .step { display: flex; align-items: stretch; gap: 14px; }
+  .step .n {
+    font-weight: 900; flex: none; width: 48px; border-radius: 0;
+    background: var(--coral); color: #fff; border: 3px solid var(--ink);
+    box-shadow: none;
+    display: grid; place-items: center; font-family: var(--round); font-size: 18px;
+  }
+  .step:nth-child(2) .n { background: var(--sun); color: var(--ink); }
+  .step:nth-child(3) .n { background: var(--teal); }
+  .step:nth-child(4) .n { background: var(--sky); }
+  .step:nth-child(5) .n { background: var(--grape); }
+  .step .t { background: var(--panel); border: 3px solid var(--ink); border-radius: 0; box-shadow: 4px 4px 0 var(--ink); padding: 13px 18px; flex: 1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 0; }
+  .step .t b { font-family: var(--round); font-weight: 900; font-size: 17.5px; margin-right: 10px; }
+  .step .t span { font-size: 16.2px; color: var(--slate); }
+
+  /* ── 圖片頁 ── */
+  .fig-body { flex: 1; min-height: 0; display: grid; place-items: center; }
+  .fig-frame {
+    max-height: 100%; background: var(--panel); border: 3px solid var(--ink); border-radius: 0;
+    box-shadow: 6px 6px 0 var(--ink); padding: 14px; display: flex;
+  }
+  .fig-frame img { max-height: 470px; max-width: 100%; object-fit: contain; }
+
+  /* ── 摺法步驟 ── */
+  .fold-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; flex: 1; min-height: 0; align-items: stretch; }
+  .fold-card { background: var(--panel); border: 3px solid var(--ink); border-radius: 0; box-shadow: 5px 5px 0 var(--ink); padding: 8px 12px; display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 0; overflow: hidden; }
+  .fold-card svg { height: 100%; max-height: 190px; flex: none; width: 44%; min-height: 0; min-width: 0; }
+  .fold-card .txt { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; flex: 1; min-width: 0; min-height: 0; }
+  .fold-card .cap { font-size: 15.4px; line-height: 1.6; text-align: left; font-weight: 500; }
+  .fold-card .stepnum { font-family: var(--num); font-weight: 700; font-size: 12px; background: var(--ink); color: var(--sun); border: none; border-radius: 0; padding: 4px 12px; box-shadow: none; letter-spacing: .12em; }
+
+  /* ── 方案總覽 ── */
+  .scheme-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; flex: 1; min-height: 0; }
+  .scheme-card { background: var(--panel); border: 3px solid var(--ink); border-radius: 0; box-shadow: 5px 5px 0 var(--ink); padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .scheme-card .band { height: 12px; border: none; border-radius: 0; }
+  .scheme-card h3 { font-family: var(--round); font-weight: 900; font-size: 18px; line-height: 1.35; }
+  .scheme-card p { font-size: 15.2px; line-height: 1.7; }
+  .scheme-card .en { font-family: var(--num); font-size: 11px; letter-spacing: 0.12em; color: var(--slate); text-transform: uppercase; }
+
+  /* ── 表格 ── */
+  table.fun { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--panel); border: 3px solid var(--ink); border-radius: 0; overflow: hidden; box-shadow: 5px 5px 0 var(--ink); }
+  table.fun th { background: var(--ink); color: var(--cream); font-family: var(--num); font-weight: 500; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+  table.fun td { padding: 10px 14px; font-size: 16.2px; border-top: 2px solid var(--line); line-height: 1.6; }
+  table.fun td.k { font-weight: 700; white-space: nowrap; }
+  table.fun td.num { font-family: var(--num); font-weight: 700; }
+
+  /* ── 計算器 ── */
+  .calc-wrap { display: grid; grid-template-columns: 300px 1fr; gap: 18px; flex: 1; min-height: 0; }
+  .calc-panel { background: var(--panel); border: 3px solid var(--ink); border-radius: 0; box-shadow: 6px 6px 0 var(--ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+  .calc-panel label { font-family: var(--sans); font-weight: 700; font-size: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .calc-panel input, .calc-panel select {
+    font-family: var(--num); font-weight: 700; font-size: 18px; color: var(--ink);
+    border: 3px solid var(--ink); border-radius: 0; padding: 7px 12px; background: var(--cream);
+    width: 100%; outline: none;
+  }
+  .calc-panel input:focus, .calc-panel select:focus { background: #fff; box-shadow: 3px 3px 0 var(--sun); }
+  .calc-note { font-size: 14.8px; line-height: 1.68; color: var(--slate); }
+  .result-band {
+    background: var(--teal); color: #fff; border: 3px solid var(--ink); border-radius: 0;
+    box-shadow: 5px 5px 0 var(--ink); padding: 12px 18px; text-align: center;
+    font-family: var(--num); font-weight: 700; font-size: 21px;
+  }
+  .result-band small { display: block; font-size: 12.5px; font-weight: 500; letter-spacing: .1em; opacity: 0.9; }
+  .breakdown { font-size: 16.2px; line-height: 1.9; }
+
+  /* ── flow（窄視窗）模式 ── */
+  body.flow { overflow: auto; }
+  body.flow #viewport { display: block; overflow: auto; height: 100%; }
+  body.flow #stage { width: 100%; height: auto; min-height: 100%; border-radius: 0; border-width: 0; box-shadow: none; }
+  body.flow .slide { position: static; }
+  body.flow .slide.active { display: flex; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4, body.flow .scheme-row, body.flow .calc-wrap { grid-template-columns: 1fr; }
+  body.flow .cover-body { grid-template-columns: 1fr; flex: none; padding: 30px 20px 36px; }
+  body.flow .cover-art { height: 280px; min-height: 0; order: -1; margin-bottom: 22px; }
+  body.flow .cover-art svg { height: 100%; width: 100%; }
+  body.flow .cover-title { font-size: 38px; }
+  body.flow .cover-specs { margin-top: 22px; }
+  body.flow .fig-frame img { max-height: none; width: 100%; }
+  body.flow .body-wrap { flex: none; }
+  body.flow .fold-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: none; flex: none; min-height: auto; }
+  body.flow .fold-card { overflow: visible; }
+  body.flow .fold-card svg { height: 160px; max-height: 160px; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4, body.flow .scheme-row, body.flow .calc-wrap, body.flow .steps { flex: none; min-height: auto; }
+  body.flow .fig-body, body.flow .link-page { flex: none; }
+  body.flow .meta, body.flow .foot { height: auto; padding: 12px 18px; flex-wrap: wrap; gap: 8px; }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2E7D74"/>
+    </marker>
+  </defs>
+</svg>
+<div id="viewport">
+  <div id="stage">
+
+    <!-- P.01 封面 -->
+    <section class="slide active">
+      <div class="meta"><span>OB-6 ── SIMULATION GAME</span><span class="chip">NSYSU HRM</span><span>王豫萱</span><span class="rev">REV 2026.08</span></div>
+      <div class="cover-body">
+        <div class="cover-left">
+          <span class="cover-kicker">Paper Plane Factory</span>
+          <h1 class="cover-title">變動薪資計劃獎勵<br><span class="accent">模擬遊戲</span></h1>
+          <p class="cover-sub">紙飛機工廠開工。各小組領到一份保密的薪酬方案，在相同的任務條件下生產紙飛機。同樣的努力，遇上不同的獎勵制度，會折出什麼樣的行為？</p>
+          <div class="cover-goal">任務目標：10 分鐘內折出並試飛最多合格紙飛機，賺取小組點數。</div>
+          <div class="cover-specs">
+            <span>方案 <em>5</em></span><span>步驟 <em>5</em></span><span>生產 <em>10 MIN</em></span><span>結算 <em>內建計算器</em></span>
+          </div>
+          <div class="cover-hint">按方向鍵或點擊畫面翻頁</div>
+        </div>
+        <div class="cover-art">
+          <svg viewBox="0 0 320 420" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g stroke="#1F2933" stroke-width="3" stroke-linejoin="round">
+              <g transform="translate(52,54) rotate(-16)">
+                <path d="M0 0 L128 44 L54 66 Z" fill="#F0B429"/>
+                <path d="M0 0 L54 66 L44 118 Z" fill="#E9A81F"/>
+              </g>
+              <g transform="translate(126,190) rotate(8)">
+                <path d="M0 0 L148 52 L62 78 Z" fill="#F2E9DC"/>
+                <path d="M0 0 L62 78 L50 138 Z" fill="#D8CDBA"/>
+              </g>
+              <g transform="translate(28,300) rotate(-6)">
+                <path d="M0 0 L104 36 L44 54 Z" fill="#D9541E"/>
+                <path d="M0 0 L44 54 L36 96 Z" fill="#B84415"/>
+              </g>
+            </g>
+            <g stroke="#F2E9DC" stroke-width="2" stroke-dasharray="7 9" fill="none" opacity=".45">
+              <path d="M6 150 C90 120 190 148 314 96"/>
+              <path d="M6 372 C96 352 196 366 314 316"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.01／13</span></div>
+    </section>
+
+    <!-- P.02 遊戲怎麼玩 -->
+    <section class="slide">
+      <div class="meta"><span>HOW TO PLAY</span><span class="chip">流程</span><span>P.02</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">GAME FLOW</div>
+          <h2 class="h-title">遊戲怎麼玩？<span class="accent">五個步驟</span></h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><div class="t"><b>分組與發放方案卡</b><span>每組領到一份薪酬方案，各組僅能看見自己的方案</span></div></div>
+          <div class="step"><div class="n">2</div><div class="t"><b>研讀方案與擬定策略</b><span>2 分鐘討論：怎麼分工？衝數量還是拚品質？</span></div></div>
+          <div class="step"><div class="n">3</div><div class="t"><b>生產與試飛 10 分鐘</b><span>折飛機、排隊試飛認證，時間到立即停工（最後 2 分鐘提醒）</span></div></div>
+          <div class="step"><div class="n">4</div><div class="t"><b>結算點數</b><span>使用內建結算計算器，算出各組總點數</span></div></div>
+          <div class="step"><div class="n">5</div><div class="t"><b>揭曉方案與反思討論</b><span>公開五種方案，比較各組行為與感受的差異</span></div></div>
+        </div>
+        <div class="callout">保密提醒：拿到方案卡後請妥善保管，結算前不要打探、也不要透露其他組的方案內容。揭曉時刻自有驚喜。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.02／13</span></div>
+    </section>
+
+    <!-- P.03 共同規則 -->
+    <section class="slide">
+      <div class="meta"><span>GROUND RULES</span><span class="chip">共同規則</span><span>P.03</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">SAME RULES FOR EVERYONE</div>
+          <h2 class="h-title">共同規則：<span class="accent">所有小組一體適用</span></h2>
+        </div>
+        <div class="grid3">
+          <div class="card">
+            <span class="pill teal">合格標準</span>
+            <h3>什麼樣的飛機算合格？</h3>
+            <ul>
+              <li>依摺法示意完成，機翼對稱、摺線紮實</li>
+              <li>於試飛線擲出，飛越 3 公尺合格線且不偏離航道</li>
+              <li>每架至多 2 次試飛機會，取最佳結果</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill sun">紙張規則</span>
+            <h3>原物料怎麼領？</h3>
+            <ul>
+              <li>每次領取至多 10 張，可重複領取</li>
+              <li>折壞的紙算已使用，不受罰</li>
+              <li>領取後完全未使用的紙視為浪費，每張扣 50 點</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill coral">認證方式</span>
+            <h3>誰來判定合格？</h3>
+            <ul>
+              <li>由鄰組派 1 名認證員互相檢核與量距</li>
+              <li>爭議由講師裁定</li>
+              <li>試飛時間包含在 10 分鐘內，請自行分配產能</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.03／13</span></div>
+    </section>
+
+    <!-- P.04 摺法示意 -->
+    <section class="slide">
+      <div class="meta"><span>FOLDING GUIDE</span><span class="chip">摺法示意</span><span>P.04</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">STANDARD SPEC ── CLASSIC DART</div>
+          <h2 class="h-title">標準摺法：<span class="accent">經典鏢式紙飛機</span></h2>
+        </div>
+        <div class="fold-grid">
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <rect x="60" y="14" width="80" height="113" rx="2" fill="#fff" stroke="#1F2933" stroke-width="3"/>
+              <line x1="100" y1="19" x2="100" y2="122" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <path d="M78 54 Q100 36 120 52" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+            </svg>
+            <div class="txt"><span class="stepnum">STEP 1</span><span class="cap">A4 紙直放，左右對摺出中線，再攤開</span></div>
+          </div>
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <rect x="60" y="14" width="80" height="113" rx="2" fill="#fff" stroke="#1F2933" stroke-width="3"/>
+              <line x1="100" y1="19" x2="100" y2="122" stroke="#1F2933" stroke-width="1.5" opacity="0.3"/>
+              <line x1="100" y1="14" x2="60" y2="54" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <line x1="100" y1="14" x2="140" y2="54" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <path d="M68 24 Q84 17 94 31" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+              <path d="M132 24 Q116 17 106 31" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+            </svg>
+            <div class="txt"><span class="stepnum">STEP 2</span><span class="cap">兩個上角沿虛線向中線摺入</span></div>
+          </div>
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <polygon points="100,14 140,54 140,127 60,127 60,54" fill="#fff" stroke="#1F2933" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="100,14 60,54 100,54" fill="#F6E0D2" stroke="#1F2933" stroke-width="2" stroke-linejoin="round"/>
+              <polygon points="100,14 140,54 100,54" fill="#F6E0D2" stroke="#1F2933" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="100" y1="14" x2="62" y2="109" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <line x1="100" y1="14" x2="138" y2="109" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <path d="M68 78 Q84 70 92 82" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+              <path d="M132 78 Q116 70 108 82" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+            </svg>
+            <div class="txt"><span class="stepnum">STEP 3</span><span class="cap">兩側斜邊沿虛線再向中線摺入</span></div>
+          </div>
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <polygon points="100,14 140,111 140,127 60,127 60,111" fill="#fff" stroke="#1F2933" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="100,14 60,111 100,116" fill="#F6E0D2" stroke="#1F2933" stroke-width="2" stroke-linejoin="round"/>
+              <polygon points="100,14 140,111 100,116" fill="#F6E0D2" stroke="#1F2933" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="100" y1="16" x2="100" y2="125" stroke="#1F2933" stroke-width="2.5" stroke-dasharray="9 3 2 3"/>
+              <path d="M116 52 Q136 68 116 84" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+            </svg>
+            <div class="txt"><span class="stepnum">STEP 4</span><span class="cap">沿中線向後對摺，摺面收在外側</span></div>
+          </div>
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <polygon points="78,16 118,111 118,127 78,127" fill="#fff" stroke="#1F2933" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="88,40 118,111 118,127 88,127" fill="#DCEAE7" stroke="#1F2933" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="88" y1="43" x2="88" y2="124" stroke="#D9541E" stroke-width="2.5" stroke-dasharray="5 4"/>
+              <path d="M104 66 Q118 78 100 88" stroke="#2E7D74" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+            </svg>
+            <div class="txt"><span class="stepnum">STEP 5</span><span class="cap">機翼沿虛線摺下，翻面後另一側相同</span></div>
+          </div>
+          <div class="fold-card">
+            <svg viewBox="52 6 96 132" fill="none">
+              <polygon points="100,18 63,118 93,118" fill="#DCEAE7" stroke="#1F2933" stroke-width="2.5" stroke-linejoin="round"/>
+              <polygon points="100,18 137,118 107,118" fill="#DCEAE7" stroke="#1F2933" stroke-width="2.5" stroke-linejoin="round"/>
+              <polygon points="100,18 93,118 100,127 107,118" fill="#fff" stroke="#1F2933" stroke-width="2.5" stroke-linejoin="round"/>
+              <line x1="100" y1="22" x2="100" y2="124" stroke="#1F2933" stroke-width="1.5" opacity="0.35"/>
+              <path d="M66 130 h13 M85 135 h11 M104 135 h11 M121 130 h13" stroke="#2E7D74" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+            </svg>
+            <div class="txt"><span class="stepnum">DONE</span><span class="cap">展開機翼、壓實摺線，完成</span></div>
+          </div>
+        </div>
+        <div class="callout">圖例：紅色虛線＝摺線、綠色箭頭＝摺的方向、淺色區塊＝摺好的紙面。摺線壓得越實、左右越對稱，航道越穩；合格線 3 公尺、額外獎勵線 5 公尺。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.04／13</span></div>
+    </section>
+
+    <!-- P.05 方案總覽 -->
+    <section class="slide">
+      <div class="meta"><span>PAY PLANS</span><span class="chip">方案總覽</span><span>P.05</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">FOUR PLANS ＋ ONE ADD-ON</div>
+          <h2 class="h-title">五種變動薪資方案<span class="accent">（各組保密）</span></h2>
+        </div>
+        <div class="scheme-row">
+          <div class="scheme-card">
+            <div class="band" style="background: var(--coral);"></div>
+            <span class="en">PIECE-RATE</span>
+            <h3>計件薪酬組</h3>
+            <p>做一架領一架，多做多得，還有加速獎勵。誘因最直接。</p>
+          </div>
+          <div class="scheme-card">
+            <div class="band" style="background: var(--teal);"></div>
+            <span class="en">MERIT-BASED</span>
+            <h3>績效薪酬組</h3>
+            <p>數量與品質並重，飛得遠有加給，達標另有里程碑獎勵。</p>
+          </div>
+          <div class="scheme-card">
+            <div class="band" style="background: var(--sun);"></div>
+            <span class="en">BONUS</span>
+            <h3>獎金組</h3>
+            <p>階梯式目標獎金，跨過門檻才有錢，衝過頭還有加碼。</p>
+          </div>
+          <div class="scheme-card">
+            <div class="band" style="background: var(--sky);"></div>
+            <span class="en">PROFIT SHARING</span>
+            <h3>利潤分享組</h3>
+            <p>全班產量決定獎金池，按貢獻比例分配，低於門檻領不到。</p>
+          </div>
+          <div class="scheme-card">
+            <div class="band" style="background: var(--grape);"></div>
+            <span class="en">ESOP ADD-ON</span>
+            <h3>員工持股計劃</h3>
+            <p>加購項目：開賽前買股，配息看全班表現，有賺有賠。</p>
+          </div>
+        </div>
+        <div class="callout">小提醒：每個方案的規則不同，但任務條件完全相同。拿到方案卡後，先把規則讀懂，再決定小組的生產策略。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.05／13</span></div>
+    </section>
+
+    <!-- P.06 計件組 -->
+    <section class="slide">
+      <div class="meta"><span>PLAN A</span><span class="chip" style="background: var(--coral); color:#fff;">計件薪酬組</span><span>P.06</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">PIECE-RATE PAY</div>
+          <h2 class="h-title">計件薪酬組：<span class="accent">做多少，領多少</span></h2>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill coral">規則</span>
+            <h3>獎勵怎麼算？</h3>
+            <ul>
+              <li>基本計件：每架合格紙飛機 80 點</li>
+              <li>加速獎勵：自第 11 架起，每架再加 40 點（即每架 120 點）</li>
+              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+            </ul>
+            <p class="calc-note">以 5 人組為例；門檻＝基準產量的一半，人數不同時請用參數計算器換算。</p>
+          </div>
+          <div class="card">
+            <span class="pill sun">範例</span>
+            <h3>試算：完成 20 架</h3>
+            <p>前 10 架：10 × 80 ＝ 800 點<br>第 11-20 架：10 × 120 ＝ 1200 點<br>合計 2000 點</p>
+            <div class="formula">總點數 ＝ min(N, 10) × 80 ＋ max(N − 10, 0) × <span class="hl">120</span> − 浪費 × 50</div>
+          </div>
+        </div>
+        <div class="callout">策略提示：多做多得、每一架都算錢。不過別忘了——不合格的飛機一點都拿不到，衝數量之前先確保品質過關。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.06／13</span></div>
+    </section>
+
+    <!-- P.07 績效組 -->
+    <section class="slide">
+      <div class="meta"><span>PLAN B</span><span class="chip" style="background: var(--teal); color:#fff;">績效薪酬組</span><span>P.07</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">MERIT-BASED PAY</div>
+          <h2 class="h-title">績效薪酬組：<span class="accent">數量與品質並重</span></h2>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill teal">規則</span>
+            <h3>獎勵怎麼算？</h3>
+            <ul>
+              <li>基本獎勵：每架合格紙飛機 60 點</li>
+              <li>品質獎勵：試飛超過 5 公尺（額外獎勵距離），每架再加 40 點</li>
+              <li>里程碑獎勵：達 20 架，加發 400 點</li>
+              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill sun">範例</span>
+            <h3>試算：完成 20 架、其中 10 架飛超過 5 公尺</h3>
+            <p>基本：20 × 60 ＝ 1200 點<br>品質：10 × 40 ＝ 400 點<br>里程碑：＋400 點<br>合計 2000 點</p>
+            <div class="formula">總點數 ＝ N × 60 ＋ 達標架數 × <span class="hl">40</span> ＋ 400（若 N ≥ 20）− 浪費 × 50</div>
+          </div>
+        </div>
+        <div class="callout">策略提示：時間有限，資源要放在求快還是求遠？多花幾秒把摺線壓實，換一個品質加給，划算嗎？</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.07／13</span></div>
+    </section>
+
+    <!-- P.08 獎金組 -->
+    <section class="slide">
+      <div class="meta"><span>PLAN C</span><span class="chip">獎金組</span><span>P.08</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">BONUS PAY</div>
+          <h2 class="h-title">獎金組：<span class="accent">跨過門檻，領取獎金</span></h2>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill sun">規則</span>
+            <h3>階梯式目標獎金（按組計酬）</h3>
+            <ul>
+              <li>達 12 架：獲得 800 點</li>
+              <li>達 16 架：再加 600 點（累計 1400）</li>
+              <li>達 20 架：再加 600 點（累計 2000）</li>
+              <li>達 24 架：再加 400 點（累計 2400，上限）</li>
+              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill coral">範例</span>
+            <h3>試算</h3>
+            <p>完成 11 架：0 點（未達第一階）<br>完成 20 架：2000 點<br>完成 30 架：2400 點（超過 24 架後不再增加）</p>
+            <div class="formula">總點數 ＝ 800·(N≥12) ＋ 600·(N≥16) ＋ 600·(N≥20) ＋ <span class="hl">400·(N≥24)</span> − 浪費 × 50</div>
+          </div>
+        </div>
+        <div class="callout">策略提示：獎金只在跨過門檻時發放，隨時盯緊進度——離下一個門檻還差幾架？時間夠不夠再衝一階？</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.08／13</span></div>
+    </section>
+
+    <!-- P.09 利潤分享組 -->
+    <section class="slide">
+      <div class="meta"><span>PLAN D</span><span class="chip" style="background: var(--sky); color:#fff;">利潤分享組</span><span>P.09</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">PROFIT SHARING</div>
+          <h2 class="h-title">利潤分享組：<span class="accent">全班賺多少，按貢獻分</span></h2>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill sky">規則</span>
+            <h3>獎金池與分配</h3>
+            <ul>
+              <li>獎金池 ＝ 全班合格總架數 × 100 點</li>
+              <li>分配 ＝ 獎金池 × （小組完成數 ÷ 全班完成數）</li>
+              <li>參與門檻：小組佔比須達 12％（＝平均佔比的六成，以 5 組計），未達門檻不分配，該份額不再發放</li>
+              <li>額外獎勵：小組佔比達 30％，再加 500 點</li>
+              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill sun">範例</span>
+            <h3>試算：小組 20 架、全班 100 架</h3>
+            <p>獎金池：100 × 100 ＝ 10000 點<br>小組佔比：20％（達門檻）<br>分配：10000 × 20％ ＝ 2000 點</p>
+            <div class="formula">總點數 ＝ 全班總數 × 100 × <span class="hl">（組完成數 ÷ 全班總數）</span> ＋ 500·(佔比≥30％) − 浪費 × 50</div>
+          </div>
+        </div>
+        <div class="callout">策略提示：全班折得越多，獎金池越大；但分到多少，看的是佔比。先確保跨過參與門檻，行有餘力再衝 30％。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.09／13</span></div>
+    </section>
+
+    <!-- P.10 員工持股 -->
+    <section class="slide">
+      <div class="meta"><span>ADD-ON</span><span class="chip" style="background: var(--grape); color:#fff;">員工持股計劃</span><span>P.10</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">EMPLOYEE STOCK OWNERSHIP PLAN</div>
+          <h2 class="h-title">員工持股計劃：<span class="accent">賭一把全班的表現</span></h2>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill grape">規則</span>
+            <h3>加購項目（所有小組適用）</h3>
+            <ul>
+              <li>開賽前決定，遊戲開始後不得加購或退股</li>
+              <li>每組有 200 點起始資本，可購買 0-4 股，每股 50 點</li>
+              <li>全班達 80 架：每股配息 75 點</li>
+              <li>全班達 100 架：每股再配息 75 點</li>
+              <li>全班未達 80 架：股票歸零，資本拿不回來</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill sun">範例</span>
+            <h3>試算：買滿 4 股（花費 200 點）</h3>
+            <p>全班 100 架：配息 4 × 150 ＝ 600 點，淨賺 400 點<br>全班 85 架：配息 4 × 75 ＝ 300 點，淨賺 100 點<br>全班 75 架：配息 0，淨賠 200 點</p>
+            <div class="formula">持股收益 ＝ 股數 × 75·(全班≥80) ＋ 股數 × 75·(全班≥100) − <span class="hl">股數 × 50</span></div>
+          </div>
+        </div>
+        <div class="callout">策略提示：配息看的是全班總表現，不是單一小組的努力。開賽前只有一次決定機會——要下注，還是把資本留在口袋？</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.10／13</span></div>
+    </section>
+
+    <!-- P.11 參數計算器 -->
+    <section class="slide">
+      <div class="meta"><span>CALIBRATION</span><span class="chip" style="background: var(--pink);">參數計算器</span><span>P.11</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">SCALE TO CLASS SIZE</div>
+          <h2 class="h-title">本場遊戲設定：<span class="accent">門檻與獎勵一覽</span></h2>
+        </div>
+        <div class="calc-wrap">
+          <div class="calc-panel">
+            <label>組數（G）
+              <input type="number" id="pG" min="2" max="10" value="5">
+            </label>
+            <label>每組人數（M）
+              <input type="number" id="pM" min="2" max="10" value="5">
+            </label>
+            <div class="calc-note">輸入本場遊戲的組數與每組人數，右表會自動顯示各方案適用的門檻與獎勵數字。開賽前請以此表為準。</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; min-height:0; overflow:auto;">
+            <table class="fun" id="paramTable">
+              <tr><th>方案</th><th>換算後的門檻與獎勵</th></tr>
+              <tr><td class="k">基準產量</td><td class="num" id="oNs">——</td></tr>
+              <tr><td class="k">計件組</td><td id="oPiece">——</td></tr>
+              <tr><td class="k">績效組</td><td id="oMerit">——</td></tr>
+              <tr><td class="k">獎金組</td><td id="oBonus">——</td></tr>
+              <tr><td class="k">利潤分享組</td><td id="oProfit">——</td></tr>
+              <tr><td class="k">員工持股</td><td id="oEsop">——</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.11／13</span></div>
+    </section>
+
+    <!-- P.12 結算計算器 -->
+    <section class="slide">
+      <div class="meta"><span>SETTLEMENT</span><span class="chip" style="background: var(--teal); color:#fff;">結算計算器</span><span>P.12</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">SCORE YOUR TEAM</div>
+          <h2 class="h-title">結算計算器：<span class="accent">輸入成績，立即算分</span></h2>
+        </div>
+        <div class="calc-wrap">
+          <div class="calc-panel">
+            <label>方案
+              <select id="sPlan">
+                <option value="piece">計件薪酬組</option>
+                <option value="merit">績效薪酬組</option>
+                <option value="bonus">獎金組</option>
+                <option value="profit">利潤分享組</option>
+              </select>
+            </label>
+            <label>小組完成數（架）
+              <input type="number" id="sN" min="0" value="20">
+            </label>
+            <label id="rowQ">品質達標數（超過 5 公尺）
+              <input type="number" id="sQ" min="0" value="10">
+            </label>
+            <label id="rowC">全班完成總數（架）
+              <input type="number" id="sC" min="0" value="100">
+            </label>
+            <label>浪費紙張數（張）
+              <input type="number" id="sW" min="0" value="0">
+            </label>
+            <label>持股數（0-4 股，未購買填 0）
+              <input type="number" id="sS" min="0" max="4" value="0">
+            </label>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px; min-height:0;">
+            <div class="result-band" id="sTotal">2000 點<small>小組總點數</small></div>
+            <div class="card" style="flex:1; min-height:0; overflow:auto;">
+              <span class="pill teal">明細</span>
+              <div class="breakdown" id="sDetail">——</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.12／13</span></div>
+    </section>
+
+    <!-- P.13 反思與理論連結 -->
+    <section class="slide">
+      <div class="meta"><span>DEBRIEF</span><span class="chip" style="background: var(--grape); color:#fff;">反思討論</span><span>P.13</span><span class="rev">REV 2026.08</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">FROM GAME TO THEORY</div>
+          <h2 class="h-title">遊戲總結：<span class="accent">把體驗接回理論</span></h2>
+        </div>
+        <div class="grid4">
+          <div class="card">
+            <span class="pill coral">期望理論</span>
+            <h3>連結清楚嗎？</h3>
+            <p>哪一組的努力→績效→獎酬連結最清晰？哪一組最模糊？模糊的連結如何影響投入程度？</p>
+          </div>
+          <div class="card">
+            <span class="pill sun">公平理論</span>
+            <h3>揭曉之後</h3>
+            <p>知道其他組的方案後，公平感受有什麼變化？投入與報酬的比較帶來哪些情緒與反應？</p>
+          </div>
+          <div class="card">
+            <span class="pill teal">目標設定</span>
+            <h3>門檻的魔力</h3>
+            <p>階梯式門檻如何改變行為？接近門檻與遠離門檻時，小組的動力有何差異？</p>
+          </div>
+          <div class="card">
+            <span class="pill sky">風險與增強</span>
+            <h3>連續與全有全無</h3>
+            <p>連續報酬與門檻式報酬帶來的行為差異？利潤分享與持股的風險如何影響策略選擇？</p>
+          </div>
+        </div>
+        <div class="callout">延伸應用：哪一種方案適合什麼樣的實際工作？業務、研發、客服、生產線，分別該用哪一種變動薪資設計？</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.13／13</span></div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  function imgErr(el) {
+    if (!el.dataset.tried && el.dataset.cdn) { el.dataset.tried = 1; el.src = el.dataset.cdn; }
+    else { el.outerHTML = '<div style="padding:40px; font-weight:700;">圖片未能載入</div>'; }
+  }
+
+  /* ── 翻頁 ── */
+  const slides = document.querySelectorAll('.slide');
+  const stage = document.getElementById('stage');
+  const viewport = document.getElementById('viewport');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    viewport.scrollTop = 0;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, select, textarea')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let downX = 0, downY = 0;
+  stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('a, iframe, input, select, button, textarea, label')) return;
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString().length > 0) return;
+    const r = stage.getBoundingClientRect();
+    (e.clientX - r.left) / r.width < 0.3 ? show(i - 1) : show(i + 1);
+  });
+  function fit() {
+    const flow = innerWidth < 980 || (innerWidth / innerHeight) < 1.3;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = 'none'; return; }
+    const s = Math.min(innerWidth / 1360, innerHeight / 790);
+    stage.style.transform = 'scale(' + Math.min(s, 1.35) + ')';
+  }
+  addEventListener('resize', fit);
+
+  /* ── 參數計算器 ── */
+  const pG = document.getElementById('pG'), pM = document.getElementById('pM');
+  function fmt(n) { return Math.round(n); }
+  function updateParams() {
+    const G = Math.max(2, parseInt(pG.value) || 5);
+    const M = Math.max(2, parseInt(pM.value) || 5);
+    const Ns = 4 * M;
+    const half = Math.ceil(Ns / 2);
+    const r1 = fmt(0.6 * Ns), r2 = fmt(0.8 * Ns), r3 = Ns, r4 = fmt(1.2 * Ns);
+    const thPct = (60 / G).toFixed(0), exPct = (150 / G).toFixed(0);
+    const t1 = fmt(0.8 * G * Ns), t2 = G * Ns;
+    document.getElementById('oNs').textContent = 'N＊ ＝ ' + Ns + ' 架／組（每人 4 架 × ' + M + ' 人）';
+    document.getElementById('oPiece').textContent = '每架 80 點；自第 ' + (half + 1) + ' 架起每架 120 點';
+    document.getElementById('oMerit').textContent = '每架 60 點；超過 5 公尺每架＋40 點；達 ' + Ns + ' 架＋400 點';
+    document.getElementById('oBonus').textContent = '達 ' + r1 + ' 架→800；達 ' + r2 + ' 架→＋600；達 ' + r3 + ' 架→＋600；達 ' + r4 + ' 架→＋400（上限）';
+    document.getElementById('oProfit').textContent = '獎金池＝全班總架數×100；參與門檻 佔比 ' + thPct + '％；佔比 ' + exPct + '％→＋500 點';
+    document.getElementById('oEsop').textContent = '全班達 ' + t1 + ' 架→每股配息 75；達 ' + t2 + ' 架→每股再配 75；未達 ' + t1 + ' 架股票歸零';
+    updateSettle();
+  }
+  pG.addEventListener('input', updateParams);
+  pM.addEventListener('input', updateParams);
+
+  /* ── 結算計算器 ── */
+  const sPlan = document.getElementById('sPlan');
+  const sN = document.getElementById('sN'), sQ = document.getElementById('sQ'),
+        sC = document.getElementById('sC'), sW = document.getElementById('sW'), sS = document.getElementById('sS');
+  function updateSettle() {
+    const G = Math.max(2, parseInt(pG.value) || 5);
+    const M = Math.max(2, parseInt(pM.value) || 5);
+    const Ns = 4 * M, half = Math.ceil(Ns / 2);
+    const N = Math.max(0, parseInt(sN.value) || 0);
+    const q = Math.min(Math.max(0, parseInt(sQ.value) || 0), N);
+    const C = Math.max(N, parseInt(sC.value) || 0);
+    const W = Math.max(0, parseInt(sW.value) || 0);
+    const S = Math.min(4, Math.max(0, parseInt(sS.value) || 0));
+    const plan = sPlan.value;
+    const lines = [];
+    let total = 0;
+
+    document.getElementById('rowQ').style.display = (plan === 'merit') ? '' : 'none';
+    document.getElementById('rowC').style.display = (plan === 'profit' || S > 0) ? '' : 'none';
+
+    if (plan === 'piece') {
+      const base = Math.min(N, half) * 80;
+      const acc = Math.max(N - half, 0) * 120;
+      lines.push('基本計件（前 ' + half + ' 架 × 80）＝ ' + base + ' 點');
+      lines.push('加速獎勵（第 ' + (half + 1) + ' 架起 × 120）＝ ' + acc + ' 點');
+      total = base + acc;
+    } else if (plan === 'merit') {
+      const base = N * 60, qual = q * 40, mile = (N >= Ns) ? 400 : 0;
+      lines.push('基本獎勵（' + N + ' × 60）＝ ' + base + ' 點');
+      lines.push('品質獎勵（' + q + ' × 40）＝ ' + qual + ' 點');
+      lines.push('里程碑（達 ' + Ns + ' 架）＝ ' + mile + ' 點');
+      total = base + qual + mile;
+    } else if (plan === 'bonus') {
+      const r1 = fmt(0.6 * Ns), r2 = fmt(0.8 * Ns), r3 = Ns, r4 = fmt(1.2 * Ns);
+      const b = (N >= r1 ? 800 : 0) + (N >= r2 ? 600 : 0) + (N >= r3 ? 600 : 0) + (N >= r4 ? 400 : 0);
+      lines.push('階梯獎金（' + r1 + '／' + r2 + '／' + r3 + '／' + r4 + ' 架）＝ ' + b + ' 點');
+      total = b;
+    } else if (plan === 'profit') {
+      const share = C > 0 ? N / C : 0;
+      const pct = (share * 100).toFixed(1);
+      const th = 0.6 / G, ex = 1.5 / G;
+      const pool = C * 100;
+      let alloc = 0, extra = 0;
+      if (share >= th) { alloc = Math.round(pool * share); } 
+      if (share >= ex) { extra = 500; }
+      lines.push('獎金池（全班 ' + C + ' × 100）＝ ' + pool + ' 點');
+      lines.push('小組佔比 ' + pct + '％（門檻 ' + (th * 100).toFixed(0) + '％）→ 分配 ' + alloc + ' 點');
+      lines.push('額外獎勵（佔比達 ' + (ex * 100).toFixed(0) + '％）＝ ' + extra + ' 點');
+      total = alloc + extra;
+    }
+
+    if (W > 0) { lines.push('浪費處罰（' + W + ' × 50）＝ −' + (W * 50) + ' 點'); total -= W * 50; }
+
+    if (S > 0) {
+      const t1 = fmt(0.8 * G * Ns), t2 = G * Ns;
+      let div = 0;
+      if (C >= t1) div += S * 75;
+      if (C >= t2) div += S * 75;
+      const net = div - S * 50;
+      lines.push('持股：' + S + ' 股（成本 ' + (S * 50) + '）＋ 配息 ' + div + ' ＝ ' + (net >= 0 ? '＋' : '') + net + ' 點');
+      total += net;
+    }
+
+    total = Math.max(total, 0);
+    document.getElementById('sTotal').innerHTML = total + ' 點<small>小組總點數</small>';
+    document.getElementById('sDetail').innerHTML = lines.join('<br>');
+  }
+  [sPlan, sN, sQ, sC, sW, sS].forEach(el => el.addEventListener('input', updateSettle));
+
+  updateParams();
+  fit();
+  show(0);
+</script>
+
+</body>
+</html>

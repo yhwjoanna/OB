@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB-7 難相處的同事──模擬遊戲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FFF3D6; --panel:#FFFDF6; --ink:#1B1B1B; --red:#D6303C;
+    --yellow:#FFE44D; --gray:#7A7568; --soft:#F2EAD2; --hair:#CFC6AC;
+    --sans:'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    --disp:'Archivo Black','Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+    --bd:4px solid var(--ink);
+    --pop:5px 5px 0 var(--ink);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; background:#E9DCBB; font-family:var(--sans); color:var(--ink); overflow:hidden; }
+
+  #viewport { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  #stage {
+    width:1280px; height:720px; position:relative; background:var(--paper);
+    border:6px solid var(--ink); overflow:hidden; transform-origin:center center;
+    background-image:radial-gradient(#1B1B1B18 1.7px, transparent 1.7px);
+    background-size:10px 10px;
+  }
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; }
+  .slide.active { display:flex; }
+
+  /* 頁首頁尾 */
+  .meta-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 22px; height:40px; flex:none; background:var(--ink); color:var(--paper);
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  }
+  .meta-row .rev { color:var(--yellow); }
+  .meta-row .now { color:var(--yellow); font-weight:700; }
+
+  /* 標題列 */
+  .title-row { display:grid; grid-template-columns:108px 1fr auto; align-items:stretch; flex:none;
+    background:var(--yellow); border-bottom:var(--bd); }
+  .title-row .idx { font-family:var(--disp); font-size:34px; line-height:1; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; background:var(--red); }
+  .title-row .t { padding:13px 22px; display:flex; flex-direction:column; justify-content:center; gap:2px; }
+  .title-row .t h2 { font-weight:900; font-size:26px; line-height:1.18; }
+  .title-row .t h2 .r { color:var(--red); }
+  .title-row .t .en { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6A6350; }
+  .title-row .note { padding:13px 20px; display:flex; align-items:center; background:var(--ink); color:var(--yellow);
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+
+  .main { flex:1; min-height:0; display:flex; flex-direction:column; }
+  .band { margin:12px 14px 0; padding:11px 16px; background:var(--ink); color:var(--paper);
+    font-size:15.6px; line-height:1.66; flex:none; }
+  .band b { color:var(--yellow); font-weight:700; }
+  .keyline { margin:0 14px 12px; padding:11px 16px; background:var(--yellow); border:var(--bd);
+    font-size:15px; line-height:1.68; flex:none; font-weight:700; }
+  .keyline .r { color:var(--red); }
+
+  /* 分格＝漫畫框 */
+  .grid { display:grid; background:transparent; gap:12px; flex:1; min-height:0; padding:12px 14px; }
+  .g2 { grid-template-columns:1fr 1fr; }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g32 { grid-template-columns:repeat(3,1fr); grid-template-rows:1fr 1fr; }
+  .g22 { grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; }
+  .cell { background:var(--panel); border:var(--bd); padding:13px 17px; display:flex; flex-direction:column;
+    gap:5px; min-height:0; overflow:hidden; position:relative; }
+  .cell .tag { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--paper); background:var(--ink); align-self:flex-start; padding:3px 8px; }
+  .cell h3 { font-weight:900; font-size:19px; }
+  .cell .en-term { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--gray); margin-top:-2px; }
+  .cell p { font-size:15.2px; line-height:1.7; }
+  .cell .foot-note { margin-top:auto; padding-top:7px; border-top:2px dashed var(--hair); font-size:13.2px; line-height:1.6; color:#5F5A4C; }
+  .cell .foot-note b { color:var(--red); font-weight:900; }
+
+  /* 封面 */
+  .cx { flex:1; min-height:0; display:grid; grid-template-columns:1.55fr 1fr; grid-template-rows:1fr 1fr;
+    gap:12px; padding:14px; }
+  .cx .p { border:var(--bd); background:var(--panel); position:relative; overflow:hidden; }
+  .cx .p.big { grid-row:span 2; background:var(--yellow); display:flex; flex-direction:column; padding:22px 28px 30px; }
+  .cx .k { align-self:flex-start; background:var(--ink); color:var(--yellow);
+    font-family:var(--mono); font-size:12px; letter-spacing:.16em; padding:6px 12px; }
+  .cx .cap { margin-top:15px; background:var(--panel); border:3px solid var(--ink); padding:11px 15px;
+    font-size:15.4px; line-height:1.66; font-weight:700; box-shadow:5px 5px 0 var(--ink); position:relative; z-index:2; }
+  .cx h1 { margin-top:auto; font-size:74px; font-weight:900; line-height:1.04; position:relative; z-index:2; }
+  .cx .strip { margin-top:16px; display:flex; gap:7px; flex-wrap:wrap; position:relative; z-index:2; }
+  .cx .strip span { background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; padding:6px 11px; }
+  .cx .strip span em { font-style:normal; color:var(--yellow); }
+  .cx .bub.r:after { left:auto; right:30px; }
+  .cx .cap2 { position:absolute; left:20px; right:20px; bottom:64px; background:var(--ink); color:var(--paper);
+    font-size:13.4px; line-height:1.6; padding:9px 13px; }
+  .cx .en { margin-top:10px; font-family:var(--disp); font-size:17px; color:var(--red); position:relative; z-index:2; }
+  .cx .hintX { font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; color:#6A6350; text-transform:uppercase; }
+  .cx .boom { position:absolute; right:26px; top:212px; width:210px; height:210px; background:var(--red);
+    display:grid; place-items:center; text-align:center; color:#FFF; font-weight:900; font-size:26px;
+    line-height:1.18; letter-spacing:.02em; z-index:1;
+    clip-path:polygon(50% 0,61% 22%,86% 15%,79% 40%,100% 50%,79% 60%,86% 85%,61% 78%,50% 100%,39% 78%,14% 85%,21% 60%,0 50%,21% 40%,14% 15%,39% 22%); }
+  .cx .pn { position:absolute; left:14px; top:10px; font-family:var(--mono); font-size:11px; color:#9A9484; letter-spacing:.14em; }
+  .cx .bub { position:absolute; background:#FFF; border:3.5px solid var(--ink); border-radius:22px;
+    padding:12px 16px; font-size:16px; font-weight:700; line-height:1.55; max-width:250px; }
+  .cx .bub.y { background:var(--yellow); }
+  .cx .bub:after { content:''; position:absolute; left:30px; bottom:-17px; width:0; height:0;
+    border:9px solid transparent; border-top-color:var(--ink); }
+  .cx .spec { position:absolute; left:16px; right:16px; bottom:14px; display:flex; gap:8px; flex-wrap:wrap; }
+  .cx .spec span { background:var(--ink); color:var(--paper); font-size:12px; padding:5px 10px; font-weight:700; }
+  .cx .spec span em { color:var(--yellow); font-style:normal; font-family:var(--mono); }
+
+  /* 指標列 */
+  .hud { display:grid; grid-template-columns:repeat(3,1fr); background:transparent; gap:12px;
+    padding:10px 14px 0; flex:none; }
+  .gauge { background:var(--panel); border:var(--bd); padding:7px 13px 8px; }
+  .gauge .gtop { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .gauge .lbl { font-weight:900; font-size:15px; }
+  .gauge .en { font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray); display:block; margin-top:1px; }
+  .gauge .num { font-family:var(--disp); font-size:20px; line-height:1; }
+  .gauge .gd { font-family:var(--mono); font-weight:700; font-size:12px; margin-left:6px; color:var(--gray); }
+  .gauge .gd.up { color:#1B7A3E; }
+  .gauge .gd.down { color:var(--red); }
+  .bar { height:9px; background:var(--soft); margin-top:6px; border:2px solid var(--ink); }
+  .bar i { display:block; height:100%; background:var(--ink); transition:width .3s ease; }
+
+  /* 遊戲區 */
+  .scene { flex:1; min-height:0; overflow-y:auto; padding:11px 22px 14px; }
+  .scene h2.rt { font-weight:900; font-size:20px; line-height:1.22; margin-bottom:8px; }
+  .talk { margin-bottom:9px; display:flex; flex-direction:column; gap:6px; }
+  .line { display:flex; align-items:flex-start; gap:10px; }
+  .line .who { flex:none; width:50px; text-align:right; font-family:var(--mono); font-size:11px;
+    letter-spacing:.06em; color:var(--gray); padding-top:8px; }
+  .line.me .who { color:var(--red); font-weight:700; }
+  .line .say { display:block; flex:0 1 auto; background:#FFF; border:2.5px solid var(--ink); border-radius:16px;
+    padding:7px 14px; font-size:14.8px; line-height:1.56; max-width:94%; }
+  .line.me .say { background:var(--yellow); }
+  .ask { background:var(--ink); color:var(--paper); padding:8px 15px; font-weight:900; font-size:15.6px;
+    line-height:1.5; margin-bottom:9px; }
+  .ask .r, .ask b { color:var(--yellow); }
+
+  .opts { display:flex; flex-direction:column; gap:8px; }
+  .opt { display:flex; align-items:stretch; width:100%; text-align:left; font:inherit; color:inherit;
+    background:var(--panel); border:3px solid var(--ink); cursor:pointer; min-height:46px; box-shadow:4px 4px 0 var(--ink);
+    transition:transform .06s ease, box-shadow .06s ease; }
+  .opt .k { flex:none; width:48px; display:grid; place-items:center; border-right:3px solid var(--ink);
+    font-family:var(--disp); font-size:16px; background:var(--yellow); }
+  .opt .tx { padding:8px 15px; font-size:14.9px; line-height:1.56; align-self:center; }
+  .opt:hover:not(:disabled) { transform:translate(2px,2px); box-shadow:3px 3px 0 var(--ink); }
+  .opt:hover:not(:disabled) .k { background:var(--red); color:#FFF; }
+  .opt:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+  .opt:disabled { cursor:default; }
+  .opts.resolved .opt:not(.chosen) { display:none; }
+  .opts.resolved.open .opt:not(.chosen) { display:flex; color:var(--gray); border-color:var(--hair); box-shadow:none; }
+  .opts.resolved.open .opt:not(.chosen) .k { border-right-color:var(--hair); color:var(--gray); background:var(--soft); }
+  .opt.chosen { border-color:var(--red); box-shadow:4px 4px 0 var(--red); }
+  .opt.chosen .k { background:var(--red); color:#FFF; border-right-color:var(--red); }
+  .fold { display:none; align-self:flex-start; font:inherit; font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--gray); background:none; border:none;
+    border-bottom:2px solid var(--hair); cursor:pointer; padding:5px 2px; min-height:28px; }
+  .fold:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  .opts.resolved .fold { display:block; }
+
+  .fb { background:var(--panel); border:var(--bd); padding:12px 17px; margin-top:12px; box-shadow:var(--pop); }
+  .fb .lbl, .lens .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:5px; }
+  .fb .lbl { color:var(--paper); background:var(--red); align-self:flex-start; display:inline-block; padding:3px 8px; }
+  .lens .lbl { color:var(--ink); background:var(--yellow); display:inline-block; padding:3px 8px; }
+  .fb p { font-size:15.8px; line-height:1.7; margin-top:6px; }
+  .lens { background:var(--yellow); border:3px solid var(--ink); padding:11px 16px; margin-top:9px; }
+  .lens h4 { font-weight:900; font-size:15.5px; margin:5px 0 3px; }
+  .lens p { font-size:15px; line-height:1.68; }
+
+  /* 動作列 */
+  .actionbar { flex:none; height:56px; background:var(--ink);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 22px; }
+  .actionbar .tip { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#B9B2A0; }
+  .btn { font:inherit; font-weight:900; font-size:16px; background:var(--yellow); color:var(--ink);
+    border:3px solid var(--ink); height:42px; padding:0 22px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:10px; box-shadow:4px 4px 0 #00000060;
+    transition:transform .06s ease, box-shadow .06s ease; }
+  .btn:hover { background:var(--red); color:#FFF; transform:translate(2px,2px); box-shadow:2px 2px 0 #00000060; }
+  .btn:focus-visible { outline:3px solid var(--yellow); outline-offset:3px; }
+  .btn.ghost { background:transparent; color:var(--paper); border-color:var(--paper); box-shadow:none; }
+  .btn.ghost:hover { background:var(--paper); color:var(--ink); border-color:var(--paper); }
+  .btn:disabled { background:#3A3730; color:#6E695C; border-color:#3A3730; box-shadow:none; cursor:default; }
+  .btn .arw { font-family:var(--mono); font-weight:700; }
+
+  /* 結局 */
+  .endgrid { display:grid; grid-template-columns:1.02fr 1fr; background:transparent; gap:12px;
+    flex:1; min-height:0; padding:12px 14px; }
+  .endgrid > div { background:var(--panel); border:var(--bd); padding:15px 20px;
+    display:flex; flex-direction:column; gap:8px; min-height:0; }
+  .endtag { font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--paper);
+    background:var(--red); display:inline-block; align-self:flex-start; padding:4px 9px; }
+  .endtitle { font-weight:900; font-size:25px; line-height:1.28; }
+  .endtitle .r { color:var(--red); }
+  #endBody, #endBody2 { font-size:15px; line-height:1.7; }
+  .logbox { padding-top:8px; border-top:3px solid var(--ink); }
+  .logbox .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); display:block; margin-bottom:5px; }
+  .log p { font-size:13.2px; line-height:1.55; margin-bottom:3px; display:grid; grid-template-columns:40px 1fr; }
+  .log p b { font-family:var(--mono); font-weight:700; font-size:11px; color:var(--red); padding-top:2px; }
+  .chartbox { flex:1; min-height:0; }
+  .chartbox svg { width:100%; height:100%; display:block; }
+  .note { border-top:2px dashed var(--hair); padding-top:8px; font-size:14px; line-height:1.68; color:#5F5A4C; }
+  .closer { margin-top:auto; padding-top:9px; border-top:2px dashed var(--hair); font-size:13.4px; line-height:1.64; color:#5F5A4C; }
+
+  .kbd { font-family:var(--mono); font-weight:700; border:2px solid var(--ink); background:var(--yellow); padding:1px 6px; font-size:11px; }
+  .tm { font-family:var(--mono); font-weight:700; font-size:12.5px; width:62px; vertical-align:top; padding:3px 0; color:var(--red); }
+  .td { font-size:14.2px; line-height:1.6; padding:3px 0 3px 10px; vertical-align:top; }
+  .subblock { margin-top:auto; padding-top:8px; border-top:2px dashed var(--hair); }
+  .subblock .tag { background:var(--red) !important; }
+  .mailhead { font-family:var(--mono); font-size:12px; line-height:1.9; color:var(--gray); }
+
+  /* 窄螢幕 */
+  @media (max-width:999px) { html, body { height:auto; overflow:auto; } }
+  body.flow { overflow:auto; height:auto; }
+  body.flow #viewport { position:static; display:block; }
+  body.flow #stage { width:auto; max-width:760px; height:auto; margin:0 auto; border:none; transform:none; }
+  body.flow .slide { position:static; }
+  body.flow .cx, body.flow .grid, body.flow .endgrid, body.flow .hud { grid-template-columns:1fr; grid-template-rows:none; }
+  body.flow .cx .p.big { grid-row:auto; min-height:auto; padding:18px 18px 22px; }
+  body.flow .cx .p { min-height:auto; padding:34px 18px 28px; }
+  body.flow .cx h1 { font-size:40px; margin-top:22px; }
+  body.flow .cx .cap { box-shadow:4px 4px 0 var(--ink); }
+  body.flow .cx .boom { position:static; width:150px; height:150px; margin:20px 0 0 auto; font-size:20px; }
+  body.flow .cx .bub { position:static; display:inline-block; margin:0 0 22px; max-width:100%; }
+  body.flow .cx .bub:last-of-type { margin-bottom:0; }
+  body.flow .cx .cap2, body.flow .cx .spec { position:static; margin-top:16px; }
+  body.flow .cx .pn { position:absolute; }
+  body.flow .title-row { grid-template-columns:64px 1fr; }
+  body.flow .title-row .note { display:none; }
+  body.flow .title-row .t { padding:12px 16px; }
+  body.flow .title-row .t h2 { font-size:21px; }
+  body.flow .cell, body.flow .endgrid > div, body.flow .gauge { padding:13px 16px; }
+  body.flow .band, body.flow .keyline { margin:10px 12px; padding:11px 14px; }
+  body.flow .scene { padding:14px 16px 18px; }
+  body.flow .line { display:block; }
+  body.flow .line .who { width:auto; text-align:left; padding-top:0; margin-bottom:2px; display:block; }
+  body.flow .line .say { max-width:100%; }
+  body.flow .actionbar { position:sticky; bottom:0; z-index:5; padding:10px 16px; height:auto; }
+  body.flow .actionbar .tip { display:none; }
+  body.flow .actionbar .btn { width:100%; justify-content:center; height:48px; }
+  body.flow .actionbar .btn.ghost { width:auto; padding:0 18px; }
+  body.flow .chartbox { height:290px; }
+  body.flow .meta-row { padding:0 16px; }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- 00 封面 -->
+<section class="slide active" data-density="1">
+  <div class="meta-row"><span>睿宇科技／平台工程組</span><span>OB-7 團體與工作團隊</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="cx">
+    <div class="p big">
+      <span class="k">SIM ── 05 ROUNDS</span>
+      <div class="cap">交付日前一週，同一個環節又出狀況。<br>這一次，決定權在管理者手上。</div>
+      <h1>難相處的<br>同事</h1>
+      <div class="en">MANAGING A DIFFICULT TEAMMATE</div>
+      <div class="strip"><span>指標 <em>任務進度</em></span><span><em>團隊信任</em></span><span><em>個人資本</em></span></div>
+      <div class="boom">同一件事<br>第 3 次</div>
+    </div>
+    <div class="p">
+      <span class="pn">01</span>
+      <div class="bub" style="left:26px;top:40px">又是我補的。<br>這已經第三次了。</div>
+      <div class="bub r" style="right:26px;top:158px">流程照跑就好，<br>哪有那麼多眉角。</div>
+    </div>
+    <div class="p">
+      <span class="pn">02</span>
+      <div class="bub y" style="left:26px;top:30px">副總在問，<br>稽核是怎麼回事？</div>
+      <div class="cap2">五個回合，每個選擇都會同時動到三條指標，最後落在五種結局之一。</div>
+      <div class="spec"><span>回合 <em>5</em></span><span>指標 <em>3</em></span><span>結局 <em>5</em></span><span>時間 <em>30-40 MIN</em></span></div>
+    </div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">按 Enter 或點右邊的按鈕開始</span>
+    <button class="btn" data-go="1">開始<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 01 場景與人物 -->
+<section class="slide" data-density="4">
+  <div class="meta-row"><span>設定 01／3</span><span class="now">場景</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">01</div>
+    <div class="t"><h2>這個組扛的是<span class="r">全公司的線上服務</span></h2><span class="en">The Team</span></div>
+    <div class="note">6 People</div>
+  </div>
+  <div class="main">
+    <div class="band">睿宇科技做的是企業級雲端訂閱服務。平台工程組編制六人，負責核心系統的部署、監控與夜間 on-call，金流串接、訂單服務與客戶資料庫都在這一組手上。<b>服務中斷不是內部進度延誤，是三千家企業客戶當下停擺，合約裡還寫著可用率賠償。</b></div>
+    <div class="grid g32">
+      <div class="cell">
+        <span class="tag">You</span>
+        <h3>陳彥廷</h3><span class="en-term">資深後端工程師／年資 8 年</span>
+        <p>跨部門人緣好，產品經理與客服主管遇到狀況習慣先私訊他。技術判斷有份量，但沒有任何主管職稱與考核權。</p>
+        <div class="foot-note">柏睿轉調前跟他同一梯進公司，兩個人私下還算談得來。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">The Problem</span>
+        <h3>林柏睿</h3><span class="en-term">後端工程師／轉調 3 年</span>
+        <p>原本在 IT 支援部門，面試兩次才轉調成功。三年下來仍不熟部署與回滾流程，工單常拖過期限，值班時把告警丟回群組求救，拒接核心服務的維護。</p>
+        <div class="foot-note">全組都跟他談過，也都跟組長反映過，情況沒有改變。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">The Boss</span>
+        <h3>黃組長</h3><span class="en-term">工程經理／年資 10 年</span>
+        <p>迴避衝突。全組都向他反映過柏睿，沒有下文。績效校準季以外幾乎不主動找人談話。</p>
+        <div class="foot-note">這次事故的檢討會排在週四，他還沒說要怎麼開。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>吳孟潔</h3><span class="en-term">SRE／年資 5 年</span>
+        <p>最近開始拒絕與柏睿排同一段 on-call。做事俐落，對流程有意見會直接講。</p>
+        <div class="foot-note">私下已經在看其他公司的職缺，履歷更新到上個月。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>蔡承翰</h3><span class="en-term">後端工程師／年資 4 年</span>
+        <p>講話直接。上週五就是他被客服總監打電話從家裡挖起來，遠端連進去回滾。</p>
+        <div class="foot-note">那天他處理到凌晨兩點，隔天照常進辦公室開會。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>張瑋</h3><span class="en-term">後端工程師／年資 2 年</span>
+        <p>值班主力。最年輕，技術成長最快，也最常被排去補柏睿的班。</p>
+        <div class="foot-note">on-call 表上的空格，最後多半是他自己填上去的。</div>
+      </div>
+    </div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 01／3</span>
+    <button class="btn" data-go="2">繼續<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 02 事件 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>設定 02／3</span><span class="now">事件</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">02</div>
+    <div class="t"><h2>上週五晚上，<span class="r">on-call 排班表上沒有人</span></h2><span class="en">What Happened</span></div>
+    <div class="note">P1 Incident ── 87 min</div>
+  </div>
+  <div class="main">
+    <div class="grid g2">
+      <div class="cell">
+        <span class="tag">事件經過</span>
+        <p>週五晚上是排定的資料庫版本升級窗口。升級後連線池設定沒有跟著調整，訂單服務在二十分鐘內耗盡連線，金流串接跟著失敗。</p>
+        <p>受影響的是約四百家企業客戶，當晚開不了單，合約裡的可用率條款跟著被觸發。客戶成功部門把事情呈報到工程副總。</p>
+        <div class="subblock">
+          <span class="tag">Timeline ── 週五夜間</span>
+          <table style="width:100%;border-collapse:collapse;margin-top:6px;">
+            <tr><td class="tm">21:00</td><td class="td">資料庫版本升級開始，變更紀錄上的執行人欄位是空的</td></tr>
+            <tr><td class="tm">21:22</td><td class="td">訂單服務連線池耗盡，金流串接開始逾時</td></tr>
+            <tr><td class="tm" style="color:var(--red)">21:35</td><td class="td" style="color:var(--red);font-weight:700">告警升級，on-call 頁面無人回應</td></tr>
+            <tr><td class="tm">22:15</td><td class="td">客服總監打手機找到蔡承翰</td></tr>
+            <tr><td class="tm">22:49</td><td class="td">回滾完成，服務恢復。事故總長 87 分鐘</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="tag">組長的信</span>
+        <p class="mailhead">FROM　黃組長<br>TO　　平台工程組<br>SUBJ　關於上週五的 P1 事故</p>
+        <p>各位：上週五該值班的人沒有把自己排進 on-call 表，告警無人回應四十分鐘，客戶成功那邊已經呈報到 Ken。這件事對本組的評價影響很大。該值班的人，看到信立刻找我。</p>
+        <p style="color:var(--gray);">信裡沒有點名。全組都知道那天輪到誰。</p>
+        <div class="subblock">
+          <span class="tag">後續</span>
+          <table style="width:100%;border-collapse:collapse;margin-top:6px;">
+            <tr><td class="tm" style="width:86px">週四</td><td class="td">事故檢討會，組長要求每個人先寫下當天做過的事</td></tr>
+            <tr><td class="tm" style="width:86px">三個月後</td><td class="td">SOC 2 稽核，會抽查變更紀錄與值班紀錄</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="keyline">組內另外流傳一件事：柏睿的姊夫是公司的營運長。<span class="r">沒有人證實過，也沒有人敢問。</span></div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 02／3</span>
+    <button class="btn" data-go="3">繼續<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 03 玩法 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>設定 03／3</span><span class="now">玩法</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">03</div>
+    <div class="t"><h2>三項指標，<span class="r">通常只能顧到兩項</span></h2><span class="en">How to Play</span></div>
+    <div class="note">3 Metrics</div>
+  </div>
+  <div class="main">
+    <div class="grid g3">
+      <div class="cell">
+        <span class="tag">Metric 01</span>
+        <h3>任務進度</h3><span class="en-term">Getting the work done</span>
+        <p>工單如期收掉、on-call 表補得起來、稽核要的變更與值班紀錄交得出去。這是組織付薪水的理由。</p>
+        <div class="foot-note"><b>失守的訊號　</b>稽核抽到空白的值班紀錄，或是下一次事故發生時，沒有人能在第一時間接手。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Metric 02</span>
+        <h3>團隊信任</h3><span class="en-term">Keeping the team together</span>
+        <p>同事願不願意繼續互相支援、願不願意留下來。信任掉到底，人就開始走，而且通常一次走一串。</p>
+        <div class="foot-note"><b>失守的訊號　</b>成員開始繞過內部排程直接找別人，或是把轉組申請填一填就送出去了。</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Metric 03</span>
+        <h3>個人資本</h3><span class="en-term">Your standing and energy</span>
+        <p>陳彥廷在組裡與公司裡的說話份量，以及還剩多少精力。資本用完，後面每一招都推不動。</p>
+        <div class="foot-note"><b>失守的訊號　</b>多做的事沒有進到任何紀錄，校準會議上反而被歸到需要加強。</div>
+      </div>
+    </div>
+    <div class="keyline">五個回合，每回合選一個行動，第三回合的內容取決於第二回合走了哪一條路。三項指標都從五分起算，上下限是零與十。<br>操作：直接點選項，或按鍵盤的 <span class="kbd">A</span> 到 <span class="kbd">E</span> 選擇；按 <span class="kbd">Enter</span> 進入下一回合，按 <span class="kbd">R</span> 重新開始。</div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 03／3</span>
+    <button class="btn" data-go="4">進入第一回合<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 04 遊戲 -->
+<section class="slide" id="game" data-density="4">
+  <div class="meta-row"><span id="mLeft">Round 1／5</span><span class="now" id="mRight">週一 09:40</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="hud">
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">任務進度</span><span class="en">Work</span></div><div><span class="num" id="v1">5</span><span class="gd" id="d1"></span></div></div>
+      <div class="bar"><i id="b1" style="width:50%"></i></div>
+    </div>
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">團隊信任</span><span class="en">Trust</span></div><div><span class="num" id="v2">5</span><span class="gd" id="d2"></span></div></div>
+      <div class="bar"><i id="b2" style="width:50%"></i></div>
+    </div>
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">個人資本</span><span class="en">Capital</span></div><div><span class="num" id="v3">5</span><span class="gd" id="d3"></span></div></div>
+      <div class="bar"><i id="b3" style="width:50%"></i></div>
+    </div>
+  </div>
+  <div class="scene" id="scene"></div>
+  <div class="actionbar">
+    <span class="tip" id="tip">選一個行動</span>
+    <button class="btn" id="next" disabled>下一回合<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 05 結局 -->
+<section class="slide" id="endSlide" data-density="2">
+  <div class="meta-row"><span>結果</span><span class="now">三個月後</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="endgrid">
+    <div>
+      <span class="endtag" id="endTag"></span>
+      <h2 class="endtitle" id="endTitle"></h2>
+      <p id="endBody"></p>
+      <p id="endBody2"></p>
+      <div class="logbox"><span class="lbl">你走過的路</span><div class="log" id="log"></div></div>
+      <p class="closer">同一個情境有十五種第三回合的展開。按左下角再玩一次，換一個第一步，後面的路會完全不同。</p>
+    </div>
+    <div>
+      <span class="endtag" style="color:var(--gray)">把事做完　對　維持信任</span>
+      <div class="chartbox"><svg viewBox="0 0 520 340" id="tradeoff"></svg></div>
+      <p class="note">Behfar 與 Golberg 指出，團隊成敗的關鍵不在於有沒有衝突，而在於處理衝突的方式。多數團隊在把事情做完與照顧成員感受之間只顧得了一邊，少數有效的團隊會刻意設計出兩者兼顧的做法。</p>
+    </div>
+  </div>
+  <div class="actionbar">
+    <button class="btn ghost" id="again">再玩一次</button>
+    <button class="btn" data-go="6">課後反思<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 06 反思 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>課後</span><span class="now">反思與延伸</span><span class="rev">OB-7 ／ REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">04</div>
+    <div class="t"><h2>帶回去的<span class="r">四個問題</span></h2><span class="en">Debrief</span></div>
+    <div class="note">4 Questions</div>
+  </div>
+  <div class="main">
+    <div class="grid g22">
+      <div class="cell">
+        <span class="tag">Q 01</span><h3>問題到底是誰的</h3>
+        <p>整場模擬裡，柏睿的績效問題被當成同儕的問題在處理。若把層級拉高，一個人可以連續三年做不好而沒有任何後果，代表哪些管理機制失靈。至少列出三項。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 02</span><h3>委責與卸責的界線</h3>
+        <p>第四回合組長把帶人的責任交給一位沒有考核權的部屬。授權與卸責的差別在哪裡：責任、權限、資源、課責這四項，哪些真的被交出去，哪些留在原地。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 03</span><h3>越級的成本</h3>
+        <p>越過直屬主管呈報，在什麼條件下是負責任的行為，在什麼條件下只是把風險轉嫁給自己。用客戶影響、證據強度、既有申訴管道三個面向來判斷。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 04</span><h3>如果你是黃組長</h3>
+        <p>假設高層確實暗示過不要動柏睿。在這個限制下，一位主管還有哪些不需要對抗高層就能做的事。列出三個具體動作，並說明各自的風險。</p>
+      </div>
+    </div>
+    <div class="keyline" style="color:var(--gray);font-size:13.5px;">情境與人物均為教學用途所創作，與任何真實公司或個人無關。學習目標與衝突管理架構參考 Harvard Business Publishing Quick Case 教學指引所列之研究文獻。</div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Debrief</span>
+    <button class="btn ghost" data-go="0">回到封面</button>
+  </div>
+</section>
+
+</div></div>
+
+<script>
+/* 版面縮放 */
+(function () {
+  var stage = document.getElementById('stage');
+  function fit() {
+    var flow = window.innerWidth < 1000;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = ''; return; }
+    var s = Math.min((window.innerWidth - 32) / 1280, (window.innerHeight - 32) / 720);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  addEventListener('resize', fit); fit();
+})();
+
+/* 頁面切換 */
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+function go(n) {
+  slides.forEach(function (s, k) { s.classList.toggle('active', k === n); });
+  var sc = slides[n].querySelector('.scene'); if (sc) sc.scrollTop = 0;
+  if (document.body.classList.contains('flow')) window.scrollTo(0, 0);
+}
+document.querySelectorAll('[data-go]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var n = +b.dataset.go;
+    if (n === 4) startGame();
+    go(n);
+  });
+});
+
+/* 劇本 */
+var S = { work: 5, trust: 5, cap: 5 };
+var flags = {}, path = [], round = 0, branch = null, picked = false;
+function C(w, t, c) { return { work: w, trust: t, cap: c }; }
+
+var R1 = {
+  time: '週一 09:40　茶水間',
+  title: '孟潔與承翰堵住了你',
+  talk: [
+    ['b', '孟潔', '信我看到了。組長連名字都不敢寫，寫給誰看的？'],
+    ['c', '承翰', '週五晚上是我從家裡連回去回滾的。告警響了四十分鐘沒人接。'],
+    ['b', '孟潔', '上個月柏睿沒跑 staging 就把設定直接推上正式環境，差點把金流打掉，是彥廷你發現才回滾的。'],
+    ['c', '承翰', '彥廷，全組就你講話他還聽得進去。你要不要說句話？']
+  ],
+  q: '你的第一個動作是什麼？',
+  opts: [
+    { t: '回座位把近半年的工單、on-call 表與事故報告調出來，整理成一份可查證的清單。', d: C(1, 0, 2), f: 'facts',
+      fb: '你花了兩個小時，做出一份沒有形容詞的清單：十一張逾期超過三天的工單、四次臨時換班、兩次未經審查就上線的變更。這份東西之後不管往哪個方向走都用得上。孟潔看你沒有立刻表態，有點失望。',
+      lens: ['把抱怨變成證據', '衝突升級時，第一個流失的通常是事實。同一件事被複述三次之後，剩下的往往是情緒與推論。先固定事實基礎，後續無論是私下對話還是正式反映，都比較不會被對方以誇大為由擋回來。'] },
+    { t: '當場把上個月那次差點打掉金流的事完整說出來，讓大家知道問題有多嚴重。', d: C(0, 2, -2), f: 'vent',
+      fb: '茶水間的氣氛熱起來，孟潔說早就該有人講了。三十分鐘後，這件事以更誇張的版本傳到了產品組的群組。當天下午，柏睿在茶水間看到你就轉身走了。',
+      lens: ['共同抱怨的雙面效果', '一起抱怨會在短時間內拉高凝聚力，因為它創造了共同的對立面。代價是問題被推向人身層次，當事人一旦感覺被圍剿就會退回防衛，之後任何改善的提議都會被讀成攻擊。'] },
+    { t: '先安撫大家，說這個 sprint 已經很滿，這件事等組長處理。', d: C(2, -2, -1), f: 'smooth',
+      fb: '大家散開去做事，當週的工單確實清得比預期快。但承翰走之前丟了一句：所以又是這樣。張瑋整個下午沒有在頻道上說話。',
+      lens: ['迴避不是中立', '迴避型的處理方式在短期內保住了產出，卻讓成員學到一件事：在這個團隊裡提出問題不會有結果。這種學習會累積成沉默，而沉默常被誤讀為問題已經解決。'] },
+    { t: '直說這不是自己的責任，柏睿的績效該由組長管。', d: C(0, -3, 1), f: 'exit',
+      fb: '你講的完全正確，而且省下了大量麻煩。孟潔點點頭就走了，之後她不再找你討論任何事情。承翰開始直接找產品經理協調，繞過整個平台組的排程流程。',
+      lens: ['正式權責與非正式影響力', '職權上這確實不是資深部屬的責任。但在主管失能的團隊裡，非正式影響力會自動流向最被信任的人。拒絕這個角色是合理的選擇，代價是同事會另尋出路，團隊的協調成本轉嫁到別處。'] }
+  ]
+};
+
+var R2 = {
+  time: '週一 15:20　平台組座位區',
+  title: '你決定踏出第一步',
+  talk: [
+    ['a', '旁白', '組長中午進了會議室就沒再出來，事故檢討會排在週四。'],
+    ['a', '旁白', 'SOC 2 稽核在三個月後，會抽查變更紀錄與值班紀錄。下一輪 on-call 表週三要排定。']
+  ],
+  q: '你要往哪個方向走？',
+  opts: [
+    { t: '私下找柏睿。用工單與事故時間軸跟他談，不談個性，只談具體事實與後果。', d: C(1, 1, -1), b: 'A',
+      fbFacts: '你把清單攤在螢幕上，一條一條對。柏睿沒有反駁，因為每一條都有時間戳記。談到一半他把椅子往後推說，他知道大家在頻道上怎麼講他，也知道自己不夠好。',
+      fb: '你憑印象跟他談。柏睿反問是誰在講他，又說上個月那次設定的事情不是他一個人的責任。對話卡在誰記得比較準，收不回來。',
+      lens: ['先事實，後評價', '直接對話的效果高度取決於開場。以可查證的行為與後果開場，對方的防衛較低；以性格或動機開場，對話會立刻轉為爭論誰的版本才對。'] },
+    { t: '以身作則。提出高風險變更雙人審查與值班交接檢查表，先從自己與柏睿這組做起。', d: C(2, 1, -2), b: 'B',
+      fb: '你把規則寫成一頁：碰到金流與資料庫的變更一律兩人核可、on-call 表在每週三下班前由當事人自己登記、沒登記的由前一位順延。柏睿沒有意見，孟潔看了半天，說這樣等於全組替他多做一份工。',
+      lens: ['把個人問題轉成制度問題', '設計制度可以避免把矛頭指向個人，也能同時保住產出與關係。風險是若制度只是把負擔平均分攤，表現好的成員會感覺被懲罰，公平知覺反而下降。'] },
+    { t: '找黃組長。用客戶影響與人力流失的角度切入，不談個人抱怨。', d: C(1, 0, 1), b: 'C',
+      fbFacts: '你帶著清單進去。組長往下滑了兩頁，臉色變了，說他會處理。走出來的時候你不確定他指的是處理柏睿，還是處理這份清單。',
+      fb: '你講了十分鐘，組長聽完說他知道了，會找時間跟柏睿談談。這句話全組每個人都聽過。',
+      lens: ['向上溝通的框架', '向主管反映同儕問題時，用組織關切的語言比用個人委屈的語言更容易推動。客戶影響、稽核風險、人力成本是主管必須負責的項目；同事很難相處則不是。'] },
+    { t: '直接向工程副總反映。事情已經造成客戶損失，不該再留在組內。', d: C(2, -2, -2), b: 'D',
+      fb: '副總收到信後要求正式的事故報告，並副知黃組長。組長當天下午把你叫進小會議室，只問了一句：你為什麼不先跟我講。柏睿還不知道是誰寄的信，但全組都知道。',
+      lens: ['升級的門檻', '越級在涉及客戶損失時有正當性，但它同時傳遞一個訊息：這個團隊的內部管道已經失效。若事後證明證據不足，發動者要承擔全部的信任成本，而原本的問題還在。'] },
+    { t: '什麼都不做。把自己的工單做完，其他的交給時間。', d: C(0, -2, 0), b: 'E',
+      fb: '接下來兩週風平浪靜。第三週，張瑋在一對一裡跟組長提了離職，理由寫著生涯規劃。孟潔開始把假排滿。柏睿的工單照樣壓在待辦欄裡。',
+      lens: ['不作為也是一種選擇', '維持現狀通常被視為零成本，實際上成本轉移到了願意留下來收尾的人身上。當這些人耗盡，團隊會在毫無預警的情況下崩解，而不是逐步惡化。'] }
+  ]
+};
+
+var R3 = {
+  A: {
+    time: '週三 11:05　小會議室',
+    title: '柏睿丟回一句話',
+    talk: [
+      ['b', '柏睿', '你們都覺得我做不來。可是三年前把我調過來的時候，只給我一個禮拜跟著看。'],
+      ['b', '柏睿', '部署跟回滾那套我問過三次，每次都有人說在忙晚點教。後來我就不問了。'],
+      ['me', '你', '……'],
+      ['b', '柏睿', 'on-call 我承認是我忘記登記。但那天我以為是輪到孟潔。']
+    ],
+    q: '他說的可能有一部分是真的。接下來怎麼走？',
+    opts: [
+      { t: '排出六週的結對計畫：每週一個服務，你陪他走完一次完整的部署與回滾演練。', d: C(2, 2, -3),
+        fb: '六週下來，柏睿能獨立處理兩個服務的部署。你自己的工單積了一疊，週末登入了兩次。孟潔看到你們在做演練，說了一句：早該有人這樣做。',
+        lens: ['能力不足還是意願不足', '把長期低績效一律歸因於態度，是常見的歸因偏誤。當事人的解釋可能是自利的，但組織確實常在轉調時省略訓練投資。分辨兩者的方法不是猜測動機，而是提供一次充分的支援，再看行為是否改變。'] },
+      { t: '要求他自己寫一份三個月的學習計畫，寫完再談怎麼協助。', d: C(1, 1, 0),
+        fb: '柏睿兩週後貼了一份文件在頻道上，寫得很簡略，但至少列出了三個他想接的服務。你把連結轉給組長，組長第一次在文件上留了核准的留言。',
+        lens: ['責任要留在當事人身上', '協助與代勞的界線在於誰保有主導權。要求對方先提出計畫，可以檢驗改善意願，也避免協助者接手了原本不屬於自己的責任。'] },
+      { t: '認為這只是推託之詞，結束對話。', d: C(0, -1, 0),
+        fb: '你走出會議室，覺得自己被情緒勒索了。可能是，也可能不是。這個問題之後沒有人再提起。',
+        lens: ['對話中止的代價', '中止對話會保住自己的精力，但也讓資訊停在推測階段。之後任何一方的行動都建立在對彼此動機的猜測上，誤解只會加深。'] }
+    ]
+  },
+  B: {
+    time: '週三 17:40　站立會議',
+    title: '制度推出來，火燒到你身上',
+    talk: [
+      ['b', '孟潔', '雙人核可是什麼意思？我做了五年，現在改個設定都要找人陪？'],
+      ['c', '承翰', '講白一點，這規則就是為了一個人設計的，然後六個人一起承擔。'],
+      ['a', '張瑋', '……我是無所謂啦。']
+    ],
+    q: '制度被讀成替一個人擦屁股。怎麼辦？',
+    opts: [
+      { t: '把規則攤在組會上，說明它同時解決的還有交接漏洞與稽核追溯，並開放修改。', d: C(2, 2, -1),
+        fb: '組會開了四十分鐘。承翰提議雙人核可只適用於金流與資料庫這兩類，孟潔補了一條每季檢討。改完之後，這份文件不再是你的，是全組的。',
+        lens: ['程序公平的作用', '當規則的產出結果不如人意時，決定成員是否接受的往往是程序：有沒有發言機會、標準是否一致、能不能修改。開放參與會稀釋主導權，換來的是規則真的被遵守。'] },
+      { t: '私下一個一個安撫，請大家先配合三個月。', d: C(1, 0, -2),
+        fb: '大家勉強答應。三個月裡，雙人核可有一半是事後補簽的。規則存在，行為沒有改變。',
+        lens: ['表面遵從', '缺乏公開討論的規則容易只換到表面遵從。成員照做但不認同，一旦監督放鬆就恢復原狀，而管理者往往從紀錄上看不出來。'] },
+      { t: '撤回制度，避免內部再起衝突。', d: C(-1, -1, -1),
+        fb: '你把那份文件設成草稿。週五的 on-call 表又空了一格，這次是張瑋自己補上去的。',
+        lens: ['退讓的訊號', '在阻力出現時立刻撤回，會讓團隊學到只要反彈夠大就不必改變。下一次任何改善提案的啟動成本都會更高。'] }
+    ]
+  },
+  C: {
+    time: '兩週後　週二 09:30',
+    title: '組長說會處理，然後沒有下文',
+    talk: [
+      ['a', '旁白', '兩週過去。柏睿的待辦欄沒有變短，on-call 表上週又是張瑋補的。'],
+      ['a', '旁白', '你在茶水間遇到組長，他說最近在忙稽核的文件，那件事他還在想怎麼講比較好。']
+    ],
+    q: '口頭承諾沒有兌現。下一步？',
+    opts: [
+      { t: '改成書面：寄一封信摘要當初談的內容與時間點，副本留給自己。', d: C(2, 0, 1),
+        fb: '信寄出後第三天，組長第一次把柏睿單獨約進會議室。談了什麼沒有人知道，但那週的 on-call 表柏睿自己登記了。',
+        lens: ['讓承諾留下痕跡', '書面紀錄的功能不是威脅，而是把模糊的善意轉成可追蹤的事項。對迴避型的主管，這通常是成本最低而有效的推力。'] },
+      { t: '再口頭提醒一次，給他多一點時間。', d: C(0, 0, -1),
+        fb: '組長又說了一次好。第四週，什麼都沒有發生。',
+        lens: ['重複無效行為', '同一個動作重複三次而結果不變，通常代表問題不在對方沒聽懂，而在誘因結構。持續加大同樣的力道只會消耗自己的信用。'] },
+      { t: '放棄這條路，回頭處理自己能控制的部分。', d: C(1, -1, 0),
+        fb: '你不再期待組長。孟潔問你談得怎麼樣，你只說再看看。她聽懂了。',
+        lens: ['向上管理的極限', '當正式管道確實失效時，退回自己的控制範圍是理性的。但團隊會同步接收到這個訊號，並據此調整自己的投入程度。'] }
+    ]
+  },
+  D: {
+    time: '三天後　週四 15:00　組長辦公室',
+    title: '組長覺得被跳過去了',
+    talk: [
+      ['a', '黃組長', '副總把信轉給我了，要我兩週內給改善計畫。'],
+      ['a', '黃組長', '彥廷，我不是說你講的不對。我是問，你為什麼不先跟我講。'],
+      ['a', '旁白', '他的螢幕上還開著另一個視窗，是營運長辦公室發的月會通知。']
+    ],
+    q: '這一步已經走出去了，怎麼收？',
+    opts: [
+      { t: '邀組長共同具名回覆，把它變成組內共同提出的改善方案。', d: C(2, 2, 0),
+        fb: '你們花了一個下午把回覆寫成三項改善措施，署名是平台工程組全體。組長在最後一段自己加了一句：本組主管未及早介入。你有點意外。',
+        lens: ['讓對方有台階', '升級之後最關鍵的一步是給被跳過的人一個保住立場的方式。把個人指控轉為共同改善方案，能把對立的能量導回問題本身。'] },
+      { t: '堅持自己送出報告，理由是內部已經給過太多次機會。', d: C(1, -2, -1),
+        fb: '報告寫得很完整，時間軸一分不差。組長從此只在頻道裡跟你講話。三個月後的稽核，平台組拿到一項觀察事項，柏睿被排去接受外部訓練。',
+        lens: ['正確與有效的落差', '立場正確不等於後續可行。當發動者與主管的關係破裂，即使問題被承認，後續每一項改善的執行都少了一個必要的合作者。'] },
+      { t: '表示願意撤回，希望組內自己解決。', d: C(-1, 0, -2),
+        fb: '副總那邊結案了，理由寫著單位自行處理。四週後，一切回到原狀，只是這次連你也不再被信任。',
+        lens: ['撤回的不可逆', '升級之後再撤回，同時失去了外部壓力與內部信任。這通常是各種選項裡結果最差的一種，因為代價已經付了，效果卻收回了。'] }
+    ]
+  },
+  E: {
+    time: '三週後　週一 10:00',
+    title: '張瑋提了離職',
+    talk: [
+      ['a', '張瑋', '不是因為柏睿啦。就是覺得，在這裡好像做得再多也不會怎麼樣。'],
+      ['b', '孟潔', '我下個月的假都排滿了，你們自己看著辦。'],
+      ['a', '旁白', '稽核剩下六週。組長還是沒有動作。']
+    ],
+    q: '事情終於燒到你身上。現在呢？',
+    opts: [
+      { t: '現在介入：把三週來的缺口整理出來，同時找組長與柏睿。', d: C(2, 1, -2),
+        fb: '你動了。動得有點晚，但至少張瑋願意把離職日往後延一個月。孟潔說了一句：早三個禮拜做，張瑋就不會想走。',
+        lens: ['介入時機', '同樣的行動，越晚做效果越差而成本越高。旁觀者效應讓每個人都在等別人先動，而團隊崩解的速度往往比預期快。'] },
+      { t: '幫張瑋寫推薦信，祝他找到更好的地方。', d: C(-1, 1, 0),
+        fb: '張瑋很感謝你。兩週後他離職，人力沒有補上，on-call 改由剩下四個人輪。孟潔的假照請。',
+        lens: ['善意與問題解決是兩件事', '對個別成員的照顧不會改變產生問題的結構。人走了，負荷回到留下來的人身上，離職會一個接一個發生。'] },
+      { t: '什麼都不做，等績效校準季。', d: C(-2, -2, 0),
+        fb: '校準季來了。組長給了柏睿符合期待，給了所有人符合期待。孟潔在系統上按了送出，然後開始投履歷。',
+        lens: ['沉默的共謀', '當所有人都判斷建言沒有用，低績效就被制度化了。這時問題已經不是某一個人，而是這個團隊對什麼叫可接受的標準重新校準過了。'] }
+    ]
+  }
+};
+
+var R4 = {
+  time: '第五週　週四 16:00　一對一',
+  title: '球被丟回你手上',
+  talk: [
+    ['a', '黃組長', '彥廷，你資深，柏睿又聽你的。他那邊就麻煩你帶一下。'],
+    ['a', '黃組長', '我知道這不是你的事，但你也看到了，我這邊很難處理。'],
+    ['a', '旁白', '他沒有說難在哪裡。你也沒有問。'],
+    ['a', '旁白', '他交出來的是責任。考核權、工時、以及成敗的課責，都還留在他手上。']
+  ],
+  q: '接，還是不接？如果接，用什麼條件接？',
+  opts: [
+    { t: '接，但要求把帶人寫進這一季的目標，並且相應調降自己的工單量。', d: C(1, 1, 2),
+      fb: '組長皺了一下眉，最後同意把兩個服務的維護移出你的範圍，並寫進季度目標。這是三年來第一次，有人把這件事變成正式安排。',
+      lens: ['授權要連權限與資源一起給', '完整的授權包含四件事：責任、執行所需的權限、對應的資源與工時、以及最終仍留在主管身上的課責。只交出第一項而不動其他三項，是卸責不是授權。把工作寫進目標並調整負荷，等於補上了資源這一項。'] },
+    { t: '接，口頭答應就好，不想把事情弄複雜。', d: C(1, 1, -3),
+      fb: '你開始每週多花五個小時。三個月後柏睿有點進步，你的工單準時率下滑，校準會議上被歸到需要加強。沒有人記得這五個小時是怎麼來的。',
+      lens: ['看不見的貢獻', '沒有被紀錄的付出，在評核時等於不存在。長期承擔隱形工作的人最後往往同時失去精力與評價，這也是組織裡熱心的資深員工流失的常見路徑。'] },
+    { t: '不接。明確表示部屬績效管理是主管的職責。', d: C(-1, 0, 1),
+      fb: '組長沒有再說什麼。接下來兩個月，柏睿的狀況維持原樣。你保住了自己的時間，也保住了界線。',
+      lens: ['界線的價值與代價', '拒絕承接不屬於自己的責任是正當的自我保護，而且會迫使問題回到該負責的層級。代價是在主管確實不作為的情況下，問題可能就停在那裡。'] },
+    { t: '接，但要求設定三個月的檢核點與明確的退場條款。', d: C(2, 1, 1),
+      fb: '你寫了三行：三個月後檢核兩個服務的獨立部署能力，未達成則由組長啟動正式的績效輔導。組長猶豫了很久，按了核准。柏睿知道之後，第一次主動來約你的時間。',
+      lens: ['把協助放進有終點的框架', '沒有終點的協助會變成無限期的代勞。設定檢核點與退場條款，一方面讓當事人清楚知道標準，另一方面把最終的課責明確退回主管，協助者不必獨自承擔判斷成敗的責任。'] }
+  ]
+};
+
+var R5 = {
+  time: '第十二週　稽核前一週',
+  title: '最後一手',
+  talk: [
+    ['a', '旁白', '柏睿的兩項檢核通過了一項，另一項差一點。他不再拖工單，但金流相關的變更還是不敢碰。'],
+    ['b', '孟潔', '我申請轉去資料工程組了。不是氣話，表單昨天送出去了。'],
+    ['a', '旁白', '稽核員下週進來，會抽查變更紀錄與值班紀錄。']
+  ],
+  q: '稽核前最後一個決定。',
+  opts: [
+    { t: '在組會上把雙人核可、檢核結果與缺口一次攤開，讓全組共同決定接下來怎麼做。', d: C(2, 3, 0),
+      fb: '會開得不輕鬆。孟潔把話講完之後，承翰提議把值班改成能力分級，高風險時段只排得動的人。這是三年來第一次，這個組在會議上處理自己的問題，而不是在頻道的私訊裡。',
+      lens: ['把衝突搬到檯面上', '有效的團隊不是沒有衝突，而是把衝突放在有規則的場域處理。公開討論在當下最不舒服，卻是同時保住產出與關係的少數做法之一。'] },
+    { t: '把三個月的紀錄整理成正式報告，送給工程副總與組長。', d: C(2, -1, 0),
+      fb: '報告很紮實，副總要求平台組提出人力配置改善計畫。組長在會議上沒有看你。柏睿被安排接受外部訓練。問題被承認了，關係也涼了。',
+      lens: ['制度途徑的取捨', '正式管道能帶來結構性的改變，但它把問題從人際層次推到組織層次，過程中幾乎必然損耗當事人之間的關係。何時值得，取決於風險的性質。'] },
+    { t: '幫孟潔爭取轉組順利，維持現狀撐過稽核。', d: C(0, -2, -1),
+      fb: '孟潔如願轉走了，走的時候還請大家喝飲料。稽核平安過關。三個月後，張瑋也遞了申請。',
+      lens: ['以人力流動吸收問題', '讓不滿的人離開，可以讓表面衝突消失。組織付出的是持續的招募與訓練成本，以及留下來的人對這個團隊的期待值再降一級。'] },
+    { t: '什麼都不做，等稽核結束再說。', d: C(-1, -2, 0),
+      fb: '稽核員抽到了值班紀錄，發現三個月內有四次空白。平台組拿到一項不符合事項。組長在檢討會上說，會再加強內部管理。',
+      lens: ['拖延的終點', '拖延通常不是決定不處理，而是把決定權交給外部事件。外部事件到來時，處理的方式與時機都不再由團隊自己選擇。'] }
+  ]
+};
+
+/* 遊戲流程 */
+var scene = document.getElementById('scene'), nextBtn = document.getElementById('next'), tip = document.getElementById('tip');
+var current = null;
+
+function clamp(x) { return Math.max(0, Math.min(10, x)); }
+function paint(delta) {
+  var vals = [S.work, S.trust, S.cap];
+  for (var i = 0; i < 3; i++) {
+    document.getElementById('v' + (i + 1)).textContent = vals[i];
+    document.getElementById('b' + (i + 1)).style.width = (vals[i] * 10) + '%';
+    var d = document.getElementById('d' + (i + 1));
+    if (delta) {
+      var v = [delta.work, delta.trust, delta.cap][i];
+      d.textContent = v > 0 ? '+' + v : (v < 0 ? String(v) : '±0');
+      d.className = 'gd ' + (v > 0 ? 'up' : v < 0 ? 'down' : '');
+    } else { d.textContent = ''; d.className = 'gd'; }
+  }
+}
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+function renderRound(data) {
+  current = data; picked = false;
+  document.getElementById('mLeft').textContent = 'Round ' + round + '／5';
+  document.getElementById('mRight').textContent = data.time;
+  nextBtn.disabled = true;
+  tip.textContent = '選一個行動　鍵盤 A 到 ' + String.fromCharCode(64 + data.opts.length);
+  var h = '<h2 class="rt">' + esc(data.title) + '</h2><div class="talk">';
+  data.talk.forEach(function (l) {
+    h += '<div class="line ' + l[0] + '"><span class="who">' + esc(l[1]) + '</span><span class="say">' + esc(l[2]) + '</span></div>';
+  });
+  h += '</div><div class="ask">' + esc(data.q) + '</div><div class="opts">';
+  data.opts.forEach(function (o, i) {
+    h += '<button class="opt" data-i="' + i + '"><span class="k">' + String.fromCharCode(65 + i) + '</span><span class="tx">' + esc(o.t) + '</span></button>';
+  });
+  h += '<button class="fold" type="button">看看沒有選的其他選項</button></div>';
+  scene.innerHTML = h;
+  scene.scrollTop = 0;
+  scene.querySelectorAll('.opt').forEach(function (b) {
+    b.addEventListener('click', function () { choose(+b.dataset.i); });
+  });
+  var fold = scene.querySelector('.fold');
+  fold.addEventListener('click', function () {
+    var open = fold.parentNode.classList.toggle('open');
+    fold.textContent = open ? '收起其他選項' : '看看沒有選的其他選項';
+  });
+}
+
+function choose(i) {
+  if (picked || !current) return;
+  var o = current.opts[i];
+  if (!o) return;
+  picked = true;
+  var btns = scene.querySelectorAll('.opt');
+  btns.forEach(function (b) { b.disabled = true; });
+  btns[i].classList.add('chosen');
+  scene.querySelector('.opts').classList.add('resolved');
+  S.work = clamp(S.work + o.d.work);
+  S.trust = clamp(S.trust + o.d.trust);
+  S.cap = clamp(S.cap + o.d.cap);
+  paint(o.d);
+  if (o.f) flags[o.f] = true;
+  if (o.b) branch = o.b;
+  var text = (o.fbFacts && flags.facts) ? o.fbFacts : o.fb;
+  path.push({ r: round, t: o.t });
+  var box = document.createElement('div');
+  box.innerHTML =
+    '<div class="fb"><span class="lbl">後果</span><p>' + esc(text) + '</p></div>' +
+    '<div class="lens"><span class="lbl">理論鏡頭</span><h4>' + esc(o.lens[0]) + '</h4><p>' + esc(o.lens[1]) + '</p></div>';
+  scene.appendChild(box);
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  nextBtn.disabled = false;
+  nextBtn.firstChild.nodeValue = round >= 5 ? '看結果' : '下一回合';
+  tip.textContent = '按 Enter 或點右邊繼續';
+  nextBtn.focus();
+}
+
+function startGame() {
+  S = { work: 5, trust: 5, cap: 5 }; flags = {}; path = []; round = 1; branch = null;
+  paint(null);
+  renderRound(R1);
+}
+
+nextBtn.addEventListener('click', advance);
+function advance() {
+  if (nextBtn.disabled) return;
+  round++;
+  if (round === 2) renderRound(R2);
+  else if (round === 3) renderRound(R3[branch] || R3.A);
+  else if (round === 4) renderRound(R4);
+  else if (round === 5) renderRound(R5);
+  else showEnd();
+}
+
+document.getElementById('again').addEventListener('click', function () { startGame(); go(4); });
+
+addEventListener('keydown', function (e) {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = (e.key || '').toUpperCase();
+  if (k === 'R') { startGame(); go(4); return; }
+  var active = document.querySelector('.slide.active');
+  if (!active) return;
+  if (active.id === 'game') {
+    if (!picked && current && k >= 'A' && k <= 'E') {
+      var i = k.charCodeAt(0) - 65;
+      if (i < current.opts.length) { e.preventDefault(); choose(i); }
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === 'ArrowRight') && picked) { e.preventDefault(); advance(); }
+    return;
+  }
+  if (e.key === 'Enter' || e.key === 'ArrowRight') {
+    var b = active.querySelector('.actionbar .btn:last-child');
+    if (b) { e.preventDefault(); b.click(); }
+  }
+});
+
+/* 結局 */
+var ENDINGS = [
+  { test: function () { return S.work >= 7 && S.trust >= 7 && S.cap >= 5; },
+    tag: '最好的一種結果', title: '問題被<span class="r">制度化地解決</span>了',
+    b1: '柏睿的能力仍然不如其他人，但工作被重新分配到他做得來的範圍，高風險變更有雙人核可，on-call 表有補位規則。稽核順利通過。',
+    b2: '真正改變的不是某一個人的態度，而是這個團隊處理問題的方式：從私訊搬到了組會，從抱怨變成有紀錄的決議。這在真實組織裡不常見，因為它需要有人願意先付出信用去啟動。' },
+  { test: function () { return S.work >= 7 && S.trust < 5; },
+    tag: '事情做完了', title: '產出保住了，<span class="r">團隊散了</span>',
+    b1: '稽核資料交得出去，on-call 表補得起來。孟潔轉組了，張瑋在觀望，承翰不再參與任何組內討論。',
+    b2: '這是多數團隊實際落腳的位置：把事情做完，代價由關係承擔。短期看不出問題，因為離職會延後幾個月才發生，而那時通常沒有人會把它跟這段時間連在一起。' },
+  { test: function () { return S.trust >= 7 && S.work < 5; },
+    tag: '大家還在', title: '關係守住了，<span class="r">問題還在原地</span>',
+    b1: '沒有人離職，組裡的氣氛甚至比三個月前好。柏睿還是不碰金流相關的變更，on-call 表還是偶爾空白。',
+    b2: '照顧成員感受而犧牲產出，同樣是單邊的選擇。它的風險比較晚才浮現：當稽核或下一次 P1 事故真的發生，團隊會發現自己一直在共同維持一個做不到標準的現狀。' },
+  { test: function () { return S.work < 5 && S.trust < 5; },
+    tag: '什麼都沒有改變', title: '這一次，<span class="r">沉默贏了</span>',
+    b1: '稽核拿到一項不符合事項，組長說會再加強內部管理。柏睿的績效跟所有人一樣是符合期待。孟潔開始投履歷。',
+    b2: '當所有人都學到建言沒有用，低績效就成了新的標準。這時問題已經不在某一個人身上，而在這個團隊對什麼叫可接受重新校準過了。' },
+  { test: function () { return S.cap <= 3; },
+    tag: '你被消耗掉了', title: '事情有進展，<span class="r">代價是你自己</span>',
+    b1: '柏睿有一點進步，同事也還在，但這三個月你多花的時間沒有出現在任何紀錄上，工單準時率反而被歸到需要加強。',
+    b2: '在缺乏正式支持的情況下承擔非正式責任，是資深員工最典型的耗損路徑。願意補位的人先累垮，組織卻誤以為問題已經解決。' },
+  { test: function () { return true; },
+    tag: '一半一半', title: '有些事變了，<span class="r">有些事沒有</span>',
+    b1: '制度動了一點，關係保住了一部分，但沒有一件事被徹底處理完。三個月後回頭看，會覺得自己好像做了很多，又好像什麼都沒解決。',
+    b2: '這是真實組織裡最常見的狀態。值得追問的是：哪一個回合如果換一個選擇，會讓後面的路徑完全不同。' }
+];
+
+function showEnd() {
+  var e = ENDINGS.find(function (x) { return x.test(); });
+  document.getElementById('endTag').textContent = e.tag;
+  document.getElementById('endTitle').innerHTML = e.title;
+  document.getElementById('endBody').textContent = e.b1;
+  document.getElementById('endBody2').textContent = e.b2;
+  document.getElementById('log').innerHTML = path.map(function (p) {
+    return '<p><b>R' + p.r + '</b><span>' + esc(p.t) + '</span></p>';
+  }).join('');
+  drawChart();
+  go(5);
+}
+
+function drawChart() {
+  var W = 520, H = 340, L = 54, R = 34, T = 34, B = 56;
+  var x0 = L, x1 = W - R, y0 = H - B, y1 = T;
+  function px(v) { return x0 + (v / 10) * (x1 - x0); }
+  function py(v) { return y0 - (v / 10) * (y0 - y1); }
+  var F = 'Noto Sans TC, sans-serif', M = 'JetBrains Mono, monospace';
+  var s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#F4F4F0"/>';
+  s += '<rect x="' + px(5) + '" y="' + py(10) + '" width="' + (px(10) - px(5)) + '" height="' + (py(5) - py(10)) + '" fill="#E4E4DE"/>';
+  for (var g = 0; g <= 10; g += 2) {
+    s += '<line x1="' + px(g) + '" y1="' + y1 + '" x2="' + px(g) + '" y2="' + y0 + '" stroke="#DCDCD5" stroke-width="1"/>';
+    s += '<line x1="' + x0 + '" y1="' + py(g) + '" x2="' + x1 + '" y2="' + py(g) + '" stroke="#DCDCD5" stroke-width="1"/>';
+  }
+  s += '<line x1="' + px(5) + '" y1="' + y1 + '" x2="' + px(5) + '" y2="' + y0 + '" stroke="#6B6B64" stroke-width="1" stroke-dasharray="4 4"/>';
+  s += '<line x1="' + x0 + '" y1="' + py(5) + '" x2="' + x1 + '" y2="' + py(5) + '" stroke="#6B6B64" stroke-width="1" stroke-dasharray="4 4"/>';
+  s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x1 + '" y2="' + y0 + '" stroke="#232320" stroke-width="1.6"/>';
+  s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#232320" stroke-width="1.6"/>';
+  s += '<text x="' + px(7.5) + '" y="' + py(9.3) + '" text-anchor="middle" font-size="12" fill="#232320" font-family="' + F + '" font-weight="700">兩者兼顧</text>';
+  s += '<text x="' + px(2.5) + '" y="' + py(0.8) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">兩邊都失去</text>';
+  s += '<text x="' + px(7.5) + '" y="' + py(0.8) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">只顧把事做完</text>';
+  s += '<text x="' + px(2.5) + '" y="' + py(9.3) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">只顧成員感受</text>';
+  s += '<text x="' + ((x0 + x1) / 2) + '" y="' + (y0 + 24) + '" text-anchor="middle" font-size="11" letter-spacing="1.6" fill="#6B6B64" font-family="' + M + '">TASK PROGRESS</text>';
+  s += '<text x="16" y="' + ((y0 + y1) / 2) + '" text-anchor="middle" font-size="11" letter-spacing="1.6" fill="#6B6B64" font-family="' + M + '" transform="rotate(-90 16 ' + ((y0 + y1) / 2) + ')">TEAM TRUST</text>';
+  var cx = Math.min(Math.max(px(S.work), x0 + 17), x1 - 17);
+  var cy = Math.min(Math.max(py(S.trust), y1 + 17), y0 - 17);
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="9" fill="#E61919"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="15" fill="none" stroke="#E61919" stroke-width="1.4"/>';
+  s += '<text x="' + x0 + '" y="' + (H - 12) + '" font-size="12.5" fill="#232320" font-family="' + F + '" font-weight="700">任務進度 ' + S.work + '　團隊信任 ' + S.trust + '　個人資本 ' + S.cap + '</text>';
+  document.getElementById('tradeoff').innerHTML = s;
+}
+</script>
+
+</body>
+</html>
