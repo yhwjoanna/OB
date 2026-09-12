@@ -18,7 +18,7 @@ docs/           課程大綱 PDF，檔名為純英數 2026Fall_OB_Taipei_syllabu
 
 教師手冊（OB-06_sim_pay_manual.html、OB-07_sim_teammate_manual.html）不在這個資料夾，也不要放進來。
 
-指定閱讀的 PDF 也不要放進來。那十八篇期刊全文有版權，其中五篇 Annual Reviews 的檔案內頁印著下載者的 IP 位址，放到公開網址上等於把追查線索一起公開。全文一律放 Google Classroom，主頁的作業區只列出處與取得管道。原始檔在 `05_參考資料/作業文獻/`。
+指定閱讀的 PDF 也不要放進來。那十八篇期刊全文有版權，其中五篇 Annual Reviews 的檔案內頁印著下載者的 IP 位址，放到公開網址上等於把追查線索一起公開。全文一律放 Google Classroom，主頁的作業區只列出處與取得管道。原始檔在 `04_參考資料/作業文獻/`。
 
 ---
 

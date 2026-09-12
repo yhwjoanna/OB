@@ -458,6 +458,8 @@ body.flow .casegrid img { height: auto; flex: none; }
     .slide + .slide { break-before: page; page-break-before: always; }
     /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
     .slide.ix-page { display: none !important; }
+    /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
+    body > *:not(#viewport) { display: none !important; }
     .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
   }
 
