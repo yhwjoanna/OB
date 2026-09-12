@@ -24,7 +24,7 @@
   --paper:#F1F1EC; --card:#FBFBF7; --sunk:#E7E7E0;
   --ink:#171614; --ink-2:#3A3833;
   --text:#171614; --muted:#55524B; --faint:#6B675E;
-  --red:#D0221B; --red-soft:rgba(208,34,27,.12); --red-on-ink:#FF6259;
+  --red:#D0221B; --red-soft:rgba(208,34,27,.12); --red-on-ink:#FF6259; --on-red:#FFFFFF;
   --line:rgba(23,22,20,.10); --line-2:rgba(23,22,20,.20);
   /* 深色面板上的前景（vibrancy：不用灰，用高對比加重量） */
   --on-ink:#F4F3EE; --on-ink-2:rgba(244,243,238,.72); --on-ink-3:rgba(244,243,238,.58);
@@ -45,7 +45,7 @@
     --paper:#100F0E; --card:#1A1917; --sunk:#232220;
     --ink:#EFEEE8; --ink-2:#CFCDC5;
     --text:#EFEEE8; --muted:#B4B0A6; --faint:#98948B;
-    --red:#FF564C; --red-soft:rgba(255,86,76,.16); --red-on-ink:#B81C16;
+    --red:#FF564C; --red-soft:rgba(255,86,76,.16); --red-on-ink:#B81C16; --on-red:#1C0906;
     --line:rgba(239,238,232,.12); --line-2:rgba(239,238,232,.22);
     --on-ink:#171614; --on-ink-2:rgba(23,22,20,.74); --on-ink-3:rgba(23,22,20,.55);
     --on-ink-line:rgba(23,22,20,.18);
@@ -57,6 +57,7 @@
 }
 
 *{box-sizing:border-box}
+a,button,[role="link"]{touch-action:manipulation}   /* §1 去掉行動裝置的 300ms 點擊延遲 */
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
@@ -89,7 +90,7 @@ button{font:inherit}
 .nav a{
   position:relative;font-size:.8125rem;font-weight:500;text-decoration:none;color:var(--muted);
   padding:.44rem .7rem;border-radius:999px;white-space:nowrap;
-  transition:color .2s ease, background .2s ease}
+  transition:color .2s ease, background .2s ease;letter-spacing:.008em}
 .nav a:hover{color:var(--text)}
 .nav a.on{color:var(--text);background:var(--sunk)}
 .nav a:active{transform:scale(.96)}
@@ -103,7 +104,7 @@ button{font:inherit}
 .stage{
   position:relative;background:var(--ink);color:var(--on-ink);
   border-radius:0 0 var(--r-xl) var(--r-xl);box-shadow:var(--sh-3);
-  padding-bottom:.125rem;margin-bottom:.5rem;scroll-margin-top:0}
+  padding-bottom:3.5rem;margin-bottom:.5rem;scroll-margin-top:0}
 .stage .kicker{color:var(--on-ink-3)}
 .stage h1{color:var(--on-ink)}
 .stage h1 em{color:var(--on-ink-3)}
@@ -125,34 +126,15 @@ h1 em span{white-space:nowrap}   /* 窄螢幕只在全形空白處換行，班�
 .meta{margin:0 0 1.75rem;color:var(--muted);font-size:.9375rem;letter-spacing:0}
 .meta b{font-weight:600;color:var(--text)}
 
-/* ═══ 本次焦點：整頁唯一的深色錨點 ═══ */
-.focus{position:relative;margin-top:2.25rem;scroll-margin-top:4.5rem}
-.focus .tags{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
-.focus h2{
-  margin:0;font-size:clamp(2.25rem,5.6vw,2.875rem);font-weight:700;line-height:1.08;
-  letter-spacing:-.035em;max-width:22ch;text-wrap:balance}
-.focus h2 i{font-style:normal;display:block}
-.focus h2 i+i::before{content:'／';color:var(--on-ink-3);margin-right:.15em;font-weight:400}
-.focus .when{
-  margin:.7rem 0 0;font:400 .8125rem/1.5 var(--mono);letter-spacing:.02em;color:var(--on-ink-2)}
-.focus .when b{color:var(--on-ink);font-weight:600}
-.focus .read{margin:1.25rem 0 .7rem;font-size:.875rem;color:var(--on-ink-2);font-weight:500}
-.focus .acts{display:flex;flex-wrap:wrap;gap:.5rem}
-.due-line{display:flex;gap:.65rem;align-items:baseline;flex-wrap:wrap;
-  margin:0;padding:.95rem 0;font-size:.875rem;color:var(--on-ink)}
-.due-line .lab{font:600 .625rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-ink-3)}
-.due-line .nm{font-weight:600}
-.due-line .dt{margin-left:auto;font:600 .8125rem/1 var(--mono);color:var(--red-on-ink);letter-spacing:.02em}
-
 /* ═══ 元件 ═══ */
 .chip{
   display:inline-flex;align-items:center;gap:.3rem;
   font:600 .625rem/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;
   padding:.36rem .6rem;border-radius:999px;border:1px solid var(--line-2);color:var(--muted)}
-.chip.now{background:var(--red);border-color:var(--red);color:#fff}
+.chip.now{background:var(--red);border-color:var(--red);color:var(--on-red)}
 .chip.dot::before{content:'';width:.3rem;height:.3rem;border-radius:50%;background:currentColor}
 .stage .chip{border-color:var(--on-ink-line);color:var(--on-ink-2)}
-.stage .chip.now{border-color:var(--red);color:#fff}
+.stage .chip.now{border-color:var(--red);color:var(--on-red)}
 
 .btn{
   display:inline-flex;align-items:center;gap:.5rem;
@@ -235,14 +217,41 @@ dl.facts dd{margin:0}
 .ses .top{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
 .ses h4{margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.012em;line-height:1.45}
 .ses .pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
-.ses .pills .btn{font-size:.8125rem;padding:.45rem .7rem;min-height:2.125rem;border-radius:var(--r-sm)}
-.ses .todo{display:flex;gap:.5rem;align-items:baseline;margin-top:.75rem;font-size:.8125rem;color:var(--muted)}
+.ses .pills .btn{font-size:.8125rem;letter-spacing:.004em;padding:.45rem .7rem;min-height:2.125rem;border-radius:var(--r-sm)}
+.ses .todo{display:flex;gap:.5rem;align-items:baseline;margin-top:.75rem;font-size:.8125rem;letter-spacing:.006em;color:var(--muted)}
 .ses .todo .mk{flex:none;font:600 .5625rem/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
-.ses .note{margin:.7rem 0 0;font-size:.75rem;color:var(--faint)}
-/* 現在這一次：抬起來、深色邊、紅色節點 */
+.ses .note{margin:.7rem 0 0;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
+/* 現在這一次：整頁唯一被抬起的卡片，教材按鈕放大為主要動作 */
 .ses.is-now .node{background:var(--red);box-shadow:0 0 0 .25rem var(--paper),0 0 0 .5rem var(--red-soft)}
-.ses.is-now .rail .d{color:var(--red);font-weight:400}
-.ses.is-now .box{border-color:var(--line-2);box-shadow:var(--sh-2)}
+.ses.is-now .rail .d{color:var(--red);font-weight:400;font-size:1.625rem}
+.ses.is-now .rail .n{color:var(--red)}
+.ses.is-now .box{border-color:var(--line-2);box-shadow:var(--sh-2);padding:1.35rem 1.5rem 1.5rem}
+.ses.is-now h4{font-size:1.375rem;font-weight:700;letter-spacing:-.024em;line-height:1.3}
+.ses.is-now .when{margin:.55rem 0 0;font:400 .8125rem/1.5 var(--mono);letter-spacing:.02em;color:var(--muted)}
+.ses.is-now .when b{color:var(--text);font-weight:600}
+.ses.is-now .read{margin:1.05rem 0 .55rem;font-size:.8125rem;font-weight:600;color:var(--muted)}
+.ses.is-now .pills{margin-top:0;gap:.5rem}
+.ses.is-now .pills .btn{font-size:.875rem;padding:.6rem .95rem;min-height:2.5rem;border-radius:var(--r-md)}
+/* 本次的第一份教材是整頁的主要動作，用墨色實心 */
+.ses.is-now .pills .btn.solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ses.is-now .pills .btn.solid:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ses.is-now .pills .btn.solid .u{color:var(--paper);opacity:.55}
+
+/* 已結束的場次收合成一列 */
+.tl-fold{display:flex;align-items:center;gap:.75rem;margin:0 0 .9rem;padding:0 0 .9rem;
+  border-bottom:1px dashed var(--line)}
+.tl-fold button{display:inline-flex;align-items:center;gap:.45rem;
+  font:600 .75rem/1 var(--sans);letter-spacing:.008em;color:var(--muted);
+  background:transparent;border:1px solid var(--line-2);border-radius:999px;
+  padding:.5rem .85rem;cursor:pointer}
+.tl-fold button:hover{color:var(--text);border-color:var(--text)}
+.tl-fold button:active{transform:scale(.97)}
+.tl-fold .ar{font:400 .6875rem/1 var(--mono);transition:transform .2s ease}
+.tl-fold.open .ar{transform:rotate(90deg)}
+.tl-past{overflow:hidden;will-change:height}
+.ses[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.tl-fold .ar{transition:none}.tl-fold button:active{transform:none}}
+@media (prefers-contrast:more){.tl-fold button{border-width:1.5px}}
 /* 已結束：退到背景，軸線仍連續 */
 .ses.is-done .box{background:transparent;border-color:transparent;box-shadow:none;padding-left:0;padding-right:0}
 .ses.is-done .rail,.ses.is-done h4{opacity:.55}
@@ -257,7 +266,7 @@ dl.facts dd{margin:0}
 .due h4{margin:0 0 .25rem;font-size:1rem;font-weight:600;letter-spacing:-.01em}
 .due p{margin:0;font-size:.875rem;color:var(--muted)}
 .due .ref{margin-top:.5rem;padding-left:.7rem;border-left:2px solid var(--line-2);
-  font-size:.8125rem;line-height:1.6;color:var(--faint)}
+  font-size:.8125rem;line-height:1.6;letter-spacing:.006em;color:var(--faint)}
 .due .getrow{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
 .due .getrow a{display:inline-block;font:600 .75rem/1 var(--sans);letter-spacing:-.005em;
   padding:.45rem .7rem;border:1px solid var(--line-2);border-radius:999px;
@@ -267,7 +276,7 @@ dl.facts dd{margin:0}
 @media (prefers-contrast: more){.due .getrow a{border-width:1.5px}}
 @media (prefers-reduced-motion: reduce){.due .getrow a:active{transform:none}}
 .due .w{text-align:right;white-space:nowrap}
-.due .w b{display:block;font-size:1.25rem;font-weight:300;letter-spacing:-.04em;color:var(--red)}
+.due .w b{display:block;font-size:1.25rem;line-height:1.15;font-weight:300;letter-spacing:-.04em;color:var(--red)}
 .due .w span{font:400 .625rem/1.6 var(--mono);letter-spacing:.08em;color:var(--faint)}
 .due.past{opacity:.5}
 .tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
@@ -294,9 +303,6 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
 @media (max-width:38rem){
   .wrap{width:calc(100% - 2rem)}
   header{padding-top:5.75rem}
-  .focus{margin-top:1.75rem}
-  .due-line{padding:.85rem 0}
-  .due-line .dt{margin-left:0;width:100%}
   .tl::before,.ses .node{display:none}
   .ses{grid-template-columns:1fr;gap:.4rem}
   .ses .rail{display:flex;align-items:baseline;gap:.6rem;text-align:left;padding:0 0 .1rem .1rem}
@@ -330,8 +336,8 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
 <div class="edge" id="edge" aria-hidden="true"></div>
 <nav class="nav" id="nav" aria-label="頁面導覽">
   <span class="brand">HRM912</span>
-  <a href="#focus" data-t="focus">本次</a>
   <a href="#schedule" data-t="schedule">進度</a>
+  <a href="#overview" data-t="overview">總覽</a>
   <a href="#work" data-t="work">作業</a>
   <a href="#links" data-t="links">連結</a>
 </nav>
@@ -345,19 +351,21 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   <p class="meta">授課教師 <b>王豫萱</b>　·　週日 10:00–16:00，午休 12:00–13:00　·　臺北科技大學 六教大樓 727</p>
 </header>
 
-<div class="focus" id="focus">
-  <div class="tags" id="f-tags"></div>
-  <h2 id="f-title"></h2>
-  <p class="when" id="f-when"></p>
-  <p class="read" id="f-read"></p>
-  <div class="acts" id="f-acts"></div>
-</div>
-
 </div><!-- /wrap -->
-<div class="duebar" id="duebar" hidden><div class="wrap"><p class="due-line" id="f-due"></p></div></div>
 </div><!-- /stage -->
 
 <div class="wrap">
+
+<section id="schedule">
+  <div class="sec-head">
+    <h3>上課進度</h3>
+    <span class="side" id="prog"></span>
+  </div>
+  <div class="bar" id="bar" aria-hidden="true"></div>
+  <div class="tl" id="tl"></div>
+  <p class="note" style="margin:1.1rem .125rem 0;font-size:.8125rem;color:var(--faint)">
+    標示尚未開放的灰色虛線項目還不能點，開放後會自動變成可點的按鈕。</p>
+</section>
 
 <section id="overview">
   <div class="sec-head">
@@ -399,16 +407,6 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   </div>
 </section>
 
-<section id="schedule">
-  <div class="sec-head">
-    <h3>上課進度</h3>
-    <span class="side" id="prog"></span>
-  </div>
-  <div class="bar" id="bar" aria-hidden="true"></div>
-  <div class="tl" id="tl"></div>
-  <p class="note" style="margin:1.1rem .125rem 0;font-size:.8125rem;color:var(--faint)">
-    每次上課的教材於上課日前一週開放。標示尚未開放的灰色虛線項目還不能點，開放後會自動變成可點的按鈕。</p>
-</section>
 
 <section id="work">
   <div class="sec-head"><h3>作業與繳交</h3><span class="side">3 項</span></div>
@@ -458,7 +456,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   /* ══════════════════════════════════════════════════════════
      課程資料。學期中要調整時只改這一段。
      date ：上課日期 YYYY-MM-DD
-     open ：教材開放日，省略則為上課日前七天
+     open ：個別指定開放日，省略則依 OPEN_DAYS（預設上課日前五天）
      items：教材，有 href 即可點選；沒有 href 代表電子講義尚未製作
      todo ：當次的活動或繳交事項
      ══════════════════════════════════════════════════════════ */
@@ -534,9 +532,10 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   function gap(a, b) { return Math.round((parse(b) - parse(a)) / 86400000); }
 
   var T = ymd(new Date());
+  var OPEN_DAYS = 5;                 // 教材於上課日前幾天開放。要改開放時機只改這個數字
 
   SESSIONS.forEach(function (s) {
-    s.open = s.open || shift(s.date, -7);
+    s.open = s.open || shift(s.date, -OPEN_DAYS);
     s.unlocked = T >= s.open;
     s.past = T > s.date;
     s.items.forEach(function (it) { it.openDate = s.open; });
@@ -565,50 +564,9 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
     if (item.unit) b.appendChild(el('span', 'u', item.unit));
     b.appendChild(el('span', null, item.label));
     if (!ok) b.appendChild(el('span', 'u', '尚未開放'));
-    b.title = ok ? item.label : (item.href ? '教材將於 ' + md(item.openDate) + ' 開放' : '教材尚未開放');
+    b.title = ok ? item.label : '教材尚未開放';
     return b;
   }
-
-  /* ══ 本次焦點 ══ */
-  (function () {
-    var tags = document.getElementById('f-tags'), title = document.getElementById('f-title'),
-        when = document.getElementById('f-when'), read = document.getElementById('f-read'),
-        acts = document.getElementById('f-acts'), due = document.getElementById('f-due');
-
-    if (ended) {
-      tags.appendChild(el('span', 'chip', '學期結束'));
-      title.appendChild(el('i', null, '課程已結束，教材持續開放'));
-      when.innerHTML = '最後一次上課 <b>12／20</b>';
-      read.textContent = '所有講義維持可讀取，供日後複習與撰寫作業參考。';
-      var a = el('a', 'btn solid', '回到上課進度'); a.href = '#schedule'; acts.appendChild(a);
-      return;
-    }
-
-    var b = badge(cur, curIdx);
-    tags.appendChild(el('span', 'chip ' + b.cls, b.text));
-    tags.appendChild(el('span', 'chip', '第 ' + cur.n + ' 次　共 8 次'));
-    cur.title.split('、').forEach(function (part) { title.appendChild(el('i', null, part)); });
-
-    var g = gap(T, cur.date);
-    when.innerHTML = '<b>' + md(cur.date) + '（' + weekday(cur.date) + '）</b>　10:00–16:00'
-      + (g > 0 ? '　·　還有 ' + g + ' 天' : '');
-
-    var ready = cur.items.filter(function (x) { return x.href; });
-    if (!cur.items.length) read.textContent = '本次為口頭報告，沒有新的講義。';
-    else if (!cur.unlocked) read.textContent = '本次教材於 ' + md(cur.open) + ' 開放。';
-    else if (!ready.length) read.textContent = '本次教材尚未開放。';
-    else read.textContent = '本次要讀的教材共 ' + ready.length + ' 份';
-
-    cur.items.forEach(function (it, k) { acts.appendChild(pill(it, cur.unlocked, k === 0)); });
-
-    var next = DUES.filter(function (d) { return d.date >= T; })[0];
-    if (next) {
-      document.getElementById('duebar').hidden = false;
-      due.appendChild(el('span', 'lab', '最近的繳交'));
-      due.appendChild(el('span', 'nm', next.name));
-      due.appendChild(el('span', 'dt', md(next.date) + '　' + next.at));
-    }
-  })();
 
   /* ══ 進度 ══ */
   (function () {
@@ -621,10 +579,12 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   /* ══ 時間軸 ══ */
   (function () {
     var tl = document.getElementById('tl');
+    var doneRows = [];
     SESSIONS.forEach(function (s, idx) {
       var b = badge(s, idx);
       var row = el('div', 'ses ' + (idx === curIdx ? 'is-now' : s.past ? 'is-done' : 'is-next'));
       if (idx === curIdx) row.id = 'now';
+      if (s.past) doneRows.push(row);
 
       var rail = el('div', 'rail');
       rail.appendChild(el('div', 'n', '第 ' + s.n + ' 次'));
@@ -639,9 +599,22 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
       top.appendChild(el('span', 'chip ' + b.cls, b.text));
       box.appendChild(top);
 
+      if (idx === curIdx) {
+        var g = gap(T, s.date);
+        var w = el('p', 'when');
+        w.innerHTML = '<b>10:00–16:00</b>' + (g > 0 ? '　·　還有 ' + g + ' 天' : '　·　就是今天');
+        box.appendChild(w);
+        var ready = s.items.filter(function (x) { return x.href; });
+        var msg;
+        if (!s.items.length) msg = '本次為口頭報告，沒有新的講義。';
+        else if (!s.unlocked) msg = '本次教材尚未開放。';
+        else if (!ready.length) msg = '本次教材尚未開放。';
+        else msg = '本次要讀的教材共 ' + ready.length + ' 份';
+        box.appendChild(el('p', 'read', msg));
+      }
       if (s.items.length) {
         var pills = el('div', 'pills');
-        s.items.forEach(function (it) { pills.appendChild(pill(it, s.unlocked)); });
+        s.items.forEach(function (it, k) { pills.appendChild(pill(it, s.unlocked, idx === curIdx && k === 0)); });
         box.appendChild(pills);
       }
       if (s.todo) {
@@ -650,12 +623,75 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
         t.appendChild(el('span', null, s.todo));
         box.appendChild(t);
       }
-      if (!s.unlocked && s.items.some(function (x) { return x.href; })) {
-        box.appendChild(el('p', 'note', '教材於 ' + md(s.open) + ' 開放'));
-      }
       row.appendChild(box);
       tl.appendChild(row);
     });
+
+    /* 已結束的場次收成一列。全部結束時不收，否則整張表都看不到。
+       展開收合用與課程總覽同一顆彈簧：臨界阻尼、從畫面上的當前高度出發、可中斷 */
+    if (doneRows.length && !ended) {
+      var KEY = 'hrm912_past_open', open = false;
+      try { open = localStorage.getItem(KEY) === '1'; } catch (e) {}
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var past = el('div', 'tl-past');
+      past.id = 'tl-past';
+      tl.insertBefore(past, doneRows[0]);
+      doneRows.forEach(function (r) { past.appendChild(r); });
+
+      var fold = el('div', 'tl-fold');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-controls', 'tl-past');
+      btn.appendChild(el('span', 'ar', '▸'));
+      btn.appendChild(el('span', 'lbl', ''));
+      fold.appendChild(btn);
+      tl.insertBefore(fold, past);
+
+      function full() {
+        var h = past.style.height, o = past.style.opacity;
+        past.style.height = 'auto'; past.style.opacity = '';
+        var v = past.getBoundingClientRect().height;
+        past.style.height = h; past.style.opacity = o;
+        return v;
+      }
+      var sp = Spring(0, function (h, done) {
+        past.style.height = h + 'px';
+        past.style.opacity = Math.max(0, Math.min(1, h / Math.max(1, full() * 0.5)));
+        if (done && open) { past.style.height = 'auto'; past.style.opacity = ''; }
+      });
+      function label() {
+        fold.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+        past.setAttribute('aria-hidden', String(!open));
+        btn.querySelector('.lbl').textContent =
+          (open ? '收合' : '展開') + '已結束的 ' + doneRows.length + ' 次';
+      }
+      function init() {
+        if (open) { past.style.height = 'auto'; past.style.opacity = ''; }
+        else { past.style.height = '0px'; past.style.opacity = '0'; sp.set(0); }
+        label();
+      }
+      btn.addEventListener('click', function () {
+        var now = past.getBoundingClientRect().height;   // 從畫面上的當前值出發
+        past.style.height = now + 'px';
+        open = !open;
+        label();
+        try { localStorage.setItem(KEY, open ? '1' : '0'); } catch (e) {}
+        if (reduce) { init(); return; }
+        sp.set(now);
+        sp.to(open ? full() : 0);
+      });
+      init();
+    }
+
+    /* 學期結束時，把原本在焦點區的那句話放到進度表上方 */
+    if (ended) {
+      var n = el('p', 'note');
+      n.style.cssText = 'margin:0 0 1rem;font-size:.875rem;color:var(--muted);font-weight:600';
+      n.textContent = '課程已結束，所有講義維持可讀取，供日後複習與撰寫作業參考。';
+      tl.parentNode.insertBefore(n, tl);
+    }
   })();
 
   /* ══ 作業 ══ */
