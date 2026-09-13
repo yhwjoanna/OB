@@ -504,6 +504,22 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   body.flow .slide table { min-width: 540px; }
   @media print { body.flow .slide table { min-width: 0 !important; } }
 
+  /* 手機：十到十二像素的小標籤與出處，縮到下限時會掉到九像素以下，這裡拉回可讀範圍 */
+  body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
+  body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
+  body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
+  body.flow .src, body.flow .cite, body.flow .src-band, body.flow .note-s { font-size: 12.5px !important; }
+  body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
+  body.flow .slide h3 { font-size: max(12.5px, 1em); }
+  /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */
+  body.flow .slide i, body.flow .slide em, body.flow .slide cite { font-size: inherit; }
+  /* 參考文獻在手機已改單欄，不需要再用密排的縮小字級 */
+  body.flow .rf-cols .rf-grp p { font-size: 12.5px !important; line-height: 1.7; }
+  body.flow .ix-row .lab, body.flow .ix-row .lab span, body.flow .fig-head, body.flow .fig-head span { font-size: 12.5px !important; }
+  /* 模擬遊戲封面的面板固定裁切，窄螢幕會切掉一行 */
+  body.flow .cx .p { overflow: visible; }
+
+
 </style>
 </head>
 <body>
