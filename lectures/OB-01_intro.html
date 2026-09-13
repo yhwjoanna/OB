@@ -411,15 +411,15 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) {
   .figzoom > img, .figzoom > svg { transform: none !important; }
   .ix-bucket.hit, .ix-bucket.miss { animation: none !important; }
-  .ix-btn, .ix-chip, .ix-opt, .ix-bucket, .pdfbtn { transition: none !important; }
-  .ix-btn:active, .ix-chip:active, .ix-opt:active, .ix-bucket:active, .pdfbtn:active { transform: none !important; }
+  .ix-btn, .ix-chip, .ix-opt, .ix-bucket, .pdfbtn, .fsbtn { transition: none !important; }
+  .ix-btn:active, .ix-chip:active, .ix-opt:active, .ix-bucket:active, .pdfbtn:active, .fsbtn:active { transform: none !important; }
 }
 @media (prefers-reduced-transparency: reduce) {
   .figzoom { background: rgba(10,10,10,.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .pdfbtn { background: #F4F4F0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .pdfbtn, .fsbtn { background: #F4F4F0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-contrast: more) {
-  .ix-btn, .ix-chip, .ix-opt, .pdfbtn { border-width: 1.5px; }
+  .ix-btn, .ix-chip, .ix-opt, .pdfbtn, .fsbtn { border-width: 1.5px; }
   .figzoom-tip { opacity: 1; }
 }
 
@@ -428,7 +428,7 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   body.pdfbtn-inset .fig-head > :last-child,
   body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
   /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
-  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media (max-width: 700px) { .pdfbtn, .fsbtn { display: none !important; } }
   @media print { body.pdfbtn-inset .meta-row > :last-child,
     body.pdfbtn-inset .fig-head > :last-child,
     body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
@@ -440,10 +440,20 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
     border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
-  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
-  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn:hover, .fsbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active, .fsbtn:active { transform: scale(0.96); }
   .pdfbtn .ar { font-size: 12px; }
-  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; }
+    .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
+  /* ── FSBTN v1：全螢幕鈕，沿用 PDF 鈕的膠囊樣式 ── */
+  .fsbtn { position: fixed; z-index: 9998; top: 14px; right: 92px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn .ar { font-size: 12px; }
 
   @media print {
     @page { size: 1280px 720px; margin: 0; }
@@ -468,7 +478,7 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     .slide { min-height: 0 !important; }
     /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
     body > *:not(#viewport) { display: none !important; }
-    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+    .pdfbtn, .fsbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
   }
 
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
@@ -1846,7 +1856,8 @@ if(head){
     viewport.scrollTop = 0;
   }
   document.addEventListener('keydown', (e) => {
-    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    var _fs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (_fs && _fs !== document.documentElement) return;
     if (e.target && e.target.tagName === 'VIDEO') return;
     if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
     if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
@@ -2037,7 +2048,8 @@ if(head){
   function close() {
     if (!ov || !ov.__sp) return;
     var el = ov;
-    try { if (document.fullscreenElement || document.webkitFullscreenElement) {
+    try { var _cur = document.fullscreenElement || document.webkitFullscreenElement;
+    if (_cur && _cur !== document.documentElement) {
       var ex = document.exitFullscreen || document.webkitExitFullscreen;
       if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
     } } catch (e) {}
@@ -2125,7 +2137,7 @@ if(head){
 
   document.addEventListener('fullscreenchange', function () {
     if (ov && !document.fullscreenElement) close();
-  });
+  }, false);
 })();
 </script>
 
@@ -2446,5 +2458,78 @@ if(head){
 })();
 </script>
 
+
+<script>
+/* FSBTN v1：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。鍵盤 F 也可切換。 */
+(function () {
+  if (document.querySelector('.fsbtn')) return;
+  var root = document.documentElement;
+  var pdf = document.querySelector('.pdfbtn');
+
+  function isFs() {
+    var el = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!el && el === root;
+  }
+  function enter() {
+    var fn = root.requestFullscreen || root.webkitRequestFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function exit() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function toggle() { isFs() ? exit() : enter(); }
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fsbtn';
+  b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+  /* 沒有全螢幕 API 的環境（例如 iOS Safari）直接不顯示這顆鈕 */
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  function label() {
+    if (isFs()) {
+      b.innerHTML = '<span class="ar">\u2715</span><span>離開全螢幕</span>';
+      b.title = '離開全螢幕，也可以按 Esc 或 F';
+      b.setAttribute('aria-label', '離開全螢幕');
+    } else {
+      b.innerHTML = '<span class="ar">\u26f6</span><span>全螢幕</span>';
+      b.title = '全螢幕播放，按 Esc 或 F 離開';
+      b.setAttribute('aria-label', '全螢幕');
+    }
+  }
+  label();
+  document.body.appendChild(b);
+
+  /* 位置跟著 PDF 鈕走，貼在它左邊；沒有 PDF 鈕時退回右上角 */
+  function place() {
+    if (!pdf) return;
+    var vis = pdf.offsetWidth > 0 && getComputedStyle(pdf).display !== 'none';
+    b.style.display = vis ? '' : 'none';
+    if (!vis) return;
+    var r = pdf.getBoundingClientRect();
+    b.style.top = Math.round(r.top) + 'px';
+    b.style.right = Math.round(Math.max(0, innerWidth - r.left) + 8) + 'px';
+  }
+  function sync() { label(); place(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.target && /^(INPUT|TEXTAREA|SELECT|VIDEO)$/.test(e.target.tagName)) return;
+    if (e.target && e.target.isContentEditable) return;
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggle(); }
+  });
+  document.addEventListener('fullscreenchange', function () { setTimeout(sync, 60); });
+  document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  if (pdf) new MutationObserver(sync).observe(pdf, { attributes: true, attributeFilter: ['style', 'class'] });
+  setTimeout(sync, 80); setTimeout(sync, 420);
+})();
+</script>
 </body>
 </html>
