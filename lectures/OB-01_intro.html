@@ -474,6 +474,32 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
+     部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
+     於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
+  body.flow .main,
+  body.flow .grid2, body.flow .grid3, body.flow .grid3r, body.flow .grid4,
+  body.flow .grid5, body.flow .grid6, body.flow .grid8,
+  body.flow .wfh-main, body.flow .link-main, body.flow .cmp-wrap,
+  body.flow .cover-main, body.flow .quote-main, body.flow .results-stack {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+  }
+  body.flow .cell, body.flow .axis-list, body.flow .fig-wrap, body.flow .fig-cell {
+    grid-column: auto !important; grid-row: auto !important;
+  }
+  /* 參考文獻在手機上分兩欄會讓每一則只剩半個版心寬 */
+  body.flow .rf-cols.c2 { column-count: 1 !important; }
+  /* 互動頁的說明與控制列並排時，說明會被壓成一個字一行 */
+  body.flow .ix-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.flow .ix-bar .ctl { flex-wrap: wrap; justify-content: flex-start; }
+
+  /* 表格在窄螢幕會被擠成兩三個字寬，改為整個表格可橫向捲動 */
+  body.flow .slide *:has(> table) { overflow-x: auto; }
+  body.flow .slide table { min-width: 540px; }
+  @media print { body.flow .slide table { min-width: 0 !important; } }
+
 </style>
 
 </head>

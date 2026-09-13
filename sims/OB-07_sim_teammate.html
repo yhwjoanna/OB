@@ -262,6 +262,9 @@
     .slide + .slide { break-before: page; page-break-before: always; }
     /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
     .slide.ix-page { display: none !important; }
+    /* 手機的自動縮放是寫在行內的 zoom，列印時必須還原，否則會按縮放後的尺寸輸出 */
+    #stage { zoom: 1 !important; }
+    .slide { min-height: 0 !important; }
     /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
     body > *:not(#viewport) { display: none !important; }
     .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
@@ -270,6 +273,47 @@
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+  /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
+     部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
+     於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
+  body.flow .main,
+  body.flow .grid2, body.flow .grid3, body.flow .grid3r, body.flow .grid4,
+  body.flow .grid5, body.flow .grid6, body.flow .grid8,
+  body.flow .wfh-main, body.flow .link-main, body.flow .cmp-wrap,
+  body.flow .cover-main, body.flow .quote-main, body.flow .results-stack {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+  }
+  body.flow .cell, body.flow .axis-list, body.flow .fig-wrap, body.flow .fig-cell {
+    grid-column: auto !important; grid-row: auto !important;
+  }
+  /* 參考文獻在手機上分兩欄會讓每一則只剩半個版心寬 */
+  body.flow .rf-cols.c2 { column-count: 1 !important; }
+  /* 互動頁的說明與控制列並排時，說明會被壓成一個字一行 */
+  body.flow .ix-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.flow .ix-bar .ctl { flex-wrap: wrap; justify-content: flex-start; }
+
+  /* 表格在窄螢幕會被擠成兩三個字寬，改為整個表格可橫向捲動 */
+  body.flow .slide *:has(> table) { overflow-x: auto; }
+  body.flow .slide table { min-width: 540px; }
+  @media print { body.flow .slide table { min-width: 0 !important; } }
+
+  /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
+  .pgbtn { display: none; }
+  body.flow .foot { height: auto; min-height: 46px; padding: 0 6px; }
+  body.flow .foot > span:not(.pg) { display: none; }
+  body.flow .pgbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 92px; min-height: 44px; padding: 0 10px;
+    font: 700 11px/1 var(--mono); letter-spacing: 0.1em;
+    color: var(--ink); background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.1s ease-out;
+  }
+  body.flow .pgbtn:disabled { opacity: 0.26; }
+  body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
+  @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
+  @media print { .pgbtn { display: none !important; } }
 </style>
 </head>
 <body>
@@ -965,5 +1009,140 @@ function drawChart() {
 }
 </script>
 
+
+<script>
+/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+   做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
+   縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
+(function () {
+  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  var stage = document.getElementById('stage');
+  var vp = document.getElementById('viewport');
+  if (!stage || !vp) return;
+
+  /* Safari 的下方工具列會蓋住畫面，clientHeight 量不到這一段，改以 visualViewport 為準 */
+  function visH() {
+    var a = vp.clientHeight;
+    var b = (window.visualViewport && window.visualViewport.height) || a;
+    return Math.max(320, Math.min(a, b));
+  }
+
+  function clear() {
+    stage.style.zoom = '';
+    var a = document.querySelector('.slide.active');
+    if (a) a.style.minHeight = '';
+  }
+
+  function fitOne() {
+    if (!document.body.classList.contains('flow')) { clear(); return; }
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = 1;
+    /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
+    for (var pass = 0; pass < 4; pass++) {
+      stage.style.zoom = k === 1 ? '' : String(k);
+      slide.style.minHeight = '0px';
+      var natural = stage.getBoundingClientRect().height;
+      if (natural <= H + 0.5) break;
+      var nk = Math.max(MIN, k * (H / natural));
+      if (nk >= k - 0.003) { k = nk; break; }
+      k = nk;
+    }
+    stage.style.zoom = k === 1 ? '' : String(k);
+    slide.style.minHeight = '0px';
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+    vp.scrollTop = 0;
+  }
+
+  /* 互動頁答題後版面會變高，這時只縮不放，避免作答途中字忽大忽小 */
+  var tid = 0;
+  function tighten() {
+    if (!document.body.classList.contains('flow')) return;
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = +(stage.style.zoom || 1);
+    slide.style.minHeight = '0px';
+    var h = stage.getBoundingClientRect().height;
+    if (h > H + 0.5 && k > MIN) {
+      k = Math.max(MIN, k * (H / h));
+      stage.style.zoom = String(k);
+    }
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.ix')) return;
+    clearTimeout(tid); tid = setTimeout(tighten, 120);
+  }, true);
+
+  var base = window.go;
+  if (typeof base === 'function') {
+    window.go = function (n) { base(n); fitOne(); };
+  }
+  addEventListener('resize', function () { setTimeout(fitOne, 60); });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { clearTimeout(tid); tid = setTimeout(fitOne, 150); });
+  }
+  addEventListener('orientationchange', function () { setTimeout(fitOne, 220); });
+  setTimeout(fitOne, 0);
+})();
+</script>
+<script>
+/* ── 手機翻頁：頁尾的上一頁與下一頁，加上左右滑動 ──
+   互動頁點內容不翻頁，桌機靠方向鍵，手機需要固定的入口 */
+(function () {
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var vp = document.getElementById('viewport');
+  if (!slides.length || !vp || typeof window.go !== 'function') return;
+
+  function cur() {
+    for (var k = 0; k < slides.length; k++) if (slides[k].classList.contains('active')) return k;
+    return 0;
+  }
+  function mk(cls, txt) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgbtn ' + cls; b.textContent = txt;
+    return b;
+  }
+  slides.forEach(function (s) {
+    var f = s.querySelector('.footer-row, .foot');
+    if (!f) return;
+    var p = mk('prev', '\u2039 上一頁'), n = mk('next', '下一頁 \u203A');
+    f.insertBefore(p, f.firstChild);
+    f.appendChild(n);
+    p.addEventListener('click', function (e) { e.stopPropagation(); go(cur() - 1); });
+    n.addEventListener('click', function (e) { e.stopPropagation(); go(cur() + 1); });
+  });
+
+  function sync() {
+    var k = cur();
+    slides.forEach(function (s) {
+      var p = s.querySelector('.pgbtn.prev'), n = s.querySelector('.pgbtn.next');
+      if (p) p.disabled = k === 0;
+      if (n) n.disabled = k === slides.length - 1;
+    });
+  }
+  var base = window.go;
+  window.go = function (n) { base(n); sync(); };
+  sync();
+
+  /* 左右滑動翻頁。垂直為主的動作留給捲動，長按後的移動不算 */
+  var x0 = 0, y0 = 0, t0 = 0, track = false;
+  vp.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { track = false; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); track = true;
+  }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (!track) return;
+    track = false;
+    if (Date.now() - t0 > 600) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    go(cur() + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
