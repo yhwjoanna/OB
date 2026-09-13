@@ -230,6 +230,24 @@ footer { padding:44px 8vw; display:flex; justify-content:space-between; font-fam
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
 </style>
+<style>
+  /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
+  .fsbtn { position: fixed; z-index: 9998; bottom: 14px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 30px; height: 30px; padding: 0; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22);
+    border-radius: 7px; opacity: 0.5;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, transform 0.1s ease-out, background 0.15s ease,
+      color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn:hover, .fsbtn:focus-visible { opacity: 1; background: #232320; color: #F4F4F0; border-color: #232320; }
+  .fsbtn:active { transform: scale(0.94); }
+  .fsbtn svg { width: 15px; height: 15px; display: block; }
+  /* 手機的翻頁列就在底部，浮在上面容易誤觸；手機瀏覽器本身也有全螢幕 */
+  @media (max-width: 700px) { .fsbtn { display: none !important; } }
+  @media print { .fsbtn { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
+</style>
 </head>
 <body>
 <div class="progressbar" id="pbar"></div>
@@ -701,7 +719,8 @@ refresh();
     var el = ov;
     el.__closing = true;
     el.classList.add('closing');
-    try { if (document.fullscreenElement || document.webkitFullscreenElement) {
+    try { var _cur = document.fullscreenElement || document.webkitFullscreenElement;
+    if (_cur && _cur !== document.documentElement) {
       var ex = document.exitFullscreen || document.webkitExitFullscreen;
       if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
     } } catch (e) {}
@@ -844,6 +863,81 @@ refresh();
   var _before = before;
   before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
   window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+
+<script>
+/* FSBTN v2：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。
+   鈕在右下角，只有圖示、每一頁都在，平時半透明，滑過才變深。鍵盤 F 也可切換。 */
+(function () {
+  if (document.querySelector('.fsbtn')) return;
+  var root = document.documentElement;
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  var IN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+
+  function isFs() {
+    var el = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!el && el === root;
+  }
+  function enter() {
+    var fn = root.requestFullscreen || root.webkitRequestFullscreen;
+    try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function exit() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function toggle() { isFs() ? exit() : enter(); }
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fsbtn';
+  b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+  function label() {
+    if (isFs()) { b.innerHTML = OUT; b.title = '離開全螢幕，也可以按 Esc 或 F'; b.setAttribute('aria-label', '離開全螢幕'); }
+    else { b.innerHTML = IN; b.title = '全螢幕播放，按 Esc 或 F 離開'; b.setAttribute('aria-label', '全螢幕'); }
+  }
+  label();
+  document.body.appendChild(b);
+
+  /* 位置：舞台下方若有留白帶就放進去，右緣對齊舞台；不夠就貼回視窗右下角 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    var s = b.offsetHeight || 30, gap = 10;
+    if (innerHeight - r.bottom >= s + gap * 2) {
+      b.style.bottom = Math.round(Math.max(gap, (innerHeight - r.bottom - s) / 2)) + 'px';
+      b.style.right = Math.round(Math.max(gap, innerWidth - r.right)) + 'px';
+    } else {
+      b.style.bottom = '14px';
+      b.style.right = '14px';
+    }
+  }
+  function sync() { label(); place(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('input, select, textarea, [contenteditable="true"]')) return;
+    if (t && /^(INPUT|TEXTAREA|SELECT|VIDEO)$/.test(t.tagName)) return;
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggle(); }
+  });
+  document.addEventListener('fullscreenchange', function () { setTimeout(sync, 60); });
+  document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 80); setTimeout(sync, 420);
 })();
 </script>
 </body>

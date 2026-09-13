@@ -428,6 +428,7 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   body.pdfbtn-inset .fig-head > :last-child,
   body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
   /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  /* 手機的翻頁列就在底部，浮在上面容易誤觸；手機瀏覽器本身也有全螢幕 */
   @media (max-width: 700px) { .pdfbtn, .fsbtn { display: none !important; } }
   @media print { body.pdfbtn-inset .meta-row > :last-child,
     body.pdfbtn-inset .fig-head > :last-child,
@@ -445,15 +446,17 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   .pdfbtn .ar { font-size: 12px; }
   @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; }
     .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
-  /* ── FSBTN v1：全螢幕鈕，沿用 PDF 鈕的膠囊樣式 ── */
-  .fsbtn { position: fixed; z-index: 9998; top: 14px; right: 92px;
-    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
-    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
-    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
-  .fsbtn .ar { font-size: 12px; }
+  /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
+  .fsbtn { position: fixed; z-index: 9998; bottom: 14px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 30px; height: 30px; padding: 0; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22);
+    border-radius: 7px; opacity: 0.5;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, transform 0.1s ease-out, background 0.15s ease,
+      color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn:hover, .fsbtn:focus-visible { opacity: 1; background: #232320; color: #F4F4F0; border-color: #232320; }
+  .fsbtn svg { width: 15px; height: 15px; display: block; }
 
   @media print {
     @page { size: 1280px 720px; margin: 0; }
@@ -2460,12 +2463,20 @@ if(head){
 
 
 <script>
-/* FSBTN v1：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
-   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。鍵盤 F 也可切換。 */
+/* FSBTN v2：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。
+   鈕在右下角，只有圖示、每一頁都在，平時半透明，滑過才變深。鍵盤 F 也可切換。 */
 (function () {
   if (document.querySelector('.fsbtn')) return;
   var root = document.documentElement;
-  var pdf = document.querySelector('.pdfbtn');
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  var IN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
 
   function isFs() {
     var el = document.fullscreenElement || document.webkitFullscreenElement;
@@ -2473,7 +2484,6 @@ if(head){
   }
   function enter() {
     var fn = root.requestFullscreen || root.webkitRequestFullscreen;
-    if (!fn) return;
     try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
   }
   function exit() {
@@ -2488,32 +2498,27 @@ if(head){
   b.className = 'fsbtn';
   b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
 
-  /* 沒有全螢幕 API 的環境（例如 iOS Safari）直接不顯示這顆鈕 */
-  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
-
   function label() {
-    if (isFs()) {
-      b.innerHTML = '<span class="ar">\u2715</span><span>離開全螢幕</span>';
-      b.title = '離開全螢幕，也可以按 Esc 或 F';
-      b.setAttribute('aria-label', '離開全螢幕');
-    } else {
-      b.innerHTML = '<span class="ar">\u26f6</span><span>全螢幕</span>';
-      b.title = '全螢幕播放，按 Esc 或 F 離開';
-      b.setAttribute('aria-label', '全螢幕');
-    }
+    if (isFs()) { b.innerHTML = OUT; b.title = '離開全螢幕，也可以按 Esc 或 F'; b.setAttribute('aria-label', '離開全螢幕'); }
+    else { b.innerHTML = IN; b.title = '全螢幕播放，按 Esc 或 F 離開'; b.setAttribute('aria-label', '全螢幕'); }
   }
   label();
   document.body.appendChild(b);
 
-  /* 位置跟著 PDF 鈕走，貼在它左邊；沒有 PDF 鈕時退回右上角 */
+  /* 位置：舞台下方若有留白帶就放進去，右緣對齊舞台；不夠就貼回視窗右下角 */
+  var stage = document.getElementById('stage');
   function place() {
-    if (!pdf) return;
-    var vis = pdf.offsetWidth > 0 && getComputedStyle(pdf).display !== 'none';
-    b.style.display = vis ? '' : 'none';
-    if (!vis) return;
-    var r = pdf.getBoundingClientRect();
-    b.style.top = Math.round(r.top) + 'px';
-    b.style.right = Math.round(Math.max(0, innerWidth - r.left) + 8) + 'px';
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    var s = b.offsetHeight || 30, gap = 10;
+    if (innerHeight - r.bottom >= s + gap * 2) {
+      b.style.bottom = Math.round(Math.max(gap, (innerHeight - r.bottom - s) / 2)) + 'px';
+      b.style.right = Math.round(Math.max(gap, innerWidth - r.right)) + 'px';
+    } else {
+      b.style.bottom = '14px';
+      b.style.right = '14px';
+    }
   }
   function sync() { label(); place(); }
 
@@ -2527,7 +2532,6 @@ if(head){
   document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
   addEventListener('resize', sync);
   addEventListener('load', sync);
-  if (pdf) new MutationObserver(sync).observe(pdf, { attributes: true, attributeFilter: ['style', 'class'] });
   setTimeout(sync, 80); setTimeout(sync, 420);
 })();
 </script>
