@@ -287,7 +287,17 @@ dl.facts dd{margin:0}
 .due .w b{display:block;font-size:1.25rem;line-height:1.15;font-weight:300;letter-spacing:-.04em;color:var(--red)}
 .due .w span{font:400 .625rem/1.6 var(--mono);letter-spacing:.08em;color:var(--faint)}
 .due.past{opacity:.5}
-.tags-hint{margin:.9rem 0 .5rem;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
+.due .disc{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;padding:.45rem .75rem;
+  appearance:none;font:600 .8125rem/1 var(--sans);letter-spacing:-.005em;color:var(--text);
+  background:var(--paper);border:1px solid var(--line-2);border-radius:999px;cursor:pointer;
+  min-height:2.125rem;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:border-color .15s ease,transform .1s ease-out}
+.due .disc:hover{border-color:var(--text)}
+.due .disc:active{transform:scale(.97)}
+.due .disc .chev{font:400 .8125rem/1 var(--mono);color:var(--faint)}
+.due .disc-body{height:0;overflow:hidden;transition:height .34s cubic-bezier(.32,.72,0,1)}
+@media (prefers-reduced-motion:reduce){.due .disc,.due .disc-body{transition:none}.due .disc:active{transform:none}}
+.tags-hint{margin:.85rem 0 .5rem;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
 .tags-row{display:flex;flex-wrap:wrap;gap:.4rem}
 .tags-row .tag{
   appearance:none;font:inherit;font-size:.8125rem;color:var(--muted);
@@ -438,13 +448,6 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   <div class="sec-head"><h3>作業與繳交</h3><span class="side">3 項</span></div>
   <div class="dues" id="dues"></div>
   <div class="panel" style="margin-top:.75rem">
-    <h4>期末專題的九個可選主題</h4>
-    <p>全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片內容需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上引用的期刊文獻。</p>
-    <p class="tags-hint">點選概念可展開約一百字的簡介，含提出者與年代。</p>
-    <div class="tags-row" id="topics"></div>
-    <div class="tag-panel" id="topicPanel"><div class="tp-in" id="topicIn"></div></div>
-  </div>
-  <div class="panel" style="margin-top:.75rem">
     <h4>學術誠信與生成式 AI</h4>
     <p>個人作業須各自完成，可以討論寫法，不可抄襲。引用網路或書目資料須附上網址與參考文獻來源。報告可合理使用生成式 AI 工具進行文字潤飾與翻譯，不得完全仰賴 AI 撰寫；教師會於課堂中隨機討論書面報告內容，無法合理解釋者將影響作業與平時成績。詳見 <a href="https://oaa.nsysu.edu.tw/p/406-1003-313202,r3844.php?Lang=zh-tw" target="_blank" rel="noopener noreferrer">國立中山大學生成式 AI 工具使用參照指引</a>。</p>
   </div>
@@ -553,7 +556,8 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
     { name: '個人作業二', date: '2026-11-29', at: '第 7 次上課',
       desc: '從本學期課程教材與教科書中選出 10 個學術專有名詞，以目前工作中的實例解釋這些名詞在實務上如何應用，篇幅 2 至 4 頁。' },
     { name: '期末專題報告', date: '2026-12-20', at: '第 8 次上課',
-      desc: '小組教學短影片 3 至 5 分鐘，附組員名單、照片與分工表，以及引用文獻說明。九個可選主題見下方，每個主題各有兩篇指定文獻。',
+      desc: '小組教學短影片 3 至 5 分鐘。全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上組員名單、照片、分工表與引用的期刊文獻。每個概念各有兩篇指定文獻。',
+      topics: true,
       links: [{ href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODcyNzY2ODM5Mjkx/details', text: '到 Classroom 下載九個主題的指定文獻' }] }
   ];
 
@@ -759,6 +763,41 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
         left.appendChild(row);
         if (d.links.some(function (L) { return L.href.indexOf('classroom.google.com') >= 0; })) cnote(left);
       }
+      /* 九個概念只屬於這一份作業，放在作業卡內才不必用見下方互相指來指去；
+         預設收合，三張作業卡的高度才不會一張特別長 */
+      if (d.topics) {
+        var tg = el('button', 'disc');
+        tg.type = 'button';
+        tg.setAttribute('aria-expanded', 'false');
+        tg.appendChild(el('span', null, '九個可選主題'));
+        tg.appendChild(el('span', 'chev', '＋'));
+        var wrap = el('div', 'disc-body');
+        wrap.innerHTML = '<p class="tags-hint">點選概念看它在講什麼，以及可以從哪裡切入。</p>'
+          + '<div class="tags-row" id="topics"></div>'
+          + '<div class="tag-panel" id="topicPanel"><div class="tp-in" id="topicIn"></div></div>';
+        tg.addEventListener('click', function () {
+          var on = tg.getAttribute('aria-expanded') === 'true';
+          tg.setAttribute('aria-expanded', on ? 'false' : 'true');
+          tg.querySelector('.chev').textContent = on ? '＋' : '－';
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            wrap.style.height = on ? '0px' : 'auto';
+            return;
+          }
+          if (on) {
+            wrap.style.height = wrap.scrollHeight + 'px';
+            requestAnimationFrame(function () { wrap.style.height = '0px'; });
+          } else {
+            wrap.style.height = wrap.scrollHeight + 'px';
+            wrap.addEventListener('transitionend', function once(e) {
+              if (e.propertyName !== 'height') return;
+              wrap.removeEventListener('transitionend', once);
+              if (tg.getAttribute('aria-expanded') === 'true') wrap.style.height = 'auto';
+            });
+          }
+        });
+        left.appendChild(tg);
+        left.appendChild(wrap);
+      }
       item.appendChild(left);
       var w = el('div', 'w');
       w.appendChild(el('b', null, md(d.date)));
@@ -874,23 +913,23 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
 (function () {
   var TOPICS = [
     { zh: '心理安全感', en: 'psychological safety',
-      t: 'Schein 與 Bennis 在 1965 年提出，Edmondson 在 1999 年帶到團隊層次，定義為團隊成員相信在此承擔人際風險是安全的共享信念。她以醫療團隊資料發現，心理安全感高的團隊更願意通報錯誤、學習也更快。管理應用集中在主管如何示範求助與回應壞消息。' },
+      t: '開會時想到一個疑問，卻怕講出來被當成狀況外，於是閉嘴。團隊裡敢不敢講真話，就是這個概念在處理的事。它解釋了為什麼有些團隊犯錯會被攤開來檢討，有些團隊卻一路藏到爆掉。適合拍主管的一句話如何讓人閉嘴或敢開口。' },
     { zh: '工作倦怠', en: 'job burnout',
-      t: 'Freudenberger 在 1974 年從助人工作者的觀察提出，Maslach 與 Jackson 在 1981 年界定為情緒耗竭、去人性化與個人成就感低落三個面向，是長期壓力未獲緩解的結果。世界衛生組織於 2019 年列為職業現象而非疾病。研究重心已從個人特質轉向工作要求與資源。' },
+      t: '不是累一天睡飽就好，而是長期下來對工作變得麻木、對人沒耐性、覺得自己做什麼都沒意義。這常被當成個人抗壓性差，研究反而指向工作本身的負荷與資源。適合拍一個人從有熱情到整個乾掉的過程，以及哪些設計能踩煞車。' },
     { zh: '心理資本', en: 'psychological capital',
-      t: 'Luthans 與同僚在 2004 至 2007 年間提出，屬正向組織行為取向，主張個體擁有一組可開發、可測量且與績效相關的正向心理資源，包含自我效能、希望、韌性與樂觀四項。它被界定為狀態而非固定特質，因此可透過短期介入提升，常應用於訓練設計與變革期間的支持。' },
+      t: '同樣被退件三次，有人一蹶不振，有人隔天又想到新做法。差別常落在四種心理資源上：相信自己做得到、看得到路、跌倒爬得起來、對結果還抱著期待。有意思的是它被認為可以練出來，不是天生性格。適合拍同一個挫折的兩種反應。' },
     { zh: '工作敬業', en: 'work engagement',
-      t: 'Kahn 在 1990 年以個人投入開啟討論，Schaufeli 與 Bakker 等人在 2002 年操作化為活力、奉獻與專注三個面向的正向情感動機狀態，並發展量表。這個概念與工作要求資源模型緊密結合，主張資源透過動機歷程提升敬業，實務上落在工作設計、主管支持與回饋機制。' },
+      t: '上班很忙不等於投入。這個概念講的是有活力、覺得自己在做有價值的事、專注到忘記時間。它跟工作狂只有一線之隔，差別在下班後放不放得下。適合拍忙碌與投入的對照，以及哪些條件會把忙碌變成投入。' },
     { zh: '印象管理', en: 'impression management',
-      t: '源自 Goffman 在 1959 年的戲劇論，主張人在互動中如同在舞台上管理他人對自己的印象。Jones 與 Pittman 在 1982 年整理出逢迎、自我推銷、示範、威嚇與示弱五種策略。組織研究關注它在甄選面試與績效評估中的效果，重點是評估者如何辨識表現與真實能力的落差。' },
+      t: '面試前想好要講哪幾個故事、挑時間回訊息、讓加班的痕跡剛好被主管看到。這些都算。它不必然是虛偽，而是每個人都在做的事，差別在做得巧不巧、會不會被看穿。適合拍幾種常見手法，以及它們翻車的時候。' },
     { zh: '職場八卦', en: 'workplace gossip',
-      t: '指當事人不在場時對其進行的非正式評價性談論。Dunbar 在 1990 年代提出語言演化觀點，主張八卦具有維繫群體與交換資訊的功能。組織研究區分正向與負向八卦，發現它同時傳遞規範、建立信任也造成關係傷害。管理重點不在禁止，而在補足正式溝通的缺口。' },
+      t: '茶水間三分鐘，有時比一整封公告有用。八卦一方面在傳遞誰可以信任、什麼事踩線，一方面也可能毀掉一個人的名聲。最有意思的是它同時是資訊網路和傷害工具。適合拍同一則消息在不同人口中如何變形。' },
     { zh: '工作塑造', en: 'job crafting',
-      t: 'Wrzesniewski 與 Dutton 在 2001 年提出，主張員工會主動改變工作的任務、關係與認知邊界，讓工作更貼近自己的能力與意義感，屬由下而上的工作設計。Tims 與 Bakker 在 2010 年以工作要求資源模型重新界定為四種塑造行為。管理應用在於主管如何給予調整空間。' },
+      t: '同樣一份職務說明，有人做成苦差事，有人把它調成自己擅長又有意思的樣子：多接一點喜歡的任務、換合作對象、或換個角度看待這份工作。重點是由做的人自己動手改，不是等主管安排。適合拍同一個職位的兩種版本。' },
     { zh: '職場無禮', en: 'workplace incivility',
-      t: 'Andersson 與 Pearson 在 1999 年提出，指強度低、傷害意圖不明確、違反相互尊重規範的偏差行為，例如打斷發言或公開挖苦。兩人同時提出無禮螺旋，說明微小失禮如何升級為嚴重衝突。Cortina 等人在 2001 年記錄其對滿意度與離職意圖的影響。' },
+      t: '不是罵人，是那些說不出哪裡有錯卻讓人不舒服的小事：講話被打斷、訊息不回、開會被當空氣。單看每一件都很小，累積起來會想回敬回去，然後越滾越大。適合拍一連串小事如何滾成一場公開衝突。' },
     { zh: '自我監控', en: 'self-monitoring',
-      t: 'Snyder 在 1974 年提出，指個體依情境線索調整自我表現的傾向。高自我監控者對社會線索敏感、行為隨情境變動；低自我監控者較一致，接近內在態度。Day 等人在 2002 年的統合分析發現，高自我監控與績效、晉升及領導浮現有正向關聯，也指出其在真誠性上的代價。' }
+      t: '有些人換個場合就換一種樣子，面對客戶、主管、同事各有一套；有些人到哪裡都是同一個人。前者通常人脈廣、升遷也快，代價是常被問到底哪個才是真的。適合拍同一個人在三個場合的三種版本。' }
   ];
 
   var row = document.getElementById('topics');
