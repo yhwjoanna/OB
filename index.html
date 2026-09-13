@@ -271,7 +271,9 @@ dl.facts dd{margin:0}
 .due .ref{margin-top:.5rem;padding-left:.7rem;border-left:2px solid var(--line-2);
   font-size:.8125rem;line-height:1.6;letter-spacing:.006em;color:var(--faint)}
 .due .getrow{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
-.due .cnote{margin-top:.55rem;font-size:.75rem;line-height:1.65;letter-spacing:.008em;color:var(--faint);text-wrap:pretty}
+.due .cnote,.ses .cnote{margin:.55rem 0 0;font-size:.75rem;line-height:1.65;letter-spacing:.008em;color:var(--faint);text-wrap:pretty}
+.ses .cnote a{color:var(--muted);text-underline-offset:.2em}
+.ses .cnote a:hover{color:var(--text)}
 .due .cnote a{color:var(--muted);text-underline-offset:.2em}
 .due .cnote a:hover{color:var(--text)}
 .due .getrow a{display:inline-block;font:600 .75rem/1 var(--sans);letter-spacing:-.005em;
@@ -285,8 +287,24 @@ dl.facts dd{margin:0}
 .due .w b{display:block;font-size:1.25rem;line-height:1.15;font-weight:300;letter-spacing:-.04em;color:var(--red)}
 .due .w span{font:400 .625rem/1.6 var(--mono);letter-spacing:.08em;color:var(--faint)}
 .due.past{opacity:.5}
-.tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
-.tags-row span{font-size:.8125rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.3rem .7rem}
+.tags-hint{margin:.9rem 0 .5rem;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
+.tags-row{display:flex;flex-wrap:wrap;gap:.4rem}
+.tags-row .tag{
+  appearance:none;font:inherit;font-size:.8125rem;color:var(--muted);
+  background:var(--paper);border:1px solid var(--line);border-radius:999px;
+  padding:.42rem .8rem;min-height:2.125rem;cursor:pointer;text-align:left;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:border-color .15s ease,color .15s ease,background .15s ease,transform .1s ease-out}
+.tags-row .tag:hover{border-color:var(--line-2);color:var(--text)}
+.tags-row .tag:active{transform:scale(.97)}
+.tags-row .tag[aria-expanded="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tag-panel{height:0;overflow:hidden;transition:height .34s cubic-bezier(.32,.72,0,1)}
+.tp-in{padding-top:.85rem}
+.tp-in h5{margin:0 0 .35rem;font-size:.9375rem;font-weight:600;letter-spacing:-.01em}
+.tp-in h5 .en{margin-left:.4rem;font:400 .75rem/1 var(--mono);letter-spacing:.04em;color:var(--faint);text-transform:none}
+.tp-in p{margin:0;font-size:.8125rem;line-height:1.85;letter-spacing:.008em;color:var(--muted);text-wrap:pretty}
+@media (prefers-reduced-motion:reduce){.tag-panel{transition:none}.tags-row .tag{transition:none}.tags-row .tag:active{transform:none}}
+@media (prefers-contrast:more){.tags-row .tag{border-width:1.5px}}
 
 /* ═══ 連結 ═══ */
 .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.75rem}
@@ -422,17 +440,9 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   <div class="panel" style="margin-top:.75rem">
     <h4>期末專題的九個可選主題</h4>
     <p>全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片內容需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上引用的期刊文獻。</p>
-    <div class="tags-row">
-      <span>心理安全感 psychological safety</span>
-      <span>工作倦怠 job burnout</span>
-      <span>心理資本 psychological capital</span>
-      <span>工作敬業 work engagement</span>
-      <span>印象管理 impression management</span>
-      <span>職場八卦 workplace gossip</span>
-      <span>工作塑造 job crafting</span>
-      <span>職場無禮 workplace incivility</span>
-      <span>自我監控 self-monitoring</span>
-    </div>
+    <p class="tags-hint">點選概念可展開約一百字的簡介，含提出者與年代。</p>
+    <div class="tags-row" id="topics"></div>
+    <div class="tag-panel" id="topicPanel"><div class="tp-in" id="topicIn"></div></div>
   </div>
   <div class="panel" style="margin-top:.75rem">
     <h4>學術誠信與生成式 AI</h4>
@@ -472,7 +482,8 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
     { n: 1, date: '2026-09-13', title: '課程簡介與什麼是組織行為',
       items: [
         { unit: '大綱', label: '課程大綱 PDF', href: 'docs/2026Fall_OB_Taipei_syllabus.pdf' },
-        { unit: 'CH 1', label: '什麼是組織行為', href: 'lectures/OB-01_intro.html' }],
+        { unit: 'CH 1', label: '什麼是組織行為', href: 'lectures/OB-01_intro.html' },
+        { unit: '文獻', label: '組織公民行為的多元目標對象', href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODg0NzQwMzI0MDMx/details' }],
       todo: '分組與自我介紹' },
 
     { n: 2, date: '2026-09-20', title: '組織內的多樣化、態度與滿足感',
@@ -514,6 +525,21 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   ];
 
   var JOIN = 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0?cjc=jom37a4a';
+
+  /* Classroom 的取用說明是排除障礙用的，不是內容。整頁只放一次，位置是最先出現
+     Classroom 連結的那張卡，同一句話重複三次只會把真正要讀的教材往下推 */
+  var noteDone = false;
+  function cnote(box) {
+    if (noteDone) return;
+    noteDone = true;
+    var p = el('p', 'cnote');
+    p.appendChild(document.createTextNode('標示文獻的項目放在課程的 Google Classroom。顯示找不到課程時，多半是瀏覽器或手機 App 停在別的 Google 帳號，切換為選課使用的帳號即可；尚未加入課程請用課程代碼 jom37a4a '));
+    var a = el('a', null, '加入課程');
+    a.href = JOIN; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    p.appendChild(a);
+    p.appendChild(document.createTextNode('。'));
+    box.appendChild(p);
+  }
 
   var DUES = [
     { name: '個人作業一', date: '2026-10-18', at: '第 3 次上課',
@@ -627,6 +653,9 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
         s.items.forEach(function (it, k) { pills.appendChild(pill(it, s.unlocked, idx === curIdx && k === 0)); });
         box.appendChild(pills);
       }
+      if (idx === curIdx && s.unlocked && s.items.some(function (x) {
+        return x.href && x.href.indexOf('classroom.google.com') >= 0;
+      })) cnote(box);
       if (s.todo) {
         var t = el('div', 'todo');
         t.appendChild(el('span', 'mk', '事項'));
@@ -728,17 +757,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
           row.appendChild(a);
         });
         left.appendChild(row);
-        /* Classroom 的深層連結會用瀏覽器當下的預設帳號去解析，帳號不對時只會顯示找不到課程，
-           畫面本身不會說明原因，因此在按鈕下方補一行取用說明 */
-        if (d.links.some(function (L) { return L.href.indexOf('classroom.google.com') >= 0; })) {
-          var note = el('p', 'cnote');
-          note.appendChild(document.createTextNode('文獻存放在課程的 Google Classroom。若畫面顯示找不到課程，多半是瀏覽器或手機 App 停在別的 Google 帳號，切換為選課使用的帳號即可。尚未加入課程者，請先用課程代碼 jom37a4a '));
-          var j = el('a', null, '加入課程');
-          j.href = JOIN; j.target = '_blank'; j.rel = 'noopener noreferrer';
-          note.appendChild(j);
-          note.appendChild(document.createTextNode('。'));
-          left.appendChild(note);
-        }
+        if (d.links.some(function (L) { return L.href.indexOf('classroom.google.com') >= 0; })) cnote(left);
       }
       item.appendChild(left);
       var w = el('div', 'w');
@@ -848,5 +867,90 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   document.getElementById('stamp').textContent = '今天 ' + md(T);
 })();
 </script>
+
+<script>
+/* ══ 期末專題的九個概念：點選展開簡介 ══
+   內容依作業要求列出定義、提出者與年代、演進與實務應用的切入點 */
+(function () {
+  var TOPICS = [
+    { zh: '心理安全感', en: 'psychological safety',
+      t: 'Schein 與 Bennis 在 1965 年提出，Edmondson 在 1999 年帶到團隊層次，定義為團隊成員相信在此承擔人際風險是安全的共享信念。她以醫療團隊資料發現，心理安全感高的團隊更願意通報錯誤、學習也更快。管理應用集中在主管如何示範求助與回應壞消息。' },
+    { zh: '工作倦怠', en: 'job burnout',
+      t: 'Freudenberger 在 1974 年從助人工作者的觀察提出，Maslach 與 Jackson 在 1981 年界定為情緒耗竭、去人性化與個人成就感低落三個面向，是長期壓力未獲緩解的結果。世界衛生組織於 2019 年列為職業現象而非疾病。研究重心已從個人特質轉向工作要求與資源。' },
+    { zh: '心理資本', en: 'psychological capital',
+      t: 'Luthans 與同僚在 2004 至 2007 年間提出，屬正向組織行為取向，主張個體擁有一組可開發、可測量且與績效相關的正向心理資源，包含自我效能、希望、韌性與樂觀四項。它被界定為狀態而非固定特質，因此可透過短期介入提升，常應用於訓練設計與變革期間的支持。' },
+    { zh: '工作敬業', en: 'work engagement',
+      t: 'Kahn 在 1990 年以個人投入開啟討論，Schaufeli 與 Bakker 等人在 2002 年操作化為活力、奉獻與專注三個面向的正向情感動機狀態，並發展量表。這個概念與工作要求資源模型緊密結合，主張資源透過動機歷程提升敬業，實務上落在工作設計、主管支持與回饋機制。' },
+    { zh: '印象管理', en: 'impression management',
+      t: '源自 Goffman 在 1959 年的戲劇論，主張人在互動中如同在舞台上管理他人對自己的印象。Jones 與 Pittman 在 1982 年整理出逢迎、自我推銷、示範、威嚇與示弱五種策略。組織研究關注它在甄選面試與績效評估中的效果，重點是評估者如何辨識表現與真實能力的落差。' },
+    { zh: '職場八卦', en: 'workplace gossip',
+      t: '指當事人不在場時對其進行的非正式評價性談論。Dunbar 在 1990 年代提出語言演化觀點，主張八卦具有維繫群體與交換資訊的功能。組織研究區分正向與負向八卦，發現它同時傳遞規範、建立信任也造成關係傷害。管理重點不在禁止，而在補足正式溝通的缺口。' },
+    { zh: '工作塑造', en: 'job crafting',
+      t: 'Wrzesniewski 與 Dutton 在 2001 年提出，主張員工會主動改變工作的任務、關係與認知邊界，讓工作更貼近自己的能力與意義感，屬由下而上的工作設計。Tims 與 Bakker 在 2010 年以工作要求資源模型重新界定為四種塑造行為。管理應用在於主管如何給予調整空間。' },
+    { zh: '職場無禮', en: 'workplace incivility',
+      t: 'Andersson 與 Pearson 在 1999 年提出，指強度低、傷害意圖不明確、違反相互尊重規範的偏差行為，例如打斷發言或公開挖苦。兩人同時提出無禮螺旋，說明微小失禮如何升級為嚴重衝突。Cortina 等人在 2001 年記錄其對滿意度與離職意圖的影響。' },
+    { zh: '自我監控', en: 'self-monitoring',
+      t: 'Snyder 在 1974 年提出，指個體依情境線索調整自我表現的傾向。高自我監控者對社會線索敏感、行為隨情境變動；低自我監控者較一致，接近內在態度。Day 等人在 2002 年的統合分析發現，高自我監控與績效、晉升及領導浮現有正向關聯，也指出其在真誠性上的代價。' }
+  ];
+
+  var row = document.getElementById('topics');
+  var panel = document.getElementById('topicPanel');
+  var inner = document.getElementById('topicIn');
+  if (!row || !panel || !inner) return;
+
+  var open = -1;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  TOPICS.forEach(function (o, k) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tag';
+    b.textContent = o.zh + ' ' + o.en;
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-controls', 'topicPanel');
+    b.addEventListener('click', function () { toggle(k); });
+    row.appendChild(b);
+  });
+
+  function fill(k) {
+    var o = TOPICS[k];
+    inner.innerHTML = '';
+    var h = document.createElement('h5');
+    h.appendChild(document.createTextNode(o.zh));
+    var en = document.createElement('span');
+    en.className = 'en'; en.textContent = o.en;
+    h.appendChild(en);
+    var p = document.createElement('p');
+    p.textContent = o.t;
+    inner.appendChild(h); inner.appendChild(p);
+  }
+
+  function size() {
+    if (open < 0) { panel.style.height = '0px'; return; }
+    panel.style.height = inner.offsetHeight + 'px';
+  }
+
+  function toggle(k) {
+    var btns = row.querySelectorAll('.tag');
+    if (open === k) {
+      open = -1;
+      btns[k].setAttribute('aria-expanded', 'false');
+      if (reduce) { panel.style.height = '0px'; return; }
+      panel.style.height = inner.offsetHeight + 'px';
+      requestAnimationFrame(function () { panel.style.height = '0px'; });
+      return;
+    }
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute('aria-expanded', i === k ? 'true' : 'false');
+    var was = open;
+    open = k;
+    if (!reduce && was >= 0) panel.style.height = inner.offsetHeight + 'px';
+    fill(k);
+    requestAnimationFrame(size);
+  }
+
+  addEventListener('resize', function () { if (open >= 0) size(); });
+})();
+</script>
+
 </body>
 </html>

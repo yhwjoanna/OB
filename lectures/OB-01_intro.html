@@ -56,6 +56,22 @@
     text-transform: uppercase; color: var(--gray);
   }
   .footer-row .pagenum { color: var(--ink); font-weight: 700; }
+  /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
+  .pgbtn { display: none; }
+  body.flow .footer-row { height: auto; min-height: 46px; padding: 0 6px; }
+  body.flow .footer-row > span:not(.pagenum) { display: none; }
+  body.flow .pgbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 92px; min-height: 44px; padding: 0 10px;
+    font: 700 11px/1 var(--mono); letter-spacing: 0.1em;
+    color: var(--ink); background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.1s ease-out;
+  }
+  body.flow .pgbtn:disabled { opacity: 0.26; }
+  body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
+  @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
+  @media print { .pgbtn { display: none !important; } }
   .main { flex: 1; min-height: 0; display: grid; }
 
   /* ── 封面 ── */
@@ -2151,6 +2167,13 @@ if(head){
   var vp = document.getElementById('viewport');
   if (!stage || !vp) return;
 
+  /* Safari 的下方工具列會蓋住畫面，clientHeight 量不到這一段，改以 visualViewport 為準 */
+  function visH() {
+    var a = vp.clientHeight;
+    var b = (window.visualViewport && window.visualViewport.height) || a;
+    return Math.max(320, Math.min(a, b));
+  }
+
   function clear() {
     stage.style.zoom = '';
     var a = document.querySelector('.slide.active');
@@ -2161,7 +2184,7 @@ if(head){
     if (!document.body.classList.contains('flow')) { clear(); return; }
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = vp.clientHeight, k = 1;
+    var H = visH(), k = 1;
     /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
     for (var pass = 0; pass < 4; pass++) {
       stage.style.zoom = k === 1 ? '' : String(k);
@@ -2186,7 +2209,7 @@ if(head){
     if (!document.body.classList.contains('flow')) return;
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = vp.clientHeight, k = +(stage.style.zoom || 1);
+    var H = visH(), k = +(stage.style.zoom || 1);
     slide.style.minHeight = '0px';
     var h = stage.getBoundingClientRect().height;
     if (h > H + 0.5 && k > MIN) {
@@ -2206,8 +2229,68 @@ if(head){
     window.show = function (n) { base(n); fitOne(); };
   }
   addEventListener('resize', function () { setTimeout(fitOne, 60); });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { clearTimeout(tid); tid = setTimeout(fitOne, 150); });
+  }
   addEventListener('orientationchange', function () { setTimeout(fitOne, 220); });
   setTimeout(fitOne, 0);
+})();
+</script>
+
+
+<script>
+/* ── 手機翻頁：頁尾的上一頁與下一頁，加上左右滑動 ──
+   互動頁點內容不翻頁，桌機靠方向鍵，手機需要固定的入口 */
+(function () {
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var vp = document.getElementById('viewport');
+  if (!slides.length || !vp || typeof window.show !== 'function') return;
+
+  function cur() {
+    for (var k = 0; k < slides.length; k++) if (slides[k].classList.contains('active')) return k;
+    return 0;
+  }
+  function mk(cls, txt) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgbtn ' + cls; b.textContent = txt;
+    return b;
+  }
+  slides.forEach(function (s) {
+    var f = s.querySelector('.footer-row');
+    if (!f) return;
+    var p = mk('prev', '\u2039 上一頁'), n = mk('next', '下一頁 \u203A');
+    f.insertBefore(p, f.firstChild);
+    f.appendChild(n);
+    p.addEventListener('click', function (e) { e.stopPropagation(); show(cur() - 1); });
+    n.addEventListener('click', function (e) { e.stopPropagation(); show(cur() + 1); });
+  });
+
+  function sync() {
+    var k = cur();
+    slides.forEach(function (s) {
+      var p = s.querySelector('.pgbtn.prev'), n = s.querySelector('.pgbtn.next');
+      if (p) p.disabled = k === 0;
+      if (n) n.disabled = k === slides.length - 1;
+    });
+  }
+  var base = window.show;
+  window.show = function (n) { base(n); sync(); };
+  sync();
+
+  /* 左右滑動翻頁。垂直為主的動作留給捲動，長按後的移動不算 */
+  var x0 = 0, y0 = 0, t0 = 0, track = false;
+  vp.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { track = false; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); track = true;
+  }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (!track) return;
+    track = false;
+    if (Date.now() - t0 > 600) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    show(cur() + (dx < 0 ? 1 : -1));
+  }, { passive: true });
 })();
 </script>
 
