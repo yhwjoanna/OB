@@ -9,8 +9,8 @@
 <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="國立中山大學人力資源管理研究所 組織行為 課程教材入口">
-<meta name="theme-color" content="#F1F1EC" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#100F0E" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F1F1EC">
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
@@ -24,6 +24,7 @@
    按下即回饋、尊重系統的減少動態與減少透明設定。
    ═══════════════════════════════════════════════════════════ */
 :root{
+  color-scheme:light;
   /* 色 */
   --paper:#F1F1EC; --card:#FBFBF7; --sunk:#E7E7E0;
   --ink:#171614; --ink-2:#3A3833;
@@ -44,22 +45,6 @@
   /* 圓角階 */
   --r-xl:24px; --r-lg:18px; --r-md:13px; --r-sm:10px;
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --paper:#100F0E; --card:#1A1917; --sunk:#232220;
-    --ink:#EFEEE8; --ink-2:#CFCDC5;
-    --text:#EFEEE8; --muted:#B4B0A6; --faint:#98948B;
-    --red:#FF564C; --red-soft:rgba(255,86,76,.16); --red-on-ink:#B81C16; --on-red:#1C0906;
-    --line:rgba(239,238,232,.12); --line-2:rgba(239,238,232,.22);
-    --on-ink:#171614; --on-ink-2:rgba(23,22,20,.74); --on-ink-3:rgba(23,22,20,.55);
-    --on-ink-line:rgba(23,22,20,.18);
-    --glass:rgba(16,15,14,.66); --glass-edge:rgba(255,255,255,.10);
-    --sh-1:0 .5px 1px rgba(0,0,0,.4);
-    --sh-2:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -6px rgba(0,0,0,.5);
-    --sh-3:0 2px 6px rgba(0,0,0,.45), 0 22px 50px -12px rgba(0,0,0,.65);
-  }
-}
-
 *{box-sizing:border-box}
 a,button,[role="link"]{touch-action:manipulation}   /* §1 去掉行動裝置的 300ms 點擊延遲 */
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -521,7 +506,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
     { n: 6, date: '2026-11-15', title: '組織文化與變革、壓力與健康',
       items: [
         { unit: 'CH 16', label: '組織文化與變革', href: null },
-        { unit: '專題', label: '組織中的壓力與健康', href: 'lectures/OB-10_stress.html' }] },
+        { unit: 'CH 18', label: '組織中的壓力與健康', href: 'lectures/OB-10_stress.html' }] },
 
     { n: 7, date: '2026-11-29', title: '權力與政治、期末報告檢核',
       items: [{ unit: 'CH 13', label: '權力與政治', href: 'lectures/OB-09_power.html' }],
@@ -562,7 +547,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
       desc: '從本學期課程教材與教科書中選出 10 個學術專有名詞，以目前工作中的實例解釋這些名詞在實務上如何應用，篇幅 2 至 4 頁。',
       links: [{ href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/a/ODcyNzY2ODM5Mjk4/details', text: '到 Classroom 繳交' }] },
     { name: '期末專題報告', date: '2026-12-19', at: '17:00 截止｜第 8 次上課前',
-      desc: '小組教學短影片 3 至 5 分鐘。全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上組員名單、照片、分工表與引用的期刊文獻。每個概念各有兩篇指定文獻。',
+      desc: '小組教學短影片 5 至 7 分鐘。全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上組員名單、照片、分工表與引用的期刊文獻。每個概念各有兩篇指定文獻。',
       topics: true,
       links: [
         { href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/a/ODcyNzY2ODM5MzEw/details', text: '到 Classroom 繳交' },

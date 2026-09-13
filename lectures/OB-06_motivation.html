@@ -545,6 +545,16 @@ body.flow .casegrid img { height: auto; flex: none; }
   @media print { .fsbtn { display: none !important; } }
   @media (prefers-reduced-motion: reduce) { .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
 </style>
+<style>
+  /* ── ORPHAN v1：避免末行只剩一兩個字 ──
+     標題與短句用 balance 把各行長度拉平，正文用 pretty 讓末行不要落單。
+     舊版瀏覽器不認得這兩個值時會忽略，畫面與現在相同，再由腳本那一層補上。 */
+  .slide h1, .slide h2, .slide h3, .slide .cover-title, .slide .q-text,
+  .slide .keyline, .slide .def-band, .slide .tag, .slide .en, .slide .fig-head,
+  .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
+  .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
+  .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+</style>
 </head>
 <body>
 
@@ -3175,6 +3185,115 @@ body.flow .casegrid img { height: auto; flex: none; }
   addEventListener('resize', sync);
   addEventListener('load', sync);
   setTimeout(sync, 80); setTimeout(sync, 420);
+})();
+</script>
+<script>
+/* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
+   CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
+   長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
+   之間插入 word joiner（U+2060，零寬、不顯示），讓它們不能被拆開，一起落到末行。
+   用字元而不是包 span，是因為孤兒字常常跨越行內元素的邊界，例如句號後面接一個 <span>。
+   末行變長、倒數第二行變短，總行數不變，所以不影響縮放與版面高度。 */
+(function () {
+  var MIN = 3;                 /* 末行至少要有幾個實字 */
+  var MAXGROUP = 6;            /* 一次最多綁幾個字，綁太多會把整句話拖下來 */
+  var WJ = '⁠';
+  var SKIP = 'svg, .pagenum, .meta-row, .footer-row, code, pre, .fsbtn, .pdfbtn, .ix-bar .ctl';
+  var PUNCT = /[\s⁠。，、；：？！（）「」『』〈〉《》【】\[\]\.,;:?!()"'—–…\-]/;
+
+  function clear(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    var hit = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf(WJ) >= 0) hit.push(n);
+    for (var i = 0; i < hit.length; i++) hit[i].nodeValue = hit[i].nodeValue.split(WJ).join('');
+  }
+
+  /* 由尾端往前取字元與它們的行位置，最多看 16 個 */
+  function tail(el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, nodes = [];
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.trim()) nodes.push(n);
+    if (!nodes.length) return null;
+    var r = document.createRange(), seq = [];
+    for (var i = nodes.length - 1; i >= 0 && seq.length < 16; i--) {
+      var s = nodes[i].nodeValue;
+      for (var j = s.length - 1; j >= 0 && seq.length < 16; j--) {
+        if (/[\s⁠]/.test(s[j])) continue;
+        try { r.setStart(nodes[i], j); r.setEnd(nodes[i], j + 1); } catch (e) { continue; }
+        var q = r.getClientRects()[0];
+        if (!q || !q.height) continue;
+        seq.push({ node: nodes[i], idx: j, top: Math.round(q.top), ch: s[j] });
+      }
+    }
+    return seq.length ? seq : null;
+  }
+
+  /* 不列舉版型的 class，而是掃出所有自己排成一個文字區塊的元素。
+     行內元素只是整段文字的片段，它自己的末行不等於段落的末行，因此排除。 */
+  function candidates(root) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null), el;
+    while ((el = w.nextNode())) {
+      if (el.closest(SKIP)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.display === 'inline') continue;
+      var has = false, c;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        c = el.childNodes[i];
+        if (c.nodeType === 3 && c.nodeValue.trim()) { has = true; break; }
+      }
+      if (!has && el.children.length && (el.textContent || '').trim()) {
+        has = true;
+        for (var j = 0; j < el.children.length; j++)
+          if (getComputedStyle(el.children[j]).display !== 'inline') { has = false; break; }
+      }
+      if (has) out.push(el);
+    }
+    return out;
+  }
+
+  function fix(el) {
+    var seq = tail(el);
+    if (!seq || seq.length < 3) return;
+    var lastTop = seq[0].top, onLast = 0, differs = false;
+    for (var i = 0; i < seq.length; i++) {
+      if (Math.abs(seq[i].top - lastTop) <= 3) onLast++;
+      else { differs = true; break; }
+    }
+    if (!differs) return;                     /* 只有一行，沒有孤兒字問題 */
+    var core = 0;
+    for (var k = 0; k < onLast; k++) if (!PUNCT.test(seq[k].ch)) core++;
+    if (core >= MIN) return;
+    var need = Math.min(MAXGROUP, seq.length, onLast + (MIN - core));
+    if (need < 2) return;
+    var before = el.scrollWidth;
+    var done = [];
+    /* 由最後一個字往前，在相鄰兩字之間插入 word joiner。索引由大而小，不會互相位移 */
+    for (var m = 0; m < need - 1; m++) {
+      var g = seq[m], v = g.node.nodeValue;
+      g.node.nodeValue = v.slice(0, g.idx) + WJ + v.slice(g.idx);
+      done.push(g.node);
+    }
+    /* 綁起來之後若撐破欄寬，還原這個元素 */
+    if (el.scrollWidth > Math.max(before, el.clientWidth) + 2) clear(el);
+  }
+
+  var tid = 0;
+  function run() {
+    var sl = document.querySelector('.slide.active') || document.body;
+    clear(sl);
+    var list = candidates(sl);
+    for (var i = 0; i < list.length; i++) fix(list[i]);
+  }
+  function later() { clearTimeout(tid); tid = setTimeout(run, 60); }
+
+  var base = window.show;
+  if (typeof base === 'function') window.show = function (n) { base(n); later(); };
+  addEventListener('resize', later);
+  addEventListener('load', later);
+  if (window.visualViewport) visualViewport.addEventListener('resize', later);
+  document.addEventListener('fullscreenchange', later);
+  document.addEventListener('click', function (e) { if (e.target.closest('.ix')) later(); }, true);
+  window.addEventListener('beforeprint', run);
+  setTimeout(run, 120); setTimeout(run, 500);
 })();
 </script>
 </body>
