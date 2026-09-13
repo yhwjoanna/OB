@@ -287,9 +287,9 @@ dl.facts dd{margin:0}
 .due .getrow a:active{transform:scale(.97)}
 @media (prefers-contrast: more){.due .getrow a{border-width:1.5px}}
 @media (prefers-reduced-motion: reduce){.due .getrow a:active{transform:none}}
-.due .w{text-align:right;white-space:nowrap}
+.due .w{text-align:right;white-space:normal}
 .due .w b{display:block;font-size:1.25rem;line-height:1.15;font-weight:300;letter-spacing:-.04em;color:var(--red)}
-.due .w span{font:400 .625rem/1.6 var(--mono);letter-spacing:.08em;color:var(--faint)}
+.due .w span{display:block;font:400 .625rem/1.6 var(--mono);letter-spacing:.06em;color:var(--faint)}
 .due.past{opacity:.5}
 .due .disc{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;padding:.45rem .75rem;
   appearance:none;font:600 .8125rem/1 var(--sans);letter-spacing:-.005em;color:var(--text);
@@ -503,7 +503,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
         { unit: 'CH 4', label: '情緒與心情', href: 'lectures/OB-05_emotions.html' },
         { unit: 'CH 4', label: '情緒互動實驗室', href: 'lectures/OB-05_emotions_interactive.html' },
         { unit: 'CH 5', label: '人格與價值觀', href: 'lectures/OB-03_personality.html' }],
-      todo: '個人作業一 繳交' },
+      todo: '個人作業一（前一日 17:00 截止）' },
 
     { n: 4, date: '2026-11-01', title: '知覺與個人決策、工作動機與激勵',
       items: [
@@ -525,7 +525,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
 
     { n: 7, date: '2026-11-29', title: '權力與政治、期末報告檢核',
       items: [{ unit: 'CH 13', label: '權力與政治', href: 'lectures/OB-09_power.html' }],
-      todo: '個人作業二 繳交　·　期末報告小組檢核討論' },
+      todo: '個人作業二（前一日 17:00 截止）　·　期末報告小組檢核討論' },
 
     { n: 8, date: '2026-12-20', title: '期末專題口頭報告', items: [],
       todo: '各組上傳教學短影片並上台報告' }
@@ -549,20 +549,25 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
   }
 
   var DUES = [
-    { name: '個人作業一', date: '2026-10-18', at: '第 3 次上課',
+    { name: '個人作業一', date: '2026-10-17', at: '17:00 截止｜第 3 次上課前',
       desc: '閱讀 Bankins 等人（2024）關於人工智慧與組織行為的多層次回顧，撰寫 2 頁閱讀心得。',
       ref: 'Bankins, S., Ocampo, A. C., Marrone, M., Restubog, S. L. D., & Woo, S. E. (2024). A multilevel review of artificial intelligence in organizations: Implications for organizational behavior research and practice. Journal of Organizational Behavior, 45(2), 159–182.',
       links: [
+        { href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/a/ODcyNzY2ODM5Mjg0/details', text: '到 Classroom 繳交' },
         { href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODcyNzY2ODM5Mjkx/details', text: '到 Classroom 下載 PDF' },
         { href: 'https://doi-org.proxyone.lis.nsysu.edu.tw/10.1002/job.2735', text: '圖書館連結（校內外皆可用）' },
         { href: 'https://doi.org/10.1002/job.2735', text: 'DOI' }
       ] },
-    { name: '個人作業二', date: '2026-11-29', at: '第 7 次上課',
-      desc: '從本學期課程教材與教科書中選出 10 個學術專有名詞，以目前工作中的實例解釋這些名詞在實務上如何應用，篇幅 2 至 4 頁。' },
-    { name: '期末專題報告', date: '2026-12-20', at: '第 8 次上課',
+    { name: '個人作業二', date: '2026-11-28', at: '17:00 截止｜第 7 次上課前',
+      desc: '從本學期課程教材與教科書中選出 10 個學術專有名詞，以目前工作中的實例解釋這些名詞在實務上如何應用，篇幅 2 至 4 頁。',
+      links: [{ href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/a/ODcyNzY2ODM5Mjk4/details', text: '到 Classroom 繳交' }] },
+    { name: '期末專題報告', date: '2026-12-19', at: '17:00 截止｜第 8 次上課前',
       desc: '小組教學短影片 3 至 5 分鐘。全班分為六組，每組從九個概念中任選一個，組別之間不重複。影片需包含概念定義、提出此概念的學者與年代、概念演進歷史與相關研究，以及職場實務管理應用範例；需製作字幕並配音，另以 Word 檔附上組員名單、照片、分工表與引用的期刊文獻。每個概念各有兩篇指定文獻。',
       topics: true,
-      links: [{ href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODcyNzY2ODM5Mjkx/details', text: '到 Classroom 下載九個主題的指定文獻' }] }
+      links: [
+        { href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/a/ODcyNzY2ODM5MzEw/details', text: '到 Classroom 繳交' },
+        { href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODcyNzY2ODM5Mjkx/details', text: '到 Classroom 下載九個主題的指定文獻' }
+      ] }
   ];
 
   /* ── 日期：一律以瀏覽器當地日期比對 ── */
