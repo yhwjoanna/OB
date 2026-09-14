@@ -128,9 +128,15 @@
     border-top: 2px solid var(--ink); padding: 13px 28px;
     font-size: 15px; font-weight: 700; text-align: center;
   }
+  /* 引用帶：與 .src-band 同一種處理，全檔的引用文獻只有一種樣子 */
+  .cite {
+    border-top: 1px solid var(--ink); padding: 8px 28px;
+    font-size: 12.5px; color: #8A8A82; line-height: 1.5;
+  }
+  .cite i { font-style: italic; }
   .src-band {
-    border-top: 1px solid var(--ink); padding: 9px 28px; flex: none;
-    font-size: 11.5px; color: #8A8A82; line-height: 1.62;
+    border-top: 1px solid var(--ink); padding: 8px 28px; flex: none;
+    font-size: 12.5px; color: #8A8A82; line-height: 1.5;
   }
   .ai-emp .cell li { font-size: 14.5px; line-height: 1.44; margin-bottom: 1px; }
   .ai-emp .cell ul { margin-left: 1.1em; }
@@ -184,7 +190,7 @@
   .link-card a { font-family: var(--mono); font-size: 12px; color: var(--ink); word-break: break-all; line-height: 1.7; }
   .video-cell { background: var(--paper); padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
   .video-cell iframe { flex: 1; min-height: 0; width: 100%; border: 1px solid var(--ink); }
-  .video-cell .src { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; color: var(--gray); }
+  .video-cell .src { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; color: var(--gray); }
   .video-cell .src a { color: var(--ink); }
 
   .img-fallback {
@@ -895,7 +901,7 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
 </svg>
         </div>
       </div>
-      <div class="keyline" style="text-align:left;font-size:12.5px;font-weight:400;color:var(--gray);line-height:1.75;">資料來源：克里斯汀生（2023）。〈贏在執行力〉（第一版推薦序）。載於麥切斯尼、柯維、霍林、泰利、華克著，李芳齡、王怡棻（譯），《執行力的修練：達成極重要目標，與成功有約的 4 個紀律》（增訂更新版，未編頁之推薦序）。天下雜誌。（原著出版於 2021 年）</div>
+      <div class="cite">資料來源：克里斯汀生（2023）。〈贏在執行力〉（第一版推薦序）。載於麥切斯尼、柯維、霍林、泰利、華克著，李芳齡、王怡棻（譯），《執行力的修練：達成極重要目標，與成功有約的 4 個紀律》（增訂更新版，未編頁之推薦序）。天下雜誌。（原著出版於 2021 年）</div>
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／35</span></div>
     </section>
     <section class="slide">
