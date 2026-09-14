@@ -2361,5 +2361,33 @@ body.flow .fig-body svg{height:auto;max-height:520px}
   setTimeout(run, 120); setTimeout(run, 500);
 })();
 </script>
+
+<script>
+/* ── REVDATE v1：頁首的 REV 改成這份檔案的更新日期 ──
+   document.lastModified 讀的是伺服器回的 Last-Modified，GitHub Pages 會給真正的
+   部署時間；本機開啟時則是檔案自己的修改時間。兩種情況都是「這份內容的版本」，
+   不是列印當天的日期。取不到有效日期就不動，保留原本寫死的 REV。 */
+(function () {
+  var d = new Date(document.lastModified);
+  if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+  function p(n) { return (n < 10 ? '0' : '') + n; }
+  var txt = 'REV ' + d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+  var RE = /REV\s+\d{4}\.\d{2}(?:\.\d{2})?/;
+  function stamp() {
+    /* 各檔的 REV 標記寫法不同：有的在頁首的 .m、有的是 .rev、有的在頁尾的一段文字裡。
+       因此不指定 class，改成掃出所有沒有子元素、且文字符合 REV 年.月 的節點就地替換。 */
+    var list = document.querySelectorAll('.meta-row *, .footer-row *, footer *, .rev, .cover-meta *, .data-cell *');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (el.children.length) continue;
+      var t = el.textContent;
+      if (!RE.test(t)) continue;
+      el.textContent = t.replace(RE, txt);
+    }
+  }
+  stamp();
+  window.addEventListener('beforeprint', stamp);
+})();
+</script>
 </body>
 </html>
