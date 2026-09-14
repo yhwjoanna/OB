@@ -131,12 +131,12 @@
   /* 引用帶：與 .src-band 同一種處理，全檔的引用文獻只有一種樣子 */
   .cite {
     border-top: 1px solid var(--ink); padding: 8px 28px;
-    font-size: 12.5px; color: #8A8A82; line-height: 1.5;
+    font-size: 11px; color: #8A8A82; line-height: 1.62;
   }
   .cite i { font-style: italic; }
   .src-band {
     border-top: 1px solid var(--ink); padding: 8px 28px; flex: none;
-    font-size: 12.5px; color: #8A8A82; line-height: 1.5;
+    font-size: 11px; color: #8A8A82; line-height: 1.62;
   }
   .ai-emp .cell li { font-size: 14.5px; line-height: 1.44; margin-bottom: 1px; }
   .ai-emp .cell ul { margin-left: 1.1em; }
@@ -190,7 +190,7 @@
   .link-card a { font-family: var(--mono); font-size: 12px; color: var(--ink); word-break: break-all; line-height: 1.7; }
   .video-cell { background: var(--paper); padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
   .video-cell iframe { flex: 1; min-height: 0; width: 100%; border: 1px solid var(--ink); }
-  .video-cell .src { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; color: var(--gray); }
+  .video-cell .src { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--gray); }
   .video-cell .src a { color: var(--ink); }
 
   .img-fallback {
@@ -571,7 +571,9 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
   body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
   body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
-  body.flow .src, body.flow .cite, body.flow .src-band, body.flow .note-s { font-size: 12.5px !important; }
+  body.flow .note-s { font-size: 12.5px !important; }
+  /* 內容頁的引用帶：桌機與手機同一個字級 */
+  body.flow .src, body.flow .cite, body.flow .src-band { font-size: 11px !important; line-height: 1.6; }
   body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
   body.flow .slide h3 { font-size: max(12.5px, 1em); }
   /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */

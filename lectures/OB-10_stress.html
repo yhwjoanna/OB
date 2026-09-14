@@ -157,7 +157,7 @@
   .ch.bl { left: 10px; bottom: 6px; } .ch.br { right: 10px; bottom: 6px; }
   .cite {
     border-top: 1px solid var(--ink); padding: 10px 22px;
-    font-size: 12.5px; color: var(--gray); line-height: 1.6;
+    font-size: 11px; color: var(--gray); line-height: 1.6;
   }
   .cite i { font-style: italic; }
 
@@ -393,7 +393,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 .title-row .note { color: #8A8A82; }
 .corner { color: #B9B9B0 !important; }
 
-  .src { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 12.5px; color: #8A8A82; line-height: 1.5; }
+  .src { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; line-height: 1.62; }
   .src i { font-style: italic; }
   .g2f { grid-template-columns: 1.04fr 1fr; }
   .g2f .cell p { font-size: 15.5px; line-height: 1.62; }
@@ -519,7 +519,9 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
   body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
   body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
-  body.flow .src, body.flow .cite, body.flow .src-band, body.flow .note-s { font-size: 12.5px !important; }
+  body.flow .note-s { font-size: 12.5px !important; }
+  /* 內容頁的引用帶：桌機與手機同一個字級 */
+  body.flow .src, body.flow .cite, body.flow .src-band { font-size: 11px !important; line-height: 1.6; }
   body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
   body.flow .slide h3 { font-size: max(12.5px, 1em); }
   /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */
