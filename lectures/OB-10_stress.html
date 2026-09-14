@@ -2491,6 +2491,10 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   }
 
   function fix(el) {
+    /* 字距拉開的等寬標籤：插入的接合字元會吃到一個字距而露出明顯的空隙，
+       這類元素本來就是短標籤，跳過不處理 */
+    var ls = parseFloat(getComputedStyle(el).letterSpacing);
+    if (ls && ls >= 0.5) return;
     var seq = tail(el);
     if (!seq || seq.length < 3) return;
     var lastTop = seq[0].top, onLast = 0, differs = false;

@@ -132,7 +132,7 @@
     border-top: 1px solid var(--ink); padding: 9px 28px; flex: none;
     font-size: 11.5px; color: #8A8A82; line-height: 1.62;
   }
-  .ai-emp .cell li { font-size: 14.5px; line-height: 1.48; margin-bottom: 2px; }
+  .ai-emp .cell li { font-size: 14.5px; line-height: 1.44; margin-bottom: 1px; }
   .ai-emp .cell ul { margin-left: 1.1em; }
   .src-band a { color: #8A8A82; text-decoration: none; }
   .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
@@ -147,12 +147,12 @@
 
   /* ── 定義列（左標籤右內容） ── */
   .axis-list { background: var(--paper); display: flex; flex-direction: column; min-height: 0; }
-  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: 0; }
+  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: min-content; }
   .axis-row:last-child { border-bottom: none; }
-  .axis-row .k { border-right: 1px solid var(--ink); padding: 16px 20px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .axis-row .k { border-right: 1px solid var(--ink); padding: 12px 20px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
   .axis-row .k .zh { font-weight: 900; font-size: 1.2em; }
   .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
-  .axis-row .v { padding: 16px 24px; font-size: 16px; line-height: 1.68; display: flex; align-items: center; }
+  .axis-row .v { padding: 12px 24px; font-size: 16px; line-height: 1.62; display: flex; align-items: center; }
   .flow-note { border-top: 2px solid var(--ink); padding: 13px 24px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; }
   .flow-note .r { color: var(--red); font-weight: 700; }
 
@@ -222,7 +222,14 @@
   body.flow .grid8 .cell p { font-size: 13.5px !important; }
   body.flow .cell { padding: 22px 26px; }
   body.flow .wfh-main, body.flow .link-main { grid-template-columns: 1fr; }
-  body.flow .axis-row { grid-template-columns: 110px 1fr; }
+  /* 流式模式下內容要依自己的高度排，不能被壓縮。原本 .main 是 flex:1 且 min-height:0，
+     投影片的 min-height 一固定就會把它擠扁，內容較多的列因此壓到下一列的格線上。 */
+  body.flow .main { flex: none !important; min-height: auto !important; }
+  body.flow .axis-list { min-height: auto; }
+  body.flow .axis-row { flex: none; min-height: auto; }
+  body.flow .axis-row { grid-template-columns: 122px 1fr; }
+  body.flow .axis-row .k { padding: 14px 16px; }
+  body.flow .axis-row .k .ax { font-size: 11px !important; letter-spacing: 0.04em; overflow-wrap: anywhere; }
   body.flow .axis-row { border-bottom: 1px solid var(--ink); }
   body.flow .fig-body { min-height: 240px; }
   body.flow .fig-body img { max-height: 70vh; }
@@ -2564,6 +2571,10 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   }
 
   function fix(el) {
+    /* 字距拉開的等寬標籤：插入的接合字元會吃到一個字距而露出明顯的空隙，
+       這類元素本來就是短標籤，跳過不處理 */
+    var ls = parseFloat(getComputedStyle(el).letterSpacing);
+    if (ls && ls >= 0.5) return;
     var seq = tail(el);
     if (!seq || seq.length < 3) return;
     var lastTop = seq[0].top, onLast = 0, differs = false;
