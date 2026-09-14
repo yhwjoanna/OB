@@ -58,7 +58,7 @@
   .footer-row .pagenum { color: var(--ink); font-weight: 700; }
   /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
   .pgbtn { display: none; }
-  body.flow .footer-row { height: auto; min-height: 46px; padding: 0 6px; }
+  body.flow .footer-row { height: auto; min-height: 46px; padding: 0 6px; margin-top: auto; }
   body.flow .footer-row > span:not(.pagenum) { display: none; }
   body.flow .pgbtn {
     display: inline-flex; align-items: center; justify-content: center;
@@ -119,7 +119,7 @@
   .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
   .grid8 .cell { padding: 16px 18px; gap: 7px; }
   .grid8 .cell h3 { font-size: 1.05em; }
-  .grid8 .cell p { font-size: 12.3px; line-height: 1.58; }
+  .grid8 .cell p { font-size: 13.5px; line-height: 1.5; }
   .def-band {
     border-bottom: 1px solid var(--ink); padding: 12px 28px;
     font-size: 15.5px; font-weight: 700; line-height: 1.72; flex: none;
@@ -132,7 +132,7 @@
     border-top: 1px solid var(--ink); padding: 9px 28px; flex: none;
     font-size: 11.5px; color: #8A8A82; line-height: 1.62;
   }
-  .ai-emp .cell li { font-size: 13.6px; line-height: 1.5; margin-bottom: 2px; }
+  .ai-emp .cell li { font-size: 14.5px; line-height: 1.48; margin-bottom: 2px; }
   .ai-emp .cell ul { margin-left: 1.1em; }
   .src-band a { color: #8A8A82; text-decoration: none; }
   .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
@@ -180,7 +180,7 @@
   .link-card { background: var(--paper); padding: 30px 34px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
   .link-card .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
   .link-card h3 { font-weight: 900; font-size: 1.45em; }
-  .link-card p { font-size: 14px; line-height: 1.65; }
+  .link-card p { font-size: 14.5px; line-height: 1.62; }
   .link-card a { font-family: var(--mono); font-size: 12px; color: var(--ink); word-break: break-all; line-height: 1.7; }
   .video-cell { background: var(--paper); padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
   .video-cell iframe { flex: 1; min-height: 0; width: 100%; border: 1px solid var(--ink); }
@@ -202,7 +202,7 @@
   body.flow #viewport { position: static; display: block; height: 100vh; overflow-y: auto; }
   body.flow #stage { width: auto; max-width: 860px; height: auto; min-height: 100vh; margin: 0 auto; transform: none !important; }
   body.flow .slide.active { position: static; min-height: calc(100vh - 6px); animation: none; }
-  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; column-gap: 14px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
   body.flow .cover-main { grid-template-columns: 1fr; }
   body.flow .cover-left { padding: 32px 30px 28px; }
   body.flow .cover-code { font-size: 5.2em; }
@@ -219,7 +219,7 @@
   body.flow .grid5 .cell { grid-column: auto !important; }
   body.flow .grid8 .cell { padding: 20px 26px; }
   body.flow .grid8 .cell h3 { font-size: 1.2em; }
-  body.flow .grid8 .cell p { font-size: 14px; }
+  body.flow .grid8 .cell p { font-size: 13.5px !important; }
   body.flow .cell { padding: 22px 26px; }
   body.flow .wfh-main, body.flow .link-main { grid-template-columns: 1fr; }
   body.flow .axis-row { grid-template-columns: 110px 1fr; }
@@ -497,6 +497,29 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
   .mgr-chips span.ring { border: 2px solid var(--red); color: var(--red); font-weight: 700; }
   .mgr-legend { margin-top: 14px; font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.06em; line-height: 1.7; color: var(--gray); }
+
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 12.3 到 17px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .axis-row .v,
+  body.flow .ai-emp .cell li, body.flow .link-card p, body.flow .def-band,
+  body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip, body.flow .ix-opt,
+  body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.58; }
+  body.flow .axis-row .k .zh { font-size: 14.5px !important; }
+  body.flow .cell li { margin-bottom: 5px; }
+  body.flow .cell { padding: 14px 16px !important; }
+  /* 手機的頁首與標題列佔掉的比例偏高，收緊之後多出一頁的高度 */
+  body.flow .meta-row { min-height: 38px !important; padding-top: 6px; padding-bottom: 6px; }
+  body.flow .def-band { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline { padding-left: 18px; padding-right: 18px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
 
   /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
      部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
@@ -1135,7 +1158,7 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
             <li>薪酬與考勤規則比照公司現行事假制度辦理。</li>
             <li>公司說要觀察的是：把工作時間的自主權與信任交給員工，對個人效能與組織活力會有什麼影響。</li>
           </ul>
-          <div style="margin-top:auto;margin-bottom:0;padding-top:10px;border-top:1px solid #E4E4DE;font-size:13.2px;line-height:1.7;color:var(--gray);">追問一：公司只說薪酬比照現行事假制度，沒有進一步說明這 45 天是否扣薪。若為無薪，誘因結構與有薪版本完全不同，實際使用率也會不同。<br>追問二：右側影片由公司自製，受訪者由公司挑選，屬於見證式素材而非實驗結果。要回答實驗有沒有效，需要的是對照組的數據。</div>
+          <div style="margin-top:auto;margin-bottom:0;padding-top:10px;border-top:1px solid #E4E4DE;font-size:13.5px;line-height:1.68;color:var(--gray);">追問一：公司只說薪酬比照現行事假制度，沒有進一步說明這 45 天是否扣薪。若為無薪，誘因結構與有薪版本完全不同，實際使用率也會不同。<br>追問二：右側影片由公司自製，受訪者由公司挑選，屬於見證式素材而非實驗結果。要回答實驗有沒有效，需要的是對照組的數據。</div>
         </div>
         <div class="cell" style="padding:20px 18px;min-height:0;overflow:hidden;">
           <span class="corner">+</span><span class="tag">[ 02／公司影片 ]</span>
@@ -2240,11 +2263,14 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
 </script>
 
 <script>
-/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
    做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
    縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
 (function () {
-  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
   var stage = document.getElementById('stage');
   var vp = document.getElementById('viewport');
   if (!stage || !vp) return;
@@ -2266,21 +2292,28 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     if (!document.body.classList.contains('flow')) { clear(); return; }
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = visH(), k = 1;
+    var H = visH(), si = 0, k = STEPS[0];
     /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
-    for (var pass = 0; pass < 4; pass++) {
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
       stage.style.zoom = k === 1 ? '' : String(k);
       slide.style.minHeight = '0px';
       var natural = stage.getBoundingClientRect().height;
       if (natural <= H + 0.5) break;
-      var nk = Math.max(MIN, k * (H / natural));
-      if (nk >= k - 0.003) { k = nk; break; }
-      k = nk;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
     }
     stage.style.zoom = k === 1 ? '' : String(k);
     slide.style.minHeight = '0px';
-    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉。量測前要先解除舞台自己的 min-height，
+       否則內容短的頁面會把撐滿一屏的高度誤算成框線，翻頁列會停在畫面中間。 */
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
     vp.scrollTop = 0;
   }
@@ -2295,10 +2328,14 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     slide.style.minHeight = '0px';
     var h = stage.getBoundingClientRect().height;
     if (h > H + 0.5 && k > MIN) {
-      k = Math.max(MIN, k * (H / h));
-      stage.style.zoom = String(k);
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
     }
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
   }
   document.addEventListener('click', function (e) {
