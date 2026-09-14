@@ -325,9 +325,9 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     .ev-page .ix-card.answered .ix-opt.wrong { padding: 10px 15px; }
     .ev-page .ix-fb { min-height: 120px; font-size: 15px; line-height: 1.65; }
     /* 預測再揭曉 */
-    .ix-pred { flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-pred { flex: 1; display: grid; grid-template-rows: repeat(3, 1fr) auto; background: var(--ink); gap: 1px; min-height: 0; }
     .ix-row { background: var(--paper); display: grid; grid-template-columns: 250px 1fr 300px; gap: 1px; background: var(--ink); }
-    .ix-row > div { background: var(--paper); padding: 12px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .ix-row > div { background: var(--paper); padding: 10px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
     .ix-row .lab b { font-size: 17px; font-weight: 900; }
     .ix-row .lab span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray); }
     .ix-row .opts { flex-direction: row; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -347,6 +347,14 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
     .ix-pred.revealed .ix-row .res { color: #46443F; }
     .ix-pred.revealed .ix-row .res b { color: var(--ink); }
     .ix-pred.revealed .ix-row .res::after { content: none; }
+
+    /* 比較方向那一行：跟情境帶同一個元件，加粗、收緊，貼在四列正上方 */
+    .ix-frame { font-weight: 700; padding-top: 7px; padding-bottom: 7px; }
+    .ix-row .lab .multi { font-style: normal; color: var(--red); font-weight: 700; }
+    /* 手機：還沒看答案時，四條說明帶各佔掉一大塊高度，收成一行標示就好 */
+    body.flow .ix-pred:not(.revealed) .ix-row .res { font-size: 0; line-height: 0; padding: 9px 18px; }
+    body.flow .ix-pred:not(.revealed) .ix-row .res::after { position: static; left: auto; right: auto;
+      font-size: 10.5px; line-height: 1.4; }
     body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
 
     /* ── RF：章末參考文獻（2026-09） ── */
@@ -1064,12 +1072,14 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
         <div class="note">[ RCT ／ N＝1,612 ]<br>2 DAYS WFH／WEEK</div>
       </div>
       <div class="ix" data-ix="pred">
-        <div class="ix-bar"><span>攜程網把 1,612 名員工隨機分派為每週在家兩天的混合組與全在辦公室的對照組，追蹤兩年。四列各選一個自己的預測，四列都選好才能看答案。</span><div class="ctl"><span class="ix-tally">0／4</span><button class="ix-btn red reveal">看答案</button><button class="ix-btn reset">重設</button></div></div>
+        <div class="ix-scn">攜程網把 1,612 名員工隨機分成兩組，一組每週有兩天在家工作，另一組全程在辦公室，兩組都追蹤了兩年。</div>
+        <div class="ix-bar"><span>每一列各選一個預測，最後一列可以複選。四列都選完，看答案的按鈕才會亮。這裡先憑直覺判斷，不必先讀過研究。</span><div class="ctl"><span class="ix-tally">已選 0／4 列</span><button class="ix-btn red reveal">看答案</button><button class="ix-btn reset">重設</button></div></div>
+        <div class="ix-scn ix-frame">下面四列要預測的都是同一件事：每週在家兩天的那一組，跟全程在辦公室的那一組比起來，結果如何。</div>
         <div class="ix-pred">
-          <div class="ix-row"><div class="lab"><b>績效評等</b><span>PERFORMANCE GRADES</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="1">兩組沒有差異</button><button class="ix-opt" data-truth="0">混合組較低</button></div><div class="res"><b>沒有差異</b>：連續四個半年，兩組的評等分布幾乎重疊。</div></div>
-          <div class="ix-row"><div class="lab"><b>升遷率</b><span>PROMOTIONS</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="1">兩組沒有差異</button><button class="ix-opt" data-truth="0">混合組較低</button></div><div class="res"><b>沒有差異</b>：四個期間的差距都未達統計顯著（p 值介於 .33 與 .89 之間）。</div></div>
-          <div class="ix-row"><div class="lab"><b>離職率</b><span>ATTRITION</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="0">兩組沒有差異</button><button class="ix-opt" data-truth="1">混合組較低</button></div><div class="res"><b>混合組較低</b>：7.2% 降到 4.8%，減少約三分之一（p＝.043）。</div></div>
-          <div class="ix-row" data-multi="1"><div class="lab"><b>離職降幅集中的群體</b><span>WHO STAYED ── 可複選</span></div><div class="opts"><button class="ix-opt" data-truth="0">主管</button><button class="ix-opt" data-truth="1">非主管</button><button class="ix-opt" data-truth="1">女性</button><button class="ix-opt" data-truth="1">通勤逾 90 分鐘</button></div><div class="res"><b>非主管、女性、長通勤者</b>：分別由 8.6% 降到 5.3%、9.2% 降到 4.2%、6.0% 降到 2.9%；主管的離職率兩組相同。</div></div>
+          <div class="ix-row"><div class="lab"><b>績效評等</b><span>PERFORMANCE GRADES</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="1">兩組沒有差異</button><button class="ix-opt" data-truth="0">混合組較低</button></div><div class="res"><b>沒有差異：</b>連續四個半年，兩組的評等分布幾乎重疊。</div></div>
+          <div class="ix-row"><div class="lab"><b>升遷率</b><span>PROMOTIONS</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="1">兩組沒有差異</button><button class="ix-opt" data-truth="0">混合組較低</button></div><div class="res"><b>沒有差異：</b>四個期間的差距都未達統計顯著（p 值介於 .33 與 .89 之間）。</div></div>
+          <div class="ix-row"><div class="lab"><b>離職率</b><span>ATTRITION</span></div><div class="opts"><button class="ix-opt" data-truth="0">混合組較高</button><button class="ix-opt" data-truth="0">兩組沒有差異</button><button class="ix-opt" data-truth="1">混合組較低</button></div><div class="res"><b>混合組較低：</b>7.2% 降到 4.8%，減少約三分之一（p＝.043）。</div></div>
+          <div class="ix-row" data-multi="1"><div class="lab"><b>離職降幅集中在哪些人身上</b><span>WHO STAYED ── <em class="multi">可複選</em></span></div><div class="opts"><button class="ix-opt" data-truth="0">主管</button><button class="ix-opt" data-truth="1">非主管</button><button class="ix-opt" data-truth="1">女性</button><button class="ix-opt" data-truth="1">通勤逾 90 分鐘</button></div><div class="res"><b>非主管、女性、長通勤者：</b>分別由 8.6% 降到 5.3%、9.2% 降到 4.2%、6.0% 降到 2.9%；主管的離職率兩組相同。</div></div>
         </div>
         <div class="src-band">Bloom, N., Han, R., &amp; Liang, J. (2024). Hybrid working from home improves retention without damaging performance. <i>Nature, 630</i>, 920–925. <a href="https://doi.org/10.1038/s41586-024-07500-2" target="_blank" rel="noopener">https://doi.org/10.1038/s41586-024-07500-2</a></div>
       </div>
@@ -2174,7 +2184,10 @@ body.flow .video-body a.vid { width: 100%; height: auto; }
       const all = done === rows.length;
       if (!pred.classList.contains('revealed')) revealBtn.disabled = !all;
       revealBtn.title = all ? '' : '四列都選好之後才能看答案';
-      if (tally) tally.textContent = done + '／' + rows.length;
+      /* 按鈕自己講清楚為什麼按不下去，不必靠旁邊的計數器推理 */
+      if (!pred.classList.contains('revealed'))
+        revealBtn.textContent = all ? '看答案' : '看答案（還差 ' + (rows.length - done) + ' 列）';
+      if (tally) tally.textContent = '已選 ' + done + '／' + rows.length + ' 列';
       root.classList.toggle('ix-ready', all);
     }
     rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', sync)));
