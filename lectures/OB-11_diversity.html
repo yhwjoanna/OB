@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／CH 2 組織內的多元化｜HRM 組織行為</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>
+  function imgErr(el) {
+    if (!el.dataset.tried && el.dataset.cdn) { el.dataset.tried = 1; el.src = el.dataset.cdn; }
+    else { el.outerHTML = '<div class="img-fallback">FIG NOT LOADED<br>圖片未能載入</div>'; }
+  }
+</script>
+<style>
+  :root {
+    --paper: #F4F4F0;
+    --ink: #0A0A0A;
+    --red: #E61919;
+    --gray: #666666;
+    --sans: 'Noto Sans TC', sans-serif;
+    --disp: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: var(--paper); font-family: var(--sans); color: var(--ink); overflow: hidden; }
+
+  #viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: var(--paper); border: 3px solid var(--ink);
+    overflow: hidden; transform-origin: center center;
+  }
+
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; }
+  .slide.active { display: flex; animation: snap 120ms linear; }
+  @keyframes snap { from { transform: translateX(14px); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 44px; border-bottom: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .meta-row .m { color: var(--ink); }
+  .meta-row .m.g { color: var(--gray); }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 40px; border-top: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .footer-row .pagenum { color: var(--ink); font-weight: 700; }
+  /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
+  .pgbtn { display: none; }
+  body.flow .footer-row { height: auto; min-height: 46px; padding: 0 6px; margin-top: auto; }
+  body.flow .footer-row > span:not(.pagenum) { display: none; }
+  body.flow .pgbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 92px; min-height: 44px; padding: 0 10px;
+    font: 700 11px/1 var(--mono); letter-spacing: 0.1em;
+    color: var(--ink); background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.1s ease-out;
+  }
+  body.flow .pgbtn:disabled { opacity: 0.26; }
+  body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
+  @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
+  @media print { .pgbtn { display: none !important; } }
+  .main { flex: 1; min-height: 0; display: grid; }
+
+  /* 封面 */
+  .cover-main { grid-template-columns: 2.2fr 1fr; background: var(--ink); gap: 1px; }
+  .cover-left { background: var(--paper); padding: 40px 48px 32px; display: flex; flex-direction: column; position: relative; }
+  .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4em; line-height: 1.05; letter-spacing: 0.01em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.55em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
+  .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
+  .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
+  .cover-right { background: var(--ink); display: grid; grid-template-rows: repeat(4, 1fr); gap: 1px; }
+  .data-cell { background: var(--paper); padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .data-cell .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .data-cell .val { font-weight: 700; font-size: 16px; line-height: 1.45; }
+
+  /* 標題列 */
+  .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: 0.01em; line-height: 1.15; }
+  .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .title-row .note {
+    border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    max-width: 300px; line-height: 1.7;
+  }
+  .def-band { padding: 13px 28px; border-bottom: 1px solid var(--ink); font-size: 17px; font-weight: 700; line-height: 1.65; }
+
+  /* 格線 */
+  .grid2, .grid3, .grid4, .grid6 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .grid3 { grid-template-columns: repeat(3, 1fr); }
+  .grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  /* 六格版型：三欄兩列，格內只放一段短說明 */
+  .grid6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+  .grid6 .cell { padding: 13px 20px; }
+  .grid6 .cell p { font-size: 15px; line-height: 1.62; }
+  .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
+  .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cell h3 { font-weight: 900; font-size: 1.55em; letter-spacing: 0.01em; }
+  .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
+  .cell p { font-size: 16.5px; line-height: 1.7; }
+  .cell ul, .cell ol { margin-left: 1.15em; }
+  .cell li { font-size: 16px; line-height: 1.68; margin-bottom: 7px; }
+  .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
+  .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
+  .cell .quote { font-size: 15px; color: var(--gray); }
+  .keyline { border-top: 2px solid var(--ink); padding: 13px 28px; font-size: 15px; font-weight: 700; text-align: center; }
+  .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
+
+  /* 提問頁 */
+  .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
+  .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
+  .q-text { font-weight: 900; font-size: 2.9em; line-height: 1.35; letter-spacing: 0.01em; max-width: 1040px; }
+  .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
+  .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
+  .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
+
+  /* 定義列 */
+  .axis-list { background: var(--paper); display: flex; flex-direction: column; min-height: 0; flex: 1; }
+  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: min-content; }
+  /* 六列版的 axis-list 內容較密，內距與行高收緊，避免最後一行壓到下一列的格線 */
+  .axis-list.ax6 .axis-row .k { padding: 11px 18px; }
+  .axis-list.ax6 .axis-row .v { padding: 10px 22px; font-size: 15.5px; line-height: 1.62; }
+  .axis-list.ax6 .axis-row .k .zh { font-size: 1.18em; }
+  .axis-row:last-child { border-bottom: none; }
+  .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.28em; }
+  .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .axis-row .v { padding: 13px 24px; font-size: 16.5px; line-height: 1.7; display: flex; align-items: center; }
+
+  /* 圖片頁 */
+  .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
+  .fig-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 22px; border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .fig-head a { color: var(--ink); }
+  .fig-body { flex: 1; min-height: 0; padding: 18px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .fig-body img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .fig-body .ch { position: absolute; font-family: var(--mono); font-size: 13px; }
+  .ch.tl { left: 10px; top: 6px; } .ch.tr { right: 10px; top: 6px; }
+  .ch.bl { left: 10px; bottom: 6px; } .ch.br { right: 10px; bottom: 6px; }
+  .cite {
+    border-top: 1px solid var(--ink); padding: 10px 22px;
+    font-size: 11px; color: var(--gray); line-height: 1.6;
+  }
+  .cite i { font-style: italic; }
+
+  /* 量表頁 */
+  .scale-instr { padding: 12px 28px; border-bottom: 1px solid var(--ink); font-size: 15px; line-height: 1.6; }
+  .scale-instr .anchors { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--gray); display: block; margin-top: 4px; }
+  .scale-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); gap: 1px; }
+  .scale-col { background: var(--paper); padding: 18px 30px; }
+  .scale-col ol { margin-left: 1.4em; }
+  .scale-col li { font-size: 15px; line-height: 1.68; margin-bottom: 5px; }
+  .scale-col .rv { font-family: var(--mono); font-size: 10px; color: var(--red); }
+
+  .img-fallback {
+    width: 100%; height: 100%; min-height: 180px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--gray); line-height: 2; text-transform: uppercase;
+    background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(10,10,10,0.05) 14px 15px);
+    padding: 20px;
+  }
+
+  /* 窄視窗流式模式 */
+  body.flow { overflow: auto; }
+  body.flow #viewport { position: static; display: block; height: 100vh; overflow-y: auto; }
+  body.flow #stage { width: auto; max-width: 860px; height: auto; min-height: 100vh; margin: 0 auto; transform: none !important; }
+  body.flow .slide.active { position: static; min-height: calc(100vh - 6px); animation: none; }
+  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; column-gap: 14px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+  body.flow .cover-main { grid-template-columns: 1fr; }
+  body.flow .cover-left { padding: 32px 30px 28px; }
+  body.flow .cover-code { font-size: 5.2em; }
+  body.flow .cover-title { font-size: 2.6em; }
+  body.flow .cover-en { font-size: 1.1em; }
+  body.flow .cover-agenda { margin-top: 28px; }
+  body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
+  body.flow .title-row { grid-template-columns: 120px 1fr; }
+  body.flow .title-row .note { display: none; }
+  body.flow .title-row .idx { font-size: 2.2em; }
+  body.flow .title-row .t h2 { font-size: 1.5em; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4, body.flow .grid6 { grid-template-columns: 1fr; grid-template-rows: none; }
+  body.flow .cell { padding: 22px 26px; overflow: visible; }
+  body.flow .axis-row { grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink); }
+  body.flow .fig-body { min-height: 240px; }
+  body.flow .fig-body img { max-height: 70vh; }
+  body.flow .scale-cols { grid-template-columns: 1fr; }
+  body.flow .quote-main { padding: 60px 30px; }
+  body.flow .q-text { font-size: 1.9em; }
+
+.fig-body svg{width:100%;height:100%;display:block}
+body.flow .fig-body svg{height:auto;max-height:520px}
+
+/* ── 重點先行補充頁通用樣式（2026-09） ── */
+.rs-grid .cell { padding: 15px 24px 14px; gap: 6px; }
+.rs-grid .cell h3 { font-size: 1.3em; }
+.rs-grid .cell ul { margin-left: 1.1em; }
+.rs-grid .cell li { font-size: 15px; line-height: 1.44; margin-bottom: 1px; }
+.rs-page .src a, .rs-page .cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+body.flow .rs-grid .cell { padding: 22px 26px; }
+
+    /* ── RF：章末參考文獻（2026-09） ── */
+    .rf-page .rf { flex: 1; display: flex; flex-direction: column; padding: 13px 28px 8px; min-height: 0; overflow: hidden; }
+    .rf-cols { flex: 1; min-height: 0; }
+    .rf-cols.c2 { column-count: 2; column-gap: 30px; }
+    .rf-grp { break-inside: avoid-column; margin-bottom: 11px; }
+    .rf-grp:last-child { margin-bottom: 0; }
+    .rf-grp h3 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #B03028; margin: 0 0 6px; font-weight: 700; }
+    .rf-grp p { font-size: 11.6px; line-height: 1.52; margin: 0 0 6px; text-indent: -1.45em; padding-left: 1.45em;
+      color: #46443F; break-inside: avoid; }
+    .rf-cols.c1 .rf-grp p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp { margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp h3 { margin-bottom: 4px; }
+    .rf-cols.dense .rf-grp p { font-size: 10.9px; line-height: 1.46; margin-bottom: 4px; }
+    .rf-cols.airy { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .rf-cols.airy .rf-grp { margin-bottom: 18px; }
+    .rf-cols.airy .rf-grp h3 { margin-bottom: 9px; }
+    .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
+    .rf-grp p i { font-style: italic; }
+    .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
+    .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
+/* ── IX：課堂互動頁（2026-09） ── */
+    .ix-page .ix { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .ix-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--ink); padding: 10px 28px; font-size: 14px; font-weight: 700; line-height: 1.6; flex: none; }
+    .ix-bar .ctl { display: flex; gap: 8px; flex: none; }
+    .ix-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); padding: 7px 14px; cursor: pointer; line-height: 1; }
+    .ix-btn { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease, color 120ms ease; }
+    .ix-btn:hover { background: var(--ink); color: var(--paper); }
+    .ix-btn:active { transform: scale(0.96); }
+    .ix-btn.red { border-color: var(--red); color: var(--red); }
+    .ix-btn.red:hover { background: var(--red); color: #fff; }
+    .ix-btn:disabled { opacity: .35; cursor: default; }
+    .ix-btn:disabled:hover { background: var(--paper); color: var(--ink); }
+    .ix-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); font-weight: 400; }
+    /* 分類練習 */
+    .ix-sort { flex: 1; display: flex; flex-direction: column; background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-pool { background: var(--paper); padding: 12px 28px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; flex: none; }
+    .ix-pool .tag { width: 100%; }
+    .ix-pool .tag, .ix-bucket .tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+    .ix-chip { border: 1px solid var(--ink); background: var(--paper); padding: 6px 12px; font-size: 14px; line-height: 1.4; cursor: pointer; text-align: left; font-family: var(--sans); color: var(--ink); }
+    .ix-chip { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-chip:hover { background: #E4E4DE; }
+    .ix-chip:active { transform: scale(0.97); }
+    .ix-chip.sel { border: 2px solid var(--red); padding: 5px 11px; }
+    .ix-chip.done { background: var(--ink); color: var(--paper); cursor: default; border-color: var(--ink); }
+    .ix-chip.done::before { content: '✓ '; color: var(--red); }
+    .ix-buckets { display: grid; background: var(--ink); gap: 1px; flex: 1; min-height: 0; }
+    .ix-buckets.c4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .ix-buckets.c2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .ix-bucket { background: var(--paper); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; position: relative; min-height: 0; }
+    .ix-bucket { touch-action: manipulation; transition: transform 110ms ease-out, background 140ms ease; }
+    .ix-bucket:hover { background: #ECECE6; }
+    .ix-bucket:active { transform: scale(0.995); }
+    .ix-bucket h3 { font-weight: 900; font-size: 1.25em; line-height: 1.2; }
+    .ix-bucket.hit { animation: ix-hit .45s; }
+    .ix-bucket.miss { animation: ix-miss .45s; }
+    @keyframes ix-hit { 0% { background: #DDEBDD; } 100% { background: var(--paper); } }
+    @keyframes ix-miss { 0%, 100% { transform: translateX(0); background: var(--paper); } 25% { transform: translateX(-5px); background: #F5D5D5; } 75% { transform: translateX(5px); background: #F5D5D5; } }
+    .ix-bucket .drop { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ix-bucket .drop .ix-chip { font-size: 13.5px; padding: 5px 10px; }
+    .ix-bucket .hint { margin-top: auto; font-size: 12.5px; color: var(--gray); line-height: 1.55; display: none; }
+    .ix-sort.finished .ix-bucket .hint { display: block; }
+    .ix-sort.finished .ix-pool .tag::after { content: ' ── 全部歸類完成，各格底部為教科書定義'; color: var(--red); }
+    .ix-scn { border-bottom: 1px solid var(--ink); padding: 11px 28px; font-size: 14.5px; line-height: 1.65; flex: none; }
+    .ix-fb .lb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--red); margin: 0 6px 0 0; }
+    .ix-fb .lb:not(:first-of-type)::before { content: ''; display: block; height: 3px; }
+    .ix-fb b + .lb { margin-left: 10px; }
+    /* 判斷題與自我檢核（一次一題） */
+    .ix-card { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 48px 14px; gap: 18px; min-height: 0; }
+    .ix-stmt { border: 2px solid var(--ink); padding: 24px 30px; font-size: 28px; font-weight: 900; line-height: 1.38; letter-spacing: -0.016em; }
+    .ix-stmt .q { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; font-weight: 400; }
+    .ix-opts { display: grid; gap: 10px; }
+    .ix-opts.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ix-opts.c2 { grid-template-columns: 1fr 1fr; }
+    .ix-opt { border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; font-weight: 700; padding: 14px 18px; text-align: left; cursor: pointer; line-height: 1.5; display: flex; gap: 12px; align-items: flex-start; }
+    .ix-opt .k { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); padding-top: 4px; flex: none; }
+    .ix-opt { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-opt:hover { background: #E4E4DE; }
+    .ix-opt:active { transform: scale(0.985); }
+    .ix-card.answered .ix-opt { cursor: default; }
+    .ix-card.answered .ix-opt:hover { background: var(--paper); }
+    .ix-card.answered .ix-opt.right { background: var(--ink); color: var(--paper); }
+    .ix-card.answered .ix-opt.right .k { color: var(--paper); }
+    .ix-card.answered .ix-opt.wrong { border: 2px solid var(--red); padding: 13px 17px; }
+    .ix-card.answered .ix-opt.wrong .k::after { content: ' ✗'; color: var(--red); }
+    .ix-card.answered .ix-opt.right .k::after { content: ' ✓'; color: var(--red); }
+    .ix-card.answered .ix-opt:not(.right):not(.wrong) { opacity: .45; }
+    .ix-fb { border-top: 2px solid var(--ink); padding: 12px 0 0; font-size: 15.5px; line-height: 1.7; visibility: hidden; min-height: 96px; }
+    .ix-card.answered .ix-fb { visibility: visible; }
+    .ix-fb b { font-weight: 900; }
+    .ix-fb .topic { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; color: var(--gray); text-transform: uppercase; margin-top: 4px; display: block; }
+    .ix-done { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; }
+    .ix-done .big { font-family: var(--disp); font-size: 72px; color: var(--red); line-height: 1; letter-spacing: -0.04em; }
+    .ix-done p { font-size: 16px; font-weight: 700; max-width: 760px; line-height: 1.7; }
+    .ev-page .ix-stmt { font-size: 23px; padding: 16px 26px; }
+    .ev-page .ix-card { gap: 12px; padding: 12px 48px 10px; }
+    .ev-page .ix-opt { padding: 11px 16px; font-size: 16px; }
+    .ev-page .ix-card.answered .ix-opt.wrong { padding: 10px 15px; }
+    .ev-page .ix-fb { min-height: 120px; font-size: 15px; line-height: 1.65; }
+    /* 預測再揭曉 */
+    .ix-pred { flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-row { background: var(--paper); display: grid; grid-template-columns: 250px 1fr 300px; gap: 1px; background: var(--ink); }
+    .ix-row > div { background: var(--paper); padding: 12px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .ix-row .lab b { font-size: 17px; font-weight: 900; }
+    .ix-row .lab span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray); }
+    .ix-row .opts { flex-direction: row; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .ix-row .opts .ix-opt { font-size: 14.5px; padding: 9px 14px; flex: 1; }
+    .ix-row .opts .ix-opt.pick { border: 2px solid var(--red); padding: 8px 13px; }
+    .ix-row .opts .ix-opt.pick::after { content: '預測'; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--red); margin-left: auto; align-self: center; white-space: nowrap; }
+    .ix-pred.revealed .ix-opt.truth { background: var(--ink); color: var(--paper); }
+    .ix-pred.revealed .ix-opt:not(.truth):not(.pick) { opacity: .4; }
+    .ix-tally { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray);
+      align-self: center; white-space: nowrap; }
+    .ix.ix-ready .ix-tally { color: var(--red); }
+    .ix-row .res { display: flex; flex-direction: column; justify-content: center; position: relative;
+      font-size: 13.5px; line-height: 1.6; color: transparent; }
+    .ix-row .res b { font-weight: 900; }
+    .ix-row .res::after { content: '看答案後顯示'; position: absolute; left: 20px; right: 20px;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: #B9B9B0; }
+    .ix-pred.revealed .ix-row .res { color: #46443F; }
+    .ix-pred.revealed .ix-row .res b { color: var(--ink); }
+    .ix-pred.revealed .ix-row .res::after { content: none; }
+    body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
+
+</style>
+<style>
+  /* 內容垂直置中：留白均分於上下 */
+  .grid2 .cell h3, .grid3 .cell h3, .grid4 .cell h3, .grid3r .cell h3, .grid5 .cell h3, .grid6 .cell h3, .grid8 .cell h3 { margin-top: auto; }
+  .grid2 .cell > *:last-child, .grid3 .cell > *:last-child, .grid4 .cell > *:last-child, .grid3r .cell > *:last-child, .grid5 .cell > *:last-child, .grid6 .cell > *:last-child, .grid8 .cell > *:last-child { margin-bottom: auto; }
+  /* 窄版面：固定高度的圖框改為自然高度 */
+  body.flow .fig-wrap { height: auto !important; flex: none !important; }
+  body.flow .fig-body { overflow: visible; }
+  body.flow .fig-body img { width: 100%; height: auto; max-height: none; }
+</style>
+
+<style>
+:root, body { --ink: #232320; }
+.cell h3, .grid2 h3, .grid3 h3, .grid4 h3, .grid3r h3, .grid5 h3, .grid6 h3, .grid8 h3 { font-weight: 700 !important; }
+.cell .tag, .meta-row .m, .footer-row span, .pagenum { color: #8A8A82 !important; letter-spacing: .08em !important; }
+.cell .tag { font-size: 11px !important; }
+.title-row .t h2 { font-weight: 800; }
+.title-row .note { color: #8A8A82; }
+.corner { color: #B9B9B0 !important; }
+
+  .src { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; line-height: 1.62; }
+  .src i { font-style: italic; }
+  .g2f { grid-template-columns: 1.04fr 1fr; }
+  .g2f .cell p { font-size: 15.5px; line-height: 1.6; }
+  .g2f .cell li { font-size: 15px; line-height: 1.58; margin-bottom: 4px; }
+  body.flow .g2f { grid-template-columns: 1fr; }
+  .figimg { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .figimg img { max-width: 100%; max-height: 100%; object-fit: contain; border: 1px solid var(--ink); background: #FFFFFF; padding: 6px; box-sizing: border-box; }
+  .figcap { font-size: 11px; color: #8A8A82; line-height: 1.6; flex: none; }
+  body.flow .figimg { min-height: 220px; }
+
+  .mini-fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .mini-fig svg { width: 100%; height: 100%; display: block; }
+  body.flow .mini-fig svg { height: auto; max-height: 420px; }
+</style>
+
+<style>
+/* ── 點圖放大（FIGZOOM v2）── */
+.fig-body img, .fig-body svg, .figimg img, .mini-fig svg,
+.fig-wrap img, .fig-wrap svg { cursor: zoom-in; }
+.figzoom { position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,.94);
+  display: flex; align-items: center; justify-content: center; padding: 1vmin; cursor: zoom-out; }
+.figzoom > img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom > svg { width: 100%; height: 100%; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom-tip { position: fixed; left: 50%; bottom: 2.2vmin; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  color: #F4F4F0; opacity: .7; pointer-events: none; }
+.figzoom { animation: fz-fade 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom > img, .figzoom > svg { animation: fz-rise 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes fz-fade { from { opacity: 0; } }
+@keyframes fz-rise { from { opacity: 0; transform: scale(0.97); } }
+.figzoom.closing { opacity: 0; transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom.closing > img, .figzoom.closing > svg { opacity: 0; transform: scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.fig-head button { transition: transform 100ms ease-out; }
+.fig-head button:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .figzoom > img, .figzoom > svg { animation: fz-fade 200ms ease; }
+  .figzoom.closing > img, .figzoom.closing > svg { transform: none; }
+}
+
+  /* ── PDFBTN v3：只在第一頁顯示，位置依舞台留白帶決定，不覆蓋頁首 ── */
+  body.pdfbtn-inset .meta-row > :last-child,
+  body.pdfbtn-inset .fig-head > :last-child,
+  body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
+  /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media print { body.pdfbtn-inset .meta-row > :last-child,
+    body.pdfbtn-inset .fig-head > :last-child,
+    body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
+  /* ── PDFBTN v1：右上角下載 PDF ── */
+  .pdfbtn { position: fixed; z-index: 9998; top: 14px; right: 14px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn .ar { font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid;
+      break-after: auto; page-break-after: auto; }
+    /* 分頁改由下一頁的頁首帶起，最後一頁之後不再留一個空白頁 */
+    .slide + .slide { break-before: page; page-break-before: always; }
+    /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
+    .slide.ix-page { display: none !important; }
+    /* 手機的自動縮放是寫在行內的 zoom，列印時必須還原，否則會按縮放後的尺寸輸出 */
+    #stage { zoom: 1 !important; }
+    .slide { min-height: 0 !important; }
+    /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
+    body > *:not(#viewport) { display: none !important; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 13 到 16.5px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .cell .quote,
+  body.flow .axis-row .v, body.flow .scale-col li, body.flow .scale-instr,
+  body.flow .rs-grid .cell li, body.flow .g2f .cell p, body.flow .g2f .cell li,
+  body.flow .def-band, body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip,
+  body.flow .ix-opt, body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.62; }
+  body.flow .cell li, body.flow .scale-col li { margin-bottom: 5px; }
+  body.flow .cell { padding: 16px 18px; }
+  body.flow .rs-grid .cell { padding: 16px 18px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline, body.flow .scale-instr { padding-left: 20px; padding-right: 20px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
+
+  /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
+     部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
+     於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
+  body.flow .main,
+  body.flow .grid2, body.flow .grid3, body.flow .grid3r, body.flow .grid4,
+  body.flow .grid5, body.flow .grid6, body.flow .grid8,
+  body.flow .wfh-main, body.flow .link-main, body.flow .cmp-wrap,
+  body.flow .cover-main, body.flow .quote-main, body.flow .results-stack {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+  }
+  body.flow .cell, body.flow .axis-list, body.flow .fig-wrap, body.flow .fig-cell {
+    grid-column: auto !important; grid-row: auto !important;
+  }
+  /* 參考文獻在手機上分兩欄會讓每一則只剩半個版心寬 */
+  body.flow .rf-cols.c2 { column-count: 1 !important; }
+  /* 互動頁的說明與控制列並排時，說明會被壓成一個字一行 */
+  body.flow .ix-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.flow .ix-bar .ctl { flex-wrap: wrap; justify-content: flex-start; }
+
+  /* 表格在窄螢幕會被擠成兩三個字寬，改為整個表格可橫向捲動 */
+  body.flow .slide *:has(> table) { overflow-x: auto; }
+  body.flow .slide table { min-width: 540px; }
+  @media print { body.flow .slide table { min-width: 0 !important; } }
+
+  /* 手機：十到十二像素的小標籤與出處，縮到下限時會掉到九像素以下，這裡拉回可讀範圍 */
+  body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
+  body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
+  body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
+  body.flow .note-s { font-size: 12.5px !important; }
+  /* 內容頁的引用帶：桌機與手機同一個字級 */
+  body.flow .src, body.flow .cite, body.flow .src-band { font-size: 11px !important; line-height: 1.6; }
+  body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
+  body.flow .slide h3 { font-size: max(12.5px, 1em); }
+  /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */
+  body.flow .slide i, body.flow .slide em, body.flow .slide cite { font-size: inherit; }
+  /* 參考文獻在手機已改單欄，不需要再用密排的縮小字級 */
+  body.flow .rf-cols .rf-grp p { font-size: 12.5px !important; line-height: 1.7; }
+  body.flow .ix-row .lab, body.flow .ix-row .lab span, body.flow .fig-head, body.flow .fig-head span { font-size: 12.5px !important; }
+  /* 模擬遊戲封面的面板固定裁切，窄螢幕會切掉一行 */
+  body.flow .cx .p { overflow: visible; }
+
+
+</style>
+<style>
+  /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
+  .fsbtn { position: fixed; z-index: 9998; bottom: 14px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 30px; height: 30px; padding: 0; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22);
+    border-radius: 7px; opacity: 0.5;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, transform 0.1s ease-out, background 0.15s ease,
+      color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn:hover, .fsbtn:focus-visible { opacity: 1; background: #232320; color: #F4F4F0; border-color: #232320; }
+  .fsbtn:active { transform: scale(0.94); }
+  .fsbtn svg { width: 15px; height: 15px; display: block; }
+  /* 手機的翻頁列就在底部，浮在上面容易誤觸；手機瀏覽器本身也有全螢幕 */
+  @media (max-width: 700px) { .fsbtn { display: none !important; } }
+  @media print { .fsbtn { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
+</style>
+<style>
+  /* ── ORPHAN v1：避免末行只剩一兩個字 ──
+     標題與短句用 balance 把各行長度拉平，正文用 pretty 讓末行不要落單。
+     舊版瀏覽器不認得這兩個值時會忽略，畫面與現在相同，再由腳本那一層補上。 */
+  .slide h1, .slide h2, .slide h3, .slide .cover-title, .slide .q-text,
+  .slide .keyline, .slide .def-band, .slide .tag, .slide .en, .slide .fig-head,
+  .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
+  .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
+  .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- ═══ P.01 封面 ═══ -->
+    <section class="slide active">
+      <div class="meta-row">
+        <span class="m">OB／ORGANIZATIONAL BEHAVIOR</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="main cover-main">
+        <div class="cover-left">
+          <span class="crosshair">+</span>
+          <span class="kicker">CH／2 ── DIVERSITY, EQUITY ＆ INCLUSION</span>
+          <div class="cover-code">02</div>
+          <h1 class="cover-title">組織內的多元化</h1>
+          <div class="cover-en">Diversity, Equity, and Inclusion in Organizations</div>
+          <div class="cover-agenda">
+            <span class="lbl">[ AGENDA ]</span>
+            <div class="items">表層與深層多元化 ── 偏見與歧視 ── 社會分類與刻板印象 ── 系統合理化與社會支配 ── 交織性與文化馬賽克 ── 斷層線 ── 霍夫斯泰德與 GLOBE ── 文化嚴鬆度與外派 ── 多元公平包容 ── 管理實務與挑戰</div>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="data-cell"><span class="lbl">INSTRUCTOR</span><span class="val">王豫萱</span></div>
+          <div class="data-cell"><span class="lbl">INSTITUTE</span><span class="val">國立中山大學<br>人力資源管理研究所</span></div>
+          <div class="data-cell"><span class="lbl">TEXTBOOK</span><span class="val" style="font-size: 12.5px; font-weight: 500; line-height: 1.55;">Robbins, S. P., &amp; Judge, T. A. (2024). Organizational behavior (19th ed., Global ed.). Pearson.</span></div>
+          <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 1 ── LAYERS OF DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">02</div>
+        <div class="t"><h2>多元化的兩個層次</h2><span class="en">SURFACE-LEVEL AND DEEP-LEVEL DIVERSITY</span></div>
+        <div class="note">[ 2 LAYERS ]<br>SURFACE ／ DEEP</div>
+      </div>
+      <div class="def-band">多元化指組織成員之間的差異。教科書把這些差異分成兩層：一層看得見，一層要相處一段時間才會浮現。兩層的管理難度與後果並不相同。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／SURFACE ]</span>
+          <h3>表層多元化</h3>
+          <span class="en-term">SURFACE-LEVEL DIVERSITY</span>
+          <p>年齡、種族、性別、宗教信仰與身心障礙情形等可觀察的特徵。這些特徵不必互動就看得出來，因此成為快速分類他人的依據。</p>
+          <p>分類本身不必然帶有惡意，但它讓刻板印象有機會在認識一個人之前就先生效。表層差異引發的問題多半出現在互動初期。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／DEEP ]</span>
+          <h3>深層多元化</h3>
+          <span class="en-term">DEEP-LEVEL DIVERSITY</span>
+          <p>人格、價值觀、感受與想法等要相處才會顯現的特徵。隨著成員彼此了解加深，人口變項造成的差異會逐漸退位。</p>
+          <p>教科書的觀察是，時間拉長之後，真正影響共事品質的是深層差異。表層差異的效果會被相處經驗稀釋。</p>
+        </div>
+      </div>
+      <div class="keyline">表層差異<span class="r">一眼可見</span>，深層差異<span class="r">要相處才浮現</span>，兩者的管理時機不同</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 1 ── LAYERS OF DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>人口變項與性別相關議題</h2><span class="en">BIOGRAPHICAL CHARACTERISTICS</span></div>
+        <div class="note">[ 4 ISSUES ]<br>BLS 2019 DATA</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／BIOGRAPHICAL ]</span>
+          <h3>人口變項</h3>
+          <span class="en-term">BIOGRAPHICAL CHARACTERISTICS</span>
+          <p>年齡、性別認同、種族與族群等特徵，是員工之間最明顯的差異，也是法律上受保護的類別。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／GLASS CEILING ]</span>
+          <h3>玻璃天花板</h3>
+          <span class="en-term">GLASS CEILING</span>
+          <p>看不見卻確實存在的晉升障礙，使特定群體難以升到組織的高層。障礙不寫在制度上，因此不易舉證。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／GLASS CLIFF ]</span>
+          <h3>玻璃懸崖</h3>
+          <span class="en-term">GLASS CLIFF</span>
+          <p>女性較常在組織陷入危機時被推上領導位置。任務本身成功率低，失敗之後的歸因卻落在個人身上。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 04／PAY GAP ]</span>
+          <h3>性別薪資落差</h3>
+          <span class="en-term">GENDER PAY GAP</span>
+          <p>差距長期縮小但尚未消失。美國勞工統計局的全職工作者週薪中位數比較，是常被引用的一組指標。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 2 ── BIAS ＆ DISCRIMINATION</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">04</div>
+        <div class="t"><h2>偏見與歧視的分界</h2><span class="en">PREJUDICE VERSUS DISCRIMINATION</span></div>
+        <div class="note">[ ATTITUDE ]<br>VS BEHAVIOR</div>
+      </div>
+      <div class="def-band">偏見是態度，歧視是行為。兩者常被混用，但在管理與法律上的處理方式完全不同：態度難以直接規範，行為則有明確的認定標準與責任歸屬。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／PREJUDICE ]</span>
+          <h3>偏見</h3>
+          <span class="en-term">PREJUDICE</span>
+          <p>對某個群體或其成員的廣泛、籠統的感受，這種態度維持了群體之間的階層關係。常見形式包括性別歧視、種族歧視與年齡歧視的態度層面。</p>
+          <p>隱性偏見（implicit bias）是可能隱藏在意識之外的偏見。持有者未必察覺，卻仍會影響判斷與決策。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／DISCRIMINATION ]</span>
+          <h3>歧視</h3>
+          <span class="en-term">DISCRIMINATION</span>
+          <p>透過行動或行為來創造、維持或強化某些群體相較於其他群體的優勢。焦點在具體作為，不在內心想法。</p>
+          <p>差別影響（disparate impact）指雇傭作法對受法律保護的群體產生歧視性影響；差別待遇（disparate treatment）則是刻意針對該群體採取帶有歧視性影響的作法，差別在於是否出於故意。</p>
+        </div>
+      </div>
+      <div class="keyline">偏見是<span class="r">態度</span>、歧視是<span class="r">行為</span>；差別影響與差別待遇的分界在於<span class="r">是否出於故意</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 2 ── BIAS ＆ DISCRIMINATION</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">05</div>
+        <div class="t"><h2>歧視在職場的六種形式</h2><span class="en">FORMS OF DISCRIMINATION</span></div>
+        <div class="note">[ 6 FORMS ]<br>EXHIBIT 2-1</div>
+      </div>
+      <div class="axis-list ax6">
+        <div class="axis-row">
+          <div class="k"><span class="zh">歧視性政策</span><span class="ax">DISCRIMINATORY POLICIES</span></div>
+          <div class="v">組織層級的作法，使特定群體在機會、報酬與待遇上系統性處於不利。這一類最容易被法律認定，也最容易被制度修正。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">性騷擾</span><span class="ax">SEXUAL HARASSMENT</span></div>
+          <div class="v">帶有性意味且造成敵意工作環境的言行。與其說是個人問題，不如說是組織是否容許的問題。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">恐嚇</span><span class="ax">INTIMIDATION</span></div>
+          <div class="v">針對特定群體成員的公開威脅或霸凌，目的在於讓對方退出競爭或離開組織。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">嘲弄與侮辱</span><span class="ax">MOCKERY ＆ INSULTS</span></div>
+          <div class="v">以玩笑或綽號包裝的貶抑。行為人常以無心為辯解，但接收端的排除效果並不因此減少。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">排擠</span><span class="ax">EXCLUSION</span></div>
+          <div class="v">把特定成員排除在資訊、會議、非正式網絡與升遷機會之外。多數屬於不作為，因此最難舉證。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">不禮貌</span><span class="ax">INCIVILITY</span></div>
+          <div class="v">對特定群體成員失禮、打斷發言、不尊重其意見。單次強度低，累積效果高。</div>
+        </div>
+      </div>
+      <div class="keyline">前三種多半<span class="r">明顯而可訴</span>，後三種<span class="r">隱蔽而難舉證</span>，後者在職場中更常見</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 3 ── THEORETICAL PERSPECTIVES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">06</div>
+        <div class="t"><h2>社會分類與內外團體</h2><span class="en">SOCIAL CATEGORIZATION</span></div>
+        <div class="note">[ THEORY 1 ]<br>IN-GROUP ／ OUT-GROUP</div>
+      </div>
+      <div class="def-band">社會分類是藉由建立社會類別來理解他人的過程。人們把具有相似特徵的人歸為一類，藉此降低處理資訊的負擔。分類本身是認知的必要節省，代價則是把個體化約成群體。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／IN-GROUP ]</span>
+          <h3>內團體</h3>
+          <span class="en-term">IN-GROUP</span>
+          <p>自己所屬的類別。成員傾向對內團體給予較多信任、較寬容的歸因與較多資源，也較容易看見彼此的個別差異。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／OUT-GROUP ]</span>
+          <h3>外團體</h3>
+          <span class="en-term">OUT-GROUP</span>
+          <p>自己不屬於的類別。成員傾向把外團體看成同質的一群，個別差異被忽略，負面行為較容易被歸因於群體特質。</p>
+        </div>
+      </div>
+      <div class="keyline">分類降低了<span class="r">認知負擔</span>，代價是把個體<span class="r">化約成群體</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 3 ── THEORETICAL PERSPECTIVES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">07</div>
+        <div class="t"><h2>刻板印象、刻板印象威脅與污名化</h2><span class="en">STEREOTYPES ＆ STEREOTYPE THREAT</span></div>
+        <div class="note">[ THEORY 2 ]<br>STEELE ＆ ARONSON</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／STEREOTYPE ]</span>
+          <h3>刻板印象</h3>
+          <span class="en-term">STEREOTYPING</span>
+          <p>根據一個人所屬團體的認知來判斷這個人。刻板印象不一定是負面的，正面的刻板印象同樣會把個體差異抹平。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／THREAT ]</span>
+          <h3>刻板印象威脅</h3>
+          <span class="en-term">STEREOTYPE THREAT</span>
+          <p>擔心被他人以某種刻板印象評判或負面對待的程度。這種擔心本身會佔用認知資源，使表現低於實際能力。</p>
+          <p>對抗方式是在評估與互動中把員工視為個體，而不是強調群體差異。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／STIGMA ]</span>
+          <h3>污名化</h3>
+          <span class="en-term">STIGMA</span>
+          <p>不易被察覺、可以隱藏，而且在某些社會情境中遭到貶低的身份特徵。可隱藏這一點使當事人必須持續決定是否揭露。</p>
+        </div>
+      </div>
+      <div class="cite">Steele, C. M., &amp; Aronson, J. (1995). Stereotype threat and the intellectual test performance of African Americans. <i>Journal of Personality and Social Psychology, 69</i>(5), 797–811.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 3 ── THEORETICAL PERSPECTIVES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">08</div>
+        <div class="t"><h2>系統合理化理論與社會支配理論</h2><span class="en">SYSTEM JUSTIFICATION ＆ SOCIAL DOMINANCE</span></div>
+        <div class="note">[ THEORY 3 ]<br>2 PERSPECTIVES</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／SYSTEM JUSTIFICATION ]</span>
+          <h3>系統合理化理論</h3>
+          <span class="en-term">SYSTEM JUSTIFICATION THEORY</span>
+          <p>群體成員往往會接受、合理化、認可，甚至為自己經歷的不平等、偏見與歧視辯護。</p>
+          <p>值得注意的是，處於不利位置的群體也會出現這種傾向，因為承認制度不公比接受現狀更令人不安。這使得不平等即使沒有外力維持也能延續。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／SOCIAL DOMINANCE ]</span>
+          <h3>社會支配理論</h3>
+          <span class="en-term">SOCIAL DOMINANCE THEORY</span>
+          <p>偏見與歧視建立在複雜的階層制度上，其中一個群體支配另一個群體，支配群體享有從屬群體無法獲得的特權。</p>
+          <p>這個觀點把焦點從個人態度移到制度結構：即使個別成員沒有惡意，階層本身仍會持續分配優勢。</p>
+        </div>
+      </div>
+      <div class="cite">Jost, J. T., &amp; Banaji, M. R. (1994). The role of stereotyping in system-justification and the production of false consciousness. <i>British Journal of Social Psychology, 33</i>(1), 1–27.　·　Sidanius, J., &amp; Pratto, F. (1999). <i>Social dominance</i>. Cambridge University Press.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 3 ── THEORETICAL PERSPECTIVES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">09</div>
+        <div class="t"><h2>交織性與文化馬賽克</h2><span class="en">INTERSECTIONALITY ＆ CULTURAL MOSAIC</span></div>
+        <div class="note">[ THEORY 4 ]<br>CRENSHAW ／ CHAO ＆ MOON</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／INTERSECTIONALITY ]</span>
+          <h3>交織性</h3>
+          <span class="en-term">INTERSECTIONALITY</span>
+          <p>不同身份會相互影響，形成單一身份無法解釋的意義與經驗。性別與種族疊加後的處境，不等於兩者各自處境的相加。</p>
+          <p>雙重危險（double jeopardy）描述同時屬於兩個弱勢類別時所面對的加乘不利。管理上的意涵是，以單一類別設計的措施可能漏接交織位置的成員。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／CULTURAL MOSAIC ]</span>
+          <h3>文化馬賽克</h3>
+          <span class="en-term">CULTURAL MOSAIC</span>
+          <p>把個人的文化視為多塊碎片組成的鑲嵌，而不是單一國籍標籤。碎片包括個人背景或人口統計特徵、地理區域差異，以及社群歸屬關係。</p>
+          <p>這個觀點解釋了為什麼同一個國籍的兩個人可能差異極大，也提醒以國家為單位的文化比較有其限度。</p>
+        </div>
+      </div>
+      <div class="cite">Crenshaw, K. (1991). Mapping the margins: Intersectionality, identity politics, and violence against women of color. <i>Stanford Law Review, 43</i>(6), 1241–1299.　·　Chao, G. T., &amp; Moon, H. (2005). The cultural mosaic: A metatheory for understanding the complexity of culture. <i>Journal of Applied Psychology, 90</i>(6), 1128–1140.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 4 ── DIVERSITY DYNAMICS</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">10</div>
+        <div class="t"><h2>團體組成與斷層線</h2><span class="en">GROUP COMPOSITION ＆ FAULTLINES</span></div>
+        <div class="note">[ FAULTLINES ]<br>LAU ＆ MURNIGHAN</div>
+      </div>
+      <div class="def-band">斷層線是因性別、種族、年齡、工作經驗、語言、教育等個體差異，而把團體分裂成兩個或更多次團體的感知分界線。關鍵不在團體有多元，而在多個差異是否剛好重疊在同一條線上。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／WHEN IT FORMS ]</span>
+          <h3>斷層線何時形成</h3>
+          <span class="en-term">WHEN FAULTLINES ACTIVATE</span>
+          <p>當多項屬性彼此對齊時，斷層線最強。例如四人團隊中，兩位是資深男性工程師、兩位是資淺女性行銷人員，三個屬性同時把團隊切成兩半。</p>
+          <p>相對地，若各項屬性交錯分布，成員在不同面向上分屬不同次團體，分界線就不易成形。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／CONSEQUENCES ]</span>
+          <h3>後果與因應</h3>
+          <span class="en-term">CONSEQUENCES</span>
+          <p>斷層線活化之後，次團體之間的溝通減少、信任下降、衝突升高，多元化原本可能帶來的觀點互補也隨之消失。</p>
+          <p>組隊時可檢視的是屬性是否交錯而非對齊；另一條路是建立跨越次團體的共同目標，讓成員在更上位的類別上找到共同身份。</p>
+        </div>
+      </div>
+      <div class="cite">Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 5 ── CROSS-CULTURAL OB</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">11</div>
+        <div class="t"><h2>霍夫斯泰德的六個文化面向</h2><span class="en">HOFSTEDE FRAMEWORK</span></div>
+        <div class="note">[ 6 DIMENSIONS ]<br>HOFSTEDE</div>
+      </div>
+      <div class="grid6">
+        <div class="cell">
+          <span class="tag">[ 01 ]</span>
+          <h3>權力距離</h3>
+          <span class="en-term">POWER DISTANCE</span>
+          <p>社會接受權力分配不均的程度。高分社會中，階層差距被視為理所當然。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 02 ]</span>
+          <h3>個人主義與集體主義</h3>
+          <span class="en-term">INDIVIDUALISM ／ COLLECTIVISM</span>
+          <p>個人偏好獨立行動，或偏好以所屬群體為行動單位。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 03 ]</span>
+          <h3>陽剛與陰柔特質</h3>
+          <span class="en-term">MASCULINITY ／ FEMININITY</span>
+          <p>社會偏好成就與競爭，或偏好關係與生活品質。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 04 ]</span>
+          <h3>規避不確定性</h3>
+          <span class="en-term">UNCERTAINTY AVOIDANCE</span>
+          <p>面對模糊與不確定情境的不安程度，以及對規則的依賴程度。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 05 ]</span>
+          <h3>長期與短期導向</h3>
+          <span class="en-term">LONG-TERM ／ SHORT-TERM</span>
+          <p>重視未來的節儉與堅持，或重視當下與傳統的維繫。</p>
+        </div>
+        <div class="cell">
+          <span class="tag">[ 06 ]</span>
+          <h3>放任與約束</h3>
+          <span class="en-term">INDULGENCE ／ RESTRAINT</span>
+          <p>後期新增的面向。社會允許享樂與滿足欲望的程度。</p>
+        </div>
+      </div>
+      <div class="keyline">面向是<span class="r">國家層級</span>的平均，用來判斷個人會出現<span class="r">生態謬誤</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 5 ── CROSS-CULTURAL OB</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">12</div>
+        <div class="t"><h2>GLOBE 架構與霍夫斯泰德的關係</h2><span class="en">THE GLOBE FRAMEWORK</span></div>
+        <div class="note">[ 9 DIMENSIONS ]<br>62 SOCIETIES</div>
+      </div>
+      <div class="def-band">GLOBE 研究以 62 個社會為對象，提出九個文化面向。其中權力距離與規避不確定性與霍夫斯泰德重疊，其餘七個是新增或拆分而來，兩套架構互補而非互斥。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／OVERLAP ]</span>
+          <h3>與霍夫斯泰德重疊</h3>
+          <span class="en-term">SHARED DIMENSIONS</span>
+          <p>權力距離、規避不確定性。兩套架構在這兩個面向上的定義大致相同。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／SPLIT ]</span>
+          <h3>由集體主義拆分</h3>
+          <span class="en-term">SPLIT FROM COLLECTIVISM</span>
+          <p>制度集體主義指社會鼓勵集體分配資源的程度；內團體集體主義指個人對家庭與組織表現忠誠的程度。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／ADDED ]</span>
+          <h3>新增的面向</h3>
+          <span class="en-term">ADDED DIMENSIONS</span>
+          <p>未來導向、性別平等、果斷性、人性導向、績效導向。其中性別平等與人性導向是霍夫斯泰德架構中沒有單獨處理的。</p>
+        </div>
+      </div>
+      <div class="cite">House, R. J., Hanges, P. J., Javidan, M., Dorfman, P. W., &amp; Gupta, V. (Eds.). (2004). <i>Culture, leadership, and organizations: The GLOBE study of 62 societies</i>. Sage.　·　Hofstede, G., Hofstede, G. J., &amp; Minkov, M. (2010). <i>Cultures and organizations: Software of the mind</i> (3rd ed.). McGraw-Hill.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 5 ── CROSS-CULTURAL OB</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">13</div>
+        <div class="t"><h2>文化嚴鬆度、宗教與外派調適</h2><span class="en">TIGHTNESS, RELIGION ＆ EXPATRIATE ADJUSTMENT</span></div>
+        <div class="note">[ 3 TOPICS ]<br>GELFAND 2011</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／TIGHTNESS ]</span>
+          <h3>文化嚴鬆度</h3>
+          <span class="en-term">CULTURAL TIGHTNESS-LOOSENESS</span>
+          <p>一個社會中規範的明確與普遍程度、對違反規範的懲戒認知，以及對偏離規範的容忍度。</p>
+          <p>這個面向與個人主義並不等同：一個社會可以既重視個人又規範嚴格。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／RELIGION ]</span>
+          <h3>宗教</h3>
+          <span class="en-term">RELIGION</span>
+          <p>當宗教信仰禁止或鼓勵某些行為時，可能形成排班、服儀與飲食上的就業議題。</p>
+          <p>法律禁止宗教歧視，實務上仍持續發生，穆斯林族群受到的影響特別明顯。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／EXPATRIATE ]</span>
+          <h3>外派調適與文化智商</h3>
+          <span class="en-term">EXPATRIATE ADJUSTMENT ＆ CQ</span>
+          <p>選派人員時應考慮調適速度，並在任務期間提供支持，而非只看專業能力。</p>
+          <p>文化智商指在文化多元的環境中有效運作的能力，可以透過訓練提升。</p>
+        </div>
+      </div>
+      <div class="cite">Gelfand, M. J., et al. (2011). Differences between tight and loose cultures: A 33-nation study. <i>Science, 332</i>(6033), 1100–1104.　·　Earley, P. C., &amp; Ang, S. (2003). <i>Cultural intelligence</i>. Stanford University Press.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 6 ── MANAGING DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">14</div>
+        <div class="t"><h2>多元、公平、包容三個詞的區別</h2><span class="en">DIVERSITY, EQUITY ＆ INCLUSION</span></div>
+        <div class="note">[ DEI ]<br>3 DISTINCT TERMS</div>
+      </div>
+      <div class="def-band">多元化管理指運用實證策略來管理及善用員工先天的多元化。多元、公平、包容三個詞常被並列成一個縮寫，實際上指向三件不同的事，缺任何一項另外兩項都不成立。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／DIVERSITY ]</span>
+          <h3>多元</h3>
+          <span class="en-term">DIVERSITY</span>
+          <p>讚揚而非貶低人與人之間的差異。這一項回答的是組織裡有誰。</p>
+          <p>只做到這一項時，組織可能人員組成多元，內部經驗卻高度不均。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／EQUITY ]</span>
+          <h3>公平</h3>
+          <span class="en-term">EQUITY</span>
+          <p>致力為所有員工提供相同的機會，同時認知到某些人享有特權與優勢，其他人則面臨障礙與阻力。</p>
+          <p>這一項回答的是起點是否相同。與齊頭式的平等不同，公平允許依處境調整支持。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／INCLUSION ]</span>
+          <h3>包容</h3>
+          <span class="en-term">INCLUSION</span>
+          <p>營造一個環境，讓所有人感受到自己受到重視、歡迎，並且能夠真正融入。</p>
+          <p>這一項回答的是進來之後的經驗。招募做到多元而包容未做到時，離職率通常會說明問題。</p>
+        </div>
+      </div>
+      <div class="keyline">多元是<span class="r">有誰</span>，公平是<span class="r">起點</span>，包容是<span class="r">進來之後</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 6 ── MANAGING DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">15</div>
+        <div class="t"><h2>共同內團體認同與接觸假說</h2><span class="en">COMMON IN-GROUP IDENTITY ＆ CONTACT HYPOTHESIS</span></div>
+        <div class="note">[ 2 MECHANISMS ]<br>PETTIGREW ＆ TROPP</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／COMMON IDENTITY ]</span>
+          <h3>共同內團體認同</h3>
+          <span class="en-term">COMMON IN-GROUP IDENTITY</span>
+          <p>把注意力從分歧轉向共識，將 us vs. them 的對立思維轉化為涵蓋雙方的上位類別 we。</p>
+          <p>作法是建立跨越原有次團體的共同目標與共同身份，例如以專案成果而非部門歸屬界定團隊。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／CONTACT ]</span>
+          <h3>接觸假說</h3>
+          <span class="en-term">CONTACT HYPOTHESIS</span>
+          <p>來自不同背景的人彼此互動愈多，群體間的偏見與歧視隨時間下降愈多。統合分析支持這個關係。</p>
+          <p>但接觸不是萬用解：偏見的下降在地位平等、有共同目標、需要合作且獲得制度支持時最明顯。單純把人放在同一個空間並不足夠。</p>
+        </div>
+      </div>
+      <div class="cite">Gaertner, S. L., &amp; Dovidio, J. F. (2000). <i>Reducing intergroup bias: The common ingroup identity model</i>. Psychology Press.　·　Pettigrew, T. F., &amp; Tropp, L. R. (2006). A meta-analytic test of intergroup contact theory. <i>Journal of Personality and Social Psychology, 90</i>(5), 751–783.</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 6 ── MANAGING DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">16</div>
+        <div class="t"><h2>多元化管理的實務作法</h2><span class="en">DIVERSITY MANAGEMENT PRACTICES</span></div>
+        <div class="note">[ 4 LEVERS ]<br>PRACTICE</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／LEADERSHIP ]</span>
+          <h3>領導與氛圍</h3>
+          <span class="en-term">LEADERSHIP ＆ CLIMATE</span>
+          <p>領導者以身作則追求多元化，並把多元化倡導為資源而非義務。</p>
+          <p>多元化文化指組織重視並優先考慮多元與包容；多元化氛圍則是成員對相關政策、實務與程序的共同認知。前者是宣稱，後者是實際感受。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／STAFFING ]</span>
+          <h3>招募與人員配置</h3>
+          <span class="en-term">RECRUITMENT ＆ STAFFING</span>
+          <p>把招募訊息鎖定在勞動力中代表性不足的特定群體，擴大來源而非只調整篩選標準。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／TRAINING ]</span>
+          <h3>訓練與發展</h3>
+          <span class="en-term">TRAINING ＆ DEVELOPMENT</span>
+          <p>依實際需要量身打造訓練、培養學員的動機、鼓勵目標設定，並設立輔導計畫。</p>
+          <p>單次的意識宣導效果有限，持續的目標與輔導較能改變行為。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 04／INCLUSION ]</span>
+          <h3>促進包容與公平</h3>
+          <span class="en-term">INCLUSION ＆ EQUITY</span>
+          <p>支持所有成員的團隊身份並開放參與決策以促進歸屬感，鼓勵多元貢獻，並透過展示期望與溝通政策促進公平。</p>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 6 ── MANAGING DIVERSITY</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">17</div>
+        <div class="t"><h2>多元化管理的四個挑戰</h2><span class="en">CHALLENGES IN MANAGING DIVERSITY</span></div>
+        <div class="note">[ 4 CHALLENGES ]<br>LIMITS</div>
+      </div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／AUTHENTICITY ]</span>
+          <h3>真誠度</h3>
+          <span class="en-term">AUTHENTICITY MATTERS</span>
+          <p>員工能分辨組織是真的重視多元，還是為了對外形象。被判定為不真誠時，措施本身會失去效力。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／TOKENISM ]</span>
+          <h3>樣板措施</h3>
+          <span class="en-term">TOKENISM CAN HARM</span>
+          <p>以少數代表充當達成多元的證明，反而使當事人承受額外的注目與歸因壓力。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／PARADOX ]</span>
+          <h3>矛盾效果</h3>
+          <span class="en-term">PARADOXICAL EFFECTS</span>
+          <p>措施可能產生與預期相反的效果，例如強調群體差異的訓練反而強化了原有的分類。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 04／CONTEXT ]</span>
+          <h3>外在環境</h3>
+          <span class="en-term">EXTERNAL CONTEXT</span>
+          <p>系統性偏見與組織所處的文化背景會限制措施的成效，這一類障礙無法只靠組織內部解決。</p>
+        </div>
+      </div>
+      <div class="keyline">效果不會<span class="r">立即出現</span>，障礙有些<span class="r">可避免</span>、有些<span class="r">無法避免</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／20</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 7 ── IMPLICATIONS</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">18</div>
+        <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
+        <div class="note">[ 6 POINTS ]<br>SUMMARY</div>
+      </div>
+      <div class="axis-list ax6">
+        <div class="axis-row">
+          <div class="k"><span class="zh">理解複雜性</span><span class="ax">COMPLEXITY</span></div>
+          <div class="v">多元化在組織中的影響是多層次的，同一項措施在不同團隊可能得到不同結果，需要持續觀察而非一次到位。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">檢視自身偏見</span><span class="ax">SELF-AWARENESS</span></div>
+          <div class="v">評估並挑戰自己的信念、偏見與刻板印象，提高對隱性偏見的意識，是任何制度設計之前的前提。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">根除歧視作法</span><span class="ax">DISCRIMINATION</span></div>
+          <div class="v">明顯與隱晦的違法歧視都要處理。隱蔽形式如排擠與不禮貌雖難舉證，累積效果卻不小。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">超越人口變項</span><span class="ax">BEYOND DEMOGRAPHICS</span></div>
+          <div class="v">做管理決策時考慮個人的能力與經驗，而不是停在容易觀察到的人口變項上。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">說明倫理與商業理由</span><span class="ax">BUSINESS CASE</span></div>
+          <div class="v">向同事與部屬說明多元化在倫理與經營上的重要性，可提高對相關措施的認同。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">注意團隊動態</span><span class="ax">TEAM DYNAMICS</span></div>
+          <div class="v">在評估、建立團隊與解決衝突時，把斷層線與次團體的可能影響納入考慮。</div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／20</span></div>
+    </section>
+    <section class="slide ix-page">
+      <div class="meta-row"><span class="m">OB／CH 2</span><span class="m g">SEC 8 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">19</div>
+        <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
+        <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
+      </div>
+      <div class="ix" data-ix="quiz">
+        <div class="ix-bar"><span>每題單選；點選答案後顯示解說，十題答完顯示成績。</span><div class="ctl"><span class="ix-count">第 <span class="cur">1</span>／<span class="tot">10</span> 題 ── 答對 <span class="score">0</span></span><button class="ix-btn prev">上一題</button><button class="ix-btn next">下一題</button><button class="ix-btn reset">重新開始</button></div></div>
+        <div class="ix-card" data-cols="2" data-final="1">
+          <script type="application/json">[{"s": "同事相處一段時間之後，愈來愈少以年齡或性別看待彼此，而更在意對方的價值觀與想法。這個轉變最適合用下列哪個概念描述？", "o": ["表層多元化的效果隨時間增強", "深層多元化逐漸取代表層多元化成為主要的差異來源", "人口變項不再是受法律保護的類別", "刻板印象威脅在熟識之後自動消失"], "a": 1, "fb": "表層多元化是年齡、種族、性別等可觀察特徵，深層多元化是人格、價值觀、感受與想法。教科書指出，隨著相互了解加深，人們愈不在意人口變項造成的差異。", "t": "多元化的兩個層次"}, {"s": "某公司的體能測驗標準對所有應徵者一致，但實際上使女性通過率明顯偏低，公司並無排除女性的意圖。這最接近下列哪一種情形？", "o": ["差別待遇，因為結果對特定群體不利", "差別影響，作法看似中立卻對受保護群體產生歧視性影響", "隱性偏見，因為決策者未察覺自己的偏好", "玻璃懸崖，因為女性被放在較不利的位置"], "a": 1, "fb": "差別影響指雇傭作法對受法律保護的群體產生歧視性影響，不以故意為要件；差別待遇則是刻意針對該群體採取帶有歧視性影響的作法。兩者的分界在於是否出於故意。", "t": "偏見與歧視"}, {"s": "關於偏見與歧視的關係，下列敘述何者正確？", "o": ["偏見是行為，歧視是態度", "兩者都是態度，差別只在強度", "偏見是態度，歧視是透過行動或行為創造或強化群體間的優勢", "沒有偏見的人不可能做出歧視行為"], "a": 2, "fb": "偏見是對某個群體的廣泛籠統感受，屬於態度層面；歧視是透過行動或行為創造、維持或強化某些群體相較於其他群體的優勢。制度性的歧視可能在沒有個人惡意的情況下持續。", "t": "偏見與歧視"}, {"s": "團隊成員在會議中經常打斷某位同事發言、不採納其意見，但沒有任何明文的差別對待。這屬於歧視的哪一種形式？", "o": ["歧視性政策", "恐嚇", "不禮貌", "性騷擾"], "a": 2, "fb": "不禮貌指對特定群體成員失禮、打斷發言、不尊重其意見。這一類單次強度低但累積效果高，而且多半沒有書面紀錄，因此最難舉證。", "t": "歧視的形式"}, {"s": "依刻板印象威脅的研究，下列哪一項最能降低其效果？", "o": ["在評估時明確提醒成員所屬群體的優勢", "在互動與評估中把員工視為個體，而非強調群體差異", "提高測驗難度以排除干擾", "要求當事人隱藏可能被污名化的身份"], "a": 1, "fb": "刻板印象威脅指擔心被他人以某種刻板印象評判的程度，這種擔心會佔用認知資源而壓低表現。教科書指出的對抗方式是把員工視為個體，而不是強調群體差異。", "t": "刻板印象威脅"}, {"s": "處於不利位置的群體成員，有時反而會為自己經歷的不平等辯護。這個現象最符合下列哪一個理論？", "o": ["社會支配理論", "系統合理化理論", "接觸假說", "共同內團體認同模式"], "a": 1, "fb": "系統合理化理論指出，群體成員往往會接受、合理化、認可或為其經歷的不平等、偏見與歧視辯護。社會支配理論則強調階層制度中支配群體享有從屬群體無法獲得的特權。", "t": "理論觀點"}, {"s": "四人團隊由兩位資深男性工程師與兩位資淺女性行銷人員組成。依斷層線的概念，這個組合的風險在於：", "o": ["團隊多元程度太低，缺乏不同觀點", "性別、年資與職能三項屬性彼此對齊，容易把團隊切成兩個次團體", "成員人數為偶數，表決時容易僵持", "深層多元化過高，價值觀難以整合"], "a": 1, "fb": "斷層線是把團體分裂成兩個或更多次團體的感知分界線。關鍵不在團隊多不多元，而在多項屬性是否剛好重疊在同一條線上；屬性交錯分布時分界線不易成形。", "t": "斷層線"}, {"s": "關於霍夫斯泰德架構與 GLOBE 架構的關係，下列敘述何者正確？", "o": ["GLOBE 完全取代了霍夫斯泰德，兩者沒有重疊面向", "兩者都只有權力距離一個共同面向", "權力距離與規避不確定性兩個面向重疊，GLOBE 另把集體主義拆為制度與內團體兩種", "霍夫斯泰德的面向適用於個人層次，GLOBE 適用於國家層次"], "a": 2, "fb": "GLOBE 以 62 個社會為對象提出九個面向，其中權力距離與規避不確定性與霍夫斯泰德重疊，集體主義被拆為制度集體主義與內團體集體主義，另新增未來導向、性別平等、果斷性、人性導向與績效導向。兩套架構都是國家層級的描述。", "t": "跨文化架構"}, {"s": "多元、公平、包容三個詞常被並列，下列對應何者正確？", "o": ["多元指起點相同，公平指組織裡有誰，包容指進來之後的經驗", "多元指組織裡有誰，公平指起點是否相同，包容指進來之後的經驗", "三者意義相同，只是不同年代的用語", "公平要求所有人得到完全相同的資源，不因處境調整"], "a": 1, "fb": "多元回答的是組織裡有誰，公平回答的是起點是否相同並認知到特權與障礙的存在，包容回答的是進來之後是否感到受重視與真正融入。公平允許依處境調整支持，與齊頭式的平等不同。", "t": "DEI 三個詞"}, {"s": "依接觸假說的統合分析證據，下列敘述何者最準確？", "o": ["只要把不同背景的人放在同一個空間，偏見必然下降", "接觸與偏見下降有關，但在地位平等、有共同目標、需要合作並獲得制度支持時效果最明顯", "接觸會強化原有的群體分類，因此應避免", "接觸的效果僅見於實驗室，實地研究並未支持"], "a": 1, "fb": "統合分析支持接觸與偏見下降的關係，但接觸不是萬用解。效果在地位平等、具共同目標、需要合作且有制度支持的條件下最明顯；單純共處並不足夠。", "t": "接觸假說"}]</script>
+          <div class="ix-stmt"><span class="q"></span><span class="txt"></span></div>
+          <div class="ix-opts"></div>
+          <div class="ix-fb"></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／20</span></div>
+    </section>
+    <section class="slide rf-page">
+      <div class="meta-row"><span class="m">OB／CH 2</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">20</div>
+        <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
+        <div class="note">[ APA 7 ]<br>12 ITEMS</div>
+      </div>
+      <div class="rf">
+        <div class="rf-cols c2 dense">
+          <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
+            <p>Chao, G. T., &amp; Moon, H. (2005). The cultural mosaic: A metatheory for understanding the complexity of culture. <i>Journal of Applied Psychology, 90</i>(6), 1128–1140.</p>
+            <p>Crenshaw, K. (1991). Mapping the margins: Intersectionality, identity politics, and violence against women of color. <i>Stanford Law Review, 43</i>(6), 1241–1299.</p>
+            <p>Earley, P. C., &amp; Ang, S. (2003). <i>Cultural intelligence: Individual interactions across cultures</i>. Stanford University Press.</p>
+            <p>Gaertner, S. L., &amp; Dovidio, J. F. (2000). <i>Reducing intergroup bias: The common ingroup identity model</i>. Psychology Press.</p>
+            <p>Gelfand, M. J., Raver, J. L., Nishii, L., Leslie, L. M., Lun, J., Lim, B. C., … Yamaguchi, S. (2011). Differences between tight and loose cultures: A 33-nation study. <i>Science, 332</i>(6033), 1100–1104.</p>
+            <p>Hofstede, G., Hofstede, G. J., &amp; Minkov, M. (2010). <i>Cultures and organizations: Software of the mind</i> (3rd ed.). McGraw-Hill.</p>
+            <p>House, R. J., Hanges, P. J., Javidan, M., Dorfman, P. W., &amp; Gupta, V. (Eds.). (2004). <i>Culture, leadership, and organizations: The GLOBE study of 62 societies</i>. Sage.</p>
+            <p>Jost, J. T., &amp; Banaji, M. R. (1994). The role of stereotyping in system-justification and the production of false consciousness. <i>British Journal of Social Psychology, 33</i>(1), 1–27.</p>
+            <p>Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340.</p>
+            <p>Pettigrew, T. F., &amp; Tropp, L. R. (2006). A meta-analytic test of intergroup contact theory. <i>Journal of Personality and Social Psychology, 90</i>(5), 751–783.</p>
+            <p>Sidanius, J., &amp; Pratto, F. (1999). <i>Social dominance: An intergroup theory of social hierarchy and oppression</i>. Cambridge University Press.</p>
+            <p>Steele, C. M., &amp; Aronson, J. (1995). Stereotype threat and the intellectual test performance of African Americans. <i>Journal of Personality and Social Psychology, 69</i>(5), 797–811.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示。教科書見封面。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／20</span></div>
+    </section>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const stage = document.getElementById('stage');
+  const viewport = document.getElementById('viewport');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    viewport.scrollTop = 0;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let downX = 0, downY = 0;
+  stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('a, iframe, video, .video-cell, .ix')) return;
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString().length > 0) return;
+    const r = stage.getBoundingClientRect();
+    (e.clientX - r.left) / r.width < 0.3 ? show(i - 1) : show(i + 1);
+  });
+  function fit() {
+    const flow = innerWidth < 980 || (innerWidth / innerHeight) < 1.3;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = 'none'; return; }
+    const s = Math.min(innerWidth / 1330, innerHeight / 770);
+    stage.style.transform = 'scale(' + Math.min(s, 1.4) + ')';
+  }
+  addEventListener('resize', fit);
+  fit();
+  show(0);
+</script>
+
+<script>
+/* 卡片標題水平對齊：同一列的 h3 起始位置一致，整組內容仍維持垂直置中 */
+(function () {
+  var SEL = '.grid2,.grid3,.grid4,.grid3r,.grid5,.grid6,.grid8';
+  function alignIn(scope) {
+    scope.querySelectorAll(SEL).forEach(function (g) {
+      var cells = Array.prototype.filter.call(g.children, function (c) {
+        return c.classList && c.classList.contains('cell');
+      });
+      if (cells.length < 2) return;
+      var blocks = [];
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        var h3 = c.querySelector(':scope > h3');
+        if (!h3) return;
+        var kids = Array.prototype.filter.call(c.children, function (el) {
+          return !el.classList.contains('corner');
+        });
+        var last = kids[kids.length - 1];
+        if (!last) return;
+        blocks.push({ c: c, h3: h3, last: last });
+      }
+      blocks.forEach(function (b) { b.h3.style.marginTop = '0px'; });
+      var data = blocks.map(function (b) {
+        var cr = b.c.getBoundingClientRect();
+        var sc = b.c.offsetWidth ? cr.width / b.c.offsetWidth : 1;
+        if (!(sc > 0.05)) sc = 1;
+        var top = b.h3.getBoundingClientRect().top;
+        var bot = b.last.getBoundingClientRect().bottom;
+        var padB = parseFloat(getComputedStyle(b.c).paddingBottom) || 0;
+        return { h3: b.h3, h: bot - top, avail: cr.bottom - padB * sc - top, sc: sc };
+      });
+      var bad = data.some(function (d) { return !(d.h > 0) || !(d.avail > 0); });
+      if (bad) { blocks.forEach(function (b) { b.h3.style.marginTop = ''; }); return; }
+      var maxH = Math.max.apply(null, data.map(function (d) { return d.h; }));
+      var minAvail = Math.min.apply(null, data.map(function (d) { return d.avail; }));
+      var off = Math.max(0, (minAvail - maxH) / 2);
+      data.forEach(function (d) { d.h3.style.marginTop = (off / d.sc).toFixed(1) + 'px'; });
+    });
+  }
+  function run() {
+    if (document.body.classList.contains('flow')) { alignIn(document); return; }
+    var a = document.querySelector('section.slide.active');
+    alignIn(a || document);
+  }
+  var t;
+  function later() { clearTimeout(t); t = setTimeout(run, 60); }
+  addEventListener('resize', later);
+  addEventListener('load', run);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  /* 同步在換頁的同一幀完成量測，避免看到文字位移 */
+  var mo = new MutationObserver(function (recs) {
+    for (var i = 0; i < recs.length; i++) {
+      var el = recs[i].target;
+      if (el.classList && el.classList.contains('active')) { alignIn(el); }
+    }
+  });
+  document.querySelectorAll('section.slide').forEach(function (s) {
+    mo.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+  run();
+  setTimeout(run, 300);
+})();
+</script>
+<script>
+/* 中文標籤斷行保護：短標籤在窄欄位換行時，避免最後一行只剩一個字 */
+(function () {
+  var SEL = 'h3,.zh,.lab,.k>span,th,.cap,.tl';
+  var CJK = /^[\u3000-\u303F\u4E00-\u9FFF\uFF00-\uFFEF（）·、，。／]+$/;
+  function fix(root) {
+    root.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.noOrphan) return;
+      if (el.children.length) return;
+      var t = (el.textContent || '').trim();
+      if (t.length < 3 || t.length > 14) return;
+      if (!CJK.test(t)) return;
+      el.dataset.noOrphan = '1';
+      el.textContent = t.slice(0, -2);
+      var s = document.createElement('span');
+      s.style.whiteSpace = 'nowrap';
+      s.textContent = t.slice(-2);
+      el.appendChild(s);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { fix(document); });
+  } else { fix(document); }
+})();
+</script>
+
+<script>
+/* ── 點圖放大（FIGZOOM v2）── */
+(function () {
+  var SEL = '.fig-body img, .fig-body svg, .figimg img, .mini-fig svg, .fig-wrap img, .fig-wrap svg';
+  var ov = null;
+
+  function close() {
+    if (!ov || ov.__closing) return;
+    var el = ov;
+    el.__closing = true;
+    el.classList.add('closing');
+    try { var _cur = document.fullscreenElement || document.webkitFullscreenElement;
+    if (_cur && _cur !== document.documentElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
+    } } catch (e) {}
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (ov === el) ov = null;
+    }, 160);
+  }
+
+
+  /* 放大時把 viewBox 收到實際內容，去掉圖檔本身的空白邊 */
+  function tighten(svg) {
+    try {
+      var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+      if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+      var total = vb[2] * vb[3];
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, n = 0;
+      Array.prototype.forEach.call(svg.children, function (el) {
+        var b; try { b = el.getBBox(); } catch (e) { return; }
+        if (!b || b.width <= 0 || b.height <= 0) return;
+        if (b.width * b.height >= total * 0.97) return;   /* 跳過整張底色 */
+        if (b.x < minX) minX = b.x;
+        if (b.y < minY) minY = b.y;
+        if (b.x + b.width > maxX) maxX = b.x + b.width;
+        if (b.y + b.height > maxY) maxY = b.y + b.height;
+        n++;
+      });
+      if (!n || !isFinite(minX)) return;
+      var w = maxX - minX, h = maxY - minY;
+      if (w <= 0 || h <= 0) return;
+      var m = Math.max(w, h) * 0.02;
+      svg.setAttribute('viewBox', (minX - m) + ' ' + (minY - m) + ' ' + (w + 2 * m) + ' ' + (h + 2 * m));
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    } catch (e) {}
+  }
+
+  function open(el) {
+    if (ov) return;
+    ov = document.createElement('div');
+    ov.className = 'figzoom';
+    var c = el.cloneNode(true);
+    c.removeAttribute('style');
+    c.removeAttribute('class');
+    ov.appendChild(c);
+    var tip = document.createElement('span');
+    tip.className = 'figzoom-tip';
+    tip.textContent = '點一下或按 ESC 關閉';
+    ov.appendChild(tip);
+    document.body.appendChild(ov);
+    if (c.tagName && c.tagName.toLowerCase() === 'svg') tighten(c);
+    ov.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    try {
+      var fn = ov.requestFullscreen || ov.webkitRequestFullscreen;
+      if (fn) { var p = fn.call(ov); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    if (ov) { e.stopPropagation(); e.preventDefault(); close(); return; }
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var fig = t.closest(SEL);
+    if (!fig) return;
+    e.stopPropagation(); e.preventDefault();
+    open(fig);
+  }, true);
+
+  document.addEventListener('keydown', function (e) {
+    if (!ov) return;
+    e.stopPropagation();
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+  }, true);
+
+  document.addEventListener('fullscreenchange', function () {
+    if (ov && !document.fullscreenElement) close();
+  });
+})();
+</script>
+
+<script>
+/* PDFBTN v1：列印成 PDF。列印前先解除窄螢幕的流式模式，列印後還原 */
+(function () {
+  if (document.querySelector('.pdfbtn')) return;
+  var flowWas = false;
+  function before() { flowWas = document.body.classList.contains('flow'); document.body.classList.remove('flow'); }
+  function after() { if (flowWas) document.body.classList.add('flow'); }
+  window.addEventListener('beforeprint', before);
+  window.addEventListener('afterprint', after);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'pdfbtn';
+  b.innerHTML = '<span class="ar">\u2193</span><span>PDF</span>';
+  b.title = '下載為 PDF：在列印視窗把目的地選成另存為 PDF';
+  b.setAttribute('aria-label', '下載為 PDF');
+  b.addEventListener('click', function (e) { e.stopPropagation(); before(); window.print(); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'p') before();
+  });
+  document.body.appendChild(b);
+
+  /* 位置：優先放進舞台上方的留白帶，其次右側留白帶；兩邊都不夠時貼回右上角，
+     並把頁首的右內距讓出按鈕的寬度，避免蓋住 REV 與圖說。 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    /* 媒體查詢把按鈕藏起來時不需要讓位，否則頁首會被推到換行 */
+    if (!b.offsetWidth) { document.body.classList.remove('pdfbtn-inset'); return; }
+    var bw = b.offsetWidth || 70, bh = b.offsetHeight || 30, gap = 10;
+    /* 流式模式沒有縮放，舞台寬度不是 1280，不能拿來推算比例 */
+    var scale = document.body.classList.contains('flow') ? 1 : (r.width / 1280 || 1);
+    b.style.left = 'auto';
+    if (r.top >= bh + gap * 2) {
+      b.style.top = Math.round(r.top - bh - gap) + 'px';
+      b.style.right = Math.round(Math.max(0, innerWidth - r.right)) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else if (innerWidth - r.right >= bw + gap * 2) {
+      b.style.top = Math.round(r.top + gap) + 'px';
+      b.style.right = Math.round((innerWidth - r.right - bw) / 2) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else {
+      b.style.top = '14px'; b.style.right = '14px';
+      var over = Math.max(0, r.right - (innerWidth - 14 - bw)) + gap;
+      document.documentElement.style.setProperty('--pdfbtn-inset', Math.min(140, Math.round(over / scale)) + 'px');
+      document.body.classList.add('pdfbtn-inset');
+    }
+  }
+  /* 只在第一頁顯示。沒有舞台結構的流式頁面（互動版）一律顯示。 */
+  var firstSlide = document.querySelector('#stage .slide');
+  function onFirst() { return !firstSlide || firstSlide.classList.contains('active'); }
+  function sync() {
+    if (onFirst()) { b.style.display = ''; place(); }
+    else { b.style.display = 'none'; }
+  }
+  if (firstSlide) new MutationObserver(sync).observe(firstSlide, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 60); setTimeout(sync, 400);
+  var _before = before;
+  before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
+  window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+<script>
+/* IX：課堂互動頁（分類練習、判斷題、預測揭曉、自我檢核）── 2026-09 */
+(function () {
+  const $ = (el, q) => el.querySelector(q);
+  const $$ = (el, q) => Array.from(el.querySelectorAll(q));
+  /* 分類練習 */
+  function initSort(root) {
+    const pool = $(root, '.ix-pool'), chips = $$(root, '.ix-chip'), buckets = $$(root, '.ix-bucket');
+    const doneEl = $(root, '.done'), missEl = $(root, '.miss'), sort = $(root, '.ix-sort');
+    let sel = null, done = 0, miss = 0;
+    const home = chips.map(c => c.nextSibling);
+    function refresh() { doneEl.textContent = done; missEl.textContent = miss; sort.classList.toggle('finished', done === chips.length); }
+    chips.forEach(c => c.addEventListener('click', () => {
+      if (c.classList.contains('done')) return;
+      if (sel) sel.classList.remove('sel');
+      sel = (sel === c) ? null : c; if (sel) sel.classList.add('sel');
+    }));
+    buckets.forEach(b => b.addEventListener('click', (e) => {
+      if (!sel) return;
+      b.classList.remove('hit', 'miss'); void b.offsetWidth;
+      if (b.dataset.key === sel.dataset.key) {
+        sel.classList.remove('sel'); sel.classList.add('done'); $(b, '.drop').appendChild(sel); sel = null; done++; b.classList.add('hit');
+      } else { miss++; b.classList.add('miss'); }
+      refresh();
+    }));
+    $(root, '.reset').addEventListener('click', () => {
+      chips.forEach((c, k) => { c.classList.remove('done', 'sel'); pool.appendChild(c); });
+      sel = null; done = 0; miss = 0; refresh();
+    });
+  }
+  /* 一次一題：判斷題與自我檢核 */
+  function initQuiz(root) {
+    const card = $(root, '.ix-card'), items = JSON.parse($(card, 'script').textContent);
+    const labels = (card.dataset.labels || '').split('|').filter(Boolean), cols = card.dataset.cols || '2';
+    const stmt = $(card, '.ix-stmt'), txt = $(stmt, '.txt'), qlab = $(stmt, '.q'), opts = $(card, '.ix-opts'), fb = $(card, '.ix-fb');
+    const cur = $(root, '.cur'), score = $(root, '.score'), prevB = $(root, '.prev'), nextB = $(root, '.next');
+    const prefix = qlab.textContent.split('／')[0];
+    const picks = new Array(items.length).fill(null);
+    let n = 0, finalEl = null;
+    $(root, '.tot').textContent = items.length;
+    function count() { return picks.filter((p, k) => p !== null && p === items[k].a).length; }
+    function render() {
+      if (finalEl) { finalEl.remove(); finalEl = null; stmt.hidden = false; opts.hidden = false; fb.hidden = false; }
+      const it = items[n], choices = it.o || labels;
+      qlab.textContent = prefix + '／' + String(n + 1).padStart(2, '0');
+      txt.textContent = it.s; opts.innerHTML = ''; opts.className = 'ix-opts c' + cols;
+      choices.forEach((c, k) => {
+        const b = document.createElement('button'); b.className = 'ix-opt';
+        b.innerHTML = '<span class="k">' + String.fromCharCode(65 + k) + '</span><span>' + c + '</span>';
+        b.addEventListener('click', () => { if (picks[n] !== null) return; picks[n] = k; paint(); });
+        opts.appendChild(b);
+      });
+      paint();
+    }
+    function paint() {
+      const it = items[n], p = picks[n], bs = $$(opts, '.ix-opt');
+      card.classList.toggle('answered', p !== null);
+      bs.forEach((b, k) => { b.classList.toggle('right', p !== null && k === it.a); b.classList.toggle('wrong', p !== null && k === p && k !== it.a); });
+      const verdict = it.o ? '' : '<b>判定：' + labels[it.a] + '</b>　';
+      fb.innerHTML = p === null ? '' : verdict + it.fb + '<span class="topic">相關主題：' + it.t + '</span>';
+      cur.textContent = n + 1; score.textContent = count();
+      prevB.disabled = n === 0; nextB.disabled = p === null;
+      nextB.textContent = (n === items.length - 1) ? (card.dataset.final ? '看成績' : '下一題') : '下一題';
+    }
+    function finish() {
+      stmt.hidden = true; opts.hidden = true; fb.hidden = true;
+      finalEl = document.createElement('div'); finalEl.className = 'ix-done';
+      const c = count(), tot = items.length;
+      const msg = c === tot ? '十題全部答對。' : '答錯的題目各附相關主題，對應本章該節的內容。';
+      finalEl.innerHTML = '<div class="big">' + c + '／' + tot + '</div><p>' + msg + '</p>';
+      card.appendChild(finalEl); nextB.disabled = true;
+    }
+    prevB.addEventListener('click', () => { if (n > 0) { n--; render(); } });
+    nextB.addEventListener('click', () => { if (n < items.length - 1) { n++; render(); } else if (card.dataset.final) finish(); });
+    $(root, '.reset').addEventListener('click', () => { picks.fill(null); n = 0; render(); });
+    render();
+  }
+  /* 預測再揭曉 */
+  function initPred(root) {
+    const pred = $(root, '.ix-pred'), rows = $$(root, '.ix-row');
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', () => {
+      if (pred.classList.contains('revealed')) return;
+      if (r.dataset.multi) b.classList.toggle('pick');
+      else { $$(r, '.ix-opt').forEach(x => x.classList.remove('pick')); b.classList.add('pick'); }
+    })));
+    const revealBtn = $(root, '.reveal'), tally = $(root, '.ix-tally');
+    function sync() {
+      const done = rows.filter(r => $$(r, '.ix-opt').some(b => b.classList.contains('pick'))).length;
+      const all = done === rows.length;
+      if (!pred.classList.contains('revealed')) revealBtn.disabled = !all;
+      revealBtn.title = all ? '' : '四列都選好之後才能看答案';
+      if (tally) tally.textContent = done + '／' + rows.length;
+      root.classList.toggle('ix-ready', all);
+    }
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', sync)));
+    $(root, '.reveal').addEventListener('click', () => {
+      if (revealBtn.disabled) return;
+      $$(root, '.ix-opt').forEach(b => b.classList.toggle('truth', b.dataset.truth === '1'));
+      pred.classList.add('revealed');
+    });
+    $(root, '.reset').addEventListener('click', () => {
+      pred.classList.remove('revealed'); $$(root, '.ix-opt').forEach(b => b.classList.remove('pick', 'truth'));
+      sync();
+    });
+    sync();
+  }
+  document.querySelectorAll('.ix').forEach(root => {
+    const t = root.dataset.ix;
+    if (t === 'sort') initSort(root); else if (t === 'quiz') initQuiz(root); else if (t === 'pred') initPred(root);
+  });
+})();
+</script>
+
+<script>
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
+   做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
+   縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
+(function () {
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
+  var stage = document.getElementById('stage');
+  var vp = document.getElementById('viewport');
+  if (!stage || !vp) return;
+
+  /* Safari 的下方工具列會蓋住畫面，clientHeight 量不到這一段，改以 visualViewport 為準 */
+  function visH() {
+    var a = vp.clientHeight;
+    var b = (window.visualViewport && window.visualViewport.height) || a;
+    return Math.max(320, Math.min(a, b));
+  }
+
+  function clear() {
+    stage.style.zoom = '';
+    var a = document.querySelector('.slide.active');
+    if (a) a.style.minHeight = '';
+  }
+
+  function fitOne() {
+    if (!document.body.classList.contains('flow')) { clear(); return; }
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), si = 0, k = STEPS[0];
+    /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
+      stage.style.zoom = k === 1 ? '' : String(k);
+      slide.style.minHeight = '0px';
+      var natural = stage.getBoundingClientRect().height;
+      if (natural <= H + 0.5) break;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
+    }
+    stage.style.zoom = k === 1 ? '' : String(k);
+    slide.style.minHeight = '0px';
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動。
+       量的時候要先解除舞台自己的 min-height，否則內容短的頁面會把舞台撐滿一屏的高度
+       誤算成框線，min-height 被扣到只剩一半，翻頁列因此停在畫面中間。 */
+    stage.style.minHeight = '0px';
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+    vp.scrollTop = 0;
+  }
+
+  /* 互動頁答題後版面會變高，這時只縮不放，避免作答途中字忽大忽小 */
+  var tid = 0;
+  function tighten() {
+    if (!document.body.classList.contains('flow')) return;
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = +(stage.style.zoom || 1);
+    slide.style.minHeight = '0px';
+    var h = stage.getBoundingClientRect().height;
+    if (h > H + 0.5 && k > MIN) {
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
+    }
+    stage.style.minHeight = '0px';
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.ix')) return;
+    clearTimeout(tid); tid = setTimeout(tighten, 120);
+  }, true);
+
+  var base = window.show;
+  if (typeof base === 'function') {
+    window.show = function (n) { base(n); fitOne(); };
+  }
+  addEventListener('resize', function () { setTimeout(fitOne, 60); });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { clearTimeout(tid); tid = setTimeout(fitOne, 150); });
+  }
+  addEventListener('orientationchange', function () { setTimeout(fitOne, 220); });
+  setTimeout(fitOne, 0);
+})();
+</script>
+<script>
+/* ── 手機翻頁：頁尾的上一頁與下一頁，加上左右滑動 ──
+   互動頁點內容不翻頁，桌機靠方向鍵，手機需要固定的入口 */
+(function () {
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var vp = document.getElementById('viewport');
+  if (!slides.length || !vp || typeof window.show !== 'function') return;
+
+  function cur() {
+    for (var k = 0; k < slides.length; k++) if (slides[k].classList.contains('active')) return k;
+    return 0;
+  }
+  function mk(cls, txt) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgbtn ' + cls; b.textContent = txt;
+    return b;
+  }
+  slides.forEach(function (s) {
+    var f = s.querySelector('.footer-row');
+    if (!f) return;
+    var p = mk('prev', '\u2039 上一頁'), n = mk('next', '下一頁 \u203A');
+    f.insertBefore(p, f.firstChild);
+    f.appendChild(n);
+    p.addEventListener('click', function (e) { e.stopPropagation(); show(cur() - 1); });
+    n.addEventListener('click', function (e) { e.stopPropagation(); show(cur() + 1); });
+  });
+
+  function sync() {
+    var k = cur();
+    slides.forEach(function (s) {
+      var p = s.querySelector('.pgbtn.prev'), n = s.querySelector('.pgbtn.next');
+      if (p) p.disabled = k === 0;
+      if (n) n.disabled = k === slides.length - 1;
+    });
+  }
+  var base = window.show;
+  window.show = function (n) { base(n); sync(); };
+  sync();
+
+  /* 左右滑動翻頁。垂直為主的動作留給捲動，長按後的移動不算 */
+  var x0 = 0, y0 = 0, t0 = 0, track = false;
+  vp.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { track = false; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); track = true;
+  }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (!track) return;
+    track = false;
+    if (Date.now() - t0 > 600) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    show(cur() + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
+</script>
+
+<script>
+/* FSBTN v2：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。
+   鈕在右下角，只有圖示、每一頁都在，平時半透明，滑過才變深。鍵盤 F 也可切換。 */
+(function () {
+  if (document.querySelector('.fsbtn')) return;
+  var root = document.documentElement;
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  var IN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+
+  function isFs() {
+    var el = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!el && el === root;
+  }
+  function enter() {
+    var fn = root.requestFullscreen || root.webkitRequestFullscreen;
+    try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function exit() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function toggle() { isFs() ? exit() : enter(); }
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fsbtn';
+  b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+  function label() {
+    if (isFs()) { b.innerHTML = OUT; b.title = '離開全螢幕，也可以按 Esc 或 F'; b.setAttribute('aria-label', '離開全螢幕'); }
+    else { b.innerHTML = IN; b.title = '全螢幕播放，按 Esc 或 F 離開'; b.setAttribute('aria-label', '全螢幕'); }
+  }
+  label();
+  document.body.appendChild(b);
+
+  /* 位置：舞台下方若有留白帶就放進去，右緣對齊舞台；不夠就貼回視窗右下角 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    var s = b.offsetHeight || 30, gap = 10;
+    if (innerHeight - r.bottom >= s + gap * 2) {
+      b.style.bottom = Math.round(Math.max(gap, (innerHeight - r.bottom - s) / 2)) + 'px';
+      b.style.right = Math.round(Math.max(gap, innerWidth - r.right)) + 'px';
+    } else {
+      b.style.bottom = '14px';
+      b.style.right = '14px';
+    }
+  }
+  function sync() { label(); place(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('input, select, textarea, [contenteditable="true"]')) return;
+    if (t && /^(INPUT|TEXTAREA|SELECT|VIDEO)$/.test(t.tagName)) return;
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggle(); }
+  });
+  document.addEventListener('fullscreenchange', function () { setTimeout(sync, 60); });
+  document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 80); setTimeout(sync, 420);
+})();
+</script>
+
+<script>
+/* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
+   CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
+   長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
+   之間插入 word joiner（U+2060，零寬、不顯示），讓它們不能被拆開，一起落到末行。
+   用字元而不是包 span，是因為孤兒字常常跨越行內元素的邊界，例如句號後面接一個 <span>。
+   末行變長、倒數第二行變短，總行數不變，所以不影響縮放與版面高度。 */
+(function () {
+  var MIN = 3;                 /* 末行至少要有幾個實字 */
+  var MAXGROUP = 6;            /* 一次最多綁幾個字，綁太多會把整句話拖下來 */
+  var WJ = '⁠';
+  var SKIP = 'svg, .pagenum, .meta-row, .footer-row, code, pre, .fsbtn, .pdfbtn, .ix-bar .ctl';
+  var PUNCT = /[\s⁠。，、；：？！（）「」『』〈〉《》【】\[\]\.,;:?!()"'—–…\-]/;
+
+  function clear(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    var hit = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf(WJ) >= 0) hit.push(n);
+    for (var i = 0; i < hit.length; i++) hit[i].nodeValue = hit[i].nodeValue.split(WJ).join('');
+  }
+
+  /* 由尾端往前取字元與它們的行位置，最多看 16 個 */
+  function tail(el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, nodes = [];
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.trim()) nodes.push(n);
+    if (!nodes.length) return null;
+    var r = document.createRange(), seq = [];
+    for (var i = nodes.length - 1; i >= 0 && seq.length < 16; i--) {
+      var s = nodes[i].nodeValue;
+      for (var j = s.length - 1; j >= 0 && seq.length < 16; j--) {
+        if (/[\s⁠]/.test(s[j])) continue;
+        try { r.setStart(nodes[i], j); r.setEnd(nodes[i], j + 1); } catch (e) { continue; }
+        var q = r.getClientRects()[0];
+        if (!q || !q.height) continue;
+        seq.push({ node: nodes[i], idx: j, top: Math.round(q.top), ch: s[j] });
+      }
+    }
+    return seq.length ? seq : null;
+  }
+
+  /* 不列舉版型的 class，而是掃出所有自己排成一個文字區塊的元素。
+     行內元素只是整段文字的片段，它自己的末行不等於段落的末行，因此排除。 */
+  function candidates(root) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null), el;
+    while ((el = w.nextNode())) {
+      if (el.closest(SKIP)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.display === 'inline') continue;
+      var has = false, c;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        c = el.childNodes[i];
+        if (c.nodeType === 3 && c.nodeValue.trim()) { has = true; break; }
+      }
+      if (!has && el.children.length && (el.textContent || '').trim()) {
+        has = true;
+        for (var j = 0; j < el.children.length; j++)
+          if (getComputedStyle(el.children[j]).display !== 'inline') { has = false; break; }
+      }
+      if (has) out.push(el);
+    }
+    return out;
+  }
+
+  function fix(el) {
+    /* 字距拉開的等寬標籤：插入的接合字元會吃到一個字距而露出明顯的空隙，
+       這類元素本來就是短標籤，跳過不處理 */
+    var ls = parseFloat(getComputedStyle(el).letterSpacing);
+    if (ls && ls >= 0.5) return;
+    var seq = tail(el);
+    if (!seq || seq.length < 3) return;
+    var lastTop = seq[0].top, onLast = 0, differs = false;
+    for (var i = 0; i < seq.length; i++) {
+      if (Math.abs(seq[i].top - lastTop) <= 3) onLast++;
+      else { differs = true; break; }
+    }
+    if (!differs) return;                     /* 只有一行，沒有孤兒字問題 */
+    var core = 0;
+    for (var k = 0; k < onLast; k++) if (!PUNCT.test(seq[k].ch)) core++;
+    if (core >= MIN) return;
+    var need = Math.min(MAXGROUP, seq.length, onLast + (MIN - core));
+    if (need < 2) return;
+    var before = el.scrollWidth;
+    var done = [];
+    /* 由最後一個字往前，在相鄰兩字之間插入 word joiner。索引由大而小，不會互相位移 */
+    for (var m = 0; m < need - 1; m++) {
+      var g = seq[m], v = g.node.nodeValue;
+      g.node.nodeValue = v.slice(0, g.idx) + WJ + v.slice(g.idx);
+      done.push(g.node);
+    }
+    /* 綁起來之後若撐破欄寬，還原這個元素 */
+    if (el.scrollWidth > Math.max(before, el.clientWidth) + 2) clear(el);
+  }
+
+  var tid = 0;
+  function run() {
+    var sl = document.querySelector('.slide.active') || document.body;
+    clear(sl);
+    var list = candidates(sl);
+    for (var i = 0; i < list.length; i++) fix(list[i]);
+  }
+  function later() { clearTimeout(tid); tid = setTimeout(run, 60); }
+
+  var base = window.show;
+  if (typeof base === 'function') window.show = function (n) { base(n); later(); };
+  addEventListener('resize', later);
+  addEventListener('load', later);
+  if (window.visualViewport) visualViewport.addEventListener('resize', later);
+  document.addEventListener('fullscreenchange', later);
+  document.addEventListener('click', function (e) { if (e.target.closest('.ix')) later(); }, true);
+  window.addEventListener('beforeprint', run);
+  setTimeout(run, 120); setTimeout(run, 500);
+})();
+</script>
+
+<script>
+/* ── REVDATE v1：頁首的 REV 改成這份檔案的更新日期 ──
+   document.lastModified 讀的是伺服器回的 Last-Modified，GitHub Pages 會給真正的
+   部署時間；本機開啟時則是檔案自己的修改時間。兩種情況都是「這份內容的版本」，
+   不是列印當天的日期。取不到有效日期就不動，保留原本寫死的 REV。 */
+(function () {
+  var d = new Date(document.lastModified);
+  if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+  function p(n) { return (n < 10 ? '0' : '') + n; }
+  var txt = 'REV ' + d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+  var RE = /REV\s+\d{4}\.\d{2}(?:\.\d{2})?/;
+  function stamp() {
+    /* 各檔的 REV 標記寫法不同：有的在頁首的 .m、有的是 .rev、有的在頁尾的一段文字裡。
+       因此不指定 class，改成掃出所有沒有子元素、且文字符合 REV 年.月 的節點就地替換。 */
+    var list = document.querySelectorAll('.meta-row *, .footer-row *, footer *, .rev, .cover-meta *, .data-cell *');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (el.children.length) continue;
+      var t = el.textContent;
+      if (!RE.test(t)) continue;
+      el.textContent = t.replace(RE, txt);
+    }
+  }
+  stamp();
+  window.addEventListener('beforeprint', stamp);
+})();
+</script>
+</body>
+</html>
