@@ -240,6 +240,10 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .rf-cols.airy .rf-grp { margin-bottom: 18px; }
     .rf-cols.airy .rf-grp h3 { margin-bottom: 9px; }
     .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
+    /* 只有一個分類時，條目跨欄均分、標題橫跨整列，右半邊才不會空著 */
+    .rf-cols.one .rf-grp { break-inside: auto; margin-bottom: 0; }
+    .rf-cols.one .rf-grp h3 { column-span: all; font-size: 11.5px; margin-bottom: 12px; }
+    .rf-cols.one .rf-grp p { font-size: 15px; line-height: 1.74; margin-bottom: 12px; }
     .rf-grp p i { font-style: italic; }
     .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
     .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
@@ -2034,7 +2038,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="note">[ APA 7 ]<br>7 ITEMS</div>
       </div>
       <div class="rf">
-        <div class="rf-cols c2">
+        <div class="rf-cols c2 one">
           <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
             <p>Akaliyski, P., Vignoles, V. L., Welzel, C., &amp; Minkov, M. (2026). Individualism–collectivism: Reconstructing Hofstede&#39;s dimension of cultural differences. <i>Journal of Personality and Social Psychology, 130</i>(2), 308–356. https://doi.org/10.1037/pspp0000580</p>
             <p>Damian, R. I., Spengler, M., Sutu, A., &amp; Roberts, B. W. (2019). Sixteen going on sixty-six: A longitudinal study of personality stability and change across 50 years. <i>Journal of Personality and Social Psychology, 117</i>(3), 674–695. https://doi.org/10.1037/pspp0000210</p>
