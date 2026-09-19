@@ -474,14 +474,14 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
     { n: 1, date: '2026-09-13', title: '課程簡介與什麼是組織行為',
       items: [
         { unit: '大綱', label: '課程大綱 PDF', href: 'docs/2026Fall_OB_Taipei_syllabus.pdf' },
-        { unit: 'CH 1', label: '什麼是組織行為', href: 'lectures/OB-01_intro.html' },
-        { unit: '文獻', label: '組織公民行為的多元目標對象', href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODg0NzQwMzI0MDMx/details' }],
+        { unit: 'CH 1', label: '什麼是組織行為', href: 'lectures/OB-01_intro.html' }],
       todo: '分組與自我介紹' },
 
-    { n: 2, date: '2026-09-20', title: '組織內的多樣化、態度與滿足感',
+    { n: 2, date: '2026-09-20', title: '組織內的多元化、態度與滿足感',
       items: [
         { unit: 'CH 2', label: '組織內的多元化', href: 'lectures/OB-11_diversity.html' },
-        { unit: 'CH 3', label: '態度與工作滿足感', href: 'lectures/OB-02_attitudes.html' }] },
+        { unit: 'CH 3', label: '態度與工作滿足感', href: 'lectures/OB-02_attitudes.html' },
+        { unit: '文獻', label: '組織公民行為的多元目標對象', href: 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0/m/ODg0NzQwMzI0MDMx/details' }] },
 
     { n: 3, date: '2026-10-18', title: '情緒與心情、人格與價值觀',
       items: [
@@ -648,7 +648,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
       }
       if (s.items.length) {
         var pills = el('div', 'pills');
-        s.items.forEach(function (it, k) { pills.appendChild(pill(it, s.unlocked, idx === curIdx && k === 0)); });
+        s.items.forEach(function (it) { pills.appendChild(pill(it, s.unlocked, idx === curIdx)); });
         box.appendChild(pills);
       }
       if (idx === curIdx && s.unlocked && s.items.some(function (x) {
