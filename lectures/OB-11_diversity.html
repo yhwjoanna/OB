@@ -77,8 +77,8 @@
   .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
   .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
   .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
-  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4em; line-height: 1.05; letter-spacing: 0.01em; }
-  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.55em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4.4em; line-height: 1.02; letter-spacing: -0.032em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.4em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
   .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
   .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
   .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
@@ -89,16 +89,19 @@
 
   /* 標題列 */
   .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
-  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; letter-spacing: -0.03em; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
   .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: 0.01em; line-height: 1.15; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: -0.018em; line-height: 1.13; }
   .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
   .title-row .note {
     border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
     max-width: 300px; line-height: 1.7;
   }
-  .def-band { padding: 13px 28px; border-bottom: 1px solid var(--ink); font-size: 17px; font-weight: 700; line-height: 1.65; }
+  .def-band {
+    border-bottom: 1px solid var(--ink); padding: 12px 28px;
+    font-size: 15.5px; font-weight: 700; line-height: 1.72; flex: none;
+  }
 
   /* 格線 */
   .grid2, .grid3, .grid4, .grid6 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
@@ -111,21 +114,24 @@
   .grid6 .cell p { font-size: 15px; line-height: 1.62; }
   .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
   .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
-  .cell h3 { font-weight: 900; font-size: 1.55em; letter-spacing: 0.01em; }
+  .cell h3 { font-weight: 900; font-size: 1.4em; letter-spacing: -0.006em; }
   .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
-  .cell p { font-size: 16.5px; line-height: 1.7; }
+  .cell p { font-size: 14.5px; line-height: 1.65; }
   .cell ul, .cell ol { margin-left: 1.15em; }
-  .cell li { font-size: 16px; line-height: 1.68; margin-bottom: 7px; }
+  .cell li { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; }
   .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
   .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
   .cell .quote { font-size: 15px; color: var(--gray); }
-  .keyline { border-top: 2px solid var(--ink); padding: 13px 28px; font-size: 15px; font-weight: 700; text-align: center; }
+  .keyline {
+    border-top: 2px solid var(--ink); padding: 13px 28px;
+    font-size: 15px; font-weight: 700; text-align: center;
+  }
   .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
 
   /* 提問頁 */
   .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
   .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
-  .q-text { font-weight: 900; font-size: 2.9em; line-height: 1.35; letter-spacing: 0.01em; max-width: 1040px; }
+  .q-text { font-weight: 900; font-size: 3.1em; line-height: 1.22; letter-spacing: -0.026em; max-width: 1020px; }
   .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
   .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
   .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
@@ -139,9 +145,9 @@
   .axis-list.ax6 .axis-row .k .zh { font-size: 1.18em; }
   .axis-row:last-child { border-bottom: none; }
   .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
-  .axis-row .k .zh { font-weight: 900; font-size: 1.28em; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.2em; }
   .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
-  .axis-row .v { padding: 13px 24px; font-size: 16.5px; line-height: 1.7; display: flex; align-items: center; }
+  .axis-row .v { padding: 12px 24px; font-size: 16px; line-height: 1.62; display: flex; align-items: center; }
 
   /* 圖片頁 */
   .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
@@ -190,8 +196,8 @@
   body.flow .cover-main { grid-template-columns: 1fr; }
   body.flow .cover-left { padding: 32px 30px 28px; }
   body.flow .cover-code { font-size: 5.2em; }
-  body.flow .cover-title { font-size: 2.6em; }
-  body.flow .cover-en { font-size: 1.1em; }
+  body.flow .cover-title { font-size: 2.8em; }
+  body.flow .cover-en { font-size: 1.28em; }
   body.flow .cover-agenda { margin-top: 28px; }
   body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
   body.flow .title-row { grid-template-columns: 120px 1fr; }
@@ -200,12 +206,12 @@
   body.flow .title-row .t h2 { font-size: 1.5em; }
   body.flow .grid2, body.flow .grid3, body.flow .grid4, body.flow .grid6 { grid-template-columns: 1fr; grid-template-rows: none; }
   body.flow .cell { padding: 22px 26px; overflow: visible; }
-  body.flow .axis-row { grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink); }
+  body.flow .axis-row { grid-template-columns: 122px 1fr; }
   body.flow .fig-body { min-height: 240px; }
   body.flow .fig-body img { max-height: 70vh; }
   body.flow .scale-cols { grid-template-columns: 1fr; }
   body.flow .quote-main { padding: 60px 30px; }
-  body.flow .q-text { font-size: 1.9em; }
+  body.flow .q-text { font-size: 2em; }
 
 .fig-body svg{width:100%;height:100%;display:block}
 body.flow .fig-body svg{height:auto;max-height:520px}
@@ -346,6 +352,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .ix-pred.revealed .ix-row .res::after { content: none; }
     body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
 
+  body.flow .axis-row .k .ax { font-size: 11px !important; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+  body.flow .axis-row .k .zh { font-size: 14.5px !important; }
 </style>
 <style>
   /* 內容垂直置中：留白均分於上下 */
@@ -573,7 +581,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="cover-en">Diversity, Equity, and Inclusion in Organizations</div>
           <div class="cover-agenda">
             <span class="lbl">[ AGENDA ]</span>
-            <div class="items">表層與深層多元化 ── 偏見與歧視 ── 社會分類與刻板印象 ── 系統合理化與社會支配 ── 交織性與文化馬賽克 ── 斷層線 ── 霍夫斯泰德與 GLOBE ── 文化嚴鬆度與外派 ── 多元公平包容 ── 管理實務與挑戰</div>
+            <div class="items">表層與深層多元化 ── 偏見與歧視 ── 社會分類與刻板印象 ── 系統合理化與社會支配 ── 交織性與文化馬賽克 ── 斷層線 ── Hofstede 與 GLOBE ── 文化嚴鬆度與外派 ── 多元公平包容 ── 管理實務與挑戰</div>
           </div>
         </div>
         <div class="cover-right">
@@ -583,7 +591,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -596,7 +604,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="t"><h2>多元化的兩個層次</h2><span class="en">SURFACE-LEVEL AND DEEP-LEVEL DIVERSITY</span></div>
         <div class="note">[ 2 LAYERS ]<br>SURFACE ／ DEEP</div>
       </div>
-      <div class="def-band">多元化指組織成員之間的差異。教科書把這些差異分成兩層：一層看得見，一層要相處一段時間才會浮現。兩層的管理難度與後果並不相同。</div>
+      <div class="def-band">多元化指組織成員之間的差異，可分成兩層：一層看得見，一層要相處一段時間才會浮現。兩層的管理難度與後果並不相同。</div>
       <div class="grid2">
         <div class="cell">
           <span class="corner">+</span><span class="tag">[ 01／SURFACE ]</span>
@@ -610,11 +618,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <h3>深層多元化</h3>
           <span class="en-term">DEEP-LEVEL DIVERSITY</span>
           <p>人格、價值觀、感受與想法等要相處才會顯現的特徵。隨著成員彼此了解加深，人口變項造成的差異會逐漸退位。</p>
-          <p>教科書的觀察是，時間拉長之後，真正影響共事品質的是深層差異。表層差異的效果會被相處經驗稀釋。</p>
+          <p>時間拉長之後，影響共事品質的主要是深層差異；表層差異的效果會隨相處經驗遞減。</p>
         </div>
       </div>
       <div class="keyline">表層差異<span class="r">一眼可見</span>，深層差異<span class="r">要相處才浮現</span>，兩者的管理時機不同</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -625,7 +633,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="title-row">
         <div class="idx">03</div>
         <div class="t"><h2>人口變項與性別相關議題</h2><span class="en">BIOGRAPHICAL CHARACTERISTICS</span></div>
-        <div class="note">[ 4 ISSUES ]<br>BLS 2019 DATA</div>
+        <div class="note">[ 4 ISSUES ]<br>TW ＋ OECD</div>
       </div>
       <div class="grid4">
         <div class="cell">
@@ -645,15 +653,17 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <h3>玻璃懸崖</h3>
           <span class="en-term">GLASS CLIFF</span>
           <p>女性較常在組織陷入危機時被推上領導位置。任務本身成功率低，失敗之後的歸因卻落在個人身上。</p>
+          <p>Ryan 與 Haslam 分析英國 FTSE 100 公司，發現任命女性進入董事會的公司，先前五個月的股價表現多半持續不佳。</p>
         </div>
         <div class="cell">
           <span class="corner">+</span><span class="tag">[ 04／PAY GAP ]</span>
           <h3>性別薪資落差</h3>
           <span class="en-term">GENDER PAY GAP</span>
-          <p>差距長期縮小但尚未消失。美國勞工統計局的全職工作者週薪中位數比較，是常被引用的一組指標。</p>
+          <p>我國 114 年女性平均時薪 340 元，為男性 405 元的 83.9%，差距 16.1%，較 100 年的 17.9% 縮小。</p>
+          <p>OECD 以全時工作者薪資中位數計算，2024 年會員國平均差距 10.1%，南韓 29.0% 最高。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -684,7 +694,25 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">偏見是<span class="r">態度</span>、歧視是<span class="r">行為</span>；差別影響與差別待遇的分界在於<span class="r">是否出於故意</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／23</span></div>
+    </section>
+    <section class="slide ix-page">
+      <div class="meta-row"><span class="m">OB／CH 2</span><span class="m g">SEC 2 ── PRACTICE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">05</div>
+        <div class="t"><h2>偏見與歧視的課堂練習</h2><span class="en">PRACTICE ── 5 QUESTIONS</span></div>
+        <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
+      </div>
+      <div class="ix" data-ix="quiz">
+        <div class="ix-bar"><span>每題單選；點選答案後顯示解說，五題答完顯示成績。</span><div class="ctl"><span class="ix-count">第 <span class="cur">1</span>／<span class="tot">5</span> 題 ── 答對 <span class="score">0</span></span><button class="ix-btn prev">上一題</button><button class="ix-btn next">下一題</button><button class="ix-btn reset">重新開始</button></div></div>
+        <div class="ix-card" data-cols="2" data-final="1">
+          <script type="application/json">[{"s": "某主管私下認為某個年齡層的員工學習新系統較慢，但在指派專案與考核時並未依此差別對待。依本節的區分，這個情況屬於：", "o": ["歧視，因為想法已經形成", "偏見，屬於態度層面，尚未出現具體作為", "差別待遇，因為主管有主觀意圖", "差別影響，因為想法可能影響結果"], "a": 1, "fb": "偏見是對某個群體的廣泛籠統感受，屬於態度；歧視是透過行動或行為創造、維持或強化群體間的優勢。只有想法而未表現為作為時，屬於偏見。態度難以直接規範，行為才有明確的認定標準與責任歸屬。", "t": "偏見與歧視的分界"}, {"s": "同一份履歷改用不同姓名送出，收到面試邀請的比例出現差異，而負責篩選的主管都表示自己沒有任何族群偏好。這個現象最適合用哪個概念說明？", "o": ["差別待遇，因為主管刻意篩選", "隱性偏見，偏見可能隱藏在意識之外，仍影響判斷", "玻璃天花板，因為障礙不寫在制度上", "刻板印象威脅，因為應徵者擔心被評判"], "a": 1, "fb": "隱性偏見指可能隱藏在意識之外的偏見，持有者未必察覺，卻仍會影響判斷與決策。玻璃天花板指的是晉升至高層的障礙，刻板印象威脅發生在被評價者身上，兩者描述的都不是本題的機制。", "t": "隱性偏見"}, {"s": "公司在招募說明中要求某個職務只錄取特定性別，理由是客戶偏好。這屬於：", "o": ["差別影響，因為作法本身中立", "差別待遇，刻意針對受保護群體採取帶有歧視性影響的作法", "隱性偏見，因為決策者未察覺", "不構成歧視，因為有營運上的理由"], "a": 1, "fb": "差別待遇是刻意針對受法律保護的群體採取帶有歧視性影響的作法。客戶偏好不改變這項作法本身就以性別為條件的事實。", "t": "差別待遇與差別影響"}, {"s": "公司規定所有職缺須具備連續五年不中斷的年資，條文未提及性別，實際上使曾因育嬰離開職場者大量被排除。這屬於：", "o": ["差別待遇", "差別影響", "隱性偏見", "恐嚇"], "a": 1, "fb": "差別影響指雇傭作法對受法律保護的群體產生歧視性影響，不以故意為要件。判斷重點在作法的實際效果，而不是制定者的意圖。", "t": "差別待遇與差別影響"}, {"s": "把偏見與歧視分開看待，在管理上的主要作用是：", "o": ["確認偏見比歧視嚴重", "態度與行為的處理方式不同，行為有明確的認定標準與責任歸屬，態度需要其他途徑處理", "讓組織可以不處理態度層面的問題", "讓歧視的舉證責任移轉到當事人身上"], "a": 1, "fb": "偏見是態度，歧視是行為，兩者在管理與法律上的處理方式不同。行為有明確的認定標準與責任歸屬；態度難以直接規範，需要透過制度設計與接觸條件等方式間接處理。", "t": "偏見與歧視的分界"}]</script>
+          <div class="ix-stmt"><span class="q">題目／01</span><span class="txt"></span></div>
+          <div class="ix-opts"></div>
+          <div class="ix-fb"></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -693,7 +721,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">05</div>
+        <div class="idx">06</div>
         <div class="t"><h2>歧視在職場的六種形式</h2><span class="en">FORMS OF DISCRIMINATION</span></div>
         <div class="note">[ 6 FORMS ]<br>EXHIBIT 2-1</div>
       </div>
@@ -719,12 +747,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="v">把特定成員排除在資訊、會議、非正式網絡與升遷機會之外。多數屬於不作為，因此最難舉證。</div>
         </div>
         <div class="axis-row">
-          <div class="k"><span class="zh">不禮貌</span><span class="ax">INCIVILITY</span></div>
+          <div class="k"><span class="zh">職場無禮</span><span class="ax">INCIVILITY</span></div>
           <div class="v">對特定群體成員失禮、打斷發言、不尊重其意見。單次強度低，累積效果高。</div>
         </div>
       </div>
       <div class="keyline">前三種多半<span class="r">明顯而可訴</span>，後三種<span class="r">隱蔽而難舉證</span>，後者在職場中更常見</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -733,7 +761,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">06</div>
+        <div class="idx">07</div>
         <div class="t"><h2>社會分類與內外團體</h2><span class="en">SOCIAL CATEGORIZATION</span></div>
         <div class="note">[ THEORY 1 ]<br>IN-GROUP ／ OUT-GROUP</div>
       </div>
@@ -753,7 +781,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">分類降低了<span class="r">認知負擔</span>，代價是把個體<span class="r">化約成群體</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -762,7 +790,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">07</div>
+        <div class="idx">08</div>
         <div class="t"><h2>刻板印象、刻板印象威脅與污名化</h2><span class="en">STEREOTYPES ＆ STEREOTYPE THREAT</span></div>
         <div class="note">[ THEORY 2 ]<br>STEELE ＆ ARONSON</div>
       </div>
@@ -788,7 +816,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Steele, C. M., &amp; Aronson, J. (1995). Stereotype threat and the intellectual test performance of African Americans. <i>Journal of Personality and Social Psychology, 69</i>(5), 797–811.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -797,7 +825,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">08</div>
+        <div class="idx">09</div>
         <div class="t"><h2>系統合理化理論與社會支配理論</h2><span class="en">SYSTEM JUSTIFICATION ＆ SOCIAL DOMINANCE</span></div>
         <div class="note">[ THEORY 3 ]<br>2 PERSPECTIVES</div>
       </div>
@@ -818,7 +846,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Jost, J. T., &amp; Banaji, M. R. (1994). The role of stereotyping in system-justification and the production of false consciousness. <i>British Journal of Social Psychology, 33</i>(1), 1–27.　·　Sidanius, J., &amp; Pratto, F. (1999). <i>Social dominance</i>. Cambridge University Press.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -827,7 +855,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">09</div>
+        <div class="idx">10</div>
         <div class="t"><h2>交織性與文化馬賽克</h2><span class="en">INTERSECTIONALITY ＆ CULTURAL MOSAIC</span></div>
         <div class="note">[ THEORY 4 ]<br>CRENSHAW ／ CHAO ＆ MOON</div>
       </div>
@@ -848,7 +876,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Crenshaw, K. (1991). Mapping the margins: Intersectionality, identity politics, and violence against women of color. <i>Stanford Law Review, 43</i>(6), 1241–1299.　·　Chao, G. T., &amp; Moon, H. (2005). The cultural mosaic: A metatheory for understanding the complexity of culture. <i>Journal of Applied Psychology, 90</i>(6), 1128–1140.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -857,7 +885,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">10</div>
+        <div class="idx">11</div>
         <div class="t"><h2>團體組成與斷層線</h2><span class="en">GROUP COMPOSITION ＆ FAULTLINES</span></div>
         <div class="note">[ FAULTLINES ]<br>LAU ＆ MURNIGHAN</div>
       </div>
@@ -879,7 +907,86 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／23</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 4 ── DIVERSITY DYNAMICS</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">12</div>
+        <div class="t"><h2>斷層線的形成條件</h2><span class="en">WHEN FAULTLINES FORM</span></div>
+        <div class="note">[ SCHEMATIC ]<br>4-PERSON TEAM</div>
+      </div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／DV-01 同樣四人、同樣三項屬性，分界線強弱取決於屬性是否對齊</span></div>
+        <div class="fig-body" style="padding: 14px;">
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 362" font-family="Noto Sans TC, PingFang TC, sans-serif">
+<rect x="0" y="0" width="1300" height="362" fill="#F4F4F0"/>
+<text x="324" y="34" text-anchor="middle" font-size="20" font-weight="900" fill="#0A0A0A">屬性對齊：強斷層線</text>
+<text x="324" y="58" text-anchor="middle" font-size="13" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">ALIGNED ATTRIBUTES</text>
+<rect x="24" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="24" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="94" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 A</text>
+<text x="94" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">男性</text>
+<text x="94" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資深</text>
+<text x="94" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">工程</text>
+<rect x="177" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="177" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="248" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 B</text>
+<text x="248" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">男性</text>
+<text x="248" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資深</text>
+<text x="248" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">工程</text>
+<rect x="330" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="330" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="400" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 C</text>
+<text x="400" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">女性</text>
+<text x="400" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資淺</text>
+<text x="400" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">行銷</text>
+<rect x="483" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="483" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="554" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 D</text>
+<text x="554" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">女性</text>
+<text x="554" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資淺</text>
+<text x="554" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">行銷</text>
+<line x1="324" y1="64" x2="324" y2="306" stroke="#E61919" stroke-width="4" stroke-dasharray="10 7"/>
+<text x="324" y="330" text-anchor="middle" font-size="14.5" font-weight="700" fill="#E61919">三項屬性切在同一條線上</text>
+<line x1="650" y1="18" x2="650" y2="350" stroke="#D8D8D2" stroke-width="2"/>
+<text x="976" y="34" text-anchor="middle" font-size="20" font-weight="900" fill="#0A0A0A">屬性交錯：弱斷層線</text>
+<text x="976" y="58" text-anchor="middle" font-size="13" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">CROSSCUT ATTRIBUTES</text>
+<rect x="676" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="676" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="746" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 E</text>
+<text x="746" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">男性</text>
+<text x="746" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資深</text>
+<text x="746" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">行銷</text>
+<rect x="829" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="829" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="900" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 F</text>
+<text x="900" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">女性</text>
+<text x="900" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資深</text>
+<text x="900" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">工程</text>
+<rect x="982" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="982" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="1052" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 G</text>
+<text x="1052" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">男性</text>
+<text x="1052" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資淺</text>
+<text x="1052" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">工程</text>
+<rect x="1135" y="78" width="141" height="214" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="1135" y="78" width="141" height="34" fill="#0A0A0A"/>
+<text x="1206" y="101" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F0">成員 H</text>
+<text x="1206" y="150" text-anchor="middle" font-size="16.5" fill="#0A0A0A">女性</text>
+<text x="1206" y="198" text-anchor="middle" font-size="16.5" fill="#0A0A0A">資淺</text>
+<text x="1206" y="246" text-anchor="middle" font-size="16.5" fill="#0A0A0A">行銷</text>
+<text x="976" y="330" text-anchor="middle" font-size="14.5" font-weight="700" fill="#666666">三項屬性各自切出不同的兩群</text>
+</svg>
+        </div>
+      </div>
+      <div class="keyline">團體是否多元<span class="r">不是重點</span>，屬性是否<span class="r">重疊在同一條線上</span>才決定次團體會不會成形</div>
+      <div class="src">示意圖依 Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340 的斷層線概念重繪，非原文圖版。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -888,8 +995,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">11</div>
-        <div class="t"><h2>霍夫斯泰德的六個文化面向</h2><span class="en">HOFSTEDE FRAMEWORK</span></div>
+        <div class="idx">13</div>
+        <div class="t"><h2>Hofstede 的六個文化面向</h2><span class="en">HOFSTEDE FRAMEWORK</span></div>
         <div class="note">[ 6 DIMENSIONS ]<br>HOFSTEDE</div>
       </div>
       <div class="grid6">
@@ -931,7 +1038,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">面向是<span class="r">國家層級</span>的平均，用來判斷個人會出現<span class="r">生態謬誤</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -940,15 +1047,123 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">12</div>
-        <div class="t"><h2>GLOBE 架構與霍夫斯泰德的關係</h2><span class="en">THE GLOBE FRAMEWORK</span></div>
+        <div class="idx">14</div>
+        <div class="t"><h2>四個社會的面向分數</h2><span class="en">COUNTRY SCORES ── US ／ TW ／ CN ／ JP</span></div>
+        <div class="note">[ 6 DIMENSIONS ]<br>4 SOCIETIES</div>
+      </div>
+      <div class="fig-wrap">
+        <div class="fig-head"><span>FIG／DV-02 Hofstede 六面向的國家分數比較</span></div>
+        <div class="fig-body" style="padding: 12px;">
+          <svg style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 408" font-family="Noto Sans TC, PingFang TC, sans-serif">
+<rect x="0" y="0" width="1300" height="408" fill="#F4F4F0"/>
+<line x1="96" y1="340.0" x2="1284" y2="340.0" stroke="#D8D8D2" stroke-width="1"/>
+<text x="84" y="345.0" text-anchor="end" font-size="13.5" fill="#666666" font-family="JetBrains Mono, monospace">0</text>
+<line x1="96" y1="271.5" x2="1284" y2="271.5" stroke="#D8D8D2" stroke-width="1"/>
+<text x="84" y="276.5" text-anchor="end" font-size="13.5" fill="#666666" font-family="JetBrains Mono, monospace">25</text>
+<line x1="96" y1="203.0" x2="1284" y2="203.0" stroke="#D8D8D2" stroke-width="1"/>
+<text x="84" y="208.0" text-anchor="end" font-size="13.5" fill="#666666" font-family="JetBrains Mono, monospace">50</text>
+<line x1="96" y1="134.5" x2="1284" y2="134.5" stroke="#D8D8D2" stroke-width="1"/>
+<text x="84" y="139.5" text-anchor="end" font-size="13.5" fill="#666666" font-family="JetBrains Mono, monospace">75</text>
+<line x1="96" y1="66.0" x2="1284" y2="66.0" stroke="#D8D8D2" stroke-width="1"/>
+<text x="84" y="71.0" text-anchor="end" font-size="13.5" fill="#666666" font-family="JetBrains Mono, monospace">100</text>
+<line x1="96" y1="340" x2="1284" y2="340" stroke="#0A0A0A" stroke-width="2"/>
+<rect x="113.8" y="230.4" width="37.6" height="109.6" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="132.6" y="223.4" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">40</text>
+<rect x="156.4" y="181.1" width="37.6" height="158.9" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="175.2" y="174.1" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">58</text>
+<rect x="199.0" y="120.8" width="37.6" height="219.2" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="217.8" y="113.8" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">80</text>
+<rect x="241.5" y="192.0" width="37.6" height="148.0" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="260.3" y="185.0" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">54</text>
+<text x="195.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">權力距離</text>
+<text x="195.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">PDI</text>
+<rect x="311.8" y="175.6" width="37.6" height="164.4" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="330.6" y="168.6" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">60</text>
+<rect x="354.4" y="230.4" width="37.6" height="109.6" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="373.2" y="223.4" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">40</text>
+<rect x="397.0" y="222.2" width="37.6" height="117.8" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="415.8" y="215.2" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">43</text>
+<rect x="439.5" y="170.1" width="37.6" height="169.9" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="458.3" y="163.1" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">62</text>
+<text x="393.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">個人主義</text>
+<text x="393.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">IDV</text>
+<line x1="294.0" y1="54" x2="294.0" y2="340" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="509.8" y="170.1" width="37.6" height="169.9" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="528.6" y="163.1" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">62</text>
+<rect x="552.4" y="216.7" width="37.6" height="123.3" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="571.2" y="209.7" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">45</text>
+<rect x="595.0" y="159.2" width="37.6" height="180.8" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="613.8" y="152.2" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">66</text>
+<rect x="637.5" y="79.7" width="37.6" height="260.3" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="656.3" y="72.7" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">95</text>
+<text x="591.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">成就取向</text>
+<text x="591.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">MAS</text>
+<line x1="492.0" y1="54" x2="492.0" y2="340" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="707.8" y="214.0" width="37.6" height="126.0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="726.6" y="207.0" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">46</text>
+<rect x="750.4" y="150.9" width="37.6" height="189.1" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="769.2" y="143.9" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">69</text>
+<rect x="793.0" y="257.8" width="37.6" height="82.2" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="811.8" y="250.8" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">30</text>
+<rect x="835.5" y="87.9" width="37.6" height="252.1" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="854.3" y="80.9" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">92</text>
+<text x="789.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">規避不確定性</text>
+<text x="789.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">UAI</text>
+<line x1="690.0" y1="54" x2="690.0" y2="340" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="905.8" y="203.0" width="37.6" height="137.0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="924.6" y="196.0" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">50</text>
+<rect x="948.4" y="101.6" width="37.6" height="238.4" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="967.2" y="94.6" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">87</text>
+<rect x="991.0" y="129.0" width="37.6" height="211.0" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1009.8" y="122.0" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">77</text>
+<rect x="1033.5" y="66.0" width="37.6" height="274.0" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1052.3" y="59.0" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">100</text>
+<text x="987.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">長期導向</text>
+<text x="987.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">LTO</text>
+<line x1="888.0" y1="54" x2="888.0" y2="340" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="1103.8" y="153.7" width="37.6" height="186.3" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1122.6" y="146.7" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">68</text>
+<rect x="1146.4" y="205.7" width="37.6" height="134.3" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1165.2" y="198.7" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">49</text>
+<rect x="1189.0" y="274.2" width="37.6" height="65.8" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1207.8" y="267.2" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">24</text>
+<rect x="1231.5" y="224.9" width="37.6" height="115.1" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="1250.3" y="217.9" text-anchor="middle" font-size="13" font-weight="700" fill="#0A0A0A">42</text>
+<text x="1185.0" y="366" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0A0A0A">放任</text>
+<text x="1185.0" y="386" text-anchor="middle" font-size="12" fill="#666666" font-family="JetBrains Mono, monospace" letter-spacing="2">IVR</text>
+<line x1="1086.0" y1="54" x2="1086.0" y2="340" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="96" y="18" width="20" height="14" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1"/>
+<text x="124" y="30" font-size="15.5" fill="#0A0A0A">美國</text>
+<rect x="214" y="18" width="20" height="14" fill="#E61919" stroke="#0A0A0A" stroke-width="1"/>
+<text x="242" y="30" font-size="15.5" fill="#0A0A0A">台灣</text>
+<rect x="332" y="18" width="20" height="14" fill="#8E8E86" stroke="#0A0A0A" stroke-width="1"/>
+<text x="360" y="30" font-size="15.5" fill="#0A0A0A">中國</text>
+<rect x="450" y="18" width="20" height="14" fill="#C2C2B8" stroke="#0A0A0A" stroke-width="1"/>
+<text x="478" y="30" font-size="15.5" fill="#0A0A0A">日本</text>
+<text x="1284" y="30" text-anchor="end" font-size="13" fill="#666666">分數為國家層級指標，範圍 0 至 100</text>
+</svg>
+        </div>
+      </div>
+      <div class="keyline">台灣的<span class="r">長期導向偏高</span>、個人主義在四者中最低；日本的成就取向與規避不確定性最高；中國權力距離最高；美國<span class="r">放任最高</span>、長期導向最低</div>
+      <div class="src">資料取自 The Culture Factor Group（原 Hofstede Insights）國家比較工具，2026 年 9 月取得：https://www.theculturefactor.com/country-comparison-tool　該網站的分數隨新發表的研究更新，與教科書引用的早期版本不完全相同；第三個面向在該網站已更名為 motivation towards achievement and success，教科書仍稱 masculinity／femininity。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／23</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／CH 2</span>
+        <span class="m g">SEC 5 ── CROSS-CULTURAL OB</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">15</div>
+        <div class="t"><h2>GLOBE 架構與 Hofstede 的關係</h2><span class="en">THE GLOBE FRAMEWORK</span></div>
         <div class="note">[ 9 DIMENSIONS ]<br>62 SOCIETIES</div>
       </div>
-      <div class="def-band">GLOBE 研究以 62 個社會為對象，提出九個文化面向。其中權力距離與規避不確定性與霍夫斯泰德重疊，其餘七個是新增或拆分而來，兩套架構互補而非互斥。</div>
+      <div class="def-band">GLOBE 研究以 62 個社會為對象，提出九個文化面向。其中權力距離與規避不確定性與 Hofstede 重疊，其餘七個是新增或拆分而來，兩套架構互補而非互斥。</div>
       <div class="grid3">
         <div class="cell">
           <span class="corner">+</span><span class="tag">[ 01／OVERLAP ]</span>
-          <h3>與霍夫斯泰德重疊</h3>
+          <h3>與 Hofstede 重疊</h3>
           <span class="en-term">SHARED DIMENSIONS</span>
           <p>權力距離、規避不確定性。兩套架構在這兩個面向上的定義大致相同。</p>
         </div>
@@ -962,11 +1177,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <span class="corner">+</span><span class="tag">[ 03／ADDED ]</span>
           <h3>新增的面向</h3>
           <span class="en-term">ADDED DIMENSIONS</span>
-          <p>未來導向、性別平等、果斷性、人性導向、績效導向。其中性別平等與人性導向是霍夫斯泰德架構中沒有單獨處理的。</p>
+          <p>未來導向、性別平等、果斷性、人性導向、績效導向。其中性別平等與人性導向是 Hofstede 架構中沒有單獨處理的。</p>
         </div>
       </div>
       <div class="cite">House, R. J., Hanges, P. J., Javidan, M., Dorfman, P. W., &amp; Gupta, V. (Eds.). (2004). <i>Culture, leadership, and organizations: The GLOBE study of 62 societies</i>. Sage.　·　Hofstede, G., Hofstede, G. J., &amp; Minkov, M. (2010). <i>Cultures and organizations: Software of the mind</i> (3rd ed.). McGraw-Hill.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -975,7 +1190,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">13</div>
+        <div class="idx">16</div>
         <div class="t"><h2>文化嚴鬆度、宗教與外派調適</h2><span class="en">TIGHTNESS, RELIGION ＆ EXPATRIATE ADJUSTMENT</span></div>
         <div class="note">[ 3 TOPICS ]<br>GELFAND 2011</div>
       </div>
@@ -1003,7 +1218,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Gelfand, M. J., et al. (2011). Differences between tight and loose cultures: A 33-nation study. <i>Science, 332</i>(6033), 1100–1104.　·　Earley, P. C., &amp; Ang, S. (2003). <i>Cultural intelligence</i>. Stanford University Press.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -1012,7 +1227,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">14</div>
+        <div class="idx">17</div>
         <div class="t"><h2>多元、公平、包容三個詞的區別</h2><span class="en">DIVERSITY, EQUITY ＆ INCLUSION</span></div>
         <div class="note">[ DEI ]<br>3 DISTINCT TERMS</div>
       </div>
@@ -1041,7 +1256,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">多元是<span class="r">有誰</span>，公平是<span class="r">起點</span>，包容是<span class="r">進來之後</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -1050,7 +1265,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">15</div>
+        <div class="idx">18</div>
         <div class="t"><h2>共同內團體認同與接觸假說</h2><span class="en">COMMON IN-GROUP IDENTITY ＆ CONTACT HYPOTHESIS</span></div>
         <div class="note">[ 2 MECHANISMS ]<br>PETTIGREW ＆ TROPP</div>
       </div>
@@ -1071,7 +1286,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="cite">Gaertner, S. L., &amp; Dovidio, J. F. (2000). <i>Reducing intergroup bias: The common ingroup identity model</i>. Psychology Press.　·　Pettigrew, T. F., &amp; Tropp, L. R. (2006). A meta-analytic test of intergroup contact theory. <i>Journal of Personality and Social Psychology, 90</i>(5), 751–783.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -1080,7 +1295,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">16</div>
+        <div class="idx">19</div>
         <div class="t"><h2>多元化管理的實務作法</h2><span class="en">DIVERSITY MANAGEMENT PRACTICES</span></div>
         <div class="note">[ 4 LEVERS ]<br>PRACTICE</div>
       </div>
@@ -1112,7 +1327,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>支持所有成員的團隊身份並開放參與決策以促進歸屬感，鼓勵多元貢獻，並透過展示期望與溝通政策促進公平。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -1121,7 +1336,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">17</div>
+        <div class="idx">20</div>
         <div class="t"><h2>多元化管理的四個挑戰</h2><span class="en">CHALLENGES IN MANAGING DIVERSITY</span></div>
         <div class="note">[ 4 CHALLENGES ]<br>LIMITS</div>
       </div>
@@ -1152,7 +1367,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">效果不會<span class="r">立即出現</span>，障礙有些<span class="r">可避免</span>、有些<span class="r">無法避免</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／23</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -1161,7 +1376,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">18</div>
+        <div class="idx">21</div>
         <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
         <div class="note">[ 6 POINTS ]<br>SUMMARY</div>
       </div>
@@ -1176,7 +1391,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="axis-row">
           <div class="k"><span class="zh">根除歧視作法</span><span class="ax">DISCRIMINATION</span></div>
-          <div class="v">明顯與隱晦的違法歧視都要處理。隱蔽形式如排擠與不禮貌雖難舉證，累積效果卻不小。</div>
+          <div class="v">明顯與隱晦的違法歧視都要處理。隱蔽形式如排擠與職場無禮雖難舉證，累積效果卻不小。</div>
         </div>
         <div class="axis-row">
           <div class="k"><span class="zh">超越人口變項</span><span class="ax">BEYOND DEMOGRAPHICS</span></div>
@@ -1191,30 +1406,30 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="v">在評估、建立團隊與解決衝突時，把斷層線與次團體的可能影響納入考慮。</div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／23</span></div>
     </section>
     <section class="slide ix-page">
       <div class="meta-row"><span class="m">OB／CH 2</span><span class="m g">SEC 8 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">19</div>
+        <div class="idx">22</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
         <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
       </div>
       <div class="ix" data-ix="quiz">
         <div class="ix-bar"><span>每題單選；點選答案後顯示解說，十題答完顯示成績。</span><div class="ctl"><span class="ix-count">第 <span class="cur">1</span>／<span class="tot">10</span> 題 ── 答對 <span class="score">0</span></span><button class="ix-btn prev">上一題</button><button class="ix-btn next">下一題</button><button class="ix-btn reset">重新開始</button></div></div>
         <div class="ix-card" data-cols="2" data-final="1">
-          <script type="application/json">[{"s": "同事相處一段時間之後，愈來愈少以年齡或性別看待彼此，而更在意對方的價值觀與想法。這個轉變最適合用下列哪個概念描述？", "o": ["表層多元化的效果隨時間增強", "深層多元化逐漸取代表層多元化成為主要的差異來源", "人口變項不再是受法律保護的類別", "刻板印象威脅在熟識之後自動消失"], "a": 1, "fb": "表層多元化是年齡、種族、性別等可觀察特徵，深層多元化是人格、價值觀、感受與想法。教科書指出，隨著相互了解加深，人們愈不在意人口變項造成的差異。", "t": "多元化的兩個層次"}, {"s": "某公司的體能測驗標準對所有應徵者一致，但實際上使女性通過率明顯偏低，公司並無排除女性的意圖。這最接近下列哪一種情形？", "o": ["差別待遇，因為結果對特定群體不利", "差別影響，作法看似中立卻對受保護群體產生歧視性影響", "隱性偏見，因為決策者未察覺自己的偏好", "玻璃懸崖，因為女性被放在較不利的位置"], "a": 1, "fb": "差別影響指雇傭作法對受法律保護的群體產生歧視性影響，不以故意為要件；差別待遇則是刻意針對該群體採取帶有歧視性影響的作法。兩者的分界在於是否出於故意。", "t": "偏見與歧視"}, {"s": "關於偏見與歧視的關係，下列敘述何者正確？", "o": ["偏見是行為，歧視是態度", "兩者都是態度，差別只在強度", "偏見是態度，歧視是透過行動或行為創造或強化群體間的優勢", "沒有偏見的人不可能做出歧視行為"], "a": 2, "fb": "偏見是對某個群體的廣泛籠統感受，屬於態度層面；歧視是透過行動或行為創造、維持或強化某些群體相較於其他群體的優勢。制度性的歧視可能在沒有個人惡意的情況下持續。", "t": "偏見與歧視"}, {"s": "團隊成員在會議中經常打斷某位同事發言、不採納其意見，但沒有任何明文的差別對待。這屬於歧視的哪一種形式？", "o": ["歧視性政策", "恐嚇", "不禮貌", "性騷擾"], "a": 2, "fb": "不禮貌指對特定群體成員失禮、打斷發言、不尊重其意見。這一類單次強度低但累積效果高，而且多半沒有書面紀錄，因此最難舉證。", "t": "歧視的形式"}, {"s": "依刻板印象威脅的研究，下列哪一項最能降低其效果？", "o": ["在評估時明確提醒成員所屬群體的優勢", "在互動與評估中把員工視為個體，而非強調群體差異", "提高測驗難度以排除干擾", "要求當事人隱藏可能被污名化的身份"], "a": 1, "fb": "刻板印象威脅指擔心被他人以某種刻板印象評判的程度，這種擔心會佔用認知資源而壓低表現。教科書指出的對抗方式是把員工視為個體，而不是強調群體差異。", "t": "刻板印象威脅"}, {"s": "處於不利位置的群體成員，有時反而會為自己經歷的不平等辯護。這個現象最符合下列哪一個理論？", "o": ["社會支配理論", "系統合理化理論", "接觸假說", "共同內團體認同模式"], "a": 1, "fb": "系統合理化理論指出，群體成員往往會接受、合理化、認可或為其經歷的不平等、偏見與歧視辯護。社會支配理論則強調階層制度中支配群體享有從屬群體無法獲得的特權。", "t": "理論觀點"}, {"s": "四人團隊由兩位資深男性工程師與兩位資淺女性行銷人員組成。依斷層線的概念，這個組合的風險在於：", "o": ["團隊多元程度太低，缺乏不同觀點", "性別、年資與職能三項屬性彼此對齊，容易把團隊切成兩個次團體", "成員人數為偶數，表決時容易僵持", "深層多元化過高，價值觀難以整合"], "a": 1, "fb": "斷層線是把團體分裂成兩個或更多次團體的感知分界線。關鍵不在團隊多不多元，而在多項屬性是否剛好重疊在同一條線上；屬性交錯分布時分界線不易成形。", "t": "斷層線"}, {"s": "關於霍夫斯泰德架構與 GLOBE 架構的關係，下列敘述何者正確？", "o": ["GLOBE 完全取代了霍夫斯泰德，兩者沒有重疊面向", "兩者都只有權力距離一個共同面向", "權力距離與規避不確定性兩個面向重疊，GLOBE 另把集體主義拆為制度與內團體兩種", "霍夫斯泰德的面向適用於個人層次，GLOBE 適用於國家層次"], "a": 2, "fb": "GLOBE 以 62 個社會為對象提出九個面向，其中權力距離與規避不確定性與霍夫斯泰德重疊，集體主義被拆為制度集體主義與內團體集體主義，另新增未來導向、性別平等、果斷性、人性導向與績效導向。兩套架構都是國家層級的描述。", "t": "跨文化架構"}, {"s": "多元、公平、包容三個詞常被並列，下列對應何者正確？", "o": ["多元指起點相同，公平指組織裡有誰，包容指進來之後的經驗", "多元指組織裡有誰，公平指起點是否相同，包容指進來之後的經驗", "三者意義相同，只是不同年代的用語", "公平要求所有人得到完全相同的資源，不因處境調整"], "a": 1, "fb": "多元回答的是組織裡有誰，公平回答的是起點是否相同並認知到特權與障礙的存在，包容回答的是進來之後是否感到受重視與真正融入。公平允許依處境調整支持，與齊頭式的平等不同。", "t": "DEI 三個詞"}, {"s": "依接觸假說的統合分析證據，下列敘述何者最準確？", "o": ["只要把不同背景的人放在同一個空間，偏見必然下降", "接觸與偏見下降有關，但在地位平等、有共同目標、需要合作並獲得制度支持時效果最明顯", "接觸會強化原有的群體分類，因此應避免", "接觸的效果僅見於實驗室，實地研究並未支持"], "a": 1, "fb": "統合分析支持接觸與偏見下降的關係，但接觸不是萬用解。效果在地位平等、具共同目標、需要合作且有制度支持的條件下最明顯；單純共處並不足夠。", "t": "接觸假說"}]</script>
-          <div class="ix-stmt"><span class="q"></span><span class="txt"></span></div>
+          <script type="application/json">[{"s": "同事相處一段時間之後，愈來愈少以年齡或性別看待彼此，而更在意對方的價值觀與想法。這個轉變最適合用下列哪個概念描述？", "o": ["表層多元化的效果隨時間增強", "深層多元化逐漸取代表層多元化成為主要的差異來源", "人口變項不再是受法律保護的類別", "刻板印象威脅在熟識之後自動消失"], "a": 1, "fb": "表層多元化是年齡、種族、性別等可觀察特徵，深層多元化是人格、價值觀、感受與想法。隨著相互了解加深，人口變項造成的差異逐漸退居次要。", "t": "多元化的兩個層次"}, {"s": "某公司的體能測驗標準對所有應徵者一致，但實際上使女性通過率明顯偏低，公司並無排除女性的意圖。這最接近下列哪一種情形？", "o": ["差別待遇，因為結果對特定群體不利", "差別影響，作法看似中立卻對受保護群體產生歧視性影響", "隱性偏見，因為決策者未察覺自己的偏好", "玻璃懸崖，因為女性被放在較不利的位置"], "a": 1, "fb": "差別影響指雇傭作法對受法律保護的群體產生歧視性影響，不以故意為要件；差別待遇則是刻意針對該群體採取帶有歧視性影響的作法。兩者的分界在於是否出於故意。", "t": "偏見與歧視"}, {"s": "關於偏見與歧視的關係，下列敘述何者正確？", "o": ["偏見是行為，歧視是態度", "兩者都是態度，差別只在強度", "偏見是態度，歧視是透過行動或行為創造或強化群體間的優勢", "沒有偏見的人不可能做出歧視行為"], "a": 2, "fb": "偏見是對某個群體的廣泛籠統感受，屬於態度層面；歧視是透過行動或行為創造、維持或強化某些群體相較於其他群體的優勢。制度性的歧視可能在沒有個人惡意的情況下持續。", "t": "偏見與歧視"}, {"s": "團隊成員在會議中經常打斷某位同事發言、不採納其意見，但沒有任何明文的差別對待。這屬於歧視的哪一種形式？", "o": ["歧視性政策", "恐嚇", "職場無禮", "性騷擾"], "a": 2, "fb": "職場無禮指對特定群體成員失禮、打斷發言、不尊重其意見。這一類單次強度低但累積效果高，而且多半沒有書面紀錄，因此最難舉證。", "t": "歧視的形式"}, {"s": "依刻板印象威脅的研究，下列哪一項最能降低其效果？", "o": ["在評估時明確提醒成員所屬群體的優勢", "在互動與評估中把員工視為個體，而非強調群體差異", "提高測驗難度以排除干擾", "要求當事人隱藏可能被污名化的身份"], "a": 1, "fb": "刻板印象威脅指擔心被他人以某種刻板印象評判的程度，這種擔心會佔用認知資源而壓低表現。對抗方式是把員工視為個體，而不是強調群體差異。", "t": "刻板印象威脅"}, {"s": "處於不利位置的群體成員，有時反而會為自己經歷的不平等辯護。這個現象最符合下列哪一個理論？", "o": ["社會支配理論", "系統合理化理論", "接觸假說", "共同內團體認同模式"], "a": 1, "fb": "系統合理化理論指出，群體成員往往會接受、合理化、認可或為其經歷的不平等、偏見與歧視辯護。社會支配理論則強調階層制度中支配群體享有從屬群體無法獲得的特權。", "t": "理論觀點"}, {"s": "四人團隊由兩位資深男性工程師與兩位資淺女性行銷人員組成。依斷層線的概念，這個組合的風險在於：", "o": ["團隊多元程度太低，缺乏不同觀點", "性別、年資與職能三項屬性彼此對齊，容易把團隊切成兩個次團體", "成員人數為偶數，表決時容易僵持", "深層多元化過高，價值觀難以整合"], "a": 1, "fb": "斷層線是把團體分裂成兩個或更多次團體的感知分界線。關鍵不在團隊多不多元，而在多項屬性是否剛好重疊在同一條線上；屬性交錯分布時分界線不易成形。", "t": "斷層線"}, {"s": "關於 Hofstede 架構與 GLOBE 架構的關係，下列敘述何者正確？", "o": ["GLOBE 完全取代了 Hofstede，兩者沒有重疊面向", "兩者都只有權力距離一個共同面向", "權力距離與規避不確定性兩個面向重疊，GLOBE 另把集體主義拆為制度與內團體兩種", "Hofstede 的面向適用於個人層次，GLOBE 適用於國家層次"], "a": 2, "fb": "GLOBE 以 62 個社會為對象提出九個面向，其中權力距離與規避不確定性與 Hofstede 重疊，集體主義被拆為制度集體主義與內團體集體主義，另新增未來導向、性別平等、果斷性、人性導向與績效導向。兩套架構都是國家層級的描述。", "t": "跨文化架構"}, {"s": "多元、公平、包容三個詞常被並列，下列對應何者正確？", "o": ["多元指起點相同，公平指組織裡有誰，包容指進來之後的經驗", "多元指組織裡有誰，公平指起點是否相同，包容指進來之後的經驗", "三者意義相同，只是不同年代的用語", "公平要求所有人得到完全相同的資源，不因處境調整"], "a": 1, "fb": "多元回答的是組織裡有誰，公平回答的是起點是否相同並認知到特權與障礙的存在，包容回答的是進來之後是否感到受重視與真正融入。公平允許依處境調整支持，與齊頭式的平等不同。", "t": "DEI 三個詞"}, {"s": "依接觸假說的統合分析證據，下列敘述何者最準確？", "o": ["只要把不同背景的人放在同一個空間，偏見必然下降", "接觸與偏見下降有關，但在地位平等、有共同目標、需要合作並獲得制度支持時效果最明顯", "接觸會強化原有的群體分類，因此應避免", "接觸的效果僅見於實驗室，實地研究並未支持"], "a": 1, "fb": "統合分析支持接觸與偏見下降的關係，但接觸不是萬用解。效果在地位平等、具共同目標、需要合作且有制度支持的條件下最明顯；單純共處並不足夠。", "t": "接觸假說"}]</script>
+          <div class="ix-stmt"><span class="q">題目／01</span><span class="txt"></span></div>
           <div class="ix-opts"></div>
           <div class="ix-fb"></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／23</span></div>
     </section>
     <section class="slide rf-page">
       <div class="meta-row"><span class="m">OB／CH 2</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">20</div>
+        <div class="idx">23</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
         <div class="note">[ APA 7 ]<br>12 ITEMS</div>
       </div>
@@ -1237,7 +1452,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示。教科書見封面。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／20</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／23</span></div>
     </section>
   </div>
 </div>
@@ -1595,7 +1810,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       stmt.hidden = true; opts.hidden = true; fb.hidden = true;
       finalEl = document.createElement('div'); finalEl.className = 'ix-done';
       const c = count(), tot = items.length;
-      const msg = c === tot ? '十題全部答對。' : '答錯的題目各附相關主題，對應本章該節的內容。';
+      const msg = c === tot ? '全部答對。' : '答錯的題目各附相關主題，對應本章該節的內容。';
       finalEl.innerHTML = '<div class="big">' + c + '／' + tot + '</div><p>' + msg + '</p>';
       card.appendChild(finalEl); nextB.disabled = true;
     }

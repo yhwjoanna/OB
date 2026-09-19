@@ -77,8 +77,8 @@
   .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
   .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
   .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
-  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4em; line-height: 1.05; letter-spacing: 0.01em; }
-  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.55em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4.4em; line-height: 1.02; letter-spacing: -0.032em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.4em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
   .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
   .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
   .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
@@ -89,16 +89,19 @@
 
   /* 標題列 */
   .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
-  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; letter-spacing: -0.03em; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
   .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: 0.01em; line-height: 1.15; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: -0.018em; line-height: 1.13; }
   .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
   .title-row .note {
     border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
     max-width: 300px; line-height: 1.7;
   }
-  .def-band { padding: 13px 28px; border-bottom: 1px solid var(--ink); font-size: 17px; font-weight: 700; line-height: 1.65; }
+  .def-band {
+    border-bottom: 1px solid var(--ink); padding: 12px 28px;
+    font-size: 15.5px; font-weight: 700; line-height: 1.72; flex: none;
+  }
 
   /* 格線 */
   .grid2, .grid3, .grid4 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
@@ -107,21 +110,24 @@
   .grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
   .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
   .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
-  .cell h3 { font-weight: 900; font-size: 1.55em; letter-spacing: 0.01em; }
+  .cell h3 { font-weight: 900; font-size: 1.4em; letter-spacing: -0.006em; }
   .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
-  .cell p { font-size: 16.5px; line-height: 1.7; }
+  .cell p { font-size: 14.5px; line-height: 1.65; }
   .cell ul, .cell ol { margin-left: 1.15em; }
-  .cell li { font-size: 16px; line-height: 1.68; margin-bottom: 7px; }
+  .cell li { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; }
   .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
   .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
   .cell .quote { font-size: 13.5px; color: var(--gray); }
-  .keyline { border-top: 2px solid var(--ink); padding: 13px 28px; font-size: 15px; font-weight: 700; text-align: center; }
+  .keyline {
+    border-top: 2px solid var(--ink); padding: 13px 28px;
+    font-size: 15px; font-weight: 700; text-align: center;
+  }
   .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
 
   /* 提問頁 */
   .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
   .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
-  .q-text { font-weight: 900; font-size: 2.9em; line-height: 1.35; letter-spacing: 0.01em; max-width: 1040px; }
+  .q-text { font-weight: 900; font-size: 3.1em; line-height: 1.22; letter-spacing: -0.026em; max-width: 1020px; }
   .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
   .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
   .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
@@ -131,9 +137,9 @@
   .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: 0; }
   .axis-row:last-child { border-bottom: none; }
   .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
-  .axis-row .k .zh { font-weight: 900; font-size: 1.28em; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.2em; }
   .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
-  .axis-row .v { padding: 13px 24px; font-size: 16.5px; line-height: 1.7; display: flex; align-items: center; }
+  .axis-row .v { padding: 12px 24px; font-size: 16px; line-height: 1.62; display: flex; align-items: center; }
 
   /* 圖片頁 */
   .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
@@ -185,8 +191,8 @@
   body.flow .cover-main { grid-template-columns: 1fr; }
   body.flow .cover-left { padding: 32px 30px 28px; }
   body.flow .cover-code { font-size: 5.2em; }
-  body.flow .cover-title { font-size: 2.6em; }
-  body.flow .cover-en { font-size: 1.1em; }
+  body.flow .cover-title { font-size: 2.8em; }
+  body.flow .cover-en { font-size: 1.28em; }
   body.flow .cover-agenda { margin-top: 28px; }
   body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
   body.flow .title-row { grid-template-columns: 120px 1fr; }
@@ -195,12 +201,12 @@
   body.flow .title-row .t h2 { font-size: 1.5em; }
   body.flow .grid2, body.flow .grid3, body.flow .grid4 { grid-template-columns: 1fr; grid-template-rows: none; }
   body.flow .cell { padding: 22px 26px; overflow: visible; }
-  body.flow .axis-row { grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink); }
+  body.flow .axis-row { grid-template-columns: 122px 1fr; }
   body.flow .fig-body { min-height: 240px; }
   body.flow .fig-body img { max-height: 70vh; }
   body.flow .scale-cols { grid-template-columns: 1fr; }
   body.flow .quote-main { padding: 60px 30px; }
-  body.flow .q-text { font-size: 1.9em; }
+  body.flow .q-text { font-size: 2em; }
 
 .fig-body svg{width:100%;height:100%;display:block}
 body.flow .fig-body svg{height:auto;max-height:520px}
@@ -359,6 +365,8 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     .ix-pred.revealed .ix-row .res::after { content: none; }
     body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
 
+  body.flow .axis-row .k .ax { font-size: 11px !important; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+  body.flow .axis-row .k .zh { font-size: 14.5px !important; }
 </style>
 <style>
   /* ── Topic 7 追加樣式 ── */
