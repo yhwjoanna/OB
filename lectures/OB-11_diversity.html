@@ -244,8 +244,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
     /* 只有一個分類時，條目跨欄均分、標題橫跨整列，右半邊才不會空著 */
     .rf-cols.one .rf-grp { break-inside: auto; margin-bottom: 0; }
-    .rf-cols.one .rf-grp h3 { column-span: all; font-size: 11.5px; margin-bottom: 12px; }
-    .rf-cols.one .rf-grp p { font-size: 15.5px; line-height: 1.74; margin-bottom: 11px; }
+    .rf-cols.one .rf-grp h3 { column-span: all; font-size: 10.5px; margin-bottom: 8px; }
+    .rf-cols.one .rf-grp p { font-size: 13.8px; line-height: 1.62; margin-bottom: 8px; }
     .rf-grp p i { font-style: italic; }
     .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
     .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
@@ -354,6 +354,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
   body.flow .axis-row .k .ax { font-size: 11px !important; letter-spacing: 0.04em; overflow-wrap: anywhere; }
   body.flow .axis-row .k .zh { font-size: 14.5px !important; }
+  /* ── RFLINK v1：參考文獻與引註帶裡的網址可點按 ── */
+  .rf-grp p a, .cite a, .src a, .src-band a { color: inherit; text-decoration: underline;
+    text-underline-offset: 2px; text-decoration-thickness: .5px;
+    word-break: normal; overflow-wrap: break-word; }
+  .rf-grp p a:hover, .cite a:hover, .src a:hover, .src-band a:hover { color: #B03028; }
 </style>
 <style>
   /* 內容垂直置中：留白均分於上下 */
@@ -1508,19 +1513,19 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="rf">
         <div class="rf-cols c2 one">
           <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
-            <p>Chao, G. T., &amp; Moon, H. (2005). The cultural mosaic: A metatheory for understanding the complexity of culture. <i>Journal of Applied Psychology, 90</i>(6), 1128–1140.</p>
-            <p>Crenshaw, K. (1991). Mapping the margins: Intersectionality, identity politics, and violence against women of color. <i>Stanford Law Review, 43</i>(6), 1241–1299.</p>
-            <p>Earley, P. C., &amp; Ang, S. (2003). <i>Cultural intelligence: Individual interactions across cultures</i>. Stanford University Press.</p>
-            <p>Gaertner, S. L., &amp; Dovidio, J. F. (2000). <i>Reducing intergroup bias: The common ingroup identity model</i>. Psychology Press.</p>
-            <p>Gelfand, M. J., Raver, J. L., Nishii, L., Leslie, L. M., Lun, J., Lim, B. C., … Yamaguchi, S. (2011). Differences between tight and loose cultures: A 33-nation study. <i>Science, 332</i>(6033), 1100–1104.</p>
+            <p>Chao, G. T., &amp; Moon, H. (2005). The cultural mosaic: A metatheory for understanding the complexity of culture. <i>Journal of Applied Psychology, 90</i>(6), 1128–1140. https://doi.org/10.1037/0021-9010.90.6.1128</p>
+            <p>Crenshaw, K. (1991). Mapping the margins: Intersectionality, identity politics, and violence against women of color. <i>Stanford Law Review, 43</i>(6), 1241–1299. https://doi.org/10.2307/1229039</p>
+            <p>Earley, P. C., &amp; Ang, S. (2003). <i>Cultural intelligence: Individual interactions across cultures</i>. Stanford University Press. https://doi.org/10.1515/9780804766005</p>
+            <p>Gaertner, S. L., &amp; Dovidio, J. F. (2000). <i>Reducing intergroup bias: The common ingroup identity model</i>. Psychology Press. https://doi.org/10.4324/9781315804576</p>
+            <p>Gelfand, M. J., Raver, J. L., Nishii, L., Leslie, L. M., Lun, J., Lim, B. C., … Yamaguchi, S. (2011). Differences between tight and loose cultures: A 33-nation study. <i>Science, 332</i>(6033), 1100–1104. https://doi.org/10.1126/science.1197754</p>
             <p>Hofstede, G., Hofstede, G. J., &amp; Minkov, M. (2010). <i>Cultures and organizations: Software of the mind</i> (3rd ed.). McGraw-Hill.</p>
             <p>House, R. J., Hanges, P. J., Javidan, M., Dorfman, P. W., &amp; Gupta, V. (Eds.). (2004). <i>Culture, leadership, and organizations: The GLOBE study of 62 societies</i>. Sage.</p>
-            <p>Jost, J. T., &amp; Banaji, M. R. (1994). The role of stereotyping in system-justification and the production of false consciousness. <i>British Journal of Social Psychology, 33</i>(1), 1–27.</p>
-            <p>Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340.</p>
-            <p>Pettigrew, T. F., &amp; Tropp, L. R. (2006). A meta-analytic test of intergroup contact theory. <i>Journal of Personality and Social Psychology, 90</i>(5), 751–783.</p>
-            <p>Sidanius, J., &amp; Pratto, F. (1999). <i>Social dominance: An intergroup theory of social hierarchy and oppression</i>. Cambridge University Press.</p>
-            <p>Volpone, S. D., &amp; Hennekam, S. (2026). Neurodiversity at work: Challenges and opportunities for human resource management. <i>Human Resource Management, 65</i>(2), 447–471.</p>
-            <p>Steele, C. M., &amp; Aronson, J. (1995). Stereotype threat and the intellectual test performance of African Americans. <i>Journal of Personality and Social Psychology, 69</i>(5), 797–811.</p>
+            <p>Jost, J. T., &amp; Banaji, M. R. (1994). The role of stereotyping in system-justification and the production of false consciousness. <i>British Journal of Social Psychology, 33</i>(1), 1–27. https://doi.org/10.1111/j.2044-8309.1994.tb01008.x</p>
+            <p>Lau, D. C., &amp; Murnighan, J. K. (1998). Demographic diversity and faultlines: The compositional dynamics of organizational groups. <i>Academy of Management Review, 23</i>(2), 325–340. https://doi.org/10.5465/amr.1998.533229</p>
+            <p>Pettigrew, T. F., &amp; Tropp, L. R. (2006). A meta-analytic test of intergroup contact theory. <i>Journal of Personality and Social Psychology, 90</i>(5), 751–783. https://doi.org/10.1037/0022-3514.90.5.751</p>
+            <p>Sidanius, J., &amp; Pratto, F. (1999). <i>Social dominance: An intergroup theory of social hierarchy and oppression</i>. Cambridge University Press. https://doi.org/10.1017/cbo9781139175043</p>
+            <p>Volpone, S. D., &amp; Hennekam, S. (2026). Neurodiversity at work: Challenges and opportunities for human resource management. <i>Human Resource Management, 65</i>(2), 447–471. https://doi.org/10.1002/hrm.70032</p>
+            <p>Steele, C. M., &amp; Aronson, J. (1995). Stereotype threat and the intellectual test performance of African Americans. <i>Journal of Personality and Social Psychology, 69</i>(5), 797–811. https://doi.org/10.1037/0022-3514.69.5.797</p>
           </div>
         </div>
       </div>
@@ -2292,6 +2297,23 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   }
   stamp();
   window.addEventListener('beforeprint', stamp);
+})();
+</script>
+<script>
+/* ── RFLINK v1：把參考文獻與引註帶裡的純文字網址轉成連結 ──
+   來源資料一律以純文字寫入，避免在內容裡散寫 a 標籤；
+   這裡統一掃過一次，已經有連結的段落跳過。 */
+(function () {
+  var RE = /(https?:\/\/[^\s，。；、）)\]】＞>"']+)/g;
+  document.querySelectorAll('.rf-grp p, .cite, .src, .src-band, .rf-note').forEach(function (el) {
+    if (el.querySelector('a')) return;
+    var h = el.innerHTML;
+    if (h.indexOf('http') < 0) return;
+    el.innerHTML = h.replace(RE, function (u) {
+      var t = u.replace(/[.,;:]$/, ''), tail = u.slice(t.length);
+      return '<a href="' + t + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' + tail;
+    });
+  });
 })();
 </script>
 </body>
