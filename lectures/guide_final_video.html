@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／CH 2 組織內的多元化｜HRM 組織行為</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>
+  function imgErr(el) {
+    if (!el.dataset.tried && el.dataset.cdn) { el.dataset.tried = 1; el.src = el.dataset.cdn; }
+    else { el.outerHTML = '<div class="img-fallback">FIG NOT LOADED<br>圖片未能載入</div>'; }
+  }
+</script>
+<style>
+  :root {
+    --paper: #F4F4F0;
+    --ink: #0A0A0A;
+    --red: #E61919;
+    --gray: #666666;
+    --sans: 'Noto Sans TC', sans-serif;
+    --disp: 'Archivo Black', 'Noto Sans TC', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: var(--paper); font-family: var(--sans); color: var(--ink); overflow: hidden; }
+
+  #viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: var(--paper); border: 3px solid var(--ink);
+    overflow: hidden; transform-origin: center center;
+  }
+
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; }
+  .slide.active { display: flex; animation: snap 120ms linear; }
+  @keyframes snap { from { transform: translateX(14px); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 44px; border-bottom: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .meta-row .m { color: var(--ink); }
+  .meta-row .m.g { color: var(--gray); }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px; height: 40px; border-top: 2px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .footer-row .pagenum { color: var(--ink); font-weight: 700; }
+  /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
+  .pgbtn { display: none; }
+  body.flow .footer-row { height: auto; min-height: 46px; padding: 0 6px; margin-top: auto; }
+  body.flow .footer-row > span:not(.pagenum) { display: none; }
+  body.flow .pgbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 92px; min-height: 44px; padding: 0 10px;
+    font: 700 11px/1 var(--mono); letter-spacing: 0.1em;
+    color: var(--ink); background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.1s ease-out;
+  }
+  body.flow .pgbtn:disabled { opacity: 0.26; }
+  body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
+  @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
+  @media print { .pgbtn { display: none !important; } }
+  .main { flex: 1; min-height: 0; display: grid; }
+
+  /* 封面 */
+  .cover-main { grid-template-columns: 2.2fr 1fr; background: var(--ink); gap: 1px; }
+  .cover-left { background: var(--paper); padding: 40px 48px 32px; display: flex; flex-direction: column; position: relative; }
+  .cover-left .crosshair { position: absolute; right: 26px; top: 36px; font-family: var(--mono); font-size: 14px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cover-code { margin-top: 8px; font-family: var(--disp); font-size: 7.6em; line-height: 0.9; letter-spacing: -0.03em; color: var(--red); }
+  .cover-title { margin-top: 22px; font-weight: 900; font-size: 4.4em; line-height: 1.02; letter-spacing: -0.032em; }
+  .cover-en { margin-top: 16px; font-family: var(--disp); font-size: 1.4em; line-height: 1.15; letter-spacing: -0.01em; text-transform: uppercase; }
+  .cover-agenda { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--ink); }
+  .cover-agenda .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; }
+  .cover-agenda .items { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; line-height: 2; color: var(--ink); }
+  .cover-right { background: var(--ink); display: grid; grid-template-rows: repeat(4, 1fr); gap: 1px; }
+  .data-cell { background: var(--paper); padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .data-cell .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .data-cell .val { font-weight: 700; font-size: 16px; line-height: 1.45; }
+
+  /* 標題列 */
+  .title-row { display: grid; grid-template-columns: 168px 1fr auto; align-items: stretch; border-bottom: 2px solid var(--ink); }
+  .title-row .idx { font-family: var(--disp); font-size: 2.9em; line-height: 1; letter-spacing: -0.03em; color: var(--red); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--ink); }
+  .title-row .t { padding: 15px 26px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .title-row .t h2 { font-weight: 900; font-size: 1.9em; letter-spacing: -0.018em; line-height: 1.13; }
+  .title-row .t .en { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .title-row .note {
+    border-left: 1px solid var(--ink); padding: 15px 26px; display: flex; align-items: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    max-width: 300px; line-height: 1.7;
+  }
+  .def-band {
+    border-bottom: 1px solid var(--ink); padding: 12px 28px;
+    font-size: 15.5px; font-weight: 700; line-height: 1.72; flex: none;
+  }
+
+  /* 格線 */
+  .grid2, .grid3, .grid4, .grid6 { flex: 1; min-height: 0; display: grid; background: var(--ink); gap: 1px; }
+  .grid2 { grid-template-columns: 1fr 1fr; }
+  .grid3 { grid-template-columns: repeat(3, 1fr); }
+  .grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  /* 六格版型：三欄兩列，格內只放一段短說明 */
+  .grid6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+  .grid6 .cell { padding: 13px 20px; }
+  .grid6 .cell p { font-size: 15px; line-height: 1.62; }
+  .cell { background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; position: relative; min-height: 0; overflow: hidden; }
+  .cell .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  .cell h3 { font-weight: 900; font-size: 1.4em; letter-spacing: -0.006em; }
+  .cell .en-term { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-top: -5px; }
+  .cell p { font-size: 14.5px; line-height: 1.65; }
+  .cell ul, .cell ol { margin-left: 1.15em; }
+  .cell li { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; }
+  .cell .corner { position: absolute; right: 16px; top: 18px; font-family: var(--mono); font-size: 12px; }
+  .cell .mini { font-weight: 700; font-size: 15.5px; display: block; margin-top: 4px; }
+  .cell .quote { font-size: 15px; color: var(--gray); }
+  .keyline {
+    border-top: 2px solid var(--ink); padding: 13px 28px;
+    font-size: 15px; font-weight: 700; text-align: center;
+  }
+  .keyline .r { border-bottom: 3px solid var(--red); padding-bottom: 1px; }
+
+  /* 提問頁 */
+  .quote-main { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 90px; gap: 26px; }
+  .q-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
+  .q-text { font-weight: 900; font-size: 3.1em; line-height: 1.22; letter-spacing: -0.026em; max-width: 1020px; }
+  .q-text .ul-red { border-bottom: 0.09em solid var(--red); padding-bottom: 0.02em; }
+  .q-sub { font-family: var(--mono); color: var(--red); font-weight: 700; font-size: 1.1em; letter-spacing: 0.14em; text-transform: uppercase; }
+  .badge-red { background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; padding: 7px 16px; display: inline-block; }
+
+  /* 定義列 */
+  .axis-list { background: var(--paper); display: flex; flex-direction: column; min-height: 0; flex: 1; }
+  .axis-row { flex: 1; display: grid; grid-template-columns: 168px 1fr; border-bottom: 1px solid var(--ink); min-height: min-content; }
+  /* 六列版的 axis-list 內容較密，內距與行高收緊，避免最後一行壓到下一列的格線 */
+  .axis-list.ax6 .axis-row .k { padding: 9px 18px; }
+  .axis-list.ax6 .axis-row .v { padding: 8px 22px; font-size: 15.2px; line-height: 1.55; }
+  .axis-list.ax6 .axis-row .k .zh { font-size: 1.18em; }
+  .axis-row:last-child { border-bottom: none; }
+  .axis-row .k { border-right: 1px solid var(--ink); padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .axis-row .k .zh { font-weight: 900; font-size: 1.2em; }
+  .axis-row .k .ax { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+  .axis-row .v { padding: 12px 24px; font-size: 16px; line-height: 1.62; display: flex; align-items: center; }
+
+  /* 圖片頁 */
+  .fig-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
+  .fig-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 22px; border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .fig-head a { color: var(--ink); }
+  .fig-body { flex: 1; min-height: 0; padding: 18px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .fig-body img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .fig-body .ch { position: absolute; font-family: var(--mono); font-size: 13px; }
+  .ch.tl { left: 10px; top: 6px; } .ch.tr { right: 10px; top: 6px; }
+  .ch.bl { left: 10px; bottom: 6px; } .ch.br { right: 10px; bottom: 6px; }
+  .cite {
+    border-top: 1px solid var(--ink); padding: 10px 22px;
+    font-size: 11px; color: var(--gray); line-height: 1.6;
+  }
+  .cite i { font-style: italic; }
+
+  /* 量表頁 */
+  .scale-instr { padding: 12px 28px; border-bottom: 1px solid var(--ink); font-size: 15px; line-height: 1.6; }
+  .scale-instr .anchors { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--gray); display: block; margin-top: 4px; }
+  .scale-cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); gap: 1px; }
+  .scale-col { background: var(--paper); padding: 18px 30px; }
+  .scale-col ol { margin-left: 1.4em; }
+  .scale-col li { font-size: 15px; line-height: 1.68; margin-bottom: 5px; }
+  .scale-col .rv { font-family: var(--mono); font-size: 10px; color: var(--red); }
+
+  .img-fallback {
+    width: 100%; height: 100%; min-height: 180px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--gray); line-height: 2; text-transform: uppercase;
+    background: repeating-linear-gradient(45deg, transparent 0 14px, rgba(10,10,10,0.05) 14px 15px);
+    padding: 20px;
+  }
+
+  /* 窄視窗流式模式 */
+  body.flow { overflow: auto; }
+  body.flow #viewport { position: static; display: block; height: 100vh; overflow-y: auto; }
+  body.flow #stage { width: auto; max-width: 860px; height: auto; min-height: 100vh; margin: 0 auto; transform: none !important; }
+  body.flow .slide.active { position: static; min-height: calc(100vh - 6px); animation: none; }
+  body.flow .meta-row { flex-wrap: wrap; row-gap: 2px; column-gap: 14px; height: auto; min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+  body.flow .cover-main { grid-template-columns: 1fr; }
+  body.flow .cover-left { padding: 32px 30px 28px; }
+  body.flow .cover-code { font-size: 5.2em; }
+  body.flow .cover-title { font-size: 2.8em; }
+  body.flow .cover-en { font-size: 1.28em; }
+  body.flow .cover-agenda { margin-top: 28px; }
+  body.flow .cover-right { grid-template-rows: none; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(96px, auto); }
+  body.flow .title-row { grid-template-columns: 120px 1fr; }
+  body.flow .title-row .note { display: none; }
+  body.flow .title-row .idx { font-size: 2.2em; }
+  body.flow .title-row .t h2 { font-size: 1.5em; }
+  body.flow .grid2, body.flow .grid3, body.flow .grid4, body.flow .grid6 { grid-template-columns: 1fr; grid-template-rows: none; }
+  body.flow .cell { padding: 22px 26px; overflow: visible; }
+  body.flow .axis-row { grid-template-columns: 122px 1fr; }
+  body.flow .fig-body { min-height: 240px; }
+  body.flow .fig-body img { max-height: 70vh; }
+  body.flow .scale-cols { grid-template-columns: 1fr; }
+  body.flow .quote-main { padding: 60px 30px; }
+  body.flow .q-text { font-size: 2em; }
+
+.fig-body svg{width:100%;height:100%;display:block}
+body.flow .fig-body svg{height:auto;max-height:520px}
+
+/* ── 重點先行補充頁通用樣式（2026-09） ── */
+.rs-grid .cell { padding: 15px 24px 14px; gap: 6px; }
+.rs-grid .cell h3 { font-size: 1.3em; }
+.rs-grid .cell ul { margin-left: 1.1em; }
+.rs-grid .cell li { font-size: 15px; line-height: 1.44; margin-bottom: 1px; }
+.rs-page .src a, .rs-page .cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+body.flow .rs-grid .cell { padding: 22px 26px; }
+
+    /* ── RF：章末參考文獻（2026-09） ── */
+    .rf-page .rf { flex: 1; display: flex; flex-direction: column; padding: 13px 28px 8px; min-height: 0; overflow: hidden; }
+    .rf-cols { flex: 1; min-height: 0; }
+    .rf-cols.c2 { column-count: 2; column-gap: 30px; }
+    .rf-grp { break-inside: avoid-column; margin-bottom: 11px; }
+    .rf-grp:last-child { margin-bottom: 0; }
+    .rf-grp h3 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #B03028; margin: 0 0 6px; font-weight: 700; }
+    .rf-grp p { font-size: 11.6px; line-height: 1.52; margin: 0 0 6px; text-indent: -1.45em; padding-left: 1.45em;
+      color: #46443F; break-inside: avoid; }
+    .rf-cols.c1 .rf-grp p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp { margin-bottom: 8px; }
+    .rf-cols.dense .rf-grp h3 { margin-bottom: 4px; }
+    .rf-cols.dense .rf-grp p { font-size: 10.9px; line-height: 1.46; margin-bottom: 4px; }
+    .rf-cols.airy { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .rf-cols.airy .rf-grp { margin-bottom: 18px; }
+    .rf-cols.airy .rf-grp h3 { margin-bottom: 9px; }
+    .rf-cols.airy .rf-grp p { font-size: 14.5px; line-height: 1.72; margin-bottom: 11px; }
+    /* 只有一個分類時，條目跨欄均分、標題橫跨整列，右半邊才不會空著 */
+    .rf-cols.one .rf-grp { break-inside: auto; margin-bottom: 0; }
+    .rf-cols.one .rf-grp h3 { column-span: all; font-size: 10.5px; margin-bottom: 8px; }
+    .rf-cols.one .rf-grp p { font-size: 13.8px; line-height: 1.62; margin-bottom: 8px; }
+    .rf-grp p i { font-style: italic; }
+    .rf-grp.links p { text-indent: 0; padding-left: 0; color: #78756D; }
+    .rf-note { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; flex: none; }
+/* ── IX：課堂互動頁（2026-09） ── */
+    .ix-page .ix { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .ix-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--ink); padding: 10px 28px; font-size: 14px; font-weight: 700; line-height: 1.6; flex: none; }
+    .ix-bar .ctl { display: flex; gap: 8px; flex: none; }
+    .ix-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); padding: 7px 14px; cursor: pointer; line-height: 1; }
+    .ix-btn { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease, color 120ms ease; }
+    .ix-btn:hover { background: var(--ink); color: var(--paper); }
+    .ix-btn:active { transform: scale(0.96); }
+    .ix-btn.red { border-color: var(--red); color: var(--red); }
+    .ix-btn.red:hover { background: var(--red); color: #fff; }
+    .ix-btn:disabled { opacity: .35; cursor: default; }
+    .ix-btn:disabled:hover { background: var(--paper); color: var(--ink); }
+    .ix-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); font-weight: 400; }
+    /* 分類練習 */
+    .ix-sort { flex: 1; display: flex; flex-direction: column; background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-pool { background: var(--paper); padding: 12px 28px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; flex: none; }
+    .ix-pool .tag { width: 100%; }
+    .ix-pool .tag, .ix-bucket .tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+    .ix-chip { border: 1px solid var(--ink); background: var(--paper); padding: 6px 12px; font-size: 14px; line-height: 1.4; cursor: pointer; text-align: left; font-family: var(--sans); color: var(--ink); }
+    .ix-chip { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-chip:hover { background: #E4E4DE; }
+    .ix-chip:active { transform: scale(0.97); }
+    .ix-chip.sel { border: 2px solid var(--red); padding: 5px 11px; }
+    .ix-chip.done { background: var(--ink); color: var(--paper); cursor: default; border-color: var(--ink); }
+    .ix-chip.done::before { content: '✓ '; color: var(--red); }
+    .ix-buckets { display: grid; background: var(--ink); gap: 1px; flex: 1; min-height: 0; }
+    .ix-buckets.c4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .ix-buckets.c2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .ix-bucket { background: var(--paper); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; position: relative; min-height: 0; }
+    .ix-bucket { touch-action: manipulation; transition: transform 110ms ease-out, background 140ms ease; }
+    .ix-bucket:hover { background: #ECECE6; }
+    .ix-bucket:active { transform: scale(0.995); }
+    .ix-bucket h3 { font-weight: 900; font-size: 1.25em; line-height: 1.2; }
+    .ix-bucket.hit { animation: ix-hit .45s; }
+    .ix-bucket.miss { animation: ix-miss .45s; }
+    @keyframes ix-hit { 0% { background: #DDEBDD; } 100% { background: var(--paper); } }
+    @keyframes ix-miss { 0%, 100% { transform: translateX(0); background: var(--paper); } 25% { transform: translateX(-5px); background: #F5D5D5; } 75% { transform: translateX(5px); background: #F5D5D5; } }
+    .ix-bucket .drop { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ix-bucket .drop .ix-chip { font-size: 13.5px; padding: 5px 10px; }
+    .ix-bucket .hint { margin-top: auto; font-size: 12.5px; color: var(--gray); line-height: 1.55; display: none; }
+    .ix-sort.finished .ix-bucket .hint { display: block; }
+    .ix-sort.finished .ix-pool .tag::after { content: ' ── 全部歸類完成，各格底部為教科書定義'; color: var(--red); }
+    .ix-scn { border-bottom: 1px solid var(--ink); padding: 11px 28px; font-size: 14.5px; line-height: 1.65; flex: none; }
+    .ix-fb .lb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--red); margin: 0 6px 0 0; }
+    .ix-fb .lb:not(:first-of-type)::before { content: ''; display: block; height: 3px; }
+    .ix-fb b + .lb { margin-left: 10px; }
+    /* 判斷題與自我檢核（一次一題） */
+    .ix-card { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 48px 14px; gap: 18px; min-height: 0; }
+    .ix-stmt { border: 2px solid var(--ink); padding: 24px 30px; font-size: 28px; font-weight: 900; line-height: 1.38; letter-spacing: -0.016em; }
+    .ix-stmt .q { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; font-weight: 400; }
+    .ix-opts { display: grid; gap: 10px; }
+    .ix-opts.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ix-opts.c2 { grid-template-columns: 1fr 1fr; }
+    .ix-opt { border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; font-weight: 700; padding: 14px 18px; text-align: left; cursor: pointer; line-height: 1.5; display: flex; gap: 12px; align-items: flex-start; }
+    .ix-opt .k { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); padding-top: 4px; flex: none; }
+    .ix-opt { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
+    .ix-opt:hover { background: #E4E4DE; }
+    .ix-opt:active { transform: scale(0.985); }
+    .ix-card.answered .ix-opt { cursor: default; }
+    .ix-card.answered .ix-opt:hover { background: var(--paper); }
+    .ix-card.answered .ix-opt.right { background: var(--ink); color: var(--paper); }
+    .ix-card.answered .ix-opt.right .k { color: var(--paper); }
+    .ix-card.answered .ix-opt.wrong { border: 2px solid var(--red); padding: 13px 17px; }
+    .ix-card.answered .ix-opt.wrong .k::after { content: ' ✗'; color: var(--red); }
+    .ix-card.answered .ix-opt.right .k::after { content: ' ✓'; color: var(--red); }
+    .ix-card.answered .ix-opt:not(.right):not(.wrong) { opacity: .45; }
+    .ix-fb { border-top: 2px solid var(--ink); padding: 12px 0 0; font-size: 15.5px; line-height: 1.7; visibility: hidden; min-height: 96px; }
+    .ix-card.answered .ix-fb { visibility: visible; }
+    .ix-fb b { font-weight: 900; }
+    .ix-fb .topic { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; color: var(--gray); text-transform: uppercase; margin-top: 4px; display: block; }
+    .ix-done { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; }
+    .ix-done .big { font-family: var(--disp); font-size: 72px; color: var(--red); line-height: 1; letter-spacing: -0.04em; }
+    .ix-done p { font-size: 16px; font-weight: 700; max-width: 760px; line-height: 1.7; }
+    .ev-page .ix-stmt { font-size: 23px; padding: 16px 26px; }
+    .ev-page .ix-card { gap: 12px; padding: 12px 48px 10px; }
+    .ev-page .ix-opt { padding: 11px 16px; font-size: 16px; }
+    .ev-page .ix-card.answered .ix-opt.wrong { padding: 10px 15px; }
+    .ev-page .ix-fb { min-height: 120px; font-size: 15px; line-height: 1.65; }
+    /* 預測再揭曉 */
+    .ix-pred { flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); background: var(--ink); gap: 1px; min-height: 0; }
+    .ix-row { background: var(--paper); display: grid; grid-template-columns: 250px 1fr 300px; gap: 1px; background: var(--ink); }
+    .ix-row > div { background: var(--paper); padding: 12px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .ix-row .lab b { font-size: 17px; font-weight: 900; }
+    .ix-row .lab span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray); }
+    .ix-row .opts { flex-direction: row; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .ix-row .opts .ix-opt { font-size: 14.5px; padding: 9px 14px; flex: 1; }
+    .ix-row .opts .ix-opt.pick { border: 2px solid var(--red); padding: 8px 13px; }
+    .ix-row .opts .ix-opt.pick::after { content: '預測'; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--red); margin-left: auto; align-self: center; white-space: nowrap; }
+    .ix-pred.revealed .ix-opt.truth { background: var(--ink); color: var(--paper); }
+    .ix-pred.revealed .ix-opt:not(.truth):not(.pick) { opacity: .4; }
+    .ix-tally { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gray);
+      align-self: center; white-space: nowrap; }
+    .ix.ix-ready .ix-tally { color: var(--red); }
+    .ix-row .res { display: flex; flex-direction: column; justify-content: center; position: relative;
+      font-size: 13.5px; line-height: 1.6; color: transparent; }
+    .ix-row .res b { font-weight: 900; }
+    .ix-row .res::after { content: '看答案後顯示'; position: absolute; left: 20px; right: 20px;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: #B9B9B0; }
+    .ix-pred.revealed .ix-row .res { color: #46443F; }
+    .ix-pred.revealed .ix-row .res b { color: var(--ink); }
+    .ix-pred.revealed .ix-row .res::after { content: none; }
+    body.flow .ix-buckets, body.flow .ix-opts, body.flow .ix-row { grid-template-columns: 1fr; }
+
+  body.flow .axis-row .k .ax { font-size: 11px !important; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+  body.flow .axis-row .k .zh { font-size: 14.5px !important; }
+  /* ── RFLINK v1：參考文獻與引註帶裡的網址可點按 ── */
+  .rf-grp p a, .cite a, .src a, .src-band a { color: inherit; text-decoration: underline;
+    text-underline-offset: 2px; text-decoration-thickness: .5px;
+    word-break: normal; overflow-wrap: break-word; }
+  .rf-grp p a:hover, .cite a:hover, .src a:hover, .src-band a:hover { color: #B03028; }
+</style>
+<style>
+  /* 內容垂直置中：留白均分於上下 */
+  .grid2 .cell h3, .grid3 .cell h3, .grid4 .cell h3, .grid3r .cell h3, .grid5 .cell h3, .grid6 .cell h3, .grid8 .cell h3 { margin-top: auto; }
+  .grid2 .cell > *:last-child, .grid3 .cell > *:last-child, .grid4 .cell > *:last-child, .grid3r .cell > *:last-child, .grid5 .cell > *:last-child, .grid6 .cell > *:last-child, .grid8 .cell > *:last-child { margin-bottom: auto; }
+  /* 窄版面：固定高度的圖框改為自然高度 */
+  body.flow .fig-wrap { height: auto !important; flex: none !important; }
+  body.flow .fig-body { overflow: visible; }
+  body.flow .fig-body img { width: 100%; height: auto; max-height: none; }
+</style>
+
+<style>
+:root, body { --ink: #232320; }
+.cell h3, .grid2 h3, .grid3 h3, .grid4 h3, .grid3r h3, .grid5 h3, .grid6 h3, .grid8 h3 { font-weight: 700 !important; }
+.cell .tag, .meta-row .m, .footer-row span, .pagenum { color: #8A8A82 !important; letter-spacing: .08em !important; }
+.cell .tag { font-size: 11px !important; }
+.title-row .t h2 { font-weight: 800; }
+.title-row .note { color: #8A8A82; }
+.corner { color: #B9B9B0 !important; }
+
+  .src { border-top: 1px solid var(--ink); padding: 8px 28px; font-size: 11px; color: #8A8A82; line-height: 1.62; }
+  .src i { font-style: italic; }
+  .g2f { grid-template-columns: 1.04fr 1fr; }
+  .g2f .cell p { font-size: 15.5px; line-height: 1.6; }
+  .g2f .cell li { font-size: 15px; line-height: 1.58; margin-bottom: 4px; }
+  body.flow .g2f { grid-template-columns: 1fr; }
+  .figimg { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .figimg img { max-width: 100%; max-height: 100%; object-fit: contain; border: 1px solid var(--ink); background: #FFFFFF; padding: 6px; box-sizing: border-box; }
+  .figcap { font-size: 11px; color: #8A8A82; line-height: 1.6; flex: none; }
+  body.flow .figimg { min-height: 220px; }
+
+  .mini-fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .mini-fig svg { width: 100%; height: 100%; display: block; }
+  body.flow .mini-fig svg { height: auto; max-height: 420px; }
+</style>
+
+<style>
+/* ── 點圖放大（FIGZOOM v2）── */
+.fig-body img, .fig-body svg, .figimg img, .mini-fig svg,
+.fig-wrap img, .fig-wrap svg { cursor: zoom-in; }
+.figzoom { position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,.94);
+  display: flex; align-items: center; justify-content: center; padding: 1vmin; cursor: zoom-out; }
+.figzoom > img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom > svg { width: 100%; height: 100%; background: #F4F4F0; padding: 0.6vmin; box-sizing: border-box; }
+.figzoom-tip { position: fixed; left: 50%; bottom: 2.2vmin; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em;
+  color: #F4F4F0; opacity: .7; pointer-events: none; }
+.figzoom { animation: fz-fade 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom > img, .figzoom > svg { animation: fz-rise 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes fz-fade { from { opacity: 0; } }
+@keyframes fz-rise { from { opacity: 0; transform: scale(0.97); } }
+.figzoom.closing { opacity: 0; transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.figzoom.closing > img, .figzoom.closing > svg { opacity: 0; transform: scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.fig-head button { transition: transform 100ms ease-out; }
+.fig-head button:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .figzoom > img, .figzoom > svg { animation: fz-fade 200ms ease; }
+  .figzoom.closing > img, .figzoom.closing > svg { transform: none; }
+}
+
+  /* ── PDFBTN v3：只在第一頁顯示，位置依舞台留白帶決定，不覆蓋頁首 ── */
+  body.pdfbtn-inset .meta-row > :last-child,
+  body.pdfbtn-inset .fig-head > :last-child,
+  body.pdfbtn-inset .meta > :last-child { margin-right: var(--pdfbtn-inset, 0px); }
+  /* 手機寬度塞不下這顆鈕，硬放會把頁首擠到換行；瀏覽器的列印選單仍可用 */
+  @media (max-width: 700px) { .pdfbtn { display: none !important; } }
+  @media print { body.pdfbtn-inset .meta-row > :last-child,
+    body.pdfbtn-inset .fig-head > :last-child,
+    body.pdfbtn-inset .meta > :last-child { margin-right: 0; } }
+  /* ── PDFBTN v1：右上角下載 PDF ── */
+  .pdfbtn { position: fixed; z-index: 9998; top: 14px; right: 14px;
+    display: inline-flex; align-items: center; gap: 6px; line-height: 1; cursor: pointer;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #232320;
+    background: rgba(244, 244, 240, 0.86); border: 1px solid rgba(35, 35, 32, 0.26);
+    border-radius: 999px; padding: 8px 13px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform 0.1s ease-out, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .pdfbtn:hover { background: #232320; color: #F4F4F0; border-color: #232320; }
+  .pdfbtn:active { transform: scale(0.96); }
+  .pdfbtn .ar { font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .pdfbtn { transition: none; } .pdfbtn:active { transform: none; } }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid;
+      break-after: auto; page-break-after: auto; }
+    /* 分頁改由下一頁的頁首帶起，最後一頁之後不再留一個空白頁 */
+    .slide + .slide { break-before: page; page-break-before: always; }
+    /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
+    .slide.ix-page { display: none !important; }
+    /* 手機的自動縮放是寫在行內的 zoom，列印時必須還原，否則會按縮放後的尺寸輸出 */
+    #stage { zoom: 1 !important; }
+    .slide { min-height: 0 !important; }
+    /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
+    body > *:not(#viewport) { display: none !important; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 13 到 16.5px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .cell .quote,
+  body.flow .axis-row .v, body.flow .scale-col li, body.flow .scale-instr,
+  body.flow .rs-grid .cell li, body.flow .g2f .cell p, body.flow .g2f .cell li,
+  body.flow .def-band, body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip,
+  body.flow .ix-opt, body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.62; }
+  body.flow .cell li, body.flow .scale-col li { margin-bottom: 5px; }
+  body.flow .cell { padding: 16px 18px; }
+  body.flow .rs-grid .cell { padding: 16px 18px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline, body.flow .scale-instr { padding-left: 20px; padding-right: 20px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
+
+  /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
+     部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
+     於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
+  body.flow .main,
+  body.flow .grid2, body.flow .grid3, body.flow .grid3r, body.flow .grid4,
+  body.flow .grid5, body.flow .grid6, body.flow .grid8,
+  body.flow .wfh-main, body.flow .link-main, body.flow .cmp-wrap,
+  body.flow .cover-main, body.flow .quote-main, body.flow .results-stack {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+  }
+  body.flow .cell, body.flow .axis-list, body.flow .fig-wrap, body.flow .fig-cell {
+    grid-column: auto !important; grid-row: auto !important;
+  }
+  /* 參考文獻在手機上分兩欄會讓每一則只剩半個版心寬 */
+  body.flow .rf-cols.c2 { column-count: 1 !important; }
+  /* 互動頁的說明與控制列並排時，說明會被壓成一個字一行 */
+  body.flow .ix-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.flow .ix-bar .ctl { flex-wrap: wrap; justify-content: flex-start; }
+
+  /* 表格在窄螢幕會被擠成兩三個字寬，改為整個表格可橫向捲動 */
+  body.flow .slide *:has(> table) { overflow-x: auto; }
+  body.flow .slide table { min-width: 540px; }
+  @media print { body.flow .slide table { min-width: 0 !important; } }
+
+  /* 手機：十到十二像素的小標籤與出處，縮到下限時會掉到九像素以下，這裡拉回可讀範圍 */
+  body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
+  body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
+  body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
+  body.flow .note-s { font-size: 12.5px !important; }
+  /* 內容頁的引用帶：桌機與手機同一個字級 */
+  body.flow .src, body.flow .cite, body.flow .src-band { font-size: 11px !important; line-height: 1.6; }
+  body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
+  body.flow .slide h3 { font-size: max(12.5px, 1em); }
+  /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */
+  body.flow .slide i, body.flow .slide em, body.flow .slide cite { font-size: inherit; }
+  /* 參考文獻在手機已改單欄，不需要再用密排的縮小字級 */
+  body.flow .rf-cols .rf-grp p { font-size: 12.5px !important; line-height: 1.7; }
+  body.flow .ix-row .lab, body.flow .ix-row .lab span, body.flow .fig-head, body.flow .fig-head span { font-size: 12.5px !important; }
+  /* 模擬遊戲封面的面板固定裁切，窄螢幕會切掉一行 */
+  body.flow .cx .p { overflow: visible; }
+
+
+</style>
+<style>
+  /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
+  .fsbtn { position: fixed; z-index: 9998; bottom: 14px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 30px; height: 30px; padding: 0; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22);
+    border-radius: 7px; opacity: 0.5;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, transform 0.1s ease-out, background 0.15s ease,
+      color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn:hover, .fsbtn:focus-visible { opacity: 1; background: #232320; color: #F4F4F0; border-color: #232320; }
+  .fsbtn:active { transform: scale(0.94); }
+  .fsbtn svg { width: 15px; height: 15px; display: block; }
+  /* 手機的翻頁列就在底部，浮在上面容易誤觸；手機瀏覽器本身也有全螢幕 */
+  @media (max-width: 700px) { .fsbtn { display: none !important; } }
+  @media print { .fsbtn { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
+</style>
+<style>
+  /* ── ORPHAN v1：避免末行只剩一兩個字 ──
+     標題與短句用 balance 把各行長度拉平，正文用 pretty 讓末行不要落單。
+     舊版瀏覽器不認得這兩個值時會忽略，畫面與現在相同，再由腳本那一層補上。 */
+  .slide h1, .slide h2, .slide h3, .slide .cover-title, .slide .q-text,
+  .slide .keyline, .slide .def-band, .slide .tag, .slide .en, .slide .fig-head,
+  .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
+  .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
+  .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+</style>
+</head>
+<body>
+
+<div id="viewport">
+  <div id="stage">
+
+    <!-- ═══ P.01 封面 ═══ -->
+    <section class="slide active">
+      <div class="meta-row">
+        <span class="m">OB／ORGANIZATIONAL BEHAVIOR</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="main cover-main">
+        <div class="cover-left">
+          <span class="crosshair">+</span>
+          <span class="kicker">期末專題 ── TEACHING VIDEO</span>
+          <div class="cover-code">VG</div>
+          <h1 class="cover-title">教學短影片製作指引</h1>
+          <div class="cover-en">Making the Final Teaching Video</div>
+          <div class="cover-agenda">
+            <span class="lbl">[ AGENDA ]</span>
+            <div class="items">成品規格 ── 時間配置 ── 從文獻到腳本 ── 錄製方式 ── 配音 ── 字幕 ── 工具與成本 ── 常見失分點 ── 時程與繳交</div>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="data-cell"><span class="lbl">INSTRUCTOR</span><span class="val">王豫萱</span></div>
+          <div class="data-cell"><span class="lbl">INSTITUTE</span><span class="val">國立中山大學<br>人力資源管理研究所</span></div>
+          <div class="data-cell"><span class="lbl">DUE</span><span class="val">2026.12.19　17:00</span></div>
+          <div class="data-cell"><span class="lbl">WEIGHT</span><span class="val">學期成績 40%</span></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 1 ── DELIVERABLES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">02</div>
+        <div class="t"><h2>成品規格</h2><span class="en">DELIVERABLES</span></div>
+        <div class="note">[ 2 ITEMS ]<br>2 DEADLINES</div>
+      </div>
+      <div class="def-band">每組繳交兩份：一支教學短影片，以及一份 Word 檔，都由組長代表上傳，缺一項視為未完成。繳交分兩個時點：11 月 29 日先交 A copy，也就是畫面與配音已串接完成、字幕尚未加上的初剪版本；12 月 19 日交完成版。</div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／VIDEO ]</span>
+          <h3>影片</h3>
+          <span class="en-term">TEACHING VIDEO</span>
+          <ul>
+            <li>長度 5 至 7 分鐘</li>
+            <li>概念定義</li>
+            <li>提出此概念的學者與年代</li>
+            <li>概念演進歷史與相關研究</li>
+            <li>職場實務的管理應用範例</li>
+            <li>需製作字幕</li>
+            <li>需配音</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／DOCUMENT ]</span>
+          <h3>Word 檔</h3>
+          <span class="en-term">SUPPORTING DOCUMENT</span>
+          <ul>
+            <li>組員名單</li>
+            <li>組員照片</li>
+            <li>分工表</li>
+            <li>影片中引用的期刊文獻</li>
+          </ul>
+        </div>
+      </div>
+      <div class="keyline">每個概念各有<span class="r">兩篇指定文獻</span>，在 Classroom 下載；影片內容須看得出讀過這兩篇</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 2 ── PACING</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>六分鐘的時間配置</h2><span class="en">PACING A SIX-MINUTE VIDEO</span></div>
+        <div class="note">[ 6 BLOCKS ]<br>≈ 360 SEC</div>
+      </div>
+      <div class="def-band">以六分鐘為目標，前後各留緩衝，實際落在 5 至 7 分鐘之間。以下為建議配置，各組可依主題調整，但六個區塊都要出現。</div>
+      <div class="axis-list ax6">
+        <div class="axis-row">
+          <div class="k"><span class="zh">開場 30 秒</span><span class="ax">OPENING</span></div>
+          <div class="v">開場的內容是概念要解決的問題，或一個具體場景。組員資訊不佔用開場時間，放在片尾或 Word 檔。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">定義 60 秒</span><span class="ax">DEFINITION</span></div>
+          <div class="v">學術定義加上一句白話重述。定義須對應指定文獻裡的說法。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">源流 90 秒</span><span class="ax">ORIGIN</span></div>
+          <div class="v">提出概念的學者、年代、當時要回答的問題，以及後續有哪些修正或延伸。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">證據 90 秒</span><span class="ax">EVIDENCE</span></div>
+          <div class="v">至少一項具體研究的內容：做了什麼、發現什麼。數字與樣本數比形容詞更具說服力。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">應用 90 秒</span><span class="ax">APPLICATION</span></div>
+          <div class="v">一個職場情境，說明這個概念如何改變判斷或作法。組員自己的工作經驗是最好的素材。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">結尾 30 秒</span><span class="ax">CLOSING</span></div>
+          <div class="v">回應開場提出的問題，並以一句結論作收。</div>
+        </div>
+      </div>
+      <div class="keyline">六分鐘的口白大約 <span class="r">900 至 1100 字</span>；有逐字稿的錄製，重錄次數明顯較少</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 3 ── SCRIPT</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">04</div>
+        <div class="t"><h2>從文獻到腳本</h2><span class="en">FROM PAPER TO SCRIPT</span></div>
+        <div class="note">[ 3 STEPS ]</div>
+      </div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／EXTRACT ]</span>
+          <h3>抓定義與邊界</h3>
+          <span class="en-term">WHAT IT IS</span>
+          <p>從兩篇指定文獻中找出概念的定義，以及它與相鄰概念的區別。區別通常寫在文獻的引言或理論回顧段落。</p>
+          <p>定義保留兩個版本：文獻原句與白話改寫。影片口白使用白話版，字幕或畫面呈現學術版。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／ONE STUDY ]</span>
+          <h3>挑一項講得完的研究</h3>
+          <span class="en-term">ONE PIECE OF EVIDENCE</span>
+          <p>九十秒的篇幅適合一個研究設計的樣本、做法與發現，不適合整篇文獻的摘要。</p>
+          <p>統合分析適合說明效果的方向與強度，單一實驗適合說明機制。兩篇指定文獻取其一即可。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／CASE ]</span>
+          <h3>找一個自己的例子</h3>
+          <span class="en-term">FROM YOUR OWN WORK</span>
+          <p>組員的工作現場是說服力最高的素材。素材的條件是實際發生過的情境，且能說明概念介入前後，判斷或作法的差異。</p>
+          <p>涉及公司或個人時，以化名與模糊化的描述處理。</p>
+        </div>
+      </div>
+      <div class="keyline">腳本完成的兩個判準：<span class="r">念稿計時落在 5 至 7 分鐘</span>，且每一段對應前一頁的六個區塊</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 4 ── RECORDING</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">05</div>
+        <div class="t"><h2>四種錄製方式</h2><span class="en">FOUR WAYS TO RECORD</span></div>
+        <div class="note">[ 4 METHODS ]</div>
+      </div>
+      <div class="def-band">四種都可接受，差別在製作成本與可修改程度。概念講解型的影片以前兩種為主，不需要出鏡。</div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／SLIDES ]</span>
+          <h3>簡報加旁白</h3>
+          <span class="en-term">NARRATED SLIDES</span>
+          <p>PowerPoint 的錄製投影片放映可逐頁錄音，錄壞的那一頁單獨重錄，再匯出成影片。</p>
+          <p>成本最低、最容易修改。缺點是畫面較靜態，需要簡報本身的圖表補足。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／SCREEN ]</span>
+          <h3>螢幕錄製</h3>
+          <span class="en-term">SCREEN RECORDING</span>
+          <p>以錄影軟體同步錄下畫面與聲音，適合需要展示流程或工具的主題。Windows 11 內建的 Clipchamp、macOS 的 QuickTime 都可直接錄製。</p>
+          <p>OBS 之類的軟體可同時錄畫面與人臉，做成子母畫面。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／MEETING ]</span>
+          <h3>線上會議錄影</h3>
+          <span class="en-term">RECORD A MEETING</span>
+          <p>以 Zoom、Teams 或 Meet 開會並錄影，組員分處不同地點時最省事，結束後直接取得影片檔。</p>
+          <p>錄影前確認每位組員的麥克風品質，會議錄影的聲音品質落差通常來自其中一支麥克風。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 04／ON CAMERA ]</span>
+          <h3>真人出鏡</h3>
+          <span class="en-term">ON CAMERA</span>
+          <p>單機口述適合理論與概念的說明，也可與前三種混用，例如開場與結尾出鏡、中段使用簡報。</p>
+          <p>需要注意光線與收音。手機錄影時使用有線耳機的麥克風，品質通常優於機身收音。</p>
+        </div>
+      </div>
+      <div class="keyline">評分項目是<span class="r">內容與清楚程度</span>，特效不列入；口白的清晰度對理解的影響大於畫面</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 5 ── VOICEOVER</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">06</div>
+        <div class="t"><h2>配音</h2><span class="en">VOICEOVER</span></div>
+        <div class="note">[ 2 METHODS ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／HUMAN ]</span>
+          <h3>真人錄音</h3>
+          <span class="en-term">RECORDING YOURSELF</span>
+          <ul>
+            <li>錄音環境為安靜的房間，冷氣與抽風機關閉，避開會回音的空曠空間</li>
+            <li>麥克風與嘴巴的距離約一個拳頭，斜向收音可減少氣爆音</li>
+            <li>分段錄製，單段重錄的成本遠低於整支重來</li>
+            <li>錄完後的試聽是必要步驟，音量忽大忽小對理解的影響大於口音</li>
+            <li>多人分工時語速與音量須先統一，否則段落之間的落差明顯</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／TTS ]</span>
+          <h3>文字轉語音</h3>
+          <span class="en-term">TEXT TO SPEECH</span>
+          <ul>
+            <li>可接受，但發音的正確性須逐句確認，專有名詞常被念錯</li>
+            <li>中英夾雜的句子最容易出錯，例如 EVLN 或 Hofstede</li>
+            <li>整支都用合成語音時，語調缺乏起伏，可聽度較低，開場與結尾以真人錄製較佳</li>
+            <li>工具的使用條款須允許輸出用於課堂作業</li>
+          </ul>
+        </div>
+      </div>
+      <div class="keyline">兩種作法的共同前提是<span class="r">定稿的逐字稿</span>，配音與字幕出自同一份稿子</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 6 ── SUBTITLES</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">07</div>
+        <div class="t"><h2>字幕</h2><span class="en">SUBTITLES</span></div>
+        <div class="note">[ 3 METHODS ]<br>ZH-HANT</div>
+      </div>
+      <div class="def-band">字幕是評分項目。三種作法的共同前提是逐字稿，差別在於自動產生後校對或直接手打。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／AUTO ]</span>
+          <h3>自動產生後校對</h3>
+          <span class="en-term">AUTO THEN PROOFREAD</span>
+          <ul>
+            <li>Windows 11 內建的 Clipchamp 可自動產生字幕並匯出 SRT 檔</li>
+            <li>自動辨識對專有名詞與數字的錯誤率偏高，逐句校對是必要步驟</li>
+            <li>免費方案的額度以各工具的官方說明為準</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／WEB ]</span>
+          <h3>網頁工具</h3>
+          <span class="en-term">ONLINE TOOLS</span>
+          <ul>
+            <li>不需安裝，適合手邊只有瀏覽器的情況</li>
+            <li>免費方案多半有影片長度或輸出畫質的限制，5 至 7 分鐘的影片通常仍在範圍內</li>
+            <li>上傳至網頁工具的內容不應包含不宜外流的資訊</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／MANUAL ]</span>
+          <h3>手動輸入</h3>
+          <span class="en-term">TYPING IT</span>
+          <ul>
+            <li>逐字稿已經寫好時，手打字幕的總時間往往不比校對長</li>
+            <li>一句字幕以一行、十五到二十字為度，長句擠成兩行會降低可讀性</li>
+            <li>斷句依語意，不依畫面切換</li>
+          </ul>
+        </div>
+      </div>
+      <div class="src">常見的一個陷阱：CapCut 與剪映的免費自動字幕只輸出簡體中文，中國版的自動辨識另需付費。使用這兩個工具時，輸出前需轉為繁體並逐句校對。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／12</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 7 ── TOOLS</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">08</div>
+        <div class="t"><h2>工具與參考資源</h2><span class="en">TOOLS ＆ RESOURCES</span></div>
+        <div class="note">[ 3 GROUPS ]<br>COST ＆ LIMITS</div>
+      </div>
+      <div class="def-band">工具的選擇不影響評分，但會決定製作時間與可行性。以一支 5 至 7 分鐘的影片為基準，各類工具的免費額度差異很大。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／EDITING ]</span>
+          <h3>一般剪輯</h3>
+          <span class="en-term">VIDEO EDITORS</span>
+          <ul>
+            <li>Canva：免費、繁體中文介面，下載不加浮水印，影片數量無上限；自動字幕屬付費層級</li>
+            <li>Clipchamp：Windows 11 內建，可錄製螢幕、自動產生字幕並匯出 SRT</li>
+            <li>PowerPoint：逐頁錄音後匯出影片，修改成本最低</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／AI PRESENTER ]</span>
+          <h3>AI 虛擬講者</h3>
+          <span class="en-term">AVATAR TOOLS</span>
+          <ul>
+            <li>Synthesia：免費方案每月 10 分鐘；Starter 每月 29 美元仍是 10 分鐘，Creator 89 美元 30 分鐘</li>
+            <li>HeyGen：免費方案每月 3 支、每支上限 1 分鐘且有浮水印；Creator 每月 29 美元</li>
+            <li>Leadde：宣稱每月 25 美元不限支數，數字取自該公司自己的比較文章</li>
+            <li>以 5 至 7 分鐘為基準，HeyGen 的免費方案不足以完成一支</li>
+            <li>付費方案每人分攤超過 NT$100 的上限，不列入建議方案，詳見下一頁</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／HOW-TO ]</span>
+          <h3>製作方法的參考</h3>
+          <span class="en-term">PRODUCTION GUIDE</span>
+          <ul>
+            <li>Hahow 創作者中心的影片製作指南，涵蓋腳本、打光、場地、收音與麥克風選擇、螢幕錄製與剪輯軟體比較</li>
+            <li>該站未列出解析度、格式與輸出規格，這部分依本課程的規格為準</li>
+            <li>虛擬講者只取代出鏡，內容與說明仍由組員產出</li>
+          </ul>
+        </div>
+      </div>
+      <div class="src">價格與額度為 2026 年 9 月查得的官方公告值，方案內容會調整，實際以各站當下的說明為準。Synthesia 與 HeyGen 取自官方定價頁；Leadde 的數字取自該公司部落格的自我比較文章，未經第三方驗證。錄製方式的分類參考 Hahow 創作者中心 https://creator.hahow.in/video 與燃燒吧攝影魂 AI 學院的線上課程錄影方式整理。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／12</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 7 ── COST</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">09</div>
+        <div class="t"><h2>成本估算</h2><span class="en">WHAT IT COSTS</span></div>
+        <div class="note">[ 2 ROUTES ]<br>CAP NT$100</div>
+      </div>
+      <div class="def-band">以一組五人、製作一支 5 至 7 分鐘影片、訂閱一個月為基準，每人分攤的支出以 NT$100 為上限。超過上限的方案不列入建議，多數組別實際上不需要任何支出。</div>
+      <div class="grid3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／FREE ]</span>
+          <h3>全免費　NT$0</h3>
+          <span class="en-term">NO SPEND</span>
+          <ul>
+            <li>PowerPoint 或 Clipchamp 錄製，真人配音</li>
+            <li>Clipchamp 自動產生字幕並匯出 SRT，或依逐字稿手打</li>
+            <li>Canva 免費方案剪接，下載不加浮水印</li>
+            <li>有線耳機的麥克風多數人已有，不需額外支出</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／CANVA PRO ]</span>
+          <h3>Canva Pro　每人約 NT$60</h3>
+          <span class="en-term">FOR AUTO CAPTIONS</span>
+          <ul>
+            <li>Canva Pro 年繳 NT$3,600，換算每月約 NT$300，月繳另有價格</li>
+            <li>一組五人分攤一個月約 NT$60</li>
+            <li>付費的理由只有自動字幕一項</li>
+            <li>Clipchamp 的自動字幕免費，這筆支出通常可以省下</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／EXCLUDED ]</span>
+          <h3>超出上限的方案</h3>
+          <span class="en-term">ABOVE THE CEILING</span>
+          <ul>
+            <li>AI 虛擬講者的訂閱費用，Synthesia Starter 與 HeyGen Creator 各 29 美元、Leadde 25 美元</li>
+            <li>以一組五人分攤一個月計算，每人約 NT$160 至 185，超過 NT$100 的上限</li>
+            <li>免費方案的額度也不足：HeyGen 每支上限 1 分鐘，Synthesia 每月 10 分鐘且僅夠一支</li>
+            <li>訂閱制另有製作結束後忘記取消而續扣的風險</li>
+          </ul>
+        </div>
+      </div>
+      <div class="src">匯率以臺灣銀行 2026 年 9 月 20 日的即期賣出價 31.875 換算，取整數呈現。Canva 價格取自台灣區定價頁；Synthesia、HeyGen 與 Leadde 的訂閱費用見前一頁的來源說明。各方案的內容與價格會調整，實際以各站當下的公告為準。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 9 ── PITFALLS</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">10</div>
+        <div class="t"><h2>常見失分點</h2><span class="en">WHERE MARKS ARE LOST</span></div>
+        <div class="note">[ 6 ITEMS ]</div>
+      </div>
+      <div class="axis-list ax6">
+        <div class="axis-row">
+          <div class="k"><span class="zh">超時或過短</span><span class="ax">LENGTH</span></div>
+          <div class="v">低於 5 分鐘代表內容不足，超過 7 分鐘代表沒有剪裁。念稿計時可在錄製前發現。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">沒有學者與年代</span><span class="ax">ATTRIBUTION</span></div>
+          <div class="v">規格明確要求學者與年代。只講定義而沒有出處，這一項拿不到分數。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">只有定義沒有研究</span><span class="ax">NO EVIDENCE</span></div>
+          <div class="v">把整支影片用在解釋名詞是最常見的問題。演進與研究各佔一個區塊。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">案例與概念對不上</span><span class="ax">WEAK CASE</span></div>
+          <div class="v">案例要能看出概念如何改變判斷。只講職場故事而沒有回到概念，等於少了應用。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">字幕未校對</span><span class="ax">SUBTITLE ERRORS</span></div>
+          <div class="v">自動字幕出現簡體字、錯字或標點錯誤，會直接影響觀感。</div>
+        </div>
+        <div class="axis-row">
+          <div class="k"><span class="zh">引用格式不完整</span><span class="ax">CITATION</span></div>
+          <div class="v">Word 檔的文獻採 APA 第七版，期刊名與卷數以斜體標示。</div>
+        </div>
+      </div>
+      <div class="keyline">前三項屬於<span class="r">規格問題</span>，對照規格即可檢出；後三項需要在繳交前保留<span class="r">一輪檢查的時間</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 10 ── SCHEDULE</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">11</div>
+        <div class="t"><h2>倒推時程</h2><span class="en">WORKING BACKWARDS</span></div>
+        <div class="note">[ 4 CHECKPOINTS ]<br>A COPY 11.29</div>
+      </div>
+      <div class="def-band">11 月 29 日第 7 次上課要繳交 A copy，也就是初剪版本：畫面與配音已依腳本串接完成，長度落在 5 至 7 分鐘，字幕與細部調整尚未完成。繳交日是 12 月 19 日 17:00，12 月 20 日上台報告。</div>
+      <div class="grid4">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／10 月 ]</span>
+          <h3>讀文獻、寫腳本</h3>
+          <span class="en-term">READ ＆ SCRIPT</span>
+          <p>此階段的產出：兩篇指定文獻讀完，影片要講的研究與職場案例已確定，逐字稿定稿。</p>
+          <p>分工同時定案：寫稿、簡報、錄音、剪接各由誰負責。錄音與剪接的時間要預先排入。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／11 月 29 日 ]</span>
+          <h3>A copy 完成</h3>
+          <span class="en-term">A COPY DUE</span>
+          <p>第 7 次上課的小組檢核以 A copy 進行，各組播放後接受意見。沒有 A copy 的組別無法取得修改方向。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／12 月 10 日 ]</span>
+          <h3>依意見修正</h3>
+          <span class="en-term">REVISION</span>
+          <p>依檢核意見修改內容與長度，並完成字幕。距繳交還有九天，用於校對與 Word 檔。</p>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 04／12 月 19 日 ]</span>
+          <h3>繳交</h3>
+          <span class="en-term">SUBMIT</span>
+          <p>影片與 Word 檔由組長上傳 Classroom，17:00 截止。</p>
+          <p>上傳後的播放確認是最後一項檢查，尤其是字幕是否一起輸出。</p>
+        </div>
+      </div>
+      <div class="keyline">11 月 29 日交<span class="r">A copy</span>，12 月 19 日交<span class="r">完成版</span>；字幕與校對所需的時間通常被低估</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／12</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 11 ── SUBMISSION</span>
+        <span class="m">REV 2026.09</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">12</div>
+        <div class="t"><h2>繳交與上台</h2><span class="en">SUBMISSION ＆ PRESENTATION</span></div>
+        <div class="note">[ 2 STEPS ]</div>
+      </div>
+      <div class="grid2">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／SUBMIT ]</span>
+          <h3>繳交</h3>
+          <span class="en-term">12.19　17:00</span>
+          <ul>
+            <li>由組長代表上傳至 Google Classroom</li>
+            <li>影片與 Word 檔兩份都要上傳</li>
+            <li>影片檔過大時，改上傳雲端連結，並確認權限為可觀看</li>
+            <li>繳交後不再接受重新上傳</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／PRESENT ]</span>
+          <h3>上台</h3>
+          <span class="en-term">12.20　課堂</span>
+          <ul>
+            <li>七組依序播放與講評，每組約 15 分鐘</li>
+            <li>播放前的設備確認包含聲音與字幕是否正常</li>
+            <li>播放後有關於文獻與案例的提問</li>
+          </ul>
+        </div>
+      </div>
+      <div class="keyline">影片本身就是報告的主體，<span class="r">上台不需要再做一份簡報</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／12</span></div>
+    </section>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const stage = document.getElementById('stage');
+  const viewport = document.getElementById('viewport');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    viewport.scrollTop = 0;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let downX = 0, downY = 0;
+  stage.addEventListener('mousedown', (e) => { downX = e.clientX; downY = e.clientY; });
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('a, iframe, video, .video-cell, .ix')) return;
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString().length > 0) return;
+    const r = stage.getBoundingClientRect();
+    (e.clientX - r.left) / r.width < 0.3 ? show(i - 1) : show(i + 1);
+  });
+  function fit() {
+    const flow = innerWidth < 980 || (innerWidth / innerHeight) < 1.3;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = 'none'; return; }
+    const s = Math.min(innerWidth / 1330, innerHeight / 770);
+    stage.style.transform = 'scale(' + Math.min(s, 1.4) + ')';
+  }
+  addEventListener('resize', fit);
+  fit();
+  show(0);
+</script>
+
+<script>
+/* 卡片標題水平對齊：同一列的 h3 起始位置一致，整組內容仍維持垂直置中 */
+(function () {
+  var SEL = '.grid2,.grid3,.grid4,.grid3r,.grid5,.grid6,.grid8';
+  function alignIn(scope) {
+    scope.querySelectorAll(SEL).forEach(function (g) {
+      var cells = Array.prototype.filter.call(g.children, function (c) {
+        return c.classList && c.classList.contains('cell');
+      });
+      if (cells.length < 2) return;
+      var blocks = [];
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        var h3 = c.querySelector(':scope > h3');
+        if (!h3) return;
+        var kids = Array.prototype.filter.call(c.children, function (el) {
+          return !el.classList.contains('corner');
+        });
+        var last = kids[kids.length - 1];
+        if (!last) return;
+        blocks.push({ c: c, h3: h3, last: last });
+      }
+      blocks.forEach(function (b) { b.h3.style.marginTop = '0px'; });
+      var data = blocks.map(function (b) {
+        var cr = b.c.getBoundingClientRect();
+        var sc = b.c.offsetWidth ? cr.width / b.c.offsetWidth : 1;
+        if (!(sc > 0.05)) sc = 1;
+        var top = b.h3.getBoundingClientRect().top;
+        var bot = b.last.getBoundingClientRect().bottom;
+        var padB = parseFloat(getComputedStyle(b.c).paddingBottom) || 0;
+        return { h3: b.h3, h: bot - top, avail: cr.bottom - padB * sc - top, sc: sc };
+      });
+      var bad = data.some(function (d) { return !(d.h > 0) || !(d.avail > 0); });
+      if (bad) { blocks.forEach(function (b) { b.h3.style.marginTop = ''; }); return; }
+      var maxH = Math.max.apply(null, data.map(function (d) { return d.h; }));
+      var minAvail = Math.min.apply(null, data.map(function (d) { return d.avail; }));
+      var off = Math.max(0, (minAvail - maxH) / 2);
+      data.forEach(function (d) { d.h3.style.marginTop = (off / d.sc).toFixed(1) + 'px'; });
+    });
+  }
+  function run() {
+    if (document.body.classList.contains('flow')) { alignIn(document); return; }
+    var a = document.querySelector('section.slide.active');
+    alignIn(a || document);
+  }
+  var t;
+  function later() { clearTimeout(t); t = setTimeout(run, 60); }
+  addEventListener('resize', later);
+  addEventListener('load', run);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  /* 同步在換頁的同一幀完成量測，避免看到文字位移 */
+  var mo = new MutationObserver(function (recs) {
+    for (var i = 0; i < recs.length; i++) {
+      var el = recs[i].target;
+      if (el.classList && el.classList.contains('active')) { alignIn(el); }
+    }
+  });
+  document.querySelectorAll('section.slide').forEach(function (s) {
+    mo.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+  run();
+  setTimeout(run, 300);
+})();
+</script>
+<script>
+/* 中文標籤斷行保護：短標籤在窄欄位換行時，避免最後一行只剩一個字 */
+(function () {
+  var SEL = 'h3,.zh,.lab,.k>span,th,.cap,.tl';
+  var CJK = /^[\u3000-\u303F\u4E00-\u9FFF\uFF00-\uFFEF（）·、，。／]+$/;
+  function fix(root) {
+    root.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.noOrphan) return;
+      if (el.children.length) return;
+      var t = (el.textContent || '').trim();
+      if (t.length < 3 || t.length > 14) return;
+      if (!CJK.test(t)) return;
+      el.dataset.noOrphan = '1';
+      el.textContent = t.slice(0, -2);
+      var s = document.createElement('span');
+      s.style.whiteSpace = 'nowrap';
+      s.textContent = t.slice(-2);
+      el.appendChild(s);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { fix(document); });
+  } else { fix(document); }
+})();
+</script>
+
+<script>
+/* ── 點圖放大（FIGZOOM v2）── */
+(function () {
+  var SEL = '.fig-body img, .fig-body svg, .figimg img, .mini-fig svg, .fig-wrap img, .fig-wrap svg';
+  var ov = null;
+
+  function close() {
+    if (!ov || ov.__closing) return;
+    var el = ov;
+    el.__closing = true;
+    el.classList.add('closing');
+    try { var _cur = document.fullscreenElement || document.webkitFullscreenElement;
+    if (_cur && _cur !== document.documentElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) { var r = ex.call(document); if (r && r.catch) r.catch(function () {}); }
+    } } catch (e) {}
+    setTimeout(function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (ov === el) ov = null;
+    }, 160);
+  }
+
+
+  /* 放大時把 viewBox 收到實際內容，去掉圖檔本身的空白邊 */
+  function tighten(svg) {
+    try {
+      var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+      if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+      var total = vb[2] * vb[3];
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, n = 0;
+      Array.prototype.forEach.call(svg.children, function (el) {
+        var b; try { b = el.getBBox(); } catch (e) { return; }
+        if (!b || b.width <= 0 || b.height <= 0) return;
+        if (b.width * b.height >= total * 0.97) return;   /* 跳過整張底色 */
+        if (b.x < minX) minX = b.x;
+        if (b.y < minY) minY = b.y;
+        if (b.x + b.width > maxX) maxX = b.x + b.width;
+        if (b.y + b.height > maxY) maxY = b.y + b.height;
+        n++;
+      });
+      if (!n || !isFinite(minX)) return;
+      var w = maxX - minX, h = maxY - minY;
+      if (w <= 0 || h <= 0) return;
+      var m = Math.max(w, h) * 0.02;
+      svg.setAttribute('viewBox', (minX - m) + ' ' + (minY - m) + ' ' + (w + 2 * m) + ' ' + (h + 2 * m));
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    } catch (e) {}
+  }
+
+  function open(el) {
+    if (ov) return;
+    ov = document.createElement('div');
+    ov.className = 'figzoom';
+    var c = el.cloneNode(true);
+    c.removeAttribute('style');
+    c.removeAttribute('class');
+    ov.appendChild(c);
+    var tip = document.createElement('span');
+    tip.className = 'figzoom-tip';
+    tip.textContent = '點一下或按 ESC 關閉';
+    ov.appendChild(tip);
+    document.body.appendChild(ov);
+    if (c.tagName && c.tagName.toLowerCase() === 'svg') tighten(c);
+    ov.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    try {
+      var fn = ov.requestFullscreen || ov.webkitRequestFullscreen;
+      if (fn) { var p = fn.call(ov); if (p && p.catch) p.catch(function () {}); }
+    } catch (e) {}
+  }
+
+  document.addEventListener('click', function (e) {
+    if (ov) { e.stopPropagation(); e.preventDefault(); close(); return; }
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var fig = t.closest(SEL);
+    if (!fig) return;
+    e.stopPropagation(); e.preventDefault();
+    open(fig);
+  }, true);
+
+  document.addEventListener('keydown', function (e) {
+    if (!ov) return;
+    e.stopPropagation();
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+  }, true);
+
+  document.addEventListener('fullscreenchange', function () {
+    if (ov && !document.fullscreenElement) close();
+  });
+})();
+</script>
+
+<script>
+/* PDFBTN v1：列印成 PDF。列印前先解除窄螢幕的流式模式，列印後還原 */
+(function () {
+  if (document.querySelector('.pdfbtn')) return;
+  var flowWas = false;
+  function before() { flowWas = document.body.classList.contains('flow'); document.body.classList.remove('flow'); }
+  function after() { if (flowWas) document.body.classList.add('flow'); }
+  window.addEventListener('beforeprint', before);
+  window.addEventListener('afterprint', after);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'pdfbtn';
+  b.innerHTML = '<span class="ar">\u2193</span><span>PDF</span>';
+  b.title = '下載為 PDF：在列印視窗把目的地選成另存為 PDF';
+  b.setAttribute('aria-label', '下載為 PDF');
+  b.addEventListener('click', function (e) { e.stopPropagation(); before(); window.print(); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'p') before();
+  });
+  document.body.appendChild(b);
+
+  /* 位置：優先放進舞台上方的留白帶，其次右側留白帶；兩邊都不夠時貼回右上角，
+     並把頁首的右內距讓出按鈕的寬度，避免蓋住 REV 與圖說。 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    /* 媒體查詢把按鈕藏起來時不需要讓位，否則頁首會被推到換行 */
+    if (!b.offsetWidth) { document.body.classList.remove('pdfbtn-inset'); return; }
+    var bw = b.offsetWidth || 70, bh = b.offsetHeight || 30, gap = 10;
+    /* 流式模式沒有縮放，舞台寬度不是 1280，不能拿來推算比例 */
+    var scale = document.body.classList.contains('flow') ? 1 : (r.width / 1280 || 1);
+    b.style.left = 'auto';
+    if (r.top >= bh + gap * 2) {
+      b.style.top = Math.round(r.top - bh - gap) + 'px';
+      b.style.right = Math.round(Math.max(0, innerWidth - r.right)) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else if (innerWidth - r.right >= bw + gap * 2) {
+      b.style.top = Math.round(r.top + gap) + 'px';
+      b.style.right = Math.round((innerWidth - r.right - bw) / 2) + 'px';
+      document.body.classList.remove('pdfbtn-inset');
+    } else {
+      b.style.top = '14px'; b.style.right = '14px';
+      var over = Math.max(0, r.right - (innerWidth - 14 - bw)) + gap;
+      document.documentElement.style.setProperty('--pdfbtn-inset', Math.min(140, Math.round(over / scale)) + 'px');
+      document.body.classList.add('pdfbtn-inset');
+    }
+  }
+  /* 只在第一頁顯示。沒有舞台結構的流式頁面（互動版）一律顯示。 */
+  var firstSlide = document.querySelector('#stage .slide');
+  function onFirst() { return !firstSlide || firstSlide.classList.contains('active'); }
+  function sync() {
+    if (onFirst()) { b.style.display = ''; place(); }
+    else { b.style.display = 'none'; }
+  }
+  if (firstSlide) new MutationObserver(sync).observe(firstSlide, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 60); setTimeout(sync, 400);
+  var _before = before;
+  before = function () { document.body.classList.remove('pdfbtn-inset'); _before(); };
+  window.addEventListener('afterprint', function () { setTimeout(place, 30); });
+})();
+</script>
+<script>
+/* IX：課堂互動頁（分類練習、判斷題、預測揭曉、自我檢核）── 2026-09 */
+(function () {
+  const $ = (el, q) => el.querySelector(q);
+  const $$ = (el, q) => Array.from(el.querySelectorAll(q));
+  /* 分類練習 */
+  function initSort(root) {
+    const pool = $(root, '.ix-pool'), chips = $$(root, '.ix-chip'), buckets = $$(root, '.ix-bucket');
+    const doneEl = $(root, '.done'), missEl = $(root, '.miss'), sort = $(root, '.ix-sort');
+    let sel = null, done = 0, miss = 0;
+    const home = chips.map(c => c.nextSibling);
+    function refresh() { doneEl.textContent = done; missEl.textContent = miss; sort.classList.toggle('finished', done === chips.length); }
+    chips.forEach(c => c.addEventListener('click', () => {
+      if (c.classList.contains('done')) return;
+      if (sel) sel.classList.remove('sel');
+      sel = (sel === c) ? null : c; if (sel) sel.classList.add('sel');
+    }));
+    buckets.forEach(b => b.addEventListener('click', (e) => {
+      if (!sel) return;
+      b.classList.remove('hit', 'miss'); void b.offsetWidth;
+      if (b.dataset.key === sel.dataset.key) {
+        sel.classList.remove('sel'); sel.classList.add('done'); $(b, '.drop').appendChild(sel); sel = null; done++; b.classList.add('hit');
+      } else { miss++; b.classList.add('miss'); }
+      refresh();
+    }));
+    $(root, '.reset').addEventListener('click', () => {
+      chips.forEach((c, k) => { c.classList.remove('done', 'sel'); pool.appendChild(c); });
+      sel = null; done = 0; miss = 0; refresh();
+    });
+  }
+  /* 一次一題：判斷題與自我檢核 */
+  function initQuiz(root) {
+    const card = $(root, '.ix-card'), items = JSON.parse($(card, 'script').textContent);
+    const labels = (card.dataset.labels || '').split('|').filter(Boolean), cols = card.dataset.cols || '2';
+    const stmt = $(card, '.ix-stmt'), txt = $(stmt, '.txt'), qlab = $(stmt, '.q'), opts = $(card, '.ix-opts'), fb = $(card, '.ix-fb');
+    const cur = $(root, '.cur'), score = $(root, '.score'), prevB = $(root, '.prev'), nextB = $(root, '.next');
+    const prefix = qlab.textContent.split('／')[0];
+    const picks = new Array(items.length).fill(null);
+    let n = 0, finalEl = null;
+    $(root, '.tot').textContent = items.length;
+    function count() { return picks.filter((p, k) => p !== null && p === items[k].a).length; }
+    function render() {
+      if (finalEl) { finalEl.remove(); finalEl = null; stmt.hidden = false; opts.hidden = false; fb.hidden = false; }
+      const it = items[n], choices = it.o || labels;
+      qlab.textContent = prefix + '／' + String(n + 1).padStart(2, '0');
+      txt.textContent = it.s; opts.innerHTML = ''; opts.className = 'ix-opts c' + cols;
+      choices.forEach((c, k) => {
+        const b = document.createElement('button'); b.className = 'ix-opt';
+        b.innerHTML = '<span class="k">' + String.fromCharCode(65 + k) + '</span><span>' + c + '</span>';
+        b.addEventListener('click', () => { if (picks[n] !== null) return; picks[n] = k; paint(); });
+        opts.appendChild(b);
+      });
+      paint();
+    }
+    function paint() {
+      const it = items[n], p = picks[n], bs = $$(opts, '.ix-opt');
+      card.classList.toggle('answered', p !== null);
+      bs.forEach((b, k) => { b.classList.toggle('right', p !== null && k === it.a); b.classList.toggle('wrong', p !== null && k === p && k !== it.a); });
+      const verdict = it.o ? '' : '<b>判定：' + labels[it.a] + '</b>　';
+      fb.innerHTML = p === null ? '' : verdict + it.fb + '<span class="topic">相關主題：' + it.t + '</span>';
+      cur.textContent = n + 1; score.textContent = count();
+      prevB.disabled = n === 0; nextB.disabled = p === null;
+      nextB.textContent = (n === items.length - 1) ? (card.dataset.final ? '看成績' : '下一題') : '下一題';
+    }
+    function finish() {
+      stmt.hidden = true; opts.hidden = true; fb.hidden = true;
+      finalEl = document.createElement('div'); finalEl.className = 'ix-done';
+      const c = count(), tot = items.length;
+      const msg = c === tot ? '全部答對。' : '答錯的題目各附相關主題，對應本章該節的內容。';
+      finalEl.innerHTML = '<div class="big">' + c + '／' + tot + '</div><p>' + msg + '</p>';
+      card.appendChild(finalEl); nextB.disabled = true;
+    }
+    prevB.addEventListener('click', () => { if (n > 0) { n--; render(); } });
+    nextB.addEventListener('click', () => { if (n < items.length - 1) { n++; render(); } else if (card.dataset.final) finish(); });
+    $(root, '.reset').addEventListener('click', () => { picks.fill(null); n = 0; render(); });
+    render();
+  }
+  /* 預測再揭曉 */
+  function initPred(root) {
+    const pred = $(root, '.ix-pred'), rows = $$(root, '.ix-row');
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', () => {
+      if (pred.classList.contains('revealed')) return;
+      if (r.dataset.multi) b.classList.toggle('pick');
+      else { $$(r, '.ix-opt').forEach(x => x.classList.remove('pick')); b.classList.add('pick'); }
+    })));
+    const revealBtn = $(root, '.reveal'), tally = $(root, '.ix-tally');
+    function sync() {
+      const done = rows.filter(r => $$(r, '.ix-opt').some(b => b.classList.contains('pick'))).length;
+      const all = done === rows.length;
+      if (!pred.classList.contains('revealed')) revealBtn.disabled = !all;
+      revealBtn.title = all ? '' : '四列都選好之後才能看答案';
+      if (tally) tally.textContent = done + '／' + rows.length;
+      root.classList.toggle('ix-ready', all);
+    }
+    rows.forEach(r => $$(r, '.ix-opt').forEach(b => b.addEventListener('click', sync)));
+    $(root, '.reveal').addEventListener('click', () => {
+      if (revealBtn.disabled) return;
+      $$(root, '.ix-opt').forEach(b => b.classList.toggle('truth', b.dataset.truth === '1'));
+      pred.classList.add('revealed');
+    });
+    $(root, '.reset').addEventListener('click', () => {
+      pred.classList.remove('revealed'); $$(root, '.ix-opt').forEach(b => b.classList.remove('pick', 'truth'));
+      sync();
+    });
+    sync();
+  }
+  document.querySelectorAll('.ix').forEach(root => {
+    const t = root.dataset.ix;
+    if (t === 'sort') initSort(root); else if (t === 'quiz') initQuiz(root); else if (t === 'pred') initPred(root);
+  });
+})();
+</script>
+
+<script>
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
+   做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
+   縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
+(function () {
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
+  var stage = document.getElementById('stage');
+  var vp = document.getElementById('viewport');
+  if (!stage || !vp) return;
+
+  /* Safari 的下方工具列會蓋住畫面，clientHeight 量不到這一段，改以 visualViewport 為準 */
+  function visH() {
+    var a = vp.clientHeight;
+    var b = (window.visualViewport && window.visualViewport.height) || a;
+    return Math.max(320, Math.min(a, b));
+  }
+
+  function clear() {
+    stage.style.zoom = '';
+    var a = document.querySelector('.slide.active');
+    if (a) a.style.minHeight = '';
+  }
+
+  function fitOne() {
+    if (!document.body.classList.contains('flow')) { clear(); return; }
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), si = 0, k = STEPS[0];
+    /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
+      stage.style.zoom = k === 1 ? '' : String(k);
+      slide.style.minHeight = '0px';
+      var natural = stage.getBoundingClientRect().height;
+      if (natural <= H + 0.5) break;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
+    }
+    stage.style.zoom = k === 1 ? '' : String(k);
+    slide.style.minHeight = '0px';
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動。
+       量的時候要先解除舞台自己的 min-height，否則內容短的頁面會把舞台撐滿一屏的高度
+       誤算成框線，min-height 被扣到只剩一半，翻頁列因此停在畫面中間。 */
+    stage.style.minHeight = '0px';
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+    vp.scrollTop = 0;
+  }
+
+  /* 互動頁答題後版面會變高，這時只縮不放，避免作答途中字忽大忽小 */
+  var tid = 0;
+  function tighten() {
+    if (!document.body.classList.contains('flow')) return;
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = +(stage.style.zoom || 1);
+    slide.style.minHeight = '0px';
+    var h = stage.getBoundingClientRect().height;
+    if (h > H + 0.5 && k > MIN) {
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
+    }
+    stage.style.minHeight = '0px';
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.ix')) return;
+    clearTimeout(tid); tid = setTimeout(tighten, 120);
+  }, true);
+
+  var base = window.show;
+  if (typeof base === 'function') {
+    window.show = function (n) { base(n); fitOne(); };
+  }
+  addEventListener('resize', function () { setTimeout(fitOne, 60); });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { clearTimeout(tid); tid = setTimeout(fitOne, 150); });
+  }
+  addEventListener('orientationchange', function () { setTimeout(fitOne, 220); });
+  setTimeout(fitOne, 0);
+})();
+</script>
+<script>
+/* ── 手機翻頁：頁尾的上一頁與下一頁，加上左右滑動 ──
+   互動頁點內容不翻頁，桌機靠方向鍵，手機需要固定的入口 */
+(function () {
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var vp = document.getElementById('viewport');
+  if (!slides.length || !vp || typeof window.show !== 'function') return;
+
+  function cur() {
+    for (var k = 0; k < slides.length; k++) if (slides[k].classList.contains('active')) return k;
+    return 0;
+  }
+  function mk(cls, txt) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgbtn ' + cls; b.textContent = txt;
+    return b;
+  }
+  slides.forEach(function (s) {
+    var f = s.querySelector('.footer-row');
+    if (!f) return;
+    var p = mk('prev', '\u2039 上一頁'), n = mk('next', '下一頁 \u203A');
+    f.insertBefore(p, f.firstChild);
+    f.appendChild(n);
+    p.addEventListener('click', function (e) { e.stopPropagation(); show(cur() - 1); });
+    n.addEventListener('click', function (e) { e.stopPropagation(); show(cur() + 1); });
+  });
+
+  function sync() {
+    var k = cur();
+    slides.forEach(function (s) {
+      var p = s.querySelector('.pgbtn.prev'), n = s.querySelector('.pgbtn.next');
+      if (p) p.disabled = k === 0;
+      if (n) n.disabled = k === slides.length - 1;
+    });
+  }
+  var base = window.show;
+  window.show = function (n) { base(n); sync(); };
+  sync();
+
+  /* 左右滑動翻頁。垂直為主的動作留給捲動，長按後的移動不算 */
+  var x0 = 0, y0 = 0, t0 = 0, track = false;
+  vp.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { track = false; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); track = true;
+  }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (!track) return;
+    track = false;
+    if (Date.now() - t0 > 600) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    show(cur() + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
+</script>
+
+<script>
+/* FSBTN v2：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。
+   鈕在右下角，只有圖示、每一頁都在，平時半透明，滑過才變深。鍵盤 F 也可切換。 */
+(function () {
+  if (document.querySelector('.fsbtn')) return;
+  var root = document.documentElement;
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  var IN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+
+  function isFs() {
+    var el = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!el && el === root;
+  }
+  function enter() {
+    var fn = root.requestFullscreen || root.webkitRequestFullscreen;
+    try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function exit() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function toggle() { isFs() ? exit() : enter(); }
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fsbtn';
+  b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+  function label() {
+    if (isFs()) { b.innerHTML = OUT; b.title = '離開全螢幕，也可以按 Esc 或 F'; b.setAttribute('aria-label', '離開全螢幕'); }
+    else { b.innerHTML = IN; b.title = '全螢幕播放，按 Esc 或 F 離開'; b.setAttribute('aria-label', '全螢幕'); }
+  }
+  label();
+  document.body.appendChild(b);
+
+  /* 位置：舞台下方若有留白帶就放進去，右緣對齊舞台；不夠就貼回視窗右下角 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    var s = b.offsetHeight || 30, gap = 10;
+    if (innerHeight - r.bottom >= s + gap * 2) {
+      b.style.bottom = Math.round(Math.max(gap, (innerHeight - r.bottom - s) / 2)) + 'px';
+      b.style.right = Math.round(Math.max(gap, innerWidth - r.right)) + 'px';
+    } else {
+      b.style.bottom = '14px';
+      b.style.right = '14px';
+    }
+  }
+  function sync() { label(); place(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('input, select, textarea, [contenteditable="true"]')) return;
+    if (t && /^(INPUT|TEXTAREA|SELECT|VIDEO)$/.test(t.tagName)) return;
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggle(); }
+  });
+  document.addEventListener('fullscreenchange', function () { setTimeout(sync, 60); });
+  document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 80); setTimeout(sync, 420);
+})();
+</script>
+
+<script>
+/* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
+   CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
+   長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
+   之間插入 word joiner（U+2060，零寬、不顯示），讓它們不能被拆開，一起落到末行。
+   用字元而不是包 span，是因為孤兒字常常跨越行內元素的邊界，例如句號後面接一個 <span>。
+   末行變長、倒數第二行變短，總行數不變，所以不影響縮放與版面高度。 */
+(function () {
+  var MIN = 3;                 /* 末行至少要有幾個實字 */
+  var MAXGROUP = 6;            /* 一次最多綁幾個字，綁太多會把整句話拖下來 */
+  var WJ = '⁠';
+  var SKIP = 'svg, .pagenum, .meta-row, .footer-row, code, pre, .fsbtn, .pdfbtn, .ix-bar .ctl';
+  var PUNCT = /[\s⁠。，、；：？！（）「」『』〈〉《》【】\[\]\.,;:?!()"'—–…\-]/;
+
+  function clear(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    var hit = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf(WJ) >= 0) hit.push(n);
+    for (var i = 0; i < hit.length; i++) hit[i].nodeValue = hit[i].nodeValue.split(WJ).join('');
+  }
+
+  /* 由尾端往前取字元與它們的行位置，最多看 16 個 */
+  function tail(el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, nodes = [];
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.trim()) nodes.push(n);
+    if (!nodes.length) return null;
+    var r = document.createRange(), seq = [];
+    for (var i = nodes.length - 1; i >= 0 && seq.length < 16; i--) {
+      var s = nodes[i].nodeValue;
+      for (var j = s.length - 1; j >= 0 && seq.length < 16; j--) {
+        if (/[\s⁠]/.test(s[j])) continue;
+        try { r.setStart(nodes[i], j); r.setEnd(nodes[i], j + 1); } catch (e) { continue; }
+        var q = r.getClientRects()[0];
+        if (!q || !q.height) continue;
+        seq.push({ node: nodes[i], idx: j, top: Math.round(q.top), ch: s[j] });
+      }
+    }
+    return seq.length ? seq : null;
+  }
+
+  /* 不列舉版型的 class，而是掃出所有自己排成一個文字區塊的元素。
+     行內元素只是整段文字的片段，它自己的末行不等於段落的末行，因此排除。 */
+  function candidates(root) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null), el;
+    while ((el = w.nextNode())) {
+      if (el.closest(SKIP)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.display === 'inline') continue;
+      var has = false, c;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        c = el.childNodes[i];
+        if (c.nodeType === 3 && c.nodeValue.trim()) { has = true; break; }
+      }
+      if (!has && el.children.length && (el.textContent || '').trim()) {
+        has = true;
+        for (var j = 0; j < el.children.length; j++)
+          if (getComputedStyle(el.children[j]).display !== 'inline') { has = false; break; }
+      }
+      if (has) out.push(el);
+    }
+    return out;
+  }
+
+  function fix(el) {
+    /* 字距拉開的等寬標籤：插入的接合字元會吃到一個字距而露出明顯的空隙，
+       這類元素本來就是短標籤，跳過不處理 */
+    var ls = parseFloat(getComputedStyle(el).letterSpacing);
+    if (ls && ls >= 0.5) return;
+    var seq = tail(el);
+    if (!seq || seq.length < 3) return;
+    var lastTop = seq[0].top, onLast = 0, differs = false;
+    for (var i = 0; i < seq.length; i++) {
+      if (Math.abs(seq[i].top - lastTop) <= 3) onLast++;
+      else { differs = true; break; }
+    }
+    if (!differs) return;                     /* 只有一行，沒有孤兒字問題 */
+    var core = 0;
+    for (var k = 0; k < onLast; k++) if (!PUNCT.test(seq[k].ch)) core++;
+    if (core >= MIN) return;
+    var need = Math.min(MAXGROUP, seq.length, onLast + (MIN - core));
+    if (need < 2) return;
+    var before = el.scrollWidth;
+    var done = [];
+    /* 由最後一個字往前，在相鄰兩字之間插入 word joiner。索引由大而小，不會互相位移 */
+    for (var m = 0; m < need - 1; m++) {
+      var g = seq[m], v = g.node.nodeValue;
+      g.node.nodeValue = v.slice(0, g.idx) + WJ + v.slice(g.idx);
+      done.push(g.node);
+    }
+    /* 綁起來之後若撐破欄寬，還原這個元素 */
+    if (el.scrollWidth > Math.max(before, el.clientWidth) + 2) clear(el);
+  }
+
+  var tid = 0;
+  function run() {
+    var sl = document.querySelector('.slide.active') || document.body;
+    clear(sl);
+    var list = candidates(sl);
+    for (var i = 0; i < list.length; i++) fix(list[i]);
+  }
+  function later() { clearTimeout(tid); tid = setTimeout(run, 60); }
+
+  var base = window.show;
+  if (typeof base === 'function') window.show = function (n) { base(n); later(); };
+  addEventListener('resize', later);
+  addEventListener('load', later);
+  if (window.visualViewport) visualViewport.addEventListener('resize', later);
+  document.addEventListener('fullscreenchange', later);
+  document.addEventListener('click', function (e) { if (e.target.closest('.ix')) later(); }, true);
+  window.addEventListener('beforeprint', run);
+  setTimeout(run, 120); setTimeout(run, 500);
+})();
+</script>
+
+<script>
+/* ── REVDATE v1：頁首的 REV 改成這份檔案的更新日期 ──
+   document.lastModified 讀的是伺服器回的 Last-Modified，GitHub Pages 會給真正的
+   部署時間；本機開啟時則是檔案自己的修改時間。兩種情況都是「這份內容的版本」，
+   不是列印當天的日期。取不到有效日期就不動，保留原本寫死的 REV。 */
+(function () {
+  var d = new Date(document.lastModified);
+  if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+  function p(n) { return (n < 10 ? '0' : '') + n; }
+  var txt = 'REV ' + d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+  var RE = /REV\s+\d{4}\.\d{2}(?:\.\d{2})?/;
+  function stamp() {
+    /* 各檔的 REV 標記寫法不同：有的在頁首的 .m、有的是 .rev、有的在頁尾的一段文字裡。
+       因此不指定 class，改成掃出所有沒有子元素、且文字符合 REV 年.月 的節點就地替換。 */
+    var list = document.querySelectorAll('.meta-row *, .footer-row *, footer *, .rev, .cover-meta *, .data-cell *');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (el.children.length) continue;
+      var t = el.textContent;
+      if (!RE.test(t)) continue;
+      el.textContent = t.replace(RE, txt);
+    }
+  }
+  stamp();
+  window.addEventListener('beforeprint', stamp);
+})();
+</script>
+<script>
+/* ── RFLINK v1：把參考文獻與引註帶裡的純文字網址轉成連結 ──
+   來源資料一律以純文字寫入，避免在內容裡散寫 a 標籤；
+   這裡統一掃過一次，已經有連結的段落跳過。 */
+(function () {
+  var RE = /(https?:\/\/[^\s，。；、）)\]】＞>"']+)/g;
+  document.querySelectorAll('.rf-grp p, .cite, .src, .src-band, .rf-note').forEach(function (el) {
+    if (el.querySelector('a')) return;
+    var h = el.innerHTML;
+    if (h.indexOf('http') < 0) return;
+    el.innerHTML = h.replace(RE, function (u) {
+      var t = u.replace(/[.,;:]$/, ''), tail = u.slice(t.length);
+      return '<a href="' + t + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' + tail;
+    });
+  });
+})();
+</script>
+</body>
+</html>
