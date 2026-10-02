@@ -535,6 +535,21 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+
+  /* ── CASE：課前閱讀個案頁（2026-10） ── */
+  .read-band { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--ink); padding: 10px 28px; flex: none; font-size: 14.5px; line-height: 1.6; }
+  .read-band .lb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--red); white-space: nowrap; }
+  .read-band a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .read-band a:hover { color: #B03028; }
+  .read-band a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  .case3 { grid-template-columns: 0.85fr 1.1fr 1.45fr; }
+  .case3 .cell li { font-size: 14.5px; line-height: 1.6; margin-bottom: 6px; }
+  .case-src { border-top: 1px solid var(--ink); padding: 8px 28px; flex: none; font-size: 11px; line-height: 1.6; color: #8A8A82; }
+  body.flow .case3 { grid-template-columns: 1fr; }
+  body.flow .read-band { flex-direction: column; gap: 4px; padding: 12px 22px; }
+  .rf-grp p a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: .5px; overflow-wrap: break-word; }
+  .rf-grp p a:hover { color: #B03028; }
+  @media print { .read-band a::after { content: ' ' attr(href); font-weight: 400; font-size: 11px; } }
 </style>
 </head>
 <body>
@@ -564,7 +579,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／58</span></div>
     </section>
 
     <!-- P.02 權力的定義與本質 -->
@@ -592,7 +607,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力最重要之處在於它的依賴性（dependency）。只有在A控制B想要的事物時，A對B才有權力。依賴性愈大，權力愈大——這是貫穿本章的核心邏輯。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／58</span></div>
     </section>
 
     <!-- P.03 權力與領導的區別 -->
@@ -626,7 +641,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>領導方面的研究多強調領導者的風格；權力的研究則聚焦於取得順從的戰術與依賴關係。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／58</span></div>
     </section>
 
     <!-- P.04 權力的基礎來源 -->
@@ -653,7 +668,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>來自個人特質和專業知識，及他人的尊敬與讚賞，包括專家權與參考權兩種類型。個人權力附著在人身上，離開職位依然存在。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／58</span></div>
     </section>
 
     <!-- P.05 正式權力的三種類型 -->
@@ -687,7 +702,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>來自於可以掌握並使用組織資源的正式職權，是正式權力中範圍最廣的一種。成員接受職權階層，便是接受了合法權的基礎。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／58</span></div>
     </section>
 
     <!-- P.06 個人權力的兩種類型 -->
@@ -714,7 +729,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>基礎為某人擁有令人渴望的資源或個人特質。這種權力來自於他人對個人的尊敬和讚賞。名人代言正是參考權的商業運用。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／58</span></div>
     </section>
 
     <!-- P.07 哪一項權力基礎最有效 -->
@@ -751,7 +766,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>參考權是一個強大的激勵因子。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／58</span></div>
     </section>
 
     <!-- P.08 依賴性：權力的關鍵 -->
@@ -785,7 +800,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>可選擇的替代方案愈多，愈能避免受他人控制。多元的技能與人脈，是個人降低被支配的最佳保險。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／58</span></div>
     </section>
 
     <!-- P.09 創造依賴性的因素 -->
@@ -819,7 +834,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>資源愈沒有替代品，控制者的權力愈大。人工智慧的發展正使部分技能逐漸變得可被替代。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／58</span></div>
     </section>
 
     <!-- P.10 正式小團體網絡（補充） -->
@@ -855,7 +870,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── <span class="r">非正式網絡</span>同樣蘊含強大的權力與政治影響力</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／58</span></div>
     </section>
 
     <!-- P.11 小團體網絡與效能準則（補充） -->
@@ -876,7 +891,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </table>
         <div class="cite">網絡的效能取決於所關注的結果：輪型有利於領導者的出現，全方位型有利於成員滿意度，鏈型則有利於正確性。SRC：ROBBINS ＆ JUDGE（2024）</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／58</span></div>
     </section>
 
     <!-- P.12 社會網絡分析 -->
@@ -913,7 +928,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>正式組織圖顯示職權應該如何流動，社會關係圖顯示資源的實際流動。居於中介位置者（broker）因掌握不同群體的獨特資源而擁有較大權力。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／58</span></div>
     </section>
 
     <!-- P.13 FIG 組織社會關係圖 -->
@@ -1017,7 +1032,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">Thomas、Martha 與 Anne 等人扮演中介者（broker）的角色，連結原本互不相通的部門與群體，因而在網絡中累積可觀的權力。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／58</span></div>
     </section>
 
     <!-- P.14 權力戰術（一） -->
@@ -1059,7 +1074,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>邀請他人參與決策過程，讓其提供建議和意見，可以增加決策的接受度和承諾度。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／58</span></div>
     </section>
 
     <!-- P.15 權力戰術（二） -->
@@ -1077,7 +1092,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">施壓</span><span class="ax">PRESSURE</span></div><div class="v">使用要求、威脅或持續檢查來達成目標，是較強制性的戰術，可能產生負面影響，應審慎使用。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">聯盟</span><span class="ax">COALITIONS</span></div><div class="v">尋求他人支持來強化影響力，通過集體力量實現目標，但需要妥善管理各方利益。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／58</span></div>
     </section>
 
     <!-- P.16 情境演練導言 -->
@@ -1088,7 +1103,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text" style="font-size: 2.2em;">以下有許多職場情境，請思考要用哪一種<span class="ul-red">權力戰術</span>來與對方溝通。</div>
         <span class="q-label">SCENARIOS ── NEWCOMER ＋ FIRST-LINE MANAGER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／58</span></div>
     </section>
 
     <!-- P.17 職場新鮮人篇 divider -->
@@ -1099,7 +1114,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text">職場新鮮人篇</div>
         <span class="q-label">SCENARIO 01-04 ── THE NEWCOMER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／58</span></div>
     </section>
 
     <!-- P.18 新鮮人情境1 -->
@@ -1122,7 +1137,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>在不影響部門日常工作的情況下，運用不同的權力戰術，說服同事擔任志願者，並協調好人力安排，確保活動順利進行。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／58</span></div>
     </section>
 
     <!-- P.19 新鮮人情境2 -->
@@ -1145,7 +1160,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>透過不同的權力戰術，說服資深員工提供意見與協助，讓教材內容更有深度和實用性，並贏得主管的認可。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／58</span></div>
     </section>
 
     <!-- P.20 新鮮人情境3 -->
@@ -1168,7 +1183,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>利用不同的權力戰術，說服福委會成員支持你的提案，並取得足夠的經費來執行活動。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／58</span></div>
     </section>
 
     <!-- P.21 新鮮人情境4 -->
@@ -1191,7 +1206,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>使用不同的權力戰術，協助員工熟悉系統，化解抵觸情緒，並提升新系統的接受度，最終減少出錯率和投訴。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／58</span></div>
     </section>
 
     <!-- P.22 基層主管篇 divider -->
@@ -1202,7 +1217,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="q-text">基層主管篇</div>
         <span class="q-label">SCENARIO 01-04 ── THE FIRST-LINE MANAGER</span>
       </div></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／58</span></div>
     </section>
 
     <!-- P.23 主管情境1 -->
@@ -1229,7 +1244,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／58</span></div>
     </section>
 
     <!-- P.24 主管情境2 -->
@@ -1256,7 +1271,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／58</span></div>
     </section>
 
     <!-- P.25 主管情境3 -->
@@ -1283,7 +1298,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／58</span></div>
     </section>
 
     <!-- P.26 主管情境4 -->
@@ -1310,7 +1325,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／58</span></div>
     </section>
 
     <!-- P.27 FIG 由影響方向決定合適的權力戰術 -->
@@ -1369,7 +1384,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">理性的說服是唯一在向上、向下與橫向影響皆有效的戰術；戰術的選擇應配合影響的方向。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／58</span></div>
     </section>
 
     <!-- P.28 利用權力戰術 -->
@@ -1400,14 +1415,78 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>使用逢迎與合法兩戰術，可以減輕因上司命令所產生的負面反應。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／58</span></div>
+    </section>
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CASE</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">29</div>
+        <div class="t"><h2>個案：帶到昔日上司的新主管</h2><span class="en">CASE ── MANAGING A FORMER BOSS</span></div>
+        <div class="note">[ READ FIRST ]<br>CHEERS 2026</div>
+      </div>
+      <div class="def-band">新升任的主管負責公司的重要專案，團隊裡有一位從管理職降為一般職員的前上司 B。B 自尊心強、帶人嚴厲，主管一委婉指出團隊問題，B 便發怒說教，最後反而是主管一再道歉。正式職位在主管手上，經驗與威望仍在 B 身上。</div>
+      <div class="read-band"><span class="lb">[ 課前閱讀 ]</span><a href="https://www.cheers.com.tw/talent/article.action?id=5105738" target="_blank" rel="noopener noreferrer">加藤京子（2026 年 6 月 26 日）。當年你喊他前輩，現在他卻不肯稱你一聲主管。天下學習 Cheers，共三頁 ↗</a></div>
+      <div class="grid3 case3">
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 01／ASSESS ]</span>
+          <h3>確認問題性質</h3>
+          <ul>
+            <li>B 的反應屬於與自尊心有關的情緒問題，修復人際關係暫且擱置</li>
+            <li>主管若左右為難、搖擺不定，其他部屬也會不安</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 02／BOUNDARY ]</span>
+          <h3>劃定界線</h3>
+          <ul>
+            <li>方法一：不迎合，也不以低姿態說話，展現堅定立場</li>
+            <li>方法二：以各自履行角色為立場，強調角色責任而非權力高低</li>
+            <li>方法三：在不傷及自尊的前提下達指示，結合 B 的經驗與主管職位的視角</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span>
+          <span class="tag">[ 03／CONNECT ]</span>
+          <h3>找出連結點</h3>
+          <ul>
+            <li>情境一：從可共享之處出發，先感謝過去的照顧與磨練</li>
+            <li>情境二：對方不配合時，以慰勞與尊重銜接商量與請求，適度展現依賴</li>
+            <li>情境三：對方拒絕傾聽時，逐步引入，先試行一次再討論</li>
+            <li>情境四：對方堅持原做法時，指出效率提升等於減輕負擔，初期提供支援</li>
+            <li>情境五：仍無改善時，與人資或更高階主管共享資訊，避免主管被孤立</li>
+          </ul>
+        </div>
+      </div>
+      <div class="keyline">討論焦點：每一項做法借用的是<span class="r">誰的權力</span>，運用的是<span class="r">哪一種戰術</span></div>
+      <div class="case-src">做法依原文三頁的段落順序整理。標題中的反向霸凌為原文用語，文中描述的行為以不服從與抗拒管理為主，與學術上的向上霸凌（upward bullying）不同。案例背景是日本企業把管理職降為一般職員的制度，台灣較常見的對應情境是空降主管，或年輕主管帶資深技術人員。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／58</span></div>
+    </section>
+    <section class="slide ix-page">
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── DISCUSSION</span><span class="m">REV 2026.09</span></div>
+      <div class="title-row">
+        <div class="idx">30</div>
+        <div class="t"><h2>討論：文章做法對應的權力</h2><span class="en">DISCUSSION ── WHICH POWER, WHICH TACTIC</span></div>
+        <div class="note">[ DISCUSS ]<br>9 ITEMS</div>
+      </div>
+      <div class="ix" data-ix="quiz">
+        <div class="ix-bar"><span>讀完文章後分組討論，再點選答案查看解說；部分做法同時涉及兩種戰術，解說中一併說明。</span><div class="ctl"><span class="ix-count">第 <span class="cur">1</span>／<span class="tot">9</span> 題 ── 答對 <span class="score">0</span></span><button class="ix-btn prev">上一題</button><button class="ix-btn next">下一題</button><button class="ix-btn reset">重新開始</button></div></div>
+        <div class="ix-card" data-cols="2">
+          <script type="application/json">[{"s": "資深部屬 B 對新主管仍有影響力，這股影響力主要來自哪一類權力？", "o": ["合法權", "專家權與參考權", "強制權", "獎賞權"], "a": 1, "fb": "B 已離開管理職，正式權力隨職位離開；過去帶人累積的經驗與威望屬個人權力，附著在人身上。新主管握有的是合法權，兩人的權力來源不同，是衝突的起點。", "t": "正式權力與個人權力（P.04–P.06）"}, {"s": "方法二：「關於這件事，我希望由我負責推進，請您配合。」主要運用哪一種權力戰術？", "o": ["施壓", "商議", "合法", "交換"], "a": 2, "fb": "以職位與角色責任要求配合，屬合法戰術，依據的是主管的合法權。原文刻意強調角色責任而非權力高低，避免指示被解讀成壓制。", "t": "權力戰術（P.14）"}, {"s": "方法三：「希望能結合您的經驗與我目前職位的視角，一起推進這件事。」主要運用哪一種權力戰術？", "o": ["合法", "商議", "聯盟", "鼓舞式訴求"], "a": 1, "fb": "邀請對方參與決策，屬商議。這句話同時承認 B 的專家權與主管的合法權，把兩種權力來源並列，而不是比較高低。", "t": "權力戰術（P.14）"}, {"s": "情境一：「那段時間真的承蒙您照顧。當時受到您的磨練，我十分感激。」主要運用哪一種權力戰術？", "o": ["交換", "理性說服", "施壓", "逢迎"], "a": 3, "fb": "先以感謝與肯定取得好感，再進入正題，屬逢迎，原文稱為慰勞與尊重。P.28 指出逢迎與合法並用可減輕上司命令引起的負面反應，與方法二搭配正是這個組合。逢迎須出於真誠，過度使用會有反效果。", "t": "利用權力戰術（P.28）"}, {"s": "情境二：「希望能得到您的協助」，並適度展現依賴的姿態。主要運用哪一種權力戰術？", "o": ["聯盟", "個人式訴求", "合法", "施壓"], "a": 1, "fb": "以彼此的關係請求支持，屬個人式訴求。展現依賴等於承認 B 掌握主管需要的資源；依賴性是權力的關鍵，這個做法讓 B 感受到自己的權力仍被看見，藉此換取配合。", "t": "依賴性（P.08）、權力戰術（P.15）"}, {"s": "情境三：「先試行一次，如果效果不佳，再重新討論。」主要運用哪一種權力戰術？", "o": ["交換", "合法", "理性說服", "施壓"], "a": 2, "fb": "以試行結果作為證據來說服，屬理性說服；保留重新討論的空間，也帶有商議的成分。理性說服是向上、向下與橫向影響都有效的戰術。", "t": "由影響方向決定戰術（P.27）"}, {"s": "情境四：指出新做法能提升效率、減輕負擔，並表示「一開始我會協助支援」。後半句主要運用哪一種權力戰術？", "o": ["逢迎", "交換", "鼓舞式訴求", "施壓"], "a": 1, "fb": "以初期的協助換取對方嘗試新做法，屬交換；前半句指出效率提升，則是理性說服。兩者並用，由主管先分擔變革的成本。", "t": "權力戰術（P.15）"}, {"s": "情境五：持續沒有改善時，與人資或更高階主管共享資訊，避免主管被孤立。主要運用哪一種權力戰術？", "o": ["合法", "施壓", "個人式訴求", "聯盟"], "a": 3, "fb": "尋求他人支持以強化影響力，屬聯盟。這一步同時把更高層級的正式權力帶進來，是前面的做法都無效之後才使用的後手。", "t": "權力戰術（P.15）"}, {"s": "綜觀全文的做法，刻意沒有使用的是哪一種權力戰術？", "o": ["商議", "逢迎", "施壓", "理性說服"], "a": 2, "fb": "原文建議避免命令語氣，不以要求、威脅或持續檢查逼對方就範。P.28 指出施壓經常適得其反，是效能最差的戰術。", "t": "利用權力戰術（P.28）"}]</script>
+          <div class="ix-stmt"><span class="q">討論／01</span><span class="txt"></span></div>
+          <div class="ix-opts c2"></div>
+          <div class="ix-fb"></div>
+        </div>
+      </div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／58</span></div>
     </section>
 
     <!-- P.29 權力戰術的文化偏好 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CULTURE</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">29</div>
+        <div class="idx">31</div>
         <div class="t"><h2>權力戰術的文化偏好</h2><span class="en">CULTURAL PREFERENCES</span></div>
         <div class="note">[ 2 VIEWS ]</div>
       </div>
@@ -1427,14 +1506,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>集體主義國家的人們則是站在社會角度，認為權力是一種可以幫助他人的合理方式。相同的戰術，在不同文化中的正當性感受並不相同。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／58</span></div>
     </section>
 
     <!-- P.30 政治技能 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POLITICAL SKILL</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">30</div>
+        <div class="idx">32</div>
         <div class="t"><h2>應用權力戰術：政治技能</h2><span class="en">POLITICAL SKILL</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1461,14 +1540,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>組織支持開放且公平地使用規章制度時，政治技能往往與工作績效評比呈負相關。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／58</span></div>
     </section>
 
     <!-- P.31 權力對人的影響 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">31</div>
+        <div class="idx">33</div>
         <div class="t"><h2>權力對人的影響</h2><span class="en">HOW POWER AFFECTS PEOPLE</span></div>
         <div class="note">[ 4 EFFECTS ]</div>
       </div>
@@ -1498,14 +1577,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力對每個人的影響方式不盡相同，有時甚至會帶來一些正面效應。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／58</span></div>
     </section>
 
     <!-- P.32 權力變數 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">32</div>
+        <div class="idx">34</div>
         <div class="t"><h2>權力變數</h2><span class="en">POWER VARIABLES</span></div>
         <div class="note">[ 4 VARIABLES ]</div>
       </div>
@@ -1535,14 +1614,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>權力顯露了行使者所重視的價值。對於道德認同強烈者，權力可以強化他們的道德知覺和行動意願。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／58</span></div>
     </section>
 
     <!-- P.33 性騷擾 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">33</div>
+        <div class="idx">35</div>
         <div class="t"><h2>性騷擾：職場中不平等的權力</h2><span class="en">SEXUAL HARASSMENT</span></div>
         <div class="note">[ 2 POINTS ]</div>
       </div>
@@ -1562,14 +1641,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>管理者的基本責任是保護員工免受不友善環境的對待。管理者也許不易察覺員工之中有誰遭受到性騷擾，但不能因此不保護員工和組織。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／58</span></div>
     </section>
 
     <!-- P.34 管理者在防止性騷擾中的角色 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">34</div>
+        <div class="idx">36</div>
         <div class="t"><h2>管理者在防止性騷擾中的角色</h2><span class="en">THE MANAGER'S ROLE</span></div>
         <div class="note">[ 5 ACTIONS ]</div>
       </div>
@@ -1580,14 +1659,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">懲處違法者</span><span class="ax">ACTION／04</span></div><div class="v">確定違法者已被懲處或解僱。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">提高意識</span><span class="ax">ACTION／05</span></div><div class="v">舉辦公司內部研討會，以提升員工對性騷擾議題的了解。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／58</span></div>
     </section>
 
     <!-- P.35 政治：權力的運作 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">35</div>
+        <div class="idx">37</div>
         <div class="t"><h2>政治：權力的運作</h2><span class="en">POLITICS: POWER IN ACTION</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1618,7 +1697,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>擁有良好政治技能的人，有能力將其權力基礎做最有效地運用。政治不但無法逃避，甚至還不可或缺。與其否認政治的存在，不如理解並善用它。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／58</span></div>
     </section>
 
     <!-- P.36 FIG OB投票所 組織政治的重要性 -->
@@ -1661,14 +1740,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">調查顯示，員工認為組織中出人頭地的最主要途徑是政治（51％），遠高於努力工作（27％）、進取心（18％）與創造力（4％）。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／58</span></div>
     </section>
 
     <!-- P.37 政治的事實 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">37</div>
+        <div class="idx">39</div>
         <div class="t"><h2>政治的事實</h2><span class="en">THE REALITY OF POLITICS</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1692,14 +1771,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>組織內的成員會運用一切能動用的影響力來詮釋事實，以支持本身的目標及利益，這樣的行為稱之為從事以個人利益為主的政治活動（politicking）。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／58</span></div>
     </section>
 
     <!-- P.38 無政治活動的組織可能嗎 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">38</div>
+        <div class="idx">40</div>
         <div class="t"><h2>無政治活動的組織可能嗎？</h2><span class="en">A POLITICS-FREE ORGANIZATION?</span></div>
         <div class="note">[ 3＋1 ]</div>
       </div>
@@ -1729,14 +1808,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>上述條件並非大多數組織的真實樣貌，因此政治活動難以完全消失。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／58</span></div>
     </section>
 
     <!-- P.39 助長政治行為的因素 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">39</div>
+        <div class="idx">41</div>
         <div class="t"><h2>助長政治行為的因素</h2><span class="en">CAUSES OF POLITICAL BEHAVIOR</span></div>
         <div class="note">[ 2 SOURCES ]</div>
       </div>
@@ -1756,7 +1835,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>資源重分配、升遷機會、低度信賴、角色模糊、績效評估制度不明確、零和性質的報酬分配、決策民主化、高度績效壓力、自私的高階經理人。制度愈不透明，政治行為的報酬愈高。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／58</span></div>
     </section>
 
     <!-- P.40 FIG 影響政治行為的因素 -->
@@ -1830,7 +1909,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">個人因素與組織因素共同推升政治行為的程度，政治行為則帶來獎賞與避免處罰等有利的結果。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／58</span></div>
     </section>
 
     <!-- P.41 FIG 員工對組織政治的反應 -->
@@ -1873,14 +1952,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">組織政治對員工可能的威脅包括：降低工作滿足感、增加焦慮與壓力、增加離職傾向以及不利績效表現。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／58</span></div>
     </section>
 
     <!-- P.42 人們如何回應組織政治 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">42</div>
+        <div class="idx">44</div>
         <div class="t"><h2>人們如何回應組織政治？</h2><span class="en">RESPONSES TO ORGANIZATIONAL POLITICS</span></div>
         <div class="note">[ 4 FINDINGS ]</div>
       </div>
@@ -1910,7 +1989,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>當員工視政治行為為威脅時，通常會以防衛行為回應——敏銳和保護行為，以避免行動、受責或改變。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／58</span></div>
     </section>
 
     <!-- P.43 FIG 防衛行為 -->
@@ -1974,14 +2053,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">防衛行為分為三大類：避免行動（過度遵從、推諉責任、裝聾作啞、延伸、支吾其詞）、避免受責（建立緩衝、尋求安全、正當化、找代罪羔羊、虛偽陳述）與避免改變（預防、自我保護）。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／58</span></div>
     </section>
 
     <!-- P.44 印象管理 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">44</div>
+        <div class="idx">46</div>
         <div class="t"><h2>印象管理</h2><span class="en">IMPRESSION MANAGEMENT</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -2008,14 +2087,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>虛偽陳述要付出相當高的代價。印象管理者必須小心謹慎，以免讓人覺得不誠實或有操縱之嫌。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／58</span></div>
     </section>
 
     <!-- P.45 印象管理技巧（面試情境） -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">45</div>
+        <div class="idx">47</div>
         <div class="t"><h2>面試中的印象管理</h2><span class="en">IM IN INTERVIEWS</span></div>
         <div class="note">[ 3 FORMS ]</div>
       </div>
@@ -2043,14 +2122,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">多數求職者與面試官都會在面試中使用 IM 技巧，且確實<span class="r">有效</span>──面試官多半無法察覺</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／58</span></div>
     </section>
 
     <!-- P.46 印象管理的八種技巧（補充） -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM TECHNIQUES</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">46</div>
+        <div class="idx">48</div>
         <div class="t"><h2>印象管理的八種技巧</h2><span class="en">IM TECHNIQUES</span></div>
         <div class="note">[ 8 TECHNIQUES ]</div>
       </div>
@@ -2068,14 +2147,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </table>
         <div class="cite">補充自 ROBBINS ＆ JUDGE（2024）；原始資料：Bolino, Kacmar, Turnley, &amp; Gilstrap（2008）, Journal of Management, 34（6）, 1080-1109。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.48／58</span></div>
     </section>
 
     <!-- P.47 績效評估與印象管理 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM ＆ APPRAISAL</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">47</div>
+        <div class="idx">49</div>
         <div class="t"><h2>績效評估與印象管理</h2><span class="en">IM AND PERFORMANCE EVALUATIONS</span></div>
         <div class="note">[ 3 FINDINGS ]</div>
       </div>
@@ -2099,12 +2178,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>逢迎者總是在經營關係，而自我推銷者可能只有在面試時用心經營，實際工作時則否。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／58</span></div>
     </section>
     <section class="slide rs-page">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM RESEARCH</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">48</div>
+        <div class="idx">50</div>
         <div class="t"><h2>補充研究：開放式人格測驗比量表更難造假</h2><span class="en">FAKING ON OPEN-ENDED PERSONALITY ASSESSMENTS ── SPEER ET AL.</span></div>
         <div class="note">[ JAP 2026 ]<br>N＝2,039／7 LLMS</div>
       </div>
@@ -2137,7 +2216,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">造假的報酬取決於評分怎麼設計，開放式書寫加自然語言處理評分把報酬壓到量表的四成</div>
       <div class="cite">Speer, A. B., Chawota, T. A., Rudolph, C., &amp; Qaqish, A. (2026). The impact of impression management on writing tendencies: Investigating faking susceptibility of open-ended personality assessments. <i>Journal of Applied Psychology</i>. Advance online publication. <a href="https://doi.org/10.1037/apl0001397" target="_blank" rel="noopener" style="color: var(--gray);">https://doi.org/10.1037/apl0001397</a></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.48／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.50／58</span></div>
     </section>
 
 
@@ -2145,7 +2224,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     <section class="slide rs-page">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── INGRATIATION RESEARCH</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">49</div>
+        <div class="idx">51</div>
         <div class="t"><h2>補充研究：逢迎的程度與旁觀者反應</h2><span class="en">INGRATIATION ── AMOUNT, ATTRIBUTION, AND THIRD PARTIES</span></div>
         <div class="note">[ 2021–2025 ]<br>5 篇實證</div>
       </div>
@@ -2178,7 +2257,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">逢迎與主管關係品質呈<span class="r">先升後降</span>，效果取決於主管的<span class="r">動機歸因</span>與同事的<span class="r">社會比較</span></div>
       <div class="cite">Cheng 等（2024）<i>Human Relations</i>；Kim 等（2022）與 Wang 等（2025）<i>Journal of Applied Psychology</i>；Sun 等（2021）<i>Frontiers in Psychology</i>；Wu 等（2025）<i>Journal of Organizational Behavior</i>。完整書目見本章參考文獻頁。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.51／58</span></div>
     </section>
 
     <!-- P.50 FIG 逢迎的雙路徑與淨效果 -->
@@ -2216,14 +2295,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 </svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.50／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.52／58</span></div>
     </section>
 
     <!-- P.48 政治行為的道德性 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 9 ── ETHICS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">51</div>
+        <div class="idx">53</div>
         <div class="t"><h2>政治行為的道德性</h2><span class="en">THE ETHICS OF BEHAVING POLITICALLY</span></div>
         <div class="note">[ 3 QUESTIONS ]</div>
       </div>
@@ -2247,14 +2326,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>政治活動是否符合公平及公正原則？三個問題都能坦然回答，政治行為才站得住腳。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.51／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.53／58</span></div>
     </section>
 
     <!-- P.49 勾勒政治生涯地圖（補充） -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">52</div>
+        <div class="idx">54</div>
         <div class="t"><h2>勾勒政治生涯地圖</h2><span class="en">MAPPING YOUR POLITICAL CAREER</span></div>
         <div class="note">[ 3 STEPS ]</div>
       </div>
@@ -2280,7 +2359,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="flow-note">補充自 ROBBINS ＆ JUDGE（2024）── 權力與政治是<span class="r">組織生活的一部分</span>，競爭者可能也有一張自己的地圖</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.52／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.54／58</span></div>
     </section>
 
     <!-- P.50 FIG 勾勒你的政治地圖 -->
@@ -2349,14 +2428,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">紅色圈圈表示關係密切、黑色圈圈表示關係鬆散、白色圈圈表示完全沒有關係；下半部為局部放大細分圖，呈現間接影響的路徑。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.53／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.55／58</span></div>
     </section>
 
     <!-- P.51 對管理者的啟示 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 11 ── IMPLICATIONS</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">54</div>
+        <div class="idx">56</div>
         <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -2386,12 +2465,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>在政治框架中評估他人，可以更準確預測其行為，並利用此資訊形成對自身與工作團隊有益的政治策略。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.54／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.56／58</span></div>
     </section>
         <section class="slide ix-page">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 12 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">55</div>
+        <div class="idx">57</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
         <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
       </div>
@@ -2415,17 +2494,17 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="ix-fb"></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.55／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.57／58</span></div>
     </section>
 <section class="slide rf-page">
       <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
       <div class="title-row">
-        <div class="idx">56</div>
+        <div class="idx">58</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
-        <div class="note">[ APA 7 ]<br>7 ITEMS</div>
+        <div class="note">[ APA 7 ]<br>8 ITEMS</div>
       </div>
       <div class="rf">
-        <div class="rf-cols c1 airy">
+        <div class="rf-cols c1">
           <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
             <p>Bolino, M. C., Kacmar, K. M., Turnley, W. H., &amp; Gilstrap, J. B. (2008). A multi-level review of impression management motives and behaviors. <i>Journal of Management, 34</i>(6), 1080–1109.</p>
             <p>Speer, A. B., Chawota, T. A., Rudolph, C., &amp; Qaqish, A. (2026). The impact of impression management on writing tendencies: Investigating faking susceptibility of open-ended personality assessments. <i>Journal of Applied Psychology</i>. 提前線上出版。https://doi.org/10.1037/apl0001397</p>
@@ -2435,10 +2514,13 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
             <p>Wang, S., Liden, R. C., Liu, H., Li, Y., &amp; Wang, H. (2025). The curvilinear effect of newcomer ingratiation on leader–member exchange: A dual-pathway model of supervisor attributions. <i>Journal of Applied Psychology, 110</i>(11), 1463–1489. https://doi.org/10.1037/apl0001292</p>
             <p>Wu, S., Zheng, M. X., Ni, D., Chen, C., Wang, M., Wu, W., &amp; Zhai, H. (2025). Flattering or embarrassing your boss? An integrated perspective on newcomers&#8217; ingratiation, supervisors&#8217; responses, and work outcomes. <i>Journal of Organizational Behavior</i>. 卷期與頁碼待補。https://doi.org/10.1002/job.2843</p>
           </div>
+          <div class="rf-grp"><h3>報告、新聞與影音 ── REPORTS, NEWS ＆ MEDIA</h3>
+            <p>加藤京子（2026 年 6 月 26 日）。當年你喊他前輩，現在他卻不肯稱你一聲主管：遇上資深部屬的反向霸凌該怎麼化解？天下學習 Cheers 快樂工作人。摘自《帶心不帶累的跨世代主管學》，大是文化。<a href="https://www.cheers.com.tw/talent/article.action?id=5105738" target="_blank" rel="noopener noreferrer">https://www.cheers.com.tw/talent/article.action?id=5105738</a></p>
+          </div>
         </div>
       </div>
       <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示；標為提前線上出版者，卷期與頁碼尚未確定。教科書見封面。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.56／56</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.58／58</span></div>
     </section>
 
 
