@@ -564,6 +564,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+
+  /* 封面代號為中文時改用內文字體的最粗字重，避免落到細體 */
+  .cover-code.zh { font-family: var(--sans); font-weight: 900; letter-spacing: 0; }
+
+  /* ── AI3：Claude 動畫三種方法（2026-10） ── */
+  .ai3 .cell li { font-size: 14px; line-height: 1.6; margin-bottom: 6px; }
 </style>
 </head>
 <body>
@@ -581,12 +587,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cover-left">
           <span class="crosshair">+</span>
           <span class="kicker">期末專題 ── TEACHING VIDEO</span>
-          <div class="cover-code">VG</div>
+          <div class="cover-code zh">期末</div>
           <h1 class="cover-title">教學短影片製作指引</h1>
           <div class="cover-en">Making the Final Teaching Video</div>
           <div class="cover-agenda">
             <span class="lbl">[ AGENDA ]</span>
-            <div class="items">成品規格 ── 時間配置 ── 從文獻到腳本 ── 錄製方式 ── 配音 ── 字幕 ── 工具與成本 ── 常見失分點 ── 時程與繳交</div>
+            <div class="items">成品規格 ── 建議時間配置 ── 從文獻到腳本 ── 錄製方式 ── 配音 ── 字幕 ── 工具與成本 ── Claude 動畫 ── 常見失分點 ── 建議時程 ── 繳交與期末影展</div>
           </div>
         </div>
         <div class="cover-right">
@@ -596,7 +602,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="data-cell"><span class="lbl">WEIGHT</span><span class="val">學期成績 40%</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／13</span></div>
     </section>
 
     <section class="slide">
@@ -610,7 +616,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="t"><h2>成品規格</h2><span class="en">DELIVERABLES</span></div>
         <div class="note">[ 2 ITEMS ]<br>2 DEADLINES</div>
       </div>
-      <div class="def-band">每組繳交兩份：一支教學短影片，以及一份 Word 檔，都由組長代表上傳，缺一項視為未完成。繳交分兩個時點：11 月 29 日先交 A copy，也就是畫面與配音已串接完成、字幕尚未加上的初剪版本；12 月 19 日交完成版。</div>
+      <div class="def-band">每組繳交兩份：一支教學短影片，以及一份 Word 檔，都由組長代表上傳，缺一項視為未完成。<br>繳交分兩個時點：11 月 29 日先交 A copy，也就是畫面與配音已串接完成、字幕尚未加上的初剪版本；12 月 19 日交完成版。</div>
       <div class="grid2">
         <div class="cell">
           <span class="corner">+</span><span class="tag">[ 01／VIDEO ]</span>
@@ -639,7 +645,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">每個概念各有<span class="r">兩篇指定文獻</span>，在 Classroom 下載；影片內容須看得出讀過這兩篇</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／13</span></div>
     </section>
 
     <section class="slide">
@@ -650,7 +656,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="title-row">
         <div class="idx">03</div>
-        <div class="t"><h2>六分鐘的時間配置</h2><span class="en">PACING A SIX-MINUTE VIDEO</span></div>
+        <div class="t"><h2>六分鐘的建議時間配置</h2><span class="en">SUGGESTED PACING FOR A SIX-MINUTE VIDEO</span></div>
         <div class="note">[ 6 BLOCKS ]<br>≈ 360 SEC</div>
       </div>
       <div class="def-band">以六分鐘為目標，前後各留緩衝，實際落在 5 至 7 分鐘之間。以下為建議配置，各組可依主題調整，但六個區塊都要出現。</div>
@@ -681,7 +687,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">六分鐘的口白大約 <span class="r">900 至 1100 字</span>；有逐字稿的錄製，重錄次數明顯較少</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／13</span></div>
     </section>
 
     <section class="slide">
@@ -719,7 +725,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">腳本完成的兩個判準：<span class="r">念稿計時落在 5 至 7 分鐘</span>，且每一段對應前一頁的六個區塊</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／13</span></div>
     </section>
 
     <section class="slide">
@@ -765,7 +771,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">評分項目是<span class="r">內容與清楚程度</span>，特效不列入；口白的清晰度對理解的影響大於畫面</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／13</span></div>
     </section>
 
     <section class="slide">
@@ -805,7 +811,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">兩種作法的共同前提是<span class="r">定稿的逐字稿</span>，配音與字幕出自同一份稿子</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／13</span></div>
     </section>
 
     <section class="slide">
@@ -853,7 +859,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="src">常見的一個陷阱：CapCut 與剪映的免費自動字幕只輸出簡體中文，中國版的自動辨識另需付費。使用這兩個工具時，輸出前需轉為繁體並逐句校對。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／13</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -902,7 +908,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="src">價格與額度為 2026 年 9 月查得的官方公告值，方案內容會調整，實際以各站當下的說明為準。Synthesia 與 HeyGen 取自官方定價頁；Leadde 的數字取自該公司部落格的自我比較文章，未經第三方驗證。錄製方式的分類參考 Hahow 創作者中心 https://creator.hahow.in/video 與燃燒吧攝影魂 AI 學院的線上課程錄影方式整理。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／13</span></div>
     </section>
     <section class="slide">
       <div class="meta-row">
@@ -948,11 +954,61 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
             <li>以一組五人分攤一個月計算，每人約 NT$160 至 185，超過 NT$100 的上限</li>
             <li>免費方案的額度也不足：HeyGen 每支上限 1 分鐘，Synthesia 每月 10 分鐘且僅夠一支</li>
             <li>訂閱制另有製作結束後忘記取消而續扣的風險</li>
+            <li>Claude 的影片功能同樣超出上限：Claude Code 需 Pro 方案，每月 20 美元，每人約 NT$128；Claude Motion 僅開放 Team 與 Enterprise，詳見下一頁</li>
           </ul>
         </div>
       </div>
       <div class="src">匯率以臺灣銀行 2026 年 9 月 20 日的即期賣出價 31.875 換算，取整數呈現。Canva 價格取自台灣區定價頁；Synthesia、HeyGen 與 Leadde 的訂閱費用見前一頁的來源說明。各方案的內容與價格會調整，實際以各站當下的公告為準。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／13</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row">
+        <span class="m">OB／期末專題</span>
+        <span class="m g">SEC 7 ── AI ANIMATION</span>
+        <span class="m">REV 2026.10</span>
+      </div>
+      <div class="title-row">
+        <div class="idx">10</div>
+        <div class="t"><h2>用 Claude 製作動畫的三種方法</h2><span class="en">THREE WAYS TO MAKE VIDEO WITH CLAUDE</span></div>
+        <div class="note">[ 2 ROUTES ]<br>OPTIONAL</div>
+      </div>
+      <div class="def-band">程式化動畫：Claude 撰寫控制文字、圖表與時間軸的程式碼，逐格輸出成 MP4；文字清晰、可局部修改，但無法產出寫實人物。<br>生成影像：Claude 規劃腳本與分鏡，畫面交給影片生成模型；可產生寫實場景，但文字容易模糊，角色外觀難以前後一致。</div>
+      <div class="grid3 ai3">
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 01／MOTION ]</span>
+          <h3>Claude Motion</h3>
+          <span class="en-term">程式化動畫　·　雲端</span>
+          <ul>
+            <li>2026 年 10 月 8 日推出的 beta 功能，以文字描述需求，產出可編輯的動畫解說</li>
+            <li>可在編輯器或以提示修改，下載 MP4；也可送到 Adobe Firefly Video Editor 調整節奏、色彩與音訊</li>
+            <li>僅開放 Team 與 Enterprise 方案，個人方案無法使用</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 02／REMOTION ]</span>
+          <h3>Claude Code 搭配 Remotion</h3>
+          <span class="en-term">程式化動畫　·　本機</span>
+          <ul>
+            <li>Remotion 是以 React 撰寫影片的開源框架，Claude Code 依描述撰寫程式碼，在本機預覽並算圖成 MP4</li>
+            <li>需安裝 Node.js、Remotion 與 Claude Code；在一般對話中貼提示詞無法直接得到影片檔</li>
+            <li>Remotion 個人使用免費；Claude Code 需 Pro 以上方案</li>
+          </ul>
+        </div>
+        <div class="cell">
+          <span class="corner">+</span><span class="tag">[ 03／GENERATIVE ]</span>
+          <h3>Claude 規劃，影片模型生成</h3>
+          <span class="en-term">生成影像　·　雲端</span>
+          <ul>
+            <li>Claude 讀取素材、規劃腳本與分鏡並撰寫生成指令，畫面由 Higgsfield 等影片生成平台產出</li>
+            <li>適合廣告與劇情短片；教學影片的術語、數字與字幕容易出錯</li>
+            <li>需影片生成平台的付費方案</li>
+          </ul>
+        </div>
+      </div>
+      <div class="keyline">概念講解影片以<span class="r">程式化動畫</span>較合適；動畫工具只負責畫面，<span class="r">概念說明與文獻內容</span>仍由組員產出</div>
+      <div class="src">TestingCatalog（2026 年 10 月 8 日）與 The Neuron（2026）的 Claude Motion 發布報導；Remotion 授權條款 https://github.com/remotion-dev/remotion/blob/main/LICENSE.md　｜　延伸觀看：AI懶人報 EP425 https://youtu.be/l22K1VF6eQ4 ；欸那個AJ https://youtu.be/ogesjMLFm_0 ；大有牧森 Austin Chou https://youtu.be/koZ1m4DLqKw 。影片中的操作步驟以影片本身為準。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／13</span></div>
     </section>
 
     <section class="slide">
@@ -962,7 +1018,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">10</div>
+        <div class="idx">11</div>
         <div class="t"><h2>常見失分點</h2><span class="en">WHERE MARKS ARE LOST</span></div>
         <div class="note">[ 6 ITEMS ]</div>
       </div>
@@ -993,7 +1049,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">前三項屬於<span class="r">規格問題</span>，對照規格即可檢出；後三項需要在繳交前保留<span class="r">一輪檢查的時間</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／13</span></div>
     </section>
 
     <section class="slide">
@@ -1003,11 +1059,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">11</div>
-        <div class="t"><h2>倒推時程</h2><span class="en">WORKING BACKWARDS</span></div>
+        <div class="idx">12</div>
+        <div class="t"><h2>建議時程</h2><span class="en">SUGGESTED TIMELINE</span></div>
         <div class="note">[ 4 CHECKPOINTS ]<br>A COPY 11.29</div>
       </div>
-      <div class="def-band">11 月 29 日第 7 次上課要繳交 A copy，也就是初剪版本：畫面與配音已依腳本串接完成，長度落在 5 至 7 分鐘，字幕與細部調整尚未完成。繳交日是 12 月 19 日 17:00，12 月 20 日上台報告。</div>
+      <div class="def-band">11 月 29 日第 7 次上課要繳交 A copy，也就是初剪版本：畫面與配音已依腳本串接完成，長度落在 5 至 7 分鐘，字幕與細部調整尚未完成。<br>繳交日是 12 月 19 日 17:00，12 月 20 日期末影展。</div>
       <div class="grid4">
         <div class="cell">
           <span class="corner">+</span><span class="tag">[ 01／10 月 ]</span>
@@ -1037,7 +1093,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">11 月 29 日交<span class="r">A copy</span>，12 月 19 日交<span class="r">完成版</span>；字幕與校對所需的時間通常被低估</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／12</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／13</span></div>
     </section>
 
     <section class="slide">
@@ -1047,8 +1103,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <span class="m">REV 2026.09</span>
       </div>
       <div class="title-row">
-        <div class="idx">12</div>
-        <div class="t"><h2>繳交與上台</h2><span class="en">SUBMISSION ＆ PRESENTATION</span></div>
+        <div class="idx">13</div>
+        <div class="t"><h2>繳交與期末影展</h2><span class="en">SUBMISSION ＆ FINAL SCREENING</span></div>
         <div class="note">[ 2 STEPS ]</div>
       </div>
       <div class="grid2">
@@ -1064,8 +1120,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul>
         </div>
         <div class="cell">
-          <span class="corner">+</span><span class="tag">[ 02／PRESENT ]</span>
-          <h3>上台</h3>
+          <span class="corner">+</span><span class="tag">[ 02／SCREENING ]</span>
+          <h3>期末影展</h3>
           <span class="en-term">12.20　課堂</span>
           <ul>
             <li>七組依序播放與講評，每組約 15 分鐘</li>
@@ -1074,8 +1130,8 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul>
         </div>
       </div>
-      <div class="keyline">影片本身就是報告的主體，<span class="r">上台不需要再做一份簡報</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／12</span></div>
+      <div class="keyline">影片本身就是報告的主體，<span class="r">影展當天不需要再做一份簡報</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／13</span></div>
     </section>
   </div>
 </div>
