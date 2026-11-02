@@ -472,6 +472,34 @@ body.flow .gd-page .cell { padding: 22px 26px; }
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 13 到 16.5px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .cell .quote,
+  body.flow .axis-row .v, body.flow .scale-col li, body.flow .scale-instr,
+  body.flow .rs-grid .cell li, body.flow .g2f .cell p, body.flow .g2f .cell li,
+  body.flow .def-band, body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip,
+  body.flow .ix-opt, body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.62; }
+  body.flow .cell li, body.flow .scale-col li { margin-bottom: 5px; }
+  body.flow .cell { padding: 16px 18px; }
+  body.flow .rs-grid .cell { padding: 16px 18px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline, body.flow .scale-instr { padding-left: 20px; padding-right: 20px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
+  /* 表格在手機可橫向捲動，字級另訂 14px，最低檔縮放後仍在 12px 以上 */
+  body.flow .slide td { font-size: 14px !important; }
+  body.flow .slide td.k { min-width: 5em; }
+  /* ── RFLINK v1：參考文獻與引註帶裡的網址可點按 ── */
+  .rf-grp p a, .cite a, .src a, .src-band a { color: inherit; text-decoration: underline;
+    text-underline-offset: 2px; text-decoration-thickness: .5px;
+    word-break: normal; overflow-wrap: break-word; }
+  .rf-grp p a:hover, .cite a:hover, .src a:hover, .src-band a:hover { color: #B03028; }
   /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
      部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
      於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
@@ -552,7 +580,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.01 封面 -->
     <section class="slide active">
-      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.11</span></div>
       <div class="main cover-main">
         <div class="cover-left">
           <span class="crosshair">+</span>
@@ -577,7 +605,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.02 團體 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── GROUPS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── GROUPS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">02</div>
         <div class="t"><h2>團體（group）</h2><span class="en">WHAT IS A GROUP?</span></div>
@@ -605,7 +633,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.03 心理層面 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── SOCIAL IDENTITY</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── SOCIAL IDENTITY</span><span class="m">REV 2026.11</span></div>
       <div class="main"><div class="quote-main">
         <span class="q-label">[ SOCIAL IDENTITY THEORY ]</span>
         <div class="q-text" style="font-size: 2.3em;">人們傾向把團體的成就視為自己的<span class="ul-red">光榮或失敗</span>，因為自我形象與團體績效已經緊密連結。</div>
@@ -616,7 +644,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.04 內外團體 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── INGROUP／OUTGROUP</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 1 ── INGROUP／OUTGROUP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">04</div>
         <div class="t"><h2>內團體及外團體</h2><span class="en">INGROUPS AND OUTGROUPS</span></div>
@@ -632,7 +660,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.05 團體發展階段 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">05</div>
         <div class="t"><h2>團體發展的階段</h2><span class="en">PUNCTUATED-EQUILIBRIUM MODEL</span></div>
@@ -651,7 +679,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.06 階段圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／G-01 中斷-平衡模式</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -695,7 +723,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.07 提問 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">Q／01</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">Q／01</span><span class="m">REV 2026.11</span></div>
       <div class="main"><div class="quote-main">
         <span class="q-label">[ QUESTION／01 ]</span>
         <div class="q-text">課堂小組目前在<span class="ul-red">哪個階段</span>？</div>
@@ -705,7 +733,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.08 階段補充圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 2 ── GROUP DEVELOPMENT</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／G-02 團體發展階段——補充圖</span></div>
         <div class="fig-body">
@@ -746,7 +774,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.09 角色與期望 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">09</div>
         <div class="t"><h2>角色與期望</h2><span class="en">ROLES ＆ EXPECTATIONS</span></div>
@@ -762,7 +790,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.10 角色衝突 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLE CONFLICT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLE CONFLICT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">10</div>
         <div class="t"><h2>角色衝突</h2><span class="en">ROLE CONFLICT</span></div>
@@ -779,7 +807,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.11 角色衝突圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLE CONFLICT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 3 ── ROLE CONFLICT</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／R-01 角色衝突——示意圖</span></div>
         <div class="fig-body">
@@ -814,7 +842,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.12 規範 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 4 ── NORMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 4 ── NORMS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">12</div>
         <div class="t"><h2>團體中的規範</h2><span class="en">NORMS</span></div>
@@ -832,7 +860,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.13 規範案例 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">CASE／C-01</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">CASE／C-01</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx" style="font-size: 1.1em; letter-spacing: 0.1em; background: var(--red); color: var(--paper);">CASE</div>
         <div class="t"><h2>專案小組的工作規範</h2><span class="en">TEAM NORMS IN ACTION</span></div>
@@ -848,7 +876,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.14 規範圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 4 ── NORMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 4 ── NORMS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／N-01 規範——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -903,7 +931,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.15 地位 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 5 ── STATUS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 5 ── STATUS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">15</div>
         <div class="t"><h2>地位（status）與團體</h2><span class="en">STATUS CHARACTERISTICS THEORY</span></div>
@@ -920,7 +948,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.16 團體規模 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 6 ── GROUP SIZE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 6 ── GROUP SIZE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">16</div>
         <div class="t"><h2>團體規模對團體行為的影響</h2><span class="en">GROUP SIZE ＆ SOCIAL LOAFING</span></div>
@@ -937,7 +965,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.17 規模圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 6 ── GROUP SIZE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 6 ── GROUP SIZE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／S-01 團體規模——示意圖</span></div>
         <div class="fig-body">
@@ -984,7 +1012,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.18 凝聚力 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 7 ── COHESIVENESS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 7 ── COHESIVENESS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">18</div>
         <div class="t"><h2>凝聚力</h2><span class="en">COHESIVENESS</span></div>
@@ -1019,7 +1047,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.19 凝聚力示意 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 7 ── COHESIVENESS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 7 ── COHESIVENESS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／C-02 凝聚力——示意圖</span></div>
         <div class="fig-body">
@@ -1068,7 +1096,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.20 多樣性 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── DIVERSITY</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── DIVERSITY</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">20</div>
         <div class="t"><h2>團體多樣性的雙面刃</h2><span class="en">THE DOUBLE-EDGED SWORD OF DIVERSITY</span></div>
@@ -1091,7 +1119,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／48</span></div>
     </section>
     <section class="slide ni-case">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── NEUROINCLUSION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── NEUROINCLUSION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">21</div>
         <div class="t"><h2>補充研究：神經共融靠通用設計，不靠個案調整</h2><span class="en">NEUROINCLUSION BY UNIVERSAL DESIGN ── SPOOR ET AL.</span></div>
@@ -1129,7 +1157,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／48</span></div>
     </section>
     <section class="slide um-case">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── NEUROINCLUSION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── NEUROINCLUSION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">22</div>
         <div class="t"><h2>範例：個人使用說明書</h2><span class="en">PERSONAL USER MANUAL ── A WORKED EXAMPLE</span></div>
@@ -1168,7 +1196,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／48</span></div>
     </section>
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">23</div>
         <div class="t"><h2>團體決策的優點與缺點</h2><span class="en">STRENGTHS ＆ WEAKNESSES OF GROUP DECISION MAKING</span></div>
@@ -1196,7 +1224,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     </section>
 
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">24</div>
         <div class="t"><h2>團體迷思與團體偏移</h2><span class="en">GROUPTHINK ＆ GROUPSHIFT</span></div>
@@ -1223,7 +1251,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     </section>
 
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 8 ── GROUP DECISION MAKING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">25</div>
         <div class="t"><h2>團體決策的三種技術</h2><span class="en">INTERACTING GROUPS, BRAINSTORMING, NOMINAL GROUP TECHNIQUE</span></div>
@@ -1259,7 +1287,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.21 團體與團隊差異 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── GROUPS vs. TEAMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── GROUPS vs. TEAMS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">26</div>
         <div class="t"><h2>團體與團隊的差異</h2><span class="en">WORK GROUPS vs. WORK TEAMS</span></div>
@@ -1286,7 +1314,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.22 差異圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── GROUPS vs. TEAMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── GROUPS vs. TEAMS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／T-01 工作團體與工作團隊之比較</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1345,7 +1373,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.23 團隊盛行原因 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── WHY TEAMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── WHY TEAMS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">28</div>
         <div class="t"><h2>團隊的盛行原因</h2><span class="en">WHY HAVE TEAMS BECOME SO POPULAR?</span></div>
@@ -1361,7 +1389,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.24 盛行圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── WHY TEAMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 9 ── WHY TEAMS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／T-02 團隊——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1462,7 +1490,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.25 問題解決團隊 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">30</div>
         <div class="t"><h2>問題解決團隊</h2><span class="en">PROBLEM-SOLVING TEAMS</span></div>
@@ -1478,7 +1506,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.26 自我管理團隊 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">31</div>
         <div class="t"><h2>自我管理工作團隊</h2><span class="en">SELF-MANAGED WORK TEAMS</span></div>
@@ -1494,7 +1522,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.27 自我管理效能 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">32</div>
         <div class="t"><h2>自我管理團隊的效能</h2><span class="en">EFFECTIVENESS OF SELF-MANAGED TEAMS</span></div>
@@ -1510,7 +1538,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.28 跨功能團隊 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">33</div>
         <div class="t"><h2>跨功能團隊</h2><span class="en">CROSS-FUNCTIONAL TEAMS</span></div>
@@ -1526,7 +1554,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.29 虛擬團隊 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">34</div>
         <div class="t"><h2>虛擬團隊</h2><span class="en">VIRTUAL TEAMS</span></div>
@@ -1542,7 +1570,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.30 多團隊制度 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 10 ── TEAM TYPES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">35</div>
         <div class="t"><h2>多團隊制度</h2><span class="en">MULTITEAM SYSTEMS</span></div>
@@ -1558,7 +1586,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.31 效能模式圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM EFFECTIVENESS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM EFFECTIVENESS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／E-01 團隊效能模式</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1635,7 +1663,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.32 組成性質 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── COMPOSITION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── COMPOSITION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">37</div>
         <div class="t"><h2>背景因素：組成性質</h2><span class="en">TEAM COMPOSITION</span></div>
@@ -1651,7 +1679,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.33 組成圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── COMPOSITION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── COMPOSITION</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／E-02 團隊組成——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1713,7 +1741,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.34 特定目標 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">39</div>
         <div class="t"><h2>團隊程序：特定目標</h2><span class="en">SPECIFIC TEAM GOALS</span></div>
@@ -1729,7 +1757,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.35 目標圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／E-03 團隊目標——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1760,7 +1788,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.36 團隊認同 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">41</div>
         <div class="t"><h2>團隊程序：團隊認同</h2><span class="en">TEAM IDENTITY</span></div>
@@ -1776,7 +1804,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.37 衝突水準 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PROCESSES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">42</div>
         <div class="t"><h2>團隊程序：衝突水準</h2><span class="en">CONFLICT LEVELS</span></div>
@@ -1803,7 +1831,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.38 衝突傳染 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── CONFLICT RESEARCH</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── CONFLICT RESEARCH</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／CF-01 團隊內衝突傳染的動態系統理論</span><span>SOMARAJU ET AL.（2024）</span></div>
         <div class="fig-body">
@@ -1814,7 +1842,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／48</span></div>
     </section>
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PLAYERS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── TEAM PLAYERS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">44</div>
         <div class="t"><h2>把個人變成團隊成員</h2><span class="en">TURNING INDIVIDUALS INTO TEAM PLAYERS</span></div>
@@ -1846,7 +1874,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     </section>
 
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── WHEN NOT TO USE TEAMS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 11 ── WHEN NOT TO USE TEAMS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">45</div>
         <div class="t"><h2>團隊不一定是答案</h2><span class="en">BEWARE: TEAMS ARE NOT ALWAYS THE ANSWER</span></div>
@@ -1876,7 +1904,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 
     <!-- P.39 補充研究：獎酬與點子否決 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 12 ── TEAM CREATIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 12 ── TEAM CREATIVITY</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">46</div>
         <div class="t"><h2>補充研究：個人與團隊獎酬都推高點子否決</h2><span class="en">REWARD STRUCTURES AND IDEA REJECTION IN TEAMS</span></div>
@@ -1918,7 +1946,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／48</span></div>
     </section>
         <section class="slide ix-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 13 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">SEC 13 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">47</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
@@ -1947,7 +1975,7 @@ body.flow .gd-page .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／48</span></div>
     </section>
 <section class="slide rf-page">
-      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 9·10</span><span class="m g">REFERENCES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">48</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
@@ -2378,11 +2406,14 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 </script>
 
 <script>
-/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
    做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
    縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
 (function () {
-  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
   var stage = document.getElementById('stage');
   var vp = document.getElementById('viewport');
   if (!stage || !vp) return;
@@ -2404,21 +2435,29 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     if (!document.body.classList.contains('flow')) { clear(); return; }
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = visH(), k = 1;
+    var H = visH(), si = 0, k = STEPS[0];
     /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
-    for (var pass = 0; pass < 4; pass++) {
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
       stage.style.zoom = k === 1 ? '' : String(k);
       slide.style.minHeight = '0px';
       var natural = stage.getBoundingClientRect().height;
       if (natural <= H + 0.5) break;
-      var nk = Math.max(MIN, k * (H / natural));
-      if (nk >= k - 0.003) { k = nk; break; }
-      k = nk;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
     }
     stage.style.zoom = k === 1 ? '' : String(k);
     slide.style.minHeight = '0px';
-    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動。
+       量的時候要先解除舞台自己的 min-height，否則內容短的頁面會把舞台撐滿一屏的高度
+       誤算成框線，min-height 被扣到只剩一半，翻頁列因此停在畫面中間。 */
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
     vp.scrollTop = 0;
   }
@@ -2433,10 +2472,14 @@ body.flow .gd-page .cell { padding: 22px 26px; }
     slide.style.minHeight = '0px';
     var h = stage.getBoundingClientRect().height;
     if (h > H + 0.5 && k > MIN) {
-      k = Math.max(MIN, k * (H / h));
-      stage.style.zoom = String(k);
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
     }
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
   }
   document.addEventListener('click', function (e) {
@@ -2587,6 +2630,154 @@ body.flow .gd-page .cell { padding: 22px 26px; }
 })();
 </script>
 <script>
+/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+   同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
+   倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
+   只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
+(function () {
+  var FMAX = 1.5, FILL = 0.88, CAP = 24, MIN_GAIN = 1.06;
+  var BOX = '.cell, .axis-row > .k, .axis-row > .v, td';
+  var SKIP = '.ix, .ix-card, .rf-page, .rf-cols, .fig-wrap, .fig-body, .fig-cell, svg, .title-row, .def-band, .keyline, .cite, .src, .src-band, .cover-main, .footer-row, .meta-row';
+  var BODY = 'p, li, td, .v, .quote';
+  var slides = [].slice.call(document.querySelectorAll('section.slide'));
+  if (!slides.length) return;
+
+  function boxesOf(s) {
+    if (s.classList.contains('ix-page') || s.querySelector('.ix, .rf-grp, .cover-main')) return [];
+    return [].slice.call(s.querySelectorAll(BOX)).filter(function (b) {
+      return !b.closest(SKIP) && !b.querySelector('svg, img, video, iframe, table, .ix');
+    });
+  }
+  function textEls(boxes) {
+    var out = [];
+    boxes.forEach(function (b) {
+      [b].concat([].slice.call(b.querySelectorAll('*'))).forEach(function (e) {
+        if (e.closest('svg') || e.classList.contains('corner')) return;
+        if (out.indexOf(e) < 0) out.push(e);
+      });
+    });
+    return out;
+  }
+  function remember(els) {
+    els.forEach(function (e) {
+      if (e.dataset.afFs) return;
+      var cs = getComputedStyle(e);
+      e.dataset.afFs = parseFloat(cs.fontSize);
+      e.dataset.afLh = cs.lineHeight === 'normal' ? '' : parseFloat(cs.lineHeight);
+    });
+  }
+  function apply(els, f) {
+    els.forEach(function (e) {
+      /* 部分頁面另有 !important 的逐頁字級，行內也要帶 important 才蓋得過 */
+      if (f === 1) { e.style.removeProperty('font-size'); e.style.removeProperty('line-height'); return; }
+      e.style.setProperty('font-size', (e.dataset.afFs * f).toFixed(2) + 'px', 'important');
+      if (e.dataset.afLh) e.style.setProperty('line-height', (e.dataset.afLh * f).toFixed(2) + 'px', 'important');
+    });
+  }
+  /* 格內實際內容的高度：子元素與文字節點的聯集，扣掉絕對定位的角標 */
+  function fill(b) {
+    var br = b.getBoundingClientRect(); if (!br.height) return 0;
+    var k = br.height / (b.offsetHeight || br.height);
+    var cs = getComputedStyle(b), top = Infinity, bot = -Infinity;
+    [].slice.call(b.childNodes).forEach(function (n) {
+      var r;
+      if (n.nodeType === 1) {
+        if (getComputedStyle(n).position === 'absolute' || n.classList.contains('tag')) return;
+        r = n.getBoundingClientRect();
+      } else if (n.nodeType === 3 && n.textContent.trim()) {
+        var rg = document.createRange(); rg.selectNodeContents(n); r = rg.getBoundingClientRect();
+      } else return;
+      if (!r.height) return;
+      top = Math.min(top, r.top); bot = Math.max(bot, r.bottom);
+    });
+    if (top === Infinity) return 0;
+    var inner = br.height - (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) * k;
+    return inner > 0 ? (bot - top) / inner : 9;
+  }
+  /* 左側標籤欄：放大後不得多出行數，避免 Question 1 這類短標籤被拆成兩行 */
+  function lines(e) { var lh = parseFloat(getComputedStyle(e).lineHeight) || parseFloat(getComputedStyle(e).fontSize) * 1.3; return Math.round(e.getBoundingClientRect().height / (lh * (e.getBoundingClientRect().height / (e.offsetHeight || 1) || 1))); }
+  function fits(s, boxes, foot0, lim) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.matches('.axis-row > .k')) {
+        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        if (bad) return false;
+      }
+      if (fill(b) > lim) return false;
+      if (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) return false;
+    }
+    /* 格子的上層容器（表格外框、格線容器）也不得被撐破 */
+    for (var j = 0; j < boxes.length; j++) {
+      for (var a = boxes[j].parentElement; a && a !== s; a = a.parentElement) {
+        if (a.scrollHeight > a.clientHeight + 1 && getComputedStyle(a).overflowY !== 'visible') return false;
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return false;
+      }
+    }
+    var ft = s.querySelector('.footer-row');
+    if (ft && foot0 != null && Math.abs(ft.getBoundingClientRect().top - foot0) > 1) return false;
+    if (s.scrollHeight > s.clientHeight + 1) return false;
+    return true;
+  }
+  function search(s, boxes, els, hi, lim, foot0) {
+    if (hi < MIN_GAIN) return 1;
+    apply(els, hi);
+    if (fits(s, boxes, foot0, lim)) return hi;
+    var lo = 1;
+    for (var it = 0; it < 7; it++) {
+      var mid = (lo + hi) / 2; apply(els, mid);
+      if (fits(s, boxes, foot0, lim)) lo = mid; else hi = mid;
+    }
+    return lo < MIN_GAIN ? 1 : lo;
+  }
+  function capOf(els) {
+    var hi = FMAX;
+    els.forEach(function (e) { if (e.matches(BODY) && +e.dataset.afFs > 0) hi = Math.min(hi, Math.max(1, CAP / e.dataset.afFs)); });
+    return hi;
+  }
+  function fitSlide(s) {
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var elsV = textEls(V), elsK = textEls(K); remember(elsV.concat(elsK));
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    apply(elsV, 1); apply(elsK, 1);
+    K.forEach(function (b) { [].slice.call(b.children).forEach(function (c) { c.dataset.afLines = lines(c); }); });
+    var ft = s.querySelector('.footer-row'), foot0 = ft ? ft.getBoundingClientRect().top : null;
+    /* 先決定內容格的倍率，再讓左側標籤欄在不超過該倍率的範圍內盡量跟上 */
+    var f = V.length ? search(s, V, elsV, capOf(elsV), FILL, foot0) : 1;
+    /* 留一點餘裕：孤兒字模組之後會把末尾幾個字綁在一起，可能多出一行 */
+    if (f > 1) { f = Math.max(1, f * 0.95); if (f < MIN_GAIN) f = 1; }
+    apply(elsV, f);
+    var fk = K.length ? search(s, K, elsK, Math.min(f, capOf(elsK)), 0.94, foot0) : 1;
+    if (fk > 1) { fk = Math.max(1, fk * 0.95); if (fk < MIN_GAIN) fk = 1; }
+    apply(elsK, fk);
+    if (!fits(s, [], foot0, 1)) { apply(elsV, 1); apply(elsK, 1); f = fk = 1; }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
+  function clearAll() {
+    slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
+  }
+  var mode = null;
+  function run() {
+    var flow = document.body.classList.contains('flow');
+    if (flow) { if (mode !== 'flow') clearAll(); mode = 'flow'; return; }
+    if (mode === 'desk') return;
+    mode = 'desk';
+    slides.forEach(fitSlide);
+    window.dispatchEvent(new Event('resize'));
+  }
+  function start() { run(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });
+  else setTimeout(start, 300);
+  addEventListener('resize', function () {
+    var flow = document.body.classList.contains('flow');
+    if ((flow && mode !== 'flow') || (!flow && mode !== 'desk')) setTimeout(run, 80);
+  });
+})();
+</script>
+<script>
 /* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
    CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
    長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
@@ -2725,6 +2916,23 @@ body.flow .gd-page .cell { padding: 22px 26px; }
   }
   stamp();
   window.addEventListener('beforeprint', stamp);
+})();
+</script>
+<script>
+/* ── RFLINK v1：把參考文獻與引註帶裡的純文字網址轉成連結 ──
+   來源資料一律以純文字寫入，避免在內容裡散寫 a 標籤；
+   這裡統一掃過一次，已經有連結的段落跳過。 */
+(function () {
+  var RE = /(https?:\/\/[^\s，。；、）)\]】＞>"']+)/g;
+  document.querySelectorAll('.rf-grp p, .cite, .src, .src-band, .rf-note').forEach(function (el) {
+    if (el.querySelector('a')) return;
+    var h = el.innerHTML;
+    if (h.indexOf('http') < 0) return;
+    el.innerHTML = h.replace(RE, function (u) {
+      var t = u.replace(/[.,;:]$/, ''), tail = u.slice(t.length);
+      return '<a href="' + t + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' + tail;
+    });
+  });
 })();
 </script>
 </body>

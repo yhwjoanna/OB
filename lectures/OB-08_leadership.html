@@ -497,6 +497,34 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 13 到 16.5px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .cell .quote,
+  body.flow .axis-row .v, body.flow .scale-col li, body.flow .scale-instr,
+  body.flow .rs-grid .cell li, body.flow .g2f .cell p, body.flow .g2f .cell li,
+  body.flow .def-band, body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip,
+  body.flow .ix-opt, body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.62; }
+  body.flow .cell li, body.flow .scale-col li { margin-bottom: 5px; }
+  body.flow .cell { padding: 16px 18px; }
+  body.flow .rs-grid .cell { padding: 16px 18px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline, body.flow .scale-instr { padding-left: 20px; padding-right: 20px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
+  /* 表格在手機可橫向捲動，字級另訂 14px，最低檔縮放後仍在 12px 以上 */
+  body.flow .slide td { font-size: 14px !important; }
+  body.flow .slide td.k { min-width: 5em; }
+  /* ── RFLINK v1：參考文獻與引註帶裡的網址可點按 ── */
+  .rf-grp p a, .cite a, .src a, .src-band a { color: inherit; text-decoration: underline;
+    text-underline-offset: 2px; text-decoration-thickness: .5px;
+    word-break: normal; overflow-wrap: break-word; }
+  .rf-grp p a:hover, .cite a:hover, .src a:hover, .src-band a:hover { color: #B03028; }
   /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
      部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
      於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
@@ -577,7 +605,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 封面 -->
     <section class="slide active">
-      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.11</span></div>
       <div class="main cover-main">
         <div class="cover-left">
           <span class="crosshair">+</span>
@@ -602,7 +630,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 領導定義 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 1 ── DEFINITION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 1 ── DEFINITION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">02</div>
         <div class="t"><h2>領導（leadership）的定義</h2><span class="en">WHAT IS LEADERSHIP?</span></div>
@@ -619,7 +647,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 特質理論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">03</div>
         <div class="t"><h2>特質理論</h2><span class="en">TRAIT THEORIES OF LEADERSHIP</span></div>
@@ -635,7 +663,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 好的領導者特質 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">04</div>
         <div class="t"><h2>好的領導者特質</h2><span class="en">TRAITS OF EFFECTIVE LEADERS</span></div>
@@ -652,7 +680,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 特質理論結論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">05</div>
         <div class="t"><h2>特質理論的結論</h2><span class="en">CONCLUSIONS ON TRAIT THEORIES</span></div>
@@ -677,7 +705,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 行為理論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">06</div>
         <div class="t"><h2>行為理論</h2><span class="en">BEHAVIORAL THEORIES OF LEADERSHIP</span></div>
@@ -693,7 +721,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 倡導結構與體恤 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">07</div>
         <div class="t"><h2>倡導結構與體恤</h2><span class="en">INITIATING STRUCTURE ＆ CONSIDERATION</span></div>
@@ -720,7 +748,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 特質行為總結 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── SUMMARY</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── SUMMARY</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">08</div>
         <div class="t"><h2>特質理論和行為理論的總結</h2><span class="en">TRAITS ＆ BEHAVIORS ── SUMMARY</span></div>
@@ -736,7 +764,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 權變理論簡介 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── CONTINGENCY THEORIES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── CONTINGENCY THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">09</div>
         <div class="t"><h2>權變理論簡介</h2><span class="en">CONTINGENCY THEORIES</span></div>
@@ -752,7 +780,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- Fiedler -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">10</div>
         <div class="t"><h2>Fiedler 權變模式</h2><span class="en">FIEDLER CONTINGENCY MODEL</span></div>
@@ -769,7 +797,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- Fiedler 圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／F-01 Fiedler 模式研究發現</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -867,7 +895,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- SLT -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── SLT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── SLT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">12</div>
         <div class="t"><h2>情境領導理論（SLT）</h2><span class="en">SITUATIONAL LEADERSHIP THEORY</span></div>
@@ -883,7 +911,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 路徑目標 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── PATH-GOAL</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── PATH-GOAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">13</div>
         <div class="t"><h2>路徑-目標理論</h2><span class="en">PATH-GOAL THEORY</span></div>
@@ -900,7 +928,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- LMX -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">14</div>
         <div class="t"><h2>領導者-成員交換理論（LMX）</h2><span class="en">LEADER-MEMBER EXCHANGE THEORY</span></div>
@@ -916,7 +944,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- LMX 圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／L-01 領導者-成員交換理論</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -983,7 +1011,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 魅力型領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">16</div>
         <div class="t"><h2>魅力型領導</h2><span class="en">CHARISMATIC LEADERSHIP</span></div>
@@ -1000,7 +1028,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 魅力機制 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">17</div>
         <div class="t"><h2>魅力型領導的影響機制</h2><span class="en">HOW CHARISMATIC LEADERS INFLUENCE</span></div>
@@ -1016,7 +1044,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 魅力情境 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">18</div>
         <div class="t"><h2>魅力型領導的情境因素</h2><span class="en">SITUATIONAL FACTORS</span></div>
@@ -1033,7 +1061,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 魅力陰暗面 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── DARK SIDE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── DARK SIDE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">19</div>
         <div class="t"><h2>魅力型領導的陰暗面</h2><span class="en">THE DARK SIDE OF CHARISMA</span></div>
@@ -1049,7 +1077,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 交易vs轉換 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSACTIONAL vs. TRANSFORMATIONAL</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSACTIONAL vs. TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">20</div>
         <div class="t"><h2>交易型領導與轉換型領導</h2><span class="en">TRANSACTIONAL vs. TRANSFORMATIONAL</span></div>
@@ -1073,7 +1101,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 特徵 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── CHARACTERISTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── CHARACTERISTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">21</div>
         <div class="t"><h2>交易型和轉換型領導的特徵</h2><span class="en">CHARACTERISTICS</span></div>
@@ -1108,7 +1136,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 關係 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">22</div>
         <div class="t"><h2>交易型和轉換型領導的關係</h2><span class="en">COMPLEMENTARY, NOT OPPOSING</span></div>
@@ -1125,7 +1153,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 補充研究：轉換型領導真的比較有效嗎 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── META-ANALYSIS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── META-ANALYSIS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">23</div>
         <div class="t"><h2>補充研究：轉換型領導的優勢只比權宜獎賞多 .05</h2><span class="en">A META-ANALYTIC TEST OF RELATIVE VALIDITY</span></div>
@@ -1145,7 +1173,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 轉換型運作 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSFORMATIONAL</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">24</div>
         <div class="t"><h2>轉換型領導的運作方式</h2><span class="en">HOW TRANSFORMATIONAL LEADERSHIP WORKS</span></div>
@@ -1162,7 +1190,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 全範圍圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／T-01 全範圍領導模式</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1203,7 +1231,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 轉換型評估 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── EVALUATION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── EVALUATION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">26</div>
         <div class="t"><h2>轉換型領導的評估</h2><span class="en">EVALUATING TRANSFORMATIONAL LEADERSHIP</span></div>
@@ -1220,7 +1248,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 真誠領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── AUTHENTIC</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── AUTHENTIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">27</div>
         <div class="t"><h2>真誠領導</h2><span class="en">AUTHENTIC LEADERSHIP</span></div>
@@ -1237,7 +1265,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 補充：信任 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── TRUST</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── TRUST</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">28</div>
         <div class="t"><h2>信任與領導</h2><span class="en">TRUST AND LEADERSHIP</span></div>
@@ -1253,7 +1281,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／47</span></div>
     </section>
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── ETHICAL LEADERSHIP</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── ETHICAL LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">29</div>
         <div class="t"><h2>倫理領導</h2><span class="en">ETHICAL LEADERSHIP ＆ SOCIALIZED CHARISMA</span></div>
@@ -1287,7 +1315,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 僕人式領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">30</div>
         <div class="t"><h2>僕人式領導</h2><span class="en">SERVANT LEADERSHIP</span></div>
@@ -1306,7 +1334,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 僕人式圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／S-01 僕人式領導——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1353,7 +1381,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 建言 1：邀請建言 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">32</div>
         <div class="t"><h2>邀請部屬建言，未必換來建言</h2><span class="en">VOICE SOLICITATION</span></div>
@@ -1371,7 +1399,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 建言 2：主管求回饋 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">33</div>
         <div class="t"><h2>主管自己求回饋，效果有一個甜蜜點</h2><span class="en">LEADER FEEDBACK-SEEKING</span></div>
@@ -1388,7 +1416,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 建言 3：回應建言 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">34</div>
         <div class="t"><h2>收到建言之後，速度與透明度都在說話</h2><span class="en">RESPONDING TO VOICE</span></div>
@@ -1405,7 +1433,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 建言 4：整合圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／V-01 建言歷程的三個關卡</span><span>SRC：2026 年四項研究整理</span></div>
         <div class="fig-body">
@@ -1486,7 +1514,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 案例：黃仁勳與 Glassdoor 2026 最佳 CEO -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">36</div>
         <div class="t"><h2>案例：黃仁勳與 Glassdoor 2026 最佳 CEO</h2><span class="en">THE NO. 1 CEO ON GLASSDOOR</span></div>
@@ -1506,7 +1534,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 這個 99% 該怎麼讀 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">37</div>
         <div class="t"><h2>這個 99% 該怎麼讀</h2><span class="en">HOW TO READ AN APPROVAL RATING</span></div>
@@ -1526,7 +1554,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 風格限制 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── LIMITATIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── LIMITATIONS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">38</div>
         <div class="t"><h2>不同領導風格的限制</h2><span class="en">LIMITATIONS OF LEADERSHIP STYLES</span></div>
@@ -1557,7 +1585,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／47</span></div>
     </section>
     <section class="slide gd-page ld-sub">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">39</div>
         <div class="t"><h2>挑戰領導的觀點：歸因與替代品</h2><span class="en">ATTRIBUTION THEORY OF LEADERSHIP ── SUBSTITUTES ＆ NEUTRALIZERS</span></div>
@@ -1594,7 +1622,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     </section>
 
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── SELECTING ＆ TRAINING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── SELECTING ＆ TRAINING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">40</div>
         <div class="t"><h2>尋找與培養有效的領導者</h2><span class="en">SELECTING ＆ TRAINING LEADERS</span></div>
@@ -1624,7 +1652,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 不當督導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">41</div>
         <div class="t"><h2>不當督導</h2><span class="en">ABUSIVE SUPERVISION</span></div>
@@ -1641,7 +1669,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 常見行為類型 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">42</div>
         <div class="t"><h2>不當督導的常見行為類型</h2><span class="en">COMMON ABUSIVE BEHAVIORS</span></div>
@@ -1661,7 +1689,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 誤解 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">43</div>
         <div class="t"><h2>實務上常見的誤解</h2><span class="en">COMMON MISCONCEPTIONS</span></div>
@@ -1679,7 +1707,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- 不當督導圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／M-01 師徒關係中的職涯功能與社會心理功能</span></div>
         <div class="fig-body">
@@ -1721,7 +1749,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／47</span></div>
     </section>
     <section class="slide as-case">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">45</div>
         <div class="t"><h2>補充研究：徒弟不開口求教，是怕成為負擔</h2><span class="en">THE INEQUITY ILLUSION OF ADVICE SEEKING ── BURMEISTER &amp; LEVIN</span></div>
@@ -1761,7 +1789,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／47</span></div>
     </section>
         <section class="slide ix-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">46</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
@@ -1790,7 +1818,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／47</span></div>
     </section>
 <section class="slide rf-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">REFERENCES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">47</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
@@ -2230,11 +2258,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 </script>
 
 <script>
-/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
    做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
    縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
 (function () {
-  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
   var stage = document.getElementById('stage');
   var vp = document.getElementById('viewport');
   if (!stage || !vp) return;
@@ -2256,21 +2287,29 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     if (!document.body.classList.contains('flow')) { clear(); return; }
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = visH(), k = 1;
+    var H = visH(), si = 0, k = STEPS[0];
     /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
-    for (var pass = 0; pass < 4; pass++) {
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
       stage.style.zoom = k === 1 ? '' : String(k);
       slide.style.minHeight = '0px';
       var natural = stage.getBoundingClientRect().height;
       if (natural <= H + 0.5) break;
-      var nk = Math.max(MIN, k * (H / natural));
-      if (nk >= k - 0.003) { k = nk; break; }
-      k = nk;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
     }
     stage.style.zoom = k === 1 ? '' : String(k);
     slide.style.minHeight = '0px';
-    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動。
+       量的時候要先解除舞台自己的 min-height，否則內容短的頁面會把舞台撐滿一屏的高度
+       誤算成框線，min-height 被扣到只剩一半，翻頁列因此停在畫面中間。 */
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
     vp.scrollTop = 0;
   }
@@ -2285,10 +2324,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     slide.style.minHeight = '0px';
     var h = stage.getBoundingClientRect().height;
     if (h > H + 0.5 && k > MIN) {
-      k = Math.max(MIN, k * (H / h));
-      stage.style.zoom = String(k);
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
     }
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
   }
   document.addEventListener('click', function (e) {
@@ -2439,6 +2482,154 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 })();
 </script>
 <script>
+/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+   同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
+   倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
+   只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
+(function () {
+  var FMAX = 1.5, FILL = 0.88, CAP = 24, MIN_GAIN = 1.06;
+  var BOX = '.cell, .axis-row > .k, .axis-row > .v, td';
+  var SKIP = '.ix, .ix-card, .rf-page, .rf-cols, .fig-wrap, .fig-body, .fig-cell, svg, .title-row, .def-band, .keyline, .cite, .src, .src-band, .cover-main, .footer-row, .meta-row';
+  var BODY = 'p, li, td, .v, .quote';
+  var slides = [].slice.call(document.querySelectorAll('section.slide'));
+  if (!slides.length) return;
+
+  function boxesOf(s) {
+    if (s.classList.contains('ix-page') || s.querySelector('.ix, .rf-grp, .cover-main')) return [];
+    return [].slice.call(s.querySelectorAll(BOX)).filter(function (b) {
+      return !b.closest(SKIP) && !b.querySelector('svg, img, video, iframe, table, .ix');
+    });
+  }
+  function textEls(boxes) {
+    var out = [];
+    boxes.forEach(function (b) {
+      [b].concat([].slice.call(b.querySelectorAll('*'))).forEach(function (e) {
+        if (e.closest('svg') || e.classList.contains('corner')) return;
+        if (out.indexOf(e) < 0) out.push(e);
+      });
+    });
+    return out;
+  }
+  function remember(els) {
+    els.forEach(function (e) {
+      if (e.dataset.afFs) return;
+      var cs = getComputedStyle(e);
+      e.dataset.afFs = parseFloat(cs.fontSize);
+      e.dataset.afLh = cs.lineHeight === 'normal' ? '' : parseFloat(cs.lineHeight);
+    });
+  }
+  function apply(els, f) {
+    els.forEach(function (e) {
+      /* 部分頁面另有 !important 的逐頁字級，行內也要帶 important 才蓋得過 */
+      if (f === 1) { e.style.removeProperty('font-size'); e.style.removeProperty('line-height'); return; }
+      e.style.setProperty('font-size', (e.dataset.afFs * f).toFixed(2) + 'px', 'important');
+      if (e.dataset.afLh) e.style.setProperty('line-height', (e.dataset.afLh * f).toFixed(2) + 'px', 'important');
+    });
+  }
+  /* 格內實際內容的高度：子元素與文字節點的聯集，扣掉絕對定位的角標 */
+  function fill(b) {
+    var br = b.getBoundingClientRect(); if (!br.height) return 0;
+    var k = br.height / (b.offsetHeight || br.height);
+    var cs = getComputedStyle(b), top = Infinity, bot = -Infinity;
+    [].slice.call(b.childNodes).forEach(function (n) {
+      var r;
+      if (n.nodeType === 1) {
+        if (getComputedStyle(n).position === 'absolute' || n.classList.contains('tag')) return;
+        r = n.getBoundingClientRect();
+      } else if (n.nodeType === 3 && n.textContent.trim()) {
+        var rg = document.createRange(); rg.selectNodeContents(n); r = rg.getBoundingClientRect();
+      } else return;
+      if (!r.height) return;
+      top = Math.min(top, r.top); bot = Math.max(bot, r.bottom);
+    });
+    if (top === Infinity) return 0;
+    var inner = br.height - (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) * k;
+    return inner > 0 ? (bot - top) / inner : 9;
+  }
+  /* 左側標籤欄：放大後不得多出行數，避免 Question 1 這類短標籤被拆成兩行 */
+  function lines(e) { var lh = parseFloat(getComputedStyle(e).lineHeight) || parseFloat(getComputedStyle(e).fontSize) * 1.3; return Math.round(e.getBoundingClientRect().height / (lh * (e.getBoundingClientRect().height / (e.offsetHeight || 1) || 1))); }
+  function fits(s, boxes, foot0, lim) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.matches('.axis-row > .k')) {
+        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        if (bad) return false;
+      }
+      if (fill(b) > lim) return false;
+      if (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) return false;
+    }
+    /* 格子的上層容器（表格外框、格線容器）也不得被撐破 */
+    for (var j = 0; j < boxes.length; j++) {
+      for (var a = boxes[j].parentElement; a && a !== s; a = a.parentElement) {
+        if (a.scrollHeight > a.clientHeight + 1 && getComputedStyle(a).overflowY !== 'visible') return false;
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return false;
+      }
+    }
+    var ft = s.querySelector('.footer-row');
+    if (ft && foot0 != null && Math.abs(ft.getBoundingClientRect().top - foot0) > 1) return false;
+    if (s.scrollHeight > s.clientHeight + 1) return false;
+    return true;
+  }
+  function search(s, boxes, els, hi, lim, foot0) {
+    if (hi < MIN_GAIN) return 1;
+    apply(els, hi);
+    if (fits(s, boxes, foot0, lim)) return hi;
+    var lo = 1;
+    for (var it = 0; it < 7; it++) {
+      var mid = (lo + hi) / 2; apply(els, mid);
+      if (fits(s, boxes, foot0, lim)) lo = mid; else hi = mid;
+    }
+    return lo < MIN_GAIN ? 1 : lo;
+  }
+  function capOf(els) {
+    var hi = FMAX;
+    els.forEach(function (e) { if (e.matches(BODY) && +e.dataset.afFs > 0) hi = Math.min(hi, Math.max(1, CAP / e.dataset.afFs)); });
+    return hi;
+  }
+  function fitSlide(s) {
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var elsV = textEls(V), elsK = textEls(K); remember(elsV.concat(elsK));
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    apply(elsV, 1); apply(elsK, 1);
+    K.forEach(function (b) { [].slice.call(b.children).forEach(function (c) { c.dataset.afLines = lines(c); }); });
+    var ft = s.querySelector('.footer-row'), foot0 = ft ? ft.getBoundingClientRect().top : null;
+    /* 先決定內容格的倍率，再讓左側標籤欄在不超過該倍率的範圍內盡量跟上 */
+    var f = V.length ? search(s, V, elsV, capOf(elsV), FILL, foot0) : 1;
+    /* 留一點餘裕：孤兒字模組之後會把末尾幾個字綁在一起，可能多出一行 */
+    if (f > 1) { f = Math.max(1, f * 0.95); if (f < MIN_GAIN) f = 1; }
+    apply(elsV, f);
+    var fk = K.length ? search(s, K, elsK, Math.min(f, capOf(elsK)), 0.94, foot0) : 1;
+    if (fk > 1) { fk = Math.max(1, fk * 0.95); if (fk < MIN_GAIN) fk = 1; }
+    apply(elsK, fk);
+    if (!fits(s, [], foot0, 1)) { apply(elsV, 1); apply(elsK, 1); f = fk = 1; }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
+  function clearAll() {
+    slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
+  }
+  var mode = null;
+  function run() {
+    var flow = document.body.classList.contains('flow');
+    if (flow) { if (mode !== 'flow') clearAll(); mode = 'flow'; return; }
+    if (mode === 'desk') return;
+    mode = 'desk';
+    slides.forEach(fitSlide);
+    window.dispatchEvent(new Event('resize'));
+  }
+  function start() { run(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });
+  else setTimeout(start, 300);
+  addEventListener('resize', function () {
+    var flow = document.body.classList.contains('flow');
+    if ((flow && mode !== 'flow') || (!flow && mode !== 'desk')) setTimeout(run, 80);
+  });
+})();
+</script>
+<script>
 /* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
    CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
    長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
@@ -2577,6 +2768,23 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   }
   stamp();
   window.addEventListener('beforeprint', stamp);
+})();
+</script>
+<script>
+/* ── RFLINK v1：把參考文獻與引註帶裡的純文字網址轉成連結 ──
+   來源資料一律以純文字寫入，避免在內容裡散寫 a 標籤；
+   這裡統一掃過一次，已經有連結的段落跳過。 */
+(function () {
+  var RE = /(https?:\/\/[^\s，。；、）)\]】＞>"']+)/g;
+  document.querySelectorAll('.rf-grp p, .cite, .src, .src-band, .rf-note').forEach(function (el) {
+    if (el.querySelector('a')) return;
+    var h = el.innerHTML;
+    if (h.indexOf('http') < 0) return;
+    el.innerHTML = h.replace(RE, function (u) {
+      var t = u.replace(/[.,;:]$/, ''), tail = u.slice(t.length);
+      return '<a href="' + t + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' + tail;
+    });
+  });
 })();
 </script>
 </body>

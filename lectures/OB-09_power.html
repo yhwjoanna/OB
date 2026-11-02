@@ -464,6 +464,34 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
   .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
   .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+
+  /* ── TYPE v2：手機正文用單一字級 ──
+     原本各版型的正文從 13 到 16.5px 都有，縮放之後跨頁差距更明顯。
+     這裡在流式模式把正文一律壓到同一個字級，版面同時收緊，
+     多數頁面因此不必再縮放，剩下的交給 FITONE 的三階量化。 */
+  body.flow .cell p, body.flow .cell li, body.flow .cell .quote,
+  body.flow .axis-row .v, body.flow .scale-col li, body.flow .scale-instr,
+  body.flow .rs-grid .cell li, body.flow .g2f .cell p, body.flow .g2f .cell li,
+  body.flow .def-band, body.flow .keyline, body.flow .ix-scn, body.flow .ix-chip,
+  body.flow .ix-opt, body.flow .ix-fb, body.flow .ix-bar > span {
+    font-size: 14.5px !important; line-height: 1.62; }
+  body.flow .cell li, body.flow .scale-col li { margin-bottom: 5px; }
+  body.flow .cell { padding: 16px 18px; }
+  body.flow .rs-grid .cell { padding: 16px 18px; }
+  body.flow .axis-row .v { padding: 11px 18px; }
+  body.flow .def-band, body.flow .keyline, body.flow .scale-instr { padding-left: 20px; padding-right: 20px; }
+  body.flow .slide h3 { font-size: 17px !important; line-height: 1.4; }
+  /* 收邊帶在手機佔掉的高度不成比例，收緊之後多數頁面剛好落在一屏內 */
+  body.flow .keyline { padding-top: 10px; padding-bottom: 10px; }
+  body.flow .cite, body.flow .src-band { padding-top: 8px; padding-bottom: 8px; }
+  /* 表格在手機可橫向捲動，字級另訂 14px，最低檔縮放後仍在 12px 以上 */
+  body.flow .slide td { font-size: 14px !important; }
+  body.flow .slide td.k { min-width: 5em; }
+  /* ── RFLINK v1：參考文獻與引註帶裡的網址可點按 ── */
+  .rf-grp p a, .cite a, .src a, .src-band a { color: inherit; text-decoration: underline;
+    text-underline-offset: 2px; text-decoration-thickness: .5px;
+    word-break: normal; overflow-wrap: break-word; }
+  .rf-grp p a:hover, .cite a:hover, .src a:hover, .src-band a:hover { color: #B03028; }
   /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
      部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
      於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
@@ -559,7 +587,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.01 封面 -->
     <section class="slide active">
-      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／ORGANIZATIONAL BEHAVIOR</span><span class="m">REV 2026.11</span></div>
       <div class="main cover-main">
         <div class="cover-left">
           <span class="crosshair">+</span>
@@ -584,7 +612,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.02 權力的定義與本質 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">2</div>
         <div class="t"><h2>權力的定義與本質</h2><span class="en">WHAT IS POWER?</span></div>
@@ -612,7 +640,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.03 權力與領導的區別 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 1 ── POWER BASICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">3</div>
         <div class="t"><h2>權力與領導的區別</h2><span class="en">POWER VS. LEADERSHIP</span></div>
@@ -646,7 +674,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.04 權力的基礎來源 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">4</div>
         <div class="t"><h2>權力的基礎來源</h2><span class="en">BASES OF POWER</span></div>
@@ -673,7 +701,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.05 正式權力的三種類型 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">5</div>
         <div class="t"><h2>正式權力的三種類型</h2><span class="en">FORMAL POWER</span></div>
@@ -707,7 +735,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.06 個人權力的兩種類型 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">6</div>
         <div class="t"><h2>個人權力的兩種類型</h2><span class="en">PERSONAL POWER</span></div>
@@ -734,7 +762,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.07 哪一項權力基礎最有效 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 2 ── BASES OF POWER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">7</div>
         <div class="t"><h2>哪一項權力基礎最有效？</h2><span class="en">WHICH BASES ARE MOST EFFECTIVE?</span></div>
@@ -771,7 +799,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.08 依賴性：權力的關鍵 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">8</div>
         <div class="t"><h2>依賴性：權力的關鍵</h2><span class="en">DEPENDENCE: THE KEY TO POWER</span></div>
@@ -805,7 +833,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.09 創造依賴性的因素 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── DEPENDENCE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">9</div>
         <div class="t"><h2>創造依賴性的因素</h2><span class="en">WHAT CREATES DEPENDENCE?</span></div>
@@ -839,7 +867,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.10 正式小團體網絡（補充） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">10</div>
         <div class="t"><h2>正式小團體網絡</h2><span class="en">FORMAL SMALL-GROUP NETWORKS</span></div>
@@ -875,7 +903,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.11 小團體網絡與效能準則（補充） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── NETWORKS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">11</div>
         <div class="t"><h2>小團體網絡與效能準則</h2><span class="en">NETWORKS AND EFFECTIVENESS CRITERIA</span></div>
@@ -896,7 +924,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.12 社會網絡分析 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">12</div>
         <div class="t"><h2>社會網絡分析</h2><span class="en">SOCIAL NETWORK ANALYSIS</span></div>
@@ -933,7 +961,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.13 FIG 組織社會關係圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 3 ── SNA</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／N-01 組織社會關係圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1037,7 +1065,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.14 權力戰術（一） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">14</div>
         <div class="t"><h2>權力戰術（一）</h2><span class="en">POWER TACTICS</span></div>
@@ -1079,7 +1107,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.15 權力戰術（二） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">15</div>
         <div class="t"><h2>權力戰術（二）</h2><span class="en">POWER TACTICS</span></div>
@@ -1097,7 +1125,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.16 情境演練導言 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY</span><span class="m">REV 2026.11</span></div>
       <div class="main"><div class="quote-main">
         <span class="q-label">[ ACTIVITY／POWER TACTICS ]</span>
         <div class="q-text" style="font-size: 2.2em;">以下有許多職場情境，請思考要用哪一種<span class="ul-red">權力戰術</span>來與對方溝通。</div>
@@ -1108,7 +1136,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.17 職場新鮮人篇 divider -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.11</span></div>
       <div class="main"><div class="quote-main">
         <span class="q-label">[ PART A ]</span>
         <div class="q-text">職場新鮮人篇</div>
@@ -1119,7 +1147,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.18 新鮮人情境1 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">18</div>
         <div class="t"><h2>情境 1：招募會場志願者安排</h2><span class="en">RECRUITING EVENT VOLUNTEERS</span></div>
@@ -1142,7 +1170,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.19 新鮮人情境2 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">19</div>
         <div class="t"><h2>情境 2：新人教育訓練教材改版</h2><span class="en">ONBOARDING MATERIALS REDESIGN</span></div>
@@ -1165,7 +1193,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.20 新鮮人情境3 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">20</div>
         <div class="t"><h2>情境 3：公司福委會活動提案</h2><span class="en">EMPLOYEE WELFARE PROPOSAL</span></div>
@@ -1188,7 +1216,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.21 新鮮人情境4 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY A</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">21</div>
         <div class="t"><h2>情境 4：處理考勤問題</h2><span class="en">ATTENDANCE SYSTEM ROLLOUT</span></div>
@@ -1211,7 +1239,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.22 基層主管篇 divider -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.11</span></div>
       <div class="main"><div class="quote-main">
         <span class="q-label">[ PART B ]</span>
         <div class="q-text">基層主管篇</div>
@@ -1222,7 +1250,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.23 主管情境1 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">23</div>
         <div class="t"><h2>情境 1：績效考核結果溝通與說服</h2><span class="en">COMMUNICATING APPRAISAL RESULTS</span></div>
@@ -1249,7 +1277,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.24 主管情境2 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">24</div>
         <div class="t"><h2>情境 2：部門間的人力資源爭奪戰</h2><span class="en">TALENT ALLOCATION CONFLICT</span></div>
@@ -1276,7 +1304,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.25 主管情境3 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">25</div>
         <div class="t"><h2>情境 3：裁員計畫的員工溝通與支持</h2><span class="en">LAYOFF COMMUNICATION</span></div>
@@ -1303,7 +1331,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.26 主管情境4 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── ACTIVITY B</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">26</div>
         <div class="t"><h2>情境 4：推動薪酬調整政策改革</h2><span class="en">COMPENSATION REFORM</span></div>
@@ -1330,7 +1358,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.27 FIG 由影響方向決定合適的權力戰術 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／T-01 由影響方向決定合適的權力戰術</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1389,7 +1417,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.28 利用權力戰術 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POWER TACTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">28</div>
         <div class="t"><h2>利用權力戰術</h2><span class="en">USING POWER TACTICS</span></div>
@@ -1418,7 +1446,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／58</span></div>
     </section>
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CASE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">29</div>
         <div class="t"><h2>個案：帶到昔日上司的新主管</h2><span class="en">CASE ── MANAGING A FORMER BOSS</span></div>
@@ -1464,7 +1492,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／58</span></div>
     </section>
     <section class="slide ix-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── DISCUSSION</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── DISCUSSION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">30</div>
         <div class="t"><h2>討論：文章做法對應的權力</h2><span class="en">DISCUSSION ── WHICH POWER, WHICH TACTIC</span></div>
@@ -1484,7 +1512,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.29 權力戰術的文化偏好 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CULTURE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── CULTURE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">31</div>
         <div class="t"><h2>權力戰術的文化偏好</h2><span class="en">CULTURAL PREFERENCES</span></div>
@@ -1511,7 +1539,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.30 政治技能 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POLITICAL SKILL</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 4 ── POLITICAL SKILL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">32</div>
         <div class="t"><h2>應用權力戰術：政治技能</h2><span class="en">POLITICAL SKILL</span></div>
@@ -1545,7 +1573,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.31 權力對人的影響 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">33</div>
         <div class="t"><h2>權力對人的影響</h2><span class="en">HOW POWER AFFECTS PEOPLE</span></div>
@@ -1582,7 +1610,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.32 權力變數 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 5 ── POWER DYNAMICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">34</div>
         <div class="t"><h2>權力變數</h2><span class="en">POWER VARIABLES</span></div>
@@ -1619,7 +1647,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.33 性騷擾 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">35</div>
         <div class="t"><h2>性騷擾：職場中不平等的權力</h2><span class="en">SEXUAL HARASSMENT</span></div>
@@ -1646,7 +1674,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.34 管理者在防止性騷擾中的角色 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 6 ── SEXUAL HARASSMENT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">36</div>
         <div class="t"><h2>管理者在防止性騷擾中的角色</h2><span class="en">THE MANAGER'S ROLE</span></div>
@@ -1664,7 +1692,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.35 政治：權力的運作 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">37</div>
         <div class="t"><h2>政治：權力的運作</h2><span class="en">POLITICS: POWER IN ACTION</span></div>
@@ -1702,7 +1730,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.36 FIG OB投票所 組織政治的重要性 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／P-01 OB 投票所──組織政治的重要性</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1745,7 +1773,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.37 政治的事實 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">39</div>
         <div class="t"><h2>政治的事實</h2><span class="en">THE REALITY OF POLITICS</span></div>
@@ -1776,7 +1804,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.38 無政治活動的組織可能嗎 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── POLITICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">40</div>
         <div class="t"><h2>無政治活動的組織可能嗎？</h2><span class="en">A POLITICS-FREE ORGANIZATION?</span></div>
@@ -1813,7 +1841,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.39 助長政治行為的因素 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">41</div>
         <div class="t"><h2>助長政治行為的因素</h2><span class="en">CAUSES OF POLITICAL BEHAVIOR</span></div>
@@ -1840,7 +1868,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.40 FIG 影響政治行為的因素 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── CAUSES</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／P-02 影響政治行為的因素</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1914,7 +1942,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.41 FIG 員工對組織政治的反應 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／P-03 員工對組織政治的反應</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1957,7 +1985,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.42 人們如何回應組織政治 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── RESPONSES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">44</div>
         <div class="t"><h2>人們如何回應組織政治？</h2><span class="en">RESPONSES TO ORGANIZATIONAL POLITICS</span></div>
@@ -1994,7 +2022,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.43 FIG 防衛行為 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── DEFENSIVE</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 7 ── DEFENSIVE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／P-04 防衛行為</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -2058,7 +2086,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.44 印象管理 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">46</div>
         <div class="t"><h2>印象管理</h2><span class="en">IMPRESSION MANAGEMENT</span></div>
@@ -2092,7 +2120,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.45 印象管理技巧（面試情境） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IMPRESSION MGMT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">47</div>
         <div class="t"><h2>面試中的印象管理</h2><span class="en">IM IN INTERVIEWS</span></div>
@@ -2127,7 +2155,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.46 印象管理的八種技巧（補充） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM TECHNIQUES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM TECHNIQUES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">48</div>
         <div class="t"><h2>印象管理的八種技巧</h2><span class="en">IM TECHNIQUES</span></div>
@@ -2152,7 +2180,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.47 績效評估與印象管理 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM ＆ APPRAISAL</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM ＆ APPRAISAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">49</div>
         <div class="t"><h2>績效評估與印象管理</h2><span class="en">IM AND PERFORMANCE EVALUATIONS</span></div>
@@ -2181,7 +2209,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.49／58</span></div>
     </section>
     <section class="slide rs-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM RESEARCH</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── IM RESEARCH</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">50</div>
         <div class="t"><h2>補充研究：開放式人格測驗比量表更難造假</h2><span class="en">FAKING ON OPEN-ENDED PERSONALITY ASSESSMENTS ── SPEER ET AL.</span></div>
@@ -2222,7 +2250,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.49 補充研究：逢迎 -->
     <section class="slide rs-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── INGRATIATION RESEARCH</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── INGRATIATION RESEARCH</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">51</div>
         <div class="t"><h2>補充研究：逢迎的程度與旁觀者反應</h2><span class="en">INGRATIATION ── AMOUNT, ATTRIBUTION, AND THIRD PARTIES</span></div>
@@ -2238,15 +2266,15 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul></div>
         <div class="cell"><span class="tag">[ 02／DESIGN ]</span><h3>研究設計</h3>
           <ul>
-            <li>Wang 等（2025）以三個實地研究蒐集新人與主管的配對資料，用曲線迴歸檢驗效果是否先升後降</li>
-            <li>Wu 等（2025）先編量表區分適度與過度的逢迎，再以兩個實驗操弄，並連續十週請主管與新人各自填週記</li>
-            <li>另外三篇分別是隔一段時間再測的調查加情境實驗、64 個團隊的多波段調查、252 對主管與部屬</li>
+            <li>Wang 等（2025）以三個實地研究的新人與主管配對資料，用曲線迴歸檢驗先升後降</li>
+            <li>Wu 等（2025）先編量表區分適度與過度的逢迎，再以兩個實驗操弄，並請主管與新人連續十週各自填週記</li>
+            <li>另外三篇：間隔再測的調查加情境實驗、64 個團隊的多波段調查、252 對主管與部屬</li>
           </ul></div>
         <div class="cell"><span class="tag">[ 03／FINDINGS ]</span><h3>主要發現</h3>
           <ul>
-            <li>程度：逢迎愈多，主管愈覺得是在經營關係；逢迎太明顯，主管才開始懷疑別有用心。兩股力量相抵，關係品質先升後降</li>
-            <li>主管端：過度逢迎讓主管尷尬、接著避開互動；適度逢迎讓主管感到驕傲，願意多分享資訊。主管自戀傾向愈高愈容忍過度的逢迎</li>
-            <li>旁人端：同事看到之後擔心自己的地位受威脅，因而排擠。逢迎比同事多，跟主管的關係會變好；與同事程度相近，團隊關係才維持得住</li>
+            <li>程度：逢迎愈多，主管愈覺得是在經營關係；過於明顯則引發懷疑，關係品質因此先升後降</li>
+            <li>主管端：過度逢迎讓主管尷尬並迴避互動；適度逢迎讓主管感到驕傲、願意分享資訊。主管自戀傾向愈高，愈容忍過度逢迎</li>
+            <li>旁人端：同事擔心地位受威脅而排擠。逢迎多於同事，與主管的關係變好；與同事程度相近時，團隊關係較能維持</li>
           </ul></div>
         <div class="cell"><span class="tag">[ 04／IMPLICATIONS ]</span><h3>實務意涵</h3>
           <ul>
@@ -2262,7 +2290,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.50 FIG 逢迎的雙路徑與淨效果 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── INGRATIATION RESEARCH</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 8 ── INGRATIATION RESEARCH</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／I-01 逢迎的雙路徑與淨效果</span><span>SRC：WANG ET AL.（2025）</span></div>
         <div class="fig-body">
@@ -2300,7 +2328,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.48 政治行為的道德性 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 9 ── ETHICS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 9 ── ETHICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">53</div>
         <div class="t"><h2>政治行為的道德性</h2><span class="en">THE ETHICS OF BEHAVING POLITICALLY</span></div>
@@ -2331,7 +2359,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.49 勾勒政治生涯地圖（補充） -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">54</div>
         <div class="t"><h2>勾勒政治生涯地圖</h2><span class="en">MAPPING YOUR POLITICAL CAREER</span></div>
@@ -2364,7 +2392,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.50 FIG 勾勒你的政治地圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 10 ── CAREER MAP</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／M-01 勾勒你的政治地圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -2433,7 +2461,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 
     <!-- P.51 對管理者的啟示 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 11 ── IMPLICATIONS</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 11 ── IMPLICATIONS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">56</div>
         <div class="t"><h2>對管理者的啟示</h2><span class="en">IMPLICATIONS FOR MANAGERS</span></div>
@@ -2468,7 +2496,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.56／58</span></div>
     </section>
         <section class="slide ix-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 12 ── SELF-CHECK</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">SEC 12 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">57</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
@@ -2497,7 +2525,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.57／58</span></div>
     </section>
 <section class="slide rf-page">
-      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.09</span></div>
+      <div class="meta-row"><span class="m">OB／CH 13</span><span class="m g">REFERENCES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
         <div class="idx">58</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
@@ -2930,11 +2958,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 </script>
 
 <script>
-/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+/* ── FITONE + TYPE v2：手機上讓每一頁盡量落在一個畫面內 ──
    做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
    縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
 (function () {
-  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  /* 縮放只允許三個檔位。跨頁的字級差距因此最多一成二，不會一頁大一頁小；
+     需要比最低檔更小才放得下的頁面維持可捲動，不再繼續壓字級。 */
+  var STEPS = [1, 0.94, 0.88];
+  var MIN = STEPS[STEPS.length - 1];
   var stage = document.getElementById('stage');
   var vp = document.getElementById('viewport');
   if (!stage || !vp) return;
@@ -2956,21 +2987,29 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     if (!document.body.classList.contains('flow')) { clear(); return; }
     var slide = document.querySelector('.slide.active');
     if (!slide) return;
-    var H = visH(), k = 1;
+    var H = visH(), si = 0, k = STEPS[0];
     /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
-    for (var pass = 0; pass < 4; pass++) {
+    for (var pass = 0; pass < STEPS.length; pass++) {
+      k = STEPS[si];
       stage.style.zoom = k === 1 ? '' : String(k);
       slide.style.minHeight = '0px';
       var natural = stage.getBoundingClientRect().height;
       if (natural <= H + 0.5) break;
-      var nk = Math.max(MIN, k * (H / natural));
-      if (nk >= k - 0.003) { k = nk; break; }
-      k = nk;
+      if (si >= STEPS.length - 1) break;
+      /* 直接跳到足以容納的檔位，不必一階一階試 */
+      var want = k * (H / natural), next = si + 1;
+      while (next < STEPS.length - 1 && STEPS[next] > want + 0.004) next++;
+      if (next === si) break;
+      si = next;
     }
     stage.style.zoom = k === 1 ? '' : String(k);
     slide.style.minHeight = '0px';
-    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動。
+       量的時候要先解除舞台自己的 min-height，否則內容短的頁面會把舞台撐滿一屏的高度
+       誤算成框線，min-height 被扣到只剩一半，翻頁列因此停在畫面中間。 */
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
     vp.scrollTop = 0;
   }
@@ -2985,10 +3024,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     slide.style.minHeight = '0px';
     var h = stage.getBoundingClientRect().height;
     if (h > H + 0.5 && k > MIN) {
-      k = Math.max(MIN, k * (H / h));
-      stage.style.zoom = String(k);
+      var want = k * (H / h), j = 0;
+      while (j < STEPS.length - 1 && STEPS[j] > want + 0.004) j++;
+      k = Math.min(k, STEPS[j]);
+      stage.style.zoom = k === 1 ? '' : String(k);
     }
+    stage.style.minHeight = '0px';
     var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    stage.style.minHeight = '';
     slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
   }
   document.addEventListener('click', function (e) {
@@ -3139,6 +3182,154 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 })();
 </script>
 <script>
+/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+   同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
+   倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
+   只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
+(function () {
+  var FMAX = 1.5, FILL = 0.88, CAP = 24, MIN_GAIN = 1.06;
+  var BOX = '.cell, .axis-row > .k, .axis-row > .v, td';
+  var SKIP = '.ix, .ix-card, .rf-page, .rf-cols, .fig-wrap, .fig-body, .fig-cell, svg, .title-row, .def-band, .keyline, .cite, .src, .src-band, .cover-main, .footer-row, .meta-row';
+  var BODY = 'p, li, td, .v, .quote';
+  var slides = [].slice.call(document.querySelectorAll('section.slide'));
+  if (!slides.length) return;
+
+  function boxesOf(s) {
+    if (s.classList.contains('ix-page') || s.querySelector('.ix, .rf-grp, .cover-main')) return [];
+    return [].slice.call(s.querySelectorAll(BOX)).filter(function (b) {
+      return !b.closest(SKIP) && !b.querySelector('svg, img, video, iframe, table, .ix');
+    });
+  }
+  function textEls(boxes) {
+    var out = [];
+    boxes.forEach(function (b) {
+      [b].concat([].slice.call(b.querySelectorAll('*'))).forEach(function (e) {
+        if (e.closest('svg') || e.classList.contains('corner')) return;
+        if (out.indexOf(e) < 0) out.push(e);
+      });
+    });
+    return out;
+  }
+  function remember(els) {
+    els.forEach(function (e) {
+      if (e.dataset.afFs) return;
+      var cs = getComputedStyle(e);
+      e.dataset.afFs = parseFloat(cs.fontSize);
+      e.dataset.afLh = cs.lineHeight === 'normal' ? '' : parseFloat(cs.lineHeight);
+    });
+  }
+  function apply(els, f) {
+    els.forEach(function (e) {
+      /* 部分頁面另有 !important 的逐頁字級，行內也要帶 important 才蓋得過 */
+      if (f === 1) { e.style.removeProperty('font-size'); e.style.removeProperty('line-height'); return; }
+      e.style.setProperty('font-size', (e.dataset.afFs * f).toFixed(2) + 'px', 'important');
+      if (e.dataset.afLh) e.style.setProperty('line-height', (e.dataset.afLh * f).toFixed(2) + 'px', 'important');
+    });
+  }
+  /* 格內實際內容的高度：子元素與文字節點的聯集，扣掉絕對定位的角標 */
+  function fill(b) {
+    var br = b.getBoundingClientRect(); if (!br.height) return 0;
+    var k = br.height / (b.offsetHeight || br.height);
+    var cs = getComputedStyle(b), top = Infinity, bot = -Infinity;
+    [].slice.call(b.childNodes).forEach(function (n) {
+      var r;
+      if (n.nodeType === 1) {
+        if (getComputedStyle(n).position === 'absolute' || n.classList.contains('tag')) return;
+        r = n.getBoundingClientRect();
+      } else if (n.nodeType === 3 && n.textContent.trim()) {
+        var rg = document.createRange(); rg.selectNodeContents(n); r = rg.getBoundingClientRect();
+      } else return;
+      if (!r.height) return;
+      top = Math.min(top, r.top); bot = Math.max(bot, r.bottom);
+    });
+    if (top === Infinity) return 0;
+    var inner = br.height - (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) * k;
+    return inner > 0 ? (bot - top) / inner : 9;
+  }
+  /* 左側標籤欄：放大後不得多出行數，避免 Question 1 這類短標籤被拆成兩行 */
+  function lines(e) { var lh = parseFloat(getComputedStyle(e).lineHeight) || parseFloat(getComputedStyle(e).fontSize) * 1.3; return Math.round(e.getBoundingClientRect().height / (lh * (e.getBoundingClientRect().height / (e.offsetHeight || 1) || 1))); }
+  function fits(s, boxes, foot0, lim) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.matches('.axis-row > .k')) {
+        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        if (bad) return false;
+      }
+      if (fill(b) > lim) return false;
+      if (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) return false;
+    }
+    /* 格子的上層容器（表格外框、格線容器）也不得被撐破 */
+    for (var j = 0; j < boxes.length; j++) {
+      for (var a = boxes[j].parentElement; a && a !== s; a = a.parentElement) {
+        if (a.scrollHeight > a.clientHeight + 1 && getComputedStyle(a).overflowY !== 'visible') return false;
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return false;
+      }
+    }
+    var ft = s.querySelector('.footer-row');
+    if (ft && foot0 != null && Math.abs(ft.getBoundingClientRect().top - foot0) > 1) return false;
+    if (s.scrollHeight > s.clientHeight + 1) return false;
+    return true;
+  }
+  function search(s, boxes, els, hi, lim, foot0) {
+    if (hi < MIN_GAIN) return 1;
+    apply(els, hi);
+    if (fits(s, boxes, foot0, lim)) return hi;
+    var lo = 1;
+    for (var it = 0; it < 7; it++) {
+      var mid = (lo + hi) / 2; apply(els, mid);
+      if (fits(s, boxes, foot0, lim)) lo = mid; else hi = mid;
+    }
+    return lo < MIN_GAIN ? 1 : lo;
+  }
+  function capOf(els) {
+    var hi = FMAX;
+    els.forEach(function (e) { if (e.matches(BODY) && +e.dataset.afFs > 0) hi = Math.min(hi, Math.max(1, CAP / e.dataset.afFs)); });
+    return hi;
+  }
+  function fitSlide(s) {
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var elsV = textEls(V), elsK = textEls(K); remember(elsV.concat(elsK));
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    apply(elsV, 1); apply(elsK, 1);
+    K.forEach(function (b) { [].slice.call(b.children).forEach(function (c) { c.dataset.afLines = lines(c); }); });
+    var ft = s.querySelector('.footer-row'), foot0 = ft ? ft.getBoundingClientRect().top : null;
+    /* 先決定內容格的倍率，再讓左側標籤欄在不超過該倍率的範圍內盡量跟上 */
+    var f = V.length ? search(s, V, elsV, capOf(elsV), FILL, foot0) : 1;
+    /* 留一點餘裕：孤兒字模組之後會把末尾幾個字綁在一起，可能多出一行 */
+    if (f > 1) { f = Math.max(1, f * 0.95); if (f < MIN_GAIN) f = 1; }
+    apply(elsV, f);
+    var fk = K.length ? search(s, K, elsK, Math.min(f, capOf(elsK)), 0.94, foot0) : 1;
+    if (fk > 1) { fk = Math.max(1, fk * 0.95); if (fk < MIN_GAIN) fk = 1; }
+    apply(elsK, fk);
+    if (!fits(s, [], foot0, 1)) { apply(elsV, 1); apply(elsK, 1); f = fk = 1; }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
+  function clearAll() {
+    slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
+  }
+  var mode = null;
+  function run() {
+    var flow = document.body.classList.contains('flow');
+    if (flow) { if (mode !== 'flow') clearAll(); mode = 'flow'; return; }
+    if (mode === 'desk') return;
+    mode = 'desk';
+    slides.forEach(fitSlide);
+    window.dispatchEvent(new Event('resize'));
+  }
+  function start() { run(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });
+  else setTimeout(start, 300);
+  addEventListener('resize', function () {
+    var flow = document.body.classList.contains('flow');
+    if ((flow && mode !== 'flow') || (!flow && mode !== 'desk')) setTimeout(run, 80);
+  });
+})();
+</script>
+<script>
 /* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
    CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
    長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
@@ -3277,6 +3468,23 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   }
   stamp();
   window.addEventListener('beforeprint', stamp);
+})();
+</script>
+<script>
+/* ── RFLINK v1：把參考文獻與引註帶裡的純文字網址轉成連結 ──
+   來源資料一律以純文字寫入，避免在內容裡散寫 a 標籤；
+   這裡統一掃過一次，已經有連結的段落跳過。 */
+(function () {
+  var RE = /(https?:\/\/[^\s，。；、）)\]】＞>"']+)/g;
+  document.querySelectorAll('.rf-grp p, .cite, .src, .src-band, .rf-note').forEach(function (el) {
+    if (el.querySelector('a')) return;
+    var h = el.innerHTML;
+    if (h.indexOf('http') < 0) return;
+    el.innerHTML = h.replace(RE, function (u) {
+      var t = u.replace(/[.,;:]$/, ''), tail = u.slice(t.length);
+      return '<a href="' + t + '" target="_blank" rel="noopener noreferrer">' + t + '</a>' + tail;
+    });
+  });
 })();
 </script>
 </body>

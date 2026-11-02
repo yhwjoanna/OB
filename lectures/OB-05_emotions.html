@@ -2187,6 +2187,154 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 })();
 </script>
 <script>
+/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+   同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
+   倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
+   只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
+(function () {
+  var FMAX = 1.5, FILL = 0.88, CAP = 24, MIN_GAIN = 1.06;
+  var BOX = '.cell, .axis-row > .k, .axis-row > .v, td';
+  var SKIP = '.ix, .ix-card, .rf-page, .rf-cols, .fig-wrap, .fig-body, .fig-cell, svg, .title-row, .def-band, .keyline, .cite, .src, .src-band, .cover-main, .footer-row, .meta-row';
+  var BODY = 'p, li, td, .v, .quote';
+  var slides = [].slice.call(document.querySelectorAll('section.slide'));
+  if (!slides.length) return;
+
+  function boxesOf(s) {
+    if (s.classList.contains('ix-page') || s.querySelector('.ix, .rf-grp, .cover-main')) return [];
+    return [].slice.call(s.querySelectorAll(BOX)).filter(function (b) {
+      return !b.closest(SKIP) && !b.querySelector('svg, img, video, iframe, table, .ix');
+    });
+  }
+  function textEls(boxes) {
+    var out = [];
+    boxes.forEach(function (b) {
+      [b].concat([].slice.call(b.querySelectorAll('*'))).forEach(function (e) {
+        if (e.closest('svg') || e.classList.contains('corner')) return;
+        if (out.indexOf(e) < 0) out.push(e);
+      });
+    });
+    return out;
+  }
+  function remember(els) {
+    els.forEach(function (e) {
+      if (e.dataset.afFs) return;
+      var cs = getComputedStyle(e);
+      e.dataset.afFs = parseFloat(cs.fontSize);
+      e.dataset.afLh = cs.lineHeight === 'normal' ? '' : parseFloat(cs.lineHeight);
+    });
+  }
+  function apply(els, f) {
+    els.forEach(function (e) {
+      /* 部分頁面另有 !important 的逐頁字級，行內也要帶 important 才蓋得過 */
+      if (f === 1) { e.style.removeProperty('font-size'); e.style.removeProperty('line-height'); return; }
+      e.style.setProperty('font-size', (e.dataset.afFs * f).toFixed(2) + 'px', 'important');
+      if (e.dataset.afLh) e.style.setProperty('line-height', (e.dataset.afLh * f).toFixed(2) + 'px', 'important');
+    });
+  }
+  /* 格內實際內容的高度：子元素與文字節點的聯集，扣掉絕對定位的角標 */
+  function fill(b) {
+    var br = b.getBoundingClientRect(); if (!br.height) return 0;
+    var k = br.height / (b.offsetHeight || br.height);
+    var cs = getComputedStyle(b), top = Infinity, bot = -Infinity;
+    [].slice.call(b.childNodes).forEach(function (n) {
+      var r;
+      if (n.nodeType === 1) {
+        if (getComputedStyle(n).position === 'absolute' || n.classList.contains('tag')) return;
+        r = n.getBoundingClientRect();
+      } else if (n.nodeType === 3 && n.textContent.trim()) {
+        var rg = document.createRange(); rg.selectNodeContents(n); r = rg.getBoundingClientRect();
+      } else return;
+      if (!r.height) return;
+      top = Math.min(top, r.top); bot = Math.max(bot, r.bottom);
+    });
+    if (top === Infinity) return 0;
+    var inner = br.height - (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) * k;
+    return inner > 0 ? (bot - top) / inner : 9;
+  }
+  /* 左側標籤欄：放大後不得多出行數，避免 Question 1 這類短標籤被拆成兩行 */
+  function lines(e) { var lh = parseFloat(getComputedStyle(e).lineHeight) || parseFloat(getComputedStyle(e).fontSize) * 1.3; return Math.round(e.getBoundingClientRect().height / (lh * (e.getBoundingClientRect().height / (e.offsetHeight || 1) || 1))); }
+  function fits(s, boxes, foot0, lim) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.matches('.axis-row > .k')) {
+        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        if (bad) return false;
+      }
+      if (fill(b) > lim) return false;
+      if (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) return false;
+    }
+    /* 格子的上層容器（表格外框、格線容器）也不得被撐破 */
+    for (var j = 0; j < boxes.length; j++) {
+      for (var a = boxes[j].parentElement; a && a !== s; a = a.parentElement) {
+        if (a.scrollHeight > a.clientHeight + 1 && getComputedStyle(a).overflowY !== 'visible') return false;
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return false;
+      }
+    }
+    var ft = s.querySelector('.footer-row');
+    if (ft && foot0 != null && Math.abs(ft.getBoundingClientRect().top - foot0) > 1) return false;
+    if (s.scrollHeight > s.clientHeight + 1) return false;
+    return true;
+  }
+  function search(s, boxes, els, hi, lim, foot0) {
+    if (hi < MIN_GAIN) return 1;
+    apply(els, hi);
+    if (fits(s, boxes, foot0, lim)) return hi;
+    var lo = 1;
+    for (var it = 0; it < 7; it++) {
+      var mid = (lo + hi) / 2; apply(els, mid);
+      if (fits(s, boxes, foot0, lim)) lo = mid; else hi = mid;
+    }
+    return lo < MIN_GAIN ? 1 : lo;
+  }
+  function capOf(els) {
+    var hi = FMAX;
+    els.forEach(function (e) { if (e.matches(BODY) && +e.dataset.afFs > 0) hi = Math.min(hi, Math.max(1, CAP / e.dataset.afFs)); });
+    return hi;
+  }
+  function fitSlide(s) {
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var elsV = textEls(V), elsK = textEls(K); remember(elsV.concat(elsK));
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    apply(elsV, 1); apply(elsK, 1);
+    K.forEach(function (b) { [].slice.call(b.children).forEach(function (c) { c.dataset.afLines = lines(c); }); });
+    var ft = s.querySelector('.footer-row'), foot0 = ft ? ft.getBoundingClientRect().top : null;
+    /* 先決定內容格的倍率，再讓左側標籤欄在不超過該倍率的範圍內盡量跟上 */
+    var f = V.length ? search(s, V, elsV, capOf(elsV), FILL, foot0) : 1;
+    /* 留一點餘裕：孤兒字模組之後會把末尾幾個字綁在一起，可能多出一行 */
+    if (f > 1) { f = Math.max(1, f * 0.95); if (f < MIN_GAIN) f = 1; }
+    apply(elsV, f);
+    var fk = K.length ? search(s, K, elsK, Math.min(f, capOf(elsK)), 0.94, foot0) : 1;
+    if (fk > 1) { fk = Math.max(1, fk * 0.95); if (fk < MIN_GAIN) fk = 1; }
+    apply(elsK, fk);
+    if (!fits(s, [], foot0, 1)) { apply(elsV, 1); apply(elsK, 1); f = fk = 1; }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
+  function clearAll() {
+    slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
+  }
+  var mode = null;
+  function run() {
+    var flow = document.body.classList.contains('flow');
+    if (flow) { if (mode !== 'flow') clearAll(); mode = 'flow'; return; }
+    if (mode === 'desk') return;
+    mode = 'desk';
+    slides.forEach(fitSlide);
+    window.dispatchEvent(new Event('resize'));
+  }
+  function start() { run(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });
+  else setTimeout(start, 300);
+  addEventListener('resize', function () {
+    var flow = document.body.classList.contains('flow');
+    if ((flow && mode !== 'flow') || (!flow && mode !== 'desk')) setTimeout(run, 80);
+  });
+})();
+</script>
+<script>
 /* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
    CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
    長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
