@@ -1631,7 +1631,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 01／VOICES ]</span><h3>員工怎麼說</h3><p>以下三則由 NVIDIA 官方部落格自 Glassdoor 選錄，屬正面取樣。</p><span class="quote">Jensen is a dynamic and genuine leader.<br>CEO is visionary and a true leader.<br>First-principle thinking is encouraged from the top.</span></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／WHAT IT MEASURES ]</span><h3>分數測到什麼</h3><p>核准率來自自願且匿名的評論。整體評分 4.5、推薦給朋友 93%、業務前景樂觀 95%，三項同向，難以把對 CEO 與對公司處境的評價分開。評分期間又逢股價高點，員工可用薪資的 15% 以八五折購入自家股票。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／COUNTER-EVIDENCE ]</span><h3>平台上的另一面</h3><p>同一平台的負面主題集中在中階管理、加班與偏袒，工作生活平衡 4.1 為各分項最低。高階領導受歡迎與中階管理受批評可以並存。</p></div>
-        <div class="cell"><span class="corner">+</span><span class="tag">[ 04／THEORY ]</span><h3>用本章的判準檢驗</h3><p>願景與智能激發屬於轉換型領導，公開責備則落在嚴格要求與不當督導之間，本章第 40 頁給的判準是行為是否長期反覆並造成傷害，這個案例正好可以拿來練習判斷。另一個可談的是 LMX：它假設領導者與每位部屬發展不同品質的交換關係，在六十位直屬部屬的規模下難以成立，值得追問是什麼取代了它。</p></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 04／THEORY ]</span><h3>用本章的判準檢驗</h3><p>願景與智能激發屬於轉換型領導，公開責備則落在嚴格要求與不當督導之間，不當督導一節給的判準是行為是否長期反覆並造成傷害，這個案例正好可以拿來練習判斷。另一個可談的是 LMX：它假設領導者與每位部屬發展不同品質的交換關係，在六十位直屬部屬的規模下難以成立，值得追問是什麼取代了它。</p></div>
       </div>
       <div class="keyline">高核准率是一個待解釋的現象，<span class="r">解釋它需要另外的證據</span></div>
       <div class="src">Glassdoor（2026 年 8 月 12 日）。<i>Glassdoor unveils 2026 best CEOs list</i>［新聞稿］。Business Wire。　｜　NVIDIA 公司評論頁，Glassdoor，2026 年 8 月 23 日擷取，整體 4.5、評論 3,969 則。　｜　員工引述由 NVIDIA 官方部落格（2026 年 8 月 12 日）自 Glassdoor 評論中選錄。　｜　Fortune（2024 年 9 月 5 日）離職率與員工持股折扣。</div>
@@ -2570,7 +2570,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 })();
 </script>
 <script>
-/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+/* ── AUTOFIT v1.2：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
    同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
    倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
    只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
@@ -2640,7 +2640,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     for (var i = 0; i < boxes.length; i++) {
       var b = boxes[i];
       if (b.matches('.axis-row > .k')) {
-        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        var bad = [].slice.call(b.children).some(function (c) { return (c.dataset.afLines && lines(c) > +c.dataset.afLines) || c.scrollWidth > c.clientWidth + 1; });
         if (bad) return false;
       }
       if (fill(b) > lim) return false;
@@ -2696,6 +2696,34 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
     if (hidden) { s.style.visibility = ''; s.style.display = ''; }
   }
+  /* 驗證：孤兒字模組之後可能多綁出一行，放大後若有格子被撐破就逐步縮回 */
+  function overflowed(s, boxes) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.scrollHeight > b.clientHeight + 1 || b.scrollWidth > b.clientWidth + 1) return true;
+      for (var c = b.firstElementChild; c; c = c.nextElementSibling) if (c.scrollWidth > c.clientWidth + 1 && c.clientWidth) return true;
+      for (var a = b.parentElement; a && a !== s; a = a.parentElement)
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return true;
+    }
+    return s.scrollHeight > s.clientHeight + 1;
+  }
+  function verify(s) {
+    if (!s.dataset.af || document.body.classList.contains('flow')) return;
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var p = s.dataset.af.split('/'), f = +p[0], fk = p[1] ? +p[1] : 1;
+    if (f <= 1 && fk <= 1) return;
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    var elsV = textEls(V), elsK = textEls(K);
+    for (var it = 0; it < 10 && overflowed(s, all); it++) {
+      fk = fk > 1 ? Math.max(1, fk * 0.95) : 1; f = Math.max(1, f * 0.97);
+      apply(elsK, fk); apply(elsV, f);
+    }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
   function clearAll() {
     slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
   }
@@ -2707,6 +2735,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     mode = 'desk';
     slides.forEach(fitSlide);
     window.dispatchEvent(new Event('resize'));
+    setTimeout(function () { slides.forEach(verify); }, 700);
+  }
+  var baseShow = window.show;
+  if (typeof baseShow === 'function') {
+    window.show = function (n) { baseShow(n); var a = document.querySelector('section.slide.active'); if (a && mode === 'desk') setTimeout(function () { verify(a); }, 60); };
   }
   function start() { run(); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });

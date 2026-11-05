@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB-7 The Difficult Teammate──Simulation Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FFF3D6; --panel:#FFFDF6; --ink:#1B1B1B; --red:#D6303C;
+    --yellow:#FFE44D; --gray:#7A7568; --soft:#F2EAD2; --hair:#CFC6AC;
+    --sans:'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    --disp:'Archivo Black','Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+    --bd:4px solid var(--ink);
+    --pop:5px 5px 0 var(--ink);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; background:#E9DCBB; font-family:var(--sans); color:var(--ink); overflow:hidden; }
+
+  #viewport { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  #stage {
+    width:1280px; height:720px; position:relative; background:var(--paper);
+    border:6px solid var(--ink); overflow:hidden; transform-origin:center center;
+    background-image:radial-gradient(#1B1B1B18 1.7px, transparent 1.7px);
+    background-size:10px 10px;
+  }
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; }
+  .slide.active { display:flex; }
+
+  /* 頁首頁尾 */
+  .meta-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 22px; height:40px; flex:none; background:var(--ink); color:var(--paper);
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  }
+  .meta-row .rev { color:var(--yellow); }
+  .meta-row .now { color:var(--yellow); font-weight:700; }
+
+  /* 標題列 */
+  .title-row { display:grid; grid-template-columns:108px 1fr auto; align-items:stretch; flex:none;
+    background:var(--yellow); border-bottom:var(--bd); }
+  .title-row .idx { font-family:var(--disp); font-size:34px; line-height:1; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; background:var(--red); }
+  .title-row .t { padding:13px 22px; display:flex; flex-direction:column; justify-content:center; gap:2px; }
+  .title-row .t h2 { font-weight:900; font-size:26px; line-height:1.18; }
+  .title-row .t h2 .r { color:var(--red); }
+  .title-row .t .en { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6A6350; }
+  .title-row .note { padding:13px 20px; display:flex; align-items:center; background:var(--ink); color:var(--yellow);
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+
+  .main { flex:1; min-height:0; display:flex; flex-direction:column; }
+  .band { margin:12px 14px 0; padding:11px 16px; background:var(--ink); color:var(--paper);
+    font-size:15.6px; line-height:1.66; flex:none; }
+  .band b { color:var(--yellow); font-weight:700; }
+  .keyline { margin:0 14px 12px; padding:11px 16px; background:var(--yellow); border:var(--bd);
+    font-size:15px; line-height:1.68; flex:none; font-weight:700; }
+  .keyline .r { color:var(--red); }
+
+  /* 分格＝漫畫框 */
+  .grid { display:grid; background:transparent; gap:12px; flex:1; min-height:0; padding:12px 14px; }
+  .g2 { grid-template-columns:1fr 1fr; }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g32 { grid-template-columns:repeat(3,1fr); grid-template-rows:1fr 1fr; }
+  .g22 { grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; }
+  .cell { background:var(--panel); border:var(--bd); padding:13px 17px; display:flex; flex-direction:column;
+    gap:5px; min-height:0; overflow:hidden; position:relative; }
+  .cell .tag { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--paper); background:var(--ink); align-self:flex-start; padding:3px 8px; }
+  .cell h3 { font-weight:900; font-size:19px; }
+  .cell .en-term { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--gray); margin-top:-2px; }
+  .cell p { font-size:15.2px; line-height:1.7; }
+  .cell .foot-note { margin-top:auto; padding-top:7px; border-top:2px dashed var(--hair); font-size:13.2px; line-height:1.6; color:#5F5A4C; }
+  .cell .foot-note b { color:var(--red); font-weight:900; }
+
+  /* 封面 */
+  .cx { flex:1; min-height:0; display:grid; grid-template-columns:1.55fr 1fr; grid-template-rows:1fr 1fr;
+    gap:12px; padding:14px; }
+  .cx .p { border:var(--bd); background:var(--panel); position:relative; overflow:hidden; }
+  .cx .p.big { grid-row:span 2; background:var(--yellow); display:flex; flex-direction:column; padding:22px 28px 30px; }
+  .cx .k { align-self:flex-start; background:var(--ink); color:var(--yellow);
+    font-family:var(--mono); font-size:12px; letter-spacing:.16em; padding:6px 12px; }
+  .cx .cap { margin-top:15px; background:var(--panel); border:3px solid var(--ink); padding:11px 15px;
+    font-size:15.4px; line-height:1.66; font-weight:700; box-shadow:5px 5px 0 var(--ink); position:relative; z-index:2; }
+  .cx h1 { margin-top:auto; font-size:74px; font-weight:900; line-height:1.04; position:relative; z-index:2; }
+  .cx .strip { margin-top:16px; display:flex; gap:7px; flex-wrap:wrap; position:relative; z-index:2; }
+  .cx .strip span { background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; padding:6px 11px; }
+  .cx .strip span em { font-style:normal; color:var(--yellow); }
+  .cx .bub.r:after { left:auto; right:30px; }
+  .cx .cap2 { position:absolute; left:20px; right:20px; bottom:64px; background:var(--ink); color:var(--paper);
+    font-size:13.4px; line-height:1.6; padding:9px 13px; }
+  .cx .en { margin-top:10px; font-family:var(--disp); font-size:17px; color:var(--red); position:relative; z-index:2; }
+  .cx .hintX { font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; color:#6A6350; text-transform:uppercase; }
+  .cx .boom { position:absolute; right:26px; top:212px; width:210px; height:210px; background:var(--red);
+    display:grid; place-items:center; text-align:center; color:#FFF; font-weight:900; font-size:26px;
+    line-height:1.18; letter-spacing:.02em; z-index:1;
+    clip-path:polygon(50% 0,61% 22%,86% 15%,79% 40%,100% 50%,79% 60%,86% 85%,61% 78%,50% 100%,39% 78%,14% 85%,21% 60%,0 50%,21% 40%,14% 15%,39% 22%); }
+  .cx .pn { position:absolute; left:14px; top:10px; font-family:var(--mono); font-size:11px; color:#9A9484; letter-spacing:.14em; }
+  .cx .bub { position:absolute; background:#FFF; border:3.5px solid var(--ink); border-radius:22px;
+    padding:12px 16px; font-size:16px; font-weight:700; line-height:1.55; max-width:250px; }
+  .cx .bub.y { background:var(--yellow); }
+  .cx .bub:after { content:''; position:absolute; left:30px; bottom:-17px; width:0; height:0;
+    border:9px solid transparent; border-top-color:var(--ink); }
+  .cx .spec { position:absolute; left:16px; right:16px; bottom:14px; display:flex; gap:8px; flex-wrap:wrap; }
+  .cx .spec span { background:var(--ink); color:var(--paper); font-size:12px; padding:5px 10px; font-weight:700; }
+  .cx .spec span em { color:var(--yellow); font-style:normal; font-family:var(--mono); }
+
+  /* 指標列 */
+  .hud { display:grid; grid-template-columns:repeat(3,1fr); background:transparent; gap:12px;
+    padding:10px 14px 0; flex:none; }
+  .gauge { background:var(--panel); border:var(--bd); padding:7px 13px 8px; }
+  .gauge .gtop { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .gauge .lbl { font-weight:900; font-size:15px; }
+  .gauge .en { font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray); display:block; margin-top:1px; }
+  .gauge .num { font-family:var(--disp); font-size:20px; line-height:1; }
+  .gauge .gd { font-family:var(--mono); font-weight:700; font-size:12px; margin-left:6px; color:var(--gray); }
+  .gauge .gd.up { color:#1B7A3E; }
+  .gauge .gd.down { color:var(--red); }
+  .bar { height:9px; background:var(--soft); margin-top:6px; border:2px solid var(--ink); }
+  .bar i { display:block; height:100%; background:var(--ink); transition:width .3s ease; }
+
+  /* 遊戲區 */
+  .scene { flex:1; min-height:0; overflow-y:auto; padding:11px 22px 14px; }
+  .scene h2.rt { font-weight:900; font-size:20px; line-height:1.22; margin-bottom:8px; }
+  .talk { margin-bottom:9px; display:flex; flex-direction:column; gap:6px; }
+  .line { display:flex; align-items:flex-start; gap:10px; }
+  .line .who { flex:none; width:74px; text-align:right; font-family:var(--mono); font-size:11px;
+    letter-spacing:.06em; color:var(--gray); padding-top:8px; }
+  .line.me .who { color:var(--red); font-weight:700; }
+  .line .say { display:block; flex:0 1 auto; background:#FFF; border:2.5px solid var(--ink); border-radius:16px;
+    padding:7px 14px; font-size:14.8px; line-height:1.56; max-width:94%; }
+  .line.me .say { background:var(--yellow); }
+  .ask { background:var(--ink); color:var(--paper); padding:8px 15px; font-weight:900; font-size:15.6px;
+    line-height:1.5; margin-bottom:9px; }
+  .ask .r, .ask b { color:var(--yellow); }
+
+  .opts { display:flex; flex-direction:column; gap:8px; }
+  .opt { display:flex; align-items:stretch; width:100%; text-align:left; font:inherit; color:inherit;
+    background:var(--panel); border:3px solid var(--ink); cursor:pointer; min-height:46px; box-shadow:4px 4px 0 var(--ink);
+    transition:transform .06s ease, box-shadow .06s ease; }
+  .opt .k { flex:none; width:48px; display:grid; place-items:center; border-right:3px solid var(--ink);
+    font-family:var(--disp); font-size:16px; background:var(--yellow); }
+  .opt .tx { padding:8px 15px; font-size:14.9px; line-height:1.56; align-self:center; }
+  .opt:hover:not(:disabled) { transform:translate(2px,2px); box-shadow:3px 3px 0 var(--ink); }
+  .opt:hover:not(:disabled) .k { background:var(--red); color:#FFF; }
+  .opt:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+  .opt:disabled { cursor:default; }
+  .opts.resolved .opt:not(.chosen) { display:none; }
+  .opts.resolved.open .opt:not(.chosen) { display:flex; color:var(--gray); border-color:var(--hair); box-shadow:none; }
+  .opts.resolved.open .opt:not(.chosen) .k { border-right-color:var(--hair); color:var(--gray); background:var(--soft); }
+  .opt.chosen { border-color:var(--red); box-shadow:4px 4px 0 var(--red); }
+  .opt.chosen .k { background:var(--red); color:#FFF; border-right-color:var(--red); }
+  .fold { display:none; align-self:flex-start; font:inherit; font-family:var(--mono); font-size:11px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--gray); background:none; border:none;
+    border-bottom:2px solid var(--hair); cursor:pointer; padding:5px 2px; min-height:28px; }
+  .fold:hover { color:var(--ink); border-bottom-color:var(--ink); }
+  .opts.resolved .fold { display:block; }
+
+  .fb { background:var(--panel); border:var(--bd); padding:12px 17px; margin-top:12px; box-shadow:var(--pop); }
+  .fb .lbl, .lens .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:5px; }
+  .fb .lbl { color:var(--paper); background:var(--red); align-self:flex-start; display:inline-block; padding:3px 8px; }
+  .lens .lbl { color:var(--ink); background:var(--yellow); display:inline-block; padding:3px 8px; }
+  .fb p { font-size:15.8px; line-height:1.7; margin-top:6px; }
+  .lens { background:var(--yellow); border:3px solid var(--ink); padding:11px 16px; margin-top:9px; }
+  .lens h4 { font-weight:900; font-size:15.5px; margin:5px 0 3px; }
+  .lens p { font-size:15px; line-height:1.68; }
+
+  /* 動作列 */
+  .actionbar { flex:none; height:56px; background:var(--ink);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 22px; }
+  .actionbar .tip { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#B9B2A0; }
+  .btn { font:inherit; font-weight:900; font-size:16px; background:var(--yellow); color:var(--ink);
+    border:3px solid var(--ink); height:42px; padding:0 22px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:10px; box-shadow:4px 4px 0 #00000060;
+    transition:transform .06s ease, box-shadow .06s ease; }
+  .btn:hover { background:var(--red); color:#FFF; transform:translate(2px,2px); box-shadow:2px 2px 0 #00000060; }
+  .btn:focus-visible { outline:3px solid var(--yellow); outline-offset:3px; }
+  .btn.ghost { background:transparent; color:var(--paper); border-color:var(--paper); box-shadow:none; }
+  .btn.ghost:hover { background:var(--paper); color:var(--ink); border-color:var(--paper); }
+  .btn:disabled { background:#3A3730; color:#6E695C; border-color:#3A3730; box-shadow:none; cursor:default; }
+  .btn .arw { font-family:var(--mono); font-weight:700; }
+
+  /* 結局 */
+  .endgrid { display:grid; grid-template-columns:1.02fr 1fr; background:transparent; gap:12px;
+    flex:1; min-height:0; padding:12px 14px; }
+  .endgrid > div { background:var(--panel); border:var(--bd); padding:15px 20px;
+    display:flex; flex-direction:column; gap:8px; min-height:0; }
+  .endtag { font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--paper);
+    background:var(--red); display:inline-block; align-self:flex-start; padding:4px 9px; }
+  .endtitle { font-weight:900; font-size:25px; line-height:1.28; }
+  .endtitle .r { color:var(--red); }
+  #endBody, #endBody2 { font-size:15px; line-height:1.7; }
+  .logbox { padding-top:8px; border-top:3px solid var(--ink); }
+  .logbox .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); display:block; margin-bottom:5px; }
+  .log p { font-size:13.2px; line-height:1.55; margin-bottom:3px; display:grid; grid-template-columns:40px 1fr; }
+  .log p b { font-family:var(--mono); font-weight:700; font-size:11px; color:var(--red); padding-top:2px; }
+  .chartbox { flex:1; min-height:0; }
+  .chartbox svg { width:100%; height:100%; display:block; }
+  .note { border-top:2px dashed var(--hair); padding-top:8px; font-size:14px; line-height:1.68; color:#5F5A4C; }
+  .closer { margin-top:auto; padding-top:9px; border-top:2px dashed var(--hair); font-size:13.4px; line-height:1.64; color:#5F5A4C; }
+
+  .kbd { font-family:var(--mono); font-weight:700; border:2px solid var(--ink); background:var(--yellow); padding:1px 6px; font-size:11px; }
+  .tm { font-family:var(--mono); font-weight:700; font-size:12.5px; width:62px; vertical-align:top; padding:3px 0; color:var(--red); }
+  .td { font-size:14.2px; line-height:1.6; padding:3px 0 3px 10px; vertical-align:top; }
+  .subblock { margin-top:auto; padding-top:8px; border-top:2px dashed var(--hair); }
+  .subblock .tag { background:var(--red) !important; }
+  .mailhead { font-family:var(--mono); font-size:12px; line-height:1.9; color:var(--gray); }
+
+  /* 窄螢幕 */
+  @media (max-width:999px) { html, body { height:auto; overflow:auto; } }
+  body.flow { overflow:auto; height:auto; }
+  body.flow #viewport { position:static; display:block; }
+  body.flow #stage { width:auto; max-width:760px; height:auto; margin:0 auto; border:none; transform:none; }
+  body.flow .slide { position:static; }
+  body.flow .cx, body.flow .grid, body.flow .endgrid, body.flow .hud { grid-template-columns:1fr; grid-template-rows:none; }
+  body.flow .cx .p.big { grid-row:auto; min-height:auto; padding:18px 18px 22px; }
+  body.flow .cx .p { min-height:auto; padding:34px 18px 28px; }
+  body.flow .cx h1 { font-size:40px; margin-top:22px; }
+  body.flow .cx .cap { box-shadow:4px 4px 0 var(--ink); }
+  body.flow .cx .boom { position:static; width:150px; height:150px; margin:20px 0 0 auto; font-size:20px; }
+  body.flow .cx .bub { position:static; display:inline-block; margin:0 0 22px; max-width:100%; }
+  body.flow .cx .bub:last-of-type { margin-bottom:0; }
+  body.flow .cx .cap2, body.flow .cx .spec { position:static; margin-top:16px; }
+  body.flow .cx .pn { position:absolute; }
+  body.flow .title-row { grid-template-columns:64px 1fr; }
+  body.flow .title-row .note { display:none; }
+  body.flow .title-row .t { padding:12px 16px; }
+  body.flow .title-row .t h2 { font-size:21px; }
+  body.flow .cell, body.flow .endgrid > div, body.flow .gauge { padding:13px 16px; }
+  body.flow .band, body.flow .keyline { margin:10px 12px; padding:11px 14px; }
+  body.flow .scene { padding:14px 16px 18px; }
+  body.flow .line { display:block; }
+  body.flow .line .who { width:auto; text-align:left; padding-top:0; margin-bottom:2px; display:block; }
+  body.flow .line .say { max-width:100%; }
+  body.flow .actionbar { position:sticky; bottom:0; z-index:5; padding:10px 16px; height:auto; }
+  body.flow .actionbar .tip { display:none; }
+  body.flow .actionbar .btn { width:100%; justify-content:center; height:48px; }
+  body.flow .actionbar .btn.ghost { width:auto; padding:0 18px; }
+  body.flow .chartbox { height:290px; }
+  body.flow .meta-row { padding:0 16px; }
+
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { background: #fff !important; width: auto !important; height: auto !important;
+      overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+    body { display: block !important; }
+    #viewport { position: static !important; display: block !important; inset: auto !important;
+      height: auto !important; overflow: visible !important; }
+    #stage { position: relative !important; transform: none !important; margin: 0 !important;
+      width: 1280px !important; height: auto !important; max-width: none !important;
+      border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+    .slide { position: relative !important; inset: auto !important; display: flex !important;
+      width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      break-inside: avoid; page-break-inside: avoid;
+      break-after: auto; page-break-after: auto; }
+    /* 分頁改由下一頁的頁首帶起，最後一頁之後不再留一個空白頁 */
+    .slide + .slide { break-before: page; page-break-before: always; }
+    /* 課堂互動頁需要點選才會出現內容，列印成 PDF 只會得到空白版面，一律不輸出 */
+    .slide.ix-page { display: none !important; }
+    /* 手機的自動縮放是寫在行內的 zoom，列印時必須還原，否則會按縮放後的尺寸輸出 */
+    #stage { zoom: 1 !important; }
+    .slide { min-height: 0 !important; }
+    /* 瀏覽器擴充功能會把自己的元素塞進 body，跟在簡報後面就會多印一頁空白；列印只輸出簡報本體 */
+    body > *:not(#viewport) { display: none !important; }
+    .pdfbtn, .figzoom-tip, .fz-layer, #figzoom { display: none !important; }
+  }
+
+  /* ── 孤兒字：標題與長句的末行不要只剩一個字 ── */
+  .cover-title, .title-row .t h2, .slide h2, .slide h3, .sec-title, .big-stmt { text-wrap: balance; text-wrap: pretty; }
+  .keyline, .lead, .def-band p, .cell p, .src-band, .ix-stmt .txt, .ix-fb, .ix-scn { text-wrap: pretty; }
+  /* ── FLOWFIX：手機把所有並排結構壓成單欄 ──
+     部分頁面用行內樣式寫死欄寬比例，行內樣式勝過既有的 body.flow 規則，
+     於是在窄螢幕上文字欄只剩幾十像素，一行放不到三個字。這裡一律覆蓋。 */
+  body.flow .main,
+  body.flow .grid2, body.flow .grid3, body.flow .grid3r, body.flow .grid4,
+  body.flow .grid5, body.flow .grid6, body.flow .grid8,
+  body.flow .wfh-main, body.flow .link-main, body.flow .cmp-wrap,
+  body.flow .cover-main, body.flow .quote-main, body.flow .results-stack {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+  }
+  body.flow .cell, body.flow .axis-list, body.flow .fig-wrap, body.flow .fig-cell {
+    grid-column: auto !important; grid-row: auto !important;
+  }
+  /* 參考文獻在手機上分兩欄會讓每一則只剩半個版心寬 */
+  body.flow .rf-cols.c2 { column-count: 1 !important; }
+  /* 互動頁的說明與控制列並排時，說明會被壓成一個字一行 */
+  body.flow .ix-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  body.flow .ix-bar .ctl { flex-wrap: wrap; justify-content: flex-start; }
+
+  /* 表格在窄螢幕會被擠成兩三個字寬，改為整個表格可橫向捲動 */
+  body.flow .slide *:has(> table) { overflow-x: auto; }
+  body.flow .slide table { min-width: 540px; }
+  @media print { body.flow .slide table { min-width: 0 !important; } }
+
+  /* 手機：十到十二像素的小標籤與出處，縮到下限時會掉到九像素以下，這裡拉回可讀範圍 */
+  body.flow .tag, body.flow .cell .tag, body.flow .ix-pool .tag, body.flow .ix-bucket .tag,
+  body.flow .en-term, body.flow .mono-en, body.flow .figcap, body.flow figcaption,
+  body.flow .rev, body.flow .cap, body.flow .caption, body.flow .vtag, body.flow .rf-note,
+  body.flow .note-s { font-size: 12.5px !important; }
+  /* 內容頁的引用帶：桌機與手機同一個字級 */
+  body.flow .src, body.flow .cite, body.flow .src-band { font-size: 11px !important; line-height: 1.6; }
+  body.flow .ax { font-size: 12px !important; letter-spacing: 0.06em; }
+  body.flow .slide h3 { font-size: max(12.5px, 1em); }
+  /* 期刊名的斜體若比本文小一號，縮到下限時會掉到九像素以下 */
+  body.flow .slide i, body.flow .slide em, body.flow .slide cite { font-size: inherit; }
+  /* 參考文獻在手機已改單欄，不需要再用密排的縮小字級 */
+  body.flow .rf-cols .rf-grp p { font-size: 12.5px !important; line-height: 1.7; }
+  body.flow .ix-row .lab, body.flow .ix-row .lab span, body.flow .fig-head, body.flow .fig-head span { font-size: 12.5px !important; }
+  /* 模擬遊戲封面的面板固定裁切，窄螢幕會切掉一行 */
+  body.flow .cx .p { overflow: visible; }
+
+
+  /* 手機：頁尾兼作翻頁列。互動頁點內容不會翻頁，需要固定的翻頁入口 */
+  .pgbtn { display: none; }
+  body.flow .foot { height: auto; min-height: 46px; padding: 0 6px; }
+  body.flow .foot > span:not(.pg) { display: none; }
+  body.flow .pgbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 92px; min-height: 44px; padding: 0 10px;
+    font: 700 11px/1 var(--mono); letter-spacing: 0.1em;
+    color: var(--ink); background: none; border: 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.1s ease-out;
+  }
+  body.flow .pgbtn:disabled { opacity: 0.26; }
+  body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
+  @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
+  @media print { .pgbtn { display: none !important; } }
+  /* EN FIT v1 */
+  html[lang="en"] body:not(.flow) .g32 { grid-template-rows:auto 1fr; }
+  html[lang="en"] body:not(.flow) .g32 .cell { gap:3px; padding:11px 16px; }
+  html[lang="en"] body:not(.flow) .g32 .cell p { font-size:14.4px; line-height:1.5; }
+  html[lang="en"] body:not(.flow) .g32 .cell .foot-note { font-size:12.8px; line-height:1.45; padding-top:5px; }
+</style>
+<style>
+  /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
+  .fsbtn { position: fixed; z-index: 9998; bottom: 14px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 30px; height: 30px; padding: 0; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22);
+    border-radius: 7px; opacity: 0.5;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, transform 0.1s ease-out, background 0.15s ease,
+      color 0.15s ease, border-color 0.15s ease; }
+  .fsbtn:hover, .fsbtn:focus-visible { opacity: 1; background: #232320; color: #F4F4F0; border-color: #232320; }
+  .fsbtn:active { transform: scale(0.94); }
+  .fsbtn svg { width: 15px; height: 15px; display: block; }
+  /* 手機的翻頁列就在底部，浮在上面容易誤觸；手機瀏覽器本身也有全螢幕 */
+  @media (max-width: 700px) { .fsbtn { display: none !important; } }
+  @media print { .fsbtn { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .fsbtn { transition: none; } .fsbtn:active { transform: none; } }
+</style>
+<style>
+  /* ── ORPHAN v1：避免末行只剩一兩個字 ──
+     標題與短句用 balance 把各行長度拉平，正文用 pretty 讓末行不要落單。
+     舊版瀏覽器不認得這兩個值時會忽略，畫面與現在相同，再由腳本那一層補上。 */
+  .slide h1, .slide h2, .slide h3, .slide .cover-title, .slide .q-text,
+  .slide .keyline, .slide .def-band, .slide .tag, .slide .en, .slide .fig-head,
+  .slide .ix-stmt, .slide .ax, .slide .mini { text-wrap: balance; }
+  .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
+  .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- 00 封面 -->
+<section class="slide active" data-density="1">
+  <div class="meta-row"><span>Ruiyu Tech / Platform Engineering</span><span>OB-7 Groups and Work Teams</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="cx">
+    <div class="p big">
+      <span class="k">SIM ── 05 ROUNDS</span>
+      <div class="cap">A week before delivery, the same step breaks again.<br>This time, the decision is in the manager's hands.</div>
+      <h1>The Difficult<br>Teammate</h1>
+      <div class="en">MANAGING A DIFFICULT TEAMMATE</div>
+      <div class="strip"><span>Metrics <em>Task progress</em></span><span><em>Team trust</em></span><span><em>Personal capital</em></span></div>
+      <div class="boom">Same issue<br>3rd time</div>
+    </div>
+    <div class="p">
+      <span class="pn">01</span>
+      <div class="bub" style="left:26px;top:40px">I patched it again.<br>That's the third time now.</div>
+      <div class="bub r" style="right:26px;top:158px">Just follow the process.<br>It's not that complicated.</div>
+    </div>
+    <div class="p">
+      <span class="pn">02</span>
+      <div class="bub y" style="left:26px;top:30px">The VP is asking,<br>what's going on with the audit?</div>
+      <div class="cap2">Five rounds. Every choice moves all three metrics at once, and the game lands on one of five endings.</div>
+      <div class="spec"><span>Rounds <em>5</em></span><span>Metrics <em>3</em></span><span>Endings <em>5</em></span><span>Time <em>30-40 MIN</em></span></div>
+    </div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Press Enter or click the button on the right to start</span>
+    <button class="btn" data-go="1">Start<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 01 場景與人物 -->
+<section class="slide" data-density="4">
+  <div class="meta-row"><span>Setup 01 / 3</span><span class="now">Setting</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">01</div>
+    <div class="t"><h2>This team runs <span class="r">the whole company's online services</span></h2><span class="en">The Team</span></div>
+    <div class="note">6 People</div>
+  </div>
+  <div class="main">
+    <div class="band">Ruiyu Tech sells enterprise cloud subscriptions. Its six-person Platform Engineering team runs deployment, monitoring and overnight on-call for payments, orders and the customer database. <b>An outage means 3,000 enterprise clients stop working at once, and contracts carry availability penalties.</b></div>
+    <div class="grid g32">
+      <div class="cell">
+        <span class="tag">You</span>
+        <h3>Yen-ting Chen</h3><span class="en-term">Senior Backend Engineer / 8 years</span>
+        <p>Well liked across departments; PMs and the support lead message him first when things break. His judgment carries weight, but he has no title or appraisal authority.</p>
+        <div class="foot-note">Joined the company in the same cohort as Po-jui; they still get along in private.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">The Problem</span>
+        <h3>Po-jui Lin</h3><span class="en-term">Backend Engineer / transferred 3 years ago</span>
+        <p>Transferred from IT support after two interviews. Three years on, still shaky on deployment and rollback; tickets run late, on-call alerts go to the group chat, and he refuses core-service work.</p>
+        <div class="foot-note">Everyone has talked to him and to the team leader. Nothing has changed.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">The Boss</span>
+        <h3>Team Leader Huang</h3><span class="en-term">Engineering Manager / 10 years</span>
+        <p>Avoids conflict. The team has raised Po-jui with him, with no follow-up. Rarely starts a conversation outside calibration season.</p>
+        <div class="foot-note">The post-incident review is Thursday; he has not said how he will run it.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>Meng-chieh Wu</h3><span class="en-term">SRE / 5 years</span>
+        <p>Recently refuses to share on-call shifts with Po-jui. Efficient and openly disagrees with weak processes.</p>
+        <div class="foot-note">Quietly job hunting; updated her resume last month.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>Cheng-han Tsai</h3><span class="en-term">Backend Engineer / 4 years</span>
+        <p>Blunt. Last Friday the support director called him at home, and he rolled back remotely.</p>
+        <div class="foot-note">Worked until 2 a.m., then came in for meetings the next day.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Teammate</span>
+        <h3>Wei Chang</h3><span class="en-term">Backend Engineer / 2 years</span>
+        <p>The on-call mainstay. Youngest, growing fastest, and most often scheduled to cover for Po-jui.</p>
+        <div class="foot-note">Fills most gaps in the on-call schedule.</div>
+      </div>
+    </div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 01/3</span>
+    <button class="btn" data-go="2">Continue<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 02 事件 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>Setup 02 / 3</span><span class="now">Incident</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">02</div>
+    <div class="t"><h2>Last Friday night, <span class="r">nobody was on the on-call schedule</span></h2><span class="en">What Happened</span></div>
+    <div class="note">P1 Incident ── 87 min</div>
+  </div>
+  <div class="main">
+    <div class="grid g2">
+      <div class="cell">
+        <span class="tag">What happened</span>
+        <p>Friday night was the scheduled database upgrade window. After the upgrade, the connection pool settings were not adjusted to match. The order service ran out of connections within 20 minutes, and payment integration failed with it.</p>
+        <p>About 400 enterprise clients were affected and could not place orders that night, which triggered the availability clauses in their contracts. Customer Success escalated the matter to the VP of Engineering.</p>
+        <div class="subblock">
+          <span class="tag">Timeline ── Friday night</span>
+          <table style="width:100%;border-collapse:collapse;margin-top:6px;">
+            <tr><td class="tm">21:00</td><td class="td">Database upgrade begins; the executor field in the change log is blank</td></tr>
+            <tr><td class="tm">21:22</td><td class="td">Order service connection pool exhausted; payment integration starts timing out</td></tr>
+            <tr><td class="tm" style="color:var(--red)">21:35</td><td class="td" style="color:var(--red);font-weight:700">Alert escalates; no one answers the on-call page</td></tr>
+            <tr><td class="tm">22:15</td><td class="td">Customer service director reaches Cheng-han Tsai on his mobile</td></tr>
+            <tr><td class="tm">22:49</td><td class="td">Rollback complete, service restored. Total incident time: 87 minutes</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="tag">The team leader's email</span>
+        <p class="mailhead">FROM　Team Leader Huang<br>TO　　Platform Engineering<br>SUBJ　Last Friday's P1 incident</p>
+        <p>Team: Whoever was supposed to be on call last Friday did not put themselves on the on-call schedule. The alert went unanswered for 40 minutes, and Customer Success has already escalated it to Ken. This does real damage to how our team is seen. Whoever was on duty, come see me as soon as you read this.</p>
+        <p style="color:var(--gray);">The email names no one. The whole team knows whose turn it was.</p>
+        <div class="subblock">
+          <span class="tag">Coming up</span>
+          <table style="width:100%;border-collapse:collapse;margin-top:6px;">
+            <tr><td class="tm" style="width:86px">Thursday</td><td class="td">Post-incident review; the team leader wants everyone to first write down what they did that day</td></tr>
+            <tr><td class="tm" style="width:86px">In 3 months</td><td class="td">SOC 2 audit, with spot checks of change logs and on-call records</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="keyline">Another story circulates on the team: Po-jui's brother-in-law is the company's COO. <span class="r">No one has confirmed it, and no one dares to ask.</span></div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 02/3</span>
+    <button class="btn" data-go="3">Continue<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 03 玩法 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>Setup 03 / 3</span><span class="now">How to play</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">03</div>
+    <div class="t"><h2>Three metrics, <span class="r">usually only two can be held</span></h2><span class="en">How to Play</span></div>
+    <div class="note">3 Metrics</div>
+  </div>
+  <div class="main">
+    <div class="grid g3">
+      <div class="cell">
+        <span class="tag">Metric 01</span>
+        <h3>Task progress</h3><span class="en-term">Getting the work done</span>
+        <p>Tickets closed on time, the on-call schedule filled, and the change and on-call records the audit needs ready to hand over. This is what the organization pays salaries for.</p>
+        <div class="foot-note"><b>Warning sign: </b>The audit samples a blank on-call record, or the next incident hits and no one can take it right away.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Metric 02</span>
+        <h3>Team trust</h3><span class="en-term">Keeping the team together</span>
+        <p>Whether colleagues keep backing each other up and whether they stay. When trust hits bottom, people start leaving, and usually several at once.</p>
+        <div class="foot-note"><b>Warning sign: </b>Members start bypassing internal scheduling to go straight to others, or fill out a transfer request and send it in.</div>
+      </div>
+      <div class="cell">
+        <span class="tag">Metric 03</span>
+        <h3>Personal capital</h3><span class="en-term">Your standing and energy</span>
+        <p>Yen-ting Chen's standing on the team and in the company, plus how much energy he has left. Once capital runs out, none of the later moves gets any traction.</p>
+        <div class="foot-note"><b>Warning sign: </b>Extra work never makes it into any record, and at the calibration meeting he ends up rated as needing improvement.</div>
+      </div>
+    </div>
+    <div class="keyline">Five rounds, one action per round. What happens in Round 3 depends on the path taken in Round 2. All three metrics start at 5, with a floor of 0 and a ceiling of 10.<br>Controls: click an option, or press <span class="kbd">A</span> to <span class="kbd">E</span> on the keyboard; press <span class="kbd">Enter</span> for the next round and <span class="kbd">R</span> to restart.</div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Setup 03/3</span>
+    <button class="btn" data-go="4">Go to Round 1<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 04 遊戲 -->
+<section class="slide" id="game" data-density="4">
+  <div class="meta-row"><span id="mLeft">Round 1 / 5</span><span class="now" id="mRight">Mon 09:40</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="hud">
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">Task progress</span><span class="en">Work</span></div><div><span class="num" id="v1">5</span><span class="gd" id="d1"></span></div></div>
+      <div class="bar"><i id="b1" style="width:50%"></i></div>
+    </div>
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">Team trust</span><span class="en">Trust</span></div><div><span class="num" id="v2">5</span><span class="gd" id="d2"></span></div></div>
+      <div class="bar"><i id="b2" style="width:50%"></i></div>
+    </div>
+    <div class="gauge">
+      <div class="gtop"><div><span class="lbl">Personal capital</span><span class="en">Capital</span></div><div><span class="num" id="v3">5</span><span class="gd" id="d3"></span></div></div>
+      <div class="bar"><i id="b3" style="width:50%"></i></div>
+    </div>
+  </div>
+  <div class="scene" id="scene"></div>
+  <div class="actionbar">
+    <span class="tip" id="tip">Choose an action</span>
+    <button class="btn" id="next" disabled>Next round<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 05 結局 -->
+<section class="slide" id="endSlide" data-density="2">
+  <div class="meta-row"><span>Outcome</span><span class="now">Three months later</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="endgrid">
+    <div>
+      <span class="endtag" id="endTag"></span>
+      <h2 class="endtitle" id="endTitle"></h2>
+      <p id="endBody"></p>
+      <p id="endBody2"></p>
+      <div class="logbox"><span class="lbl">Your path</span><div class="log" id="log"></div></div>
+      <p class="closer">Round 3 has five different scenes, set by your Round 2 choice. Click Play again at the bottom left and choose differently in Round 2; the rest of the game will unfold differently.</p>
+    </div>
+    <div>
+      <span class="endtag" style="background:var(--ink);color:var(--paper)">Getting it done vs. keeping trust</span>
+      <div class="chartbox"><svg viewBox="0 0 520 340" id="tradeoff"></svg></div>
+      <p class="note">Behfar and Golberg point out that what makes or breaks a team is not whether it has conflict but how it handles conflict. Most teams manage only one side, either getting the work done or looking after members' feelings; the few effective teams deliberately design ways to do both.</p>
+    </div>
+  </div>
+  <div class="actionbar">
+    <button class="btn ghost" id="again">Play again</button>
+    <button class="btn" data-go="6">Reflection<span class="arw">→</span></button>
+  </div>
+</section>
+
+<!-- 06 反思 -->
+<section class="slide" data-density="3">
+  <div class="meta-row"><span>After class</span><span class="now">Reflection and extension</span><span class="rev">OB-7 / REV 2026.08</span></div>
+  <div class="title-row">
+    <div class="idx">04</div>
+    <div class="t"><h2>Take home <span class="r">four questions</span></h2><span class="en">Debrief</span></div>
+    <div class="note">4 Questions</div>
+  </div>
+  <div class="main">
+    <div class="grid g22">
+      <div class="cell">
+        <span class="tag">Q 01</span><h3>Whose problem is it?</h3>
+        <p>Throughout the simulation, Po-jui's performance problem is handled as a peer problem. Looking one level up, if one person can perform poorly for three straight years with no consequences, which management mechanisms have failed? List at least three.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 02</span><h3>Delegating vs. passing the buck</h3>
+        <p>In Round 4, the team leader hands responsibility for managing a person to a subordinate with no appraisal authority. What separates delegation from passing the buck? Of responsibility, authority, resources and accountability, which were actually handed over and which stayed where they were?</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 03</span><h3>The cost of going over the boss's head</h3>
+        <p>Under what conditions is reporting past a direct supervisor responsible behavior, and under what conditions does it just shift the risk onto the person reporting? Judge along three dimensions: customer impact, strength of evidence, and existing grievance channels.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Q 04</span><h3>If you were Team Leader Huang</h3>
+        <p>Suppose senior management really did hint that Po-jui should be left alone. Within that constraint, what can a manager still do without confronting senior management? List three concrete actions and explain the risk of each.</p>
+      </div>
+    </div>
+    <div class="keyline" style="color:var(--gray);font-size:13.5px;">The scenario and characters were created for teaching purposes and are not related to any real company or person. Learning objectives and the conflict management framework draw on the research cited in the Harvard Business Publishing Quick Case teaching note.</div>
+  </div>
+  <div class="actionbar">
+    <span class="tip">Debrief</span>
+    <button class="btn ghost" data-go="0">Back to cover</button>
+  </div>
+</section>
+
+</div></div>
+
+<script>
+/* 版面縮放 */
+(function () {
+  var stage = document.getElementById('stage');
+  function fit() {
+    var flow = window.innerWidth < 1000;
+    document.body.classList.toggle('flow', flow);
+    if (flow) { stage.style.transform = ''; return; }
+    var s = Math.min((window.innerWidth - 32) / 1280, (window.innerHeight - 32) / 720);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  addEventListener('resize', fit); fit();
+})();
+
+/* 頁面切換 */
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+function go(n) {
+  slides.forEach(function (s, k) { s.classList.toggle('active', k === n); });
+  var sc = slides[n].querySelector('.scene'); if (sc) sc.scrollTop = 0;
+  if (document.body.classList.contains('flow')) window.scrollTo(0, 0);
+}
+document.querySelectorAll('[data-go]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var n = +b.dataset.go;
+    if (n === 4) startGame();
+    go(n);
+  });
+});
+
+/* 劇本 */
+var S = { work: 5, trust: 5, cap: 5 };
+var flags = {}, path = [], round = 0, branch = null, picked = false;
+function C(w, t, c) { return { work: w, trust: t, cap: c }; }
+
+var R1 = {
+  time: 'Mon 09:40 Break room',
+  title: 'Meng-chieh and Cheng-han corner you',
+  talk: [
+    ['b', 'Meng-chieh', 'I saw the email. He didn\'t even have the nerve to name anyone. Who\'s that supposed to be for?'],
+    ['c', 'Cheng-han', 'I\'m the one who logged in from home Friday night to roll it back. The alert went off for 40 minutes and nobody picked up.'],
+    ['b', 'Meng-chieh', 'Last month Po-jui skipped staging and pushed a config straight to production. It nearly took down payments. You\'re the one who caught it and rolled it back, Yen-ting.'],
+    ['c', 'Cheng-han', 'Yen-ting, you\'re the only one on the team he still listens to. Are you going to say something?']
+  ],
+  q: 'What is your first move?',
+  opts: [
+    { t: 'Go back to your desk, pull the last six months of tickets, on-call schedules and incident reports, and compile a verifiable list.', d: C(1, 0, 2), f: 'facts',
+      fb: 'You spend two hours and produce a list with no adjectives: 11 tickets more than three days overdue, four last-minute shift swaps, two changes pushed live without review. It will be useful whichever way things go from here. Meng-chieh is a little disappointed that you did not take a stand right away.',
+      lens: ['Turning complaints into evidence', 'When conflict escalates, facts are usually the first thing lost. After the same story has been retold three times, what remains is mostly emotion and inference. Pinning down the facts first means that later, whether in a private conversation or a formal report, the other side has a harder time dismissing the issue as exaggerated.'] },
+    { t: 'Tell the whole story of last month\'s near payment outage right there, so everyone knows how serious the problem is.', d: C(0, 2, -2), f: 'vent',
+      fb: 'The mood in the break room heats up; Meng-chieh says someone should have said this long ago. Thirty minutes later, an even more exaggerated version has reached the product team\'s group chat. That afternoon, Po-jui sees you in the break room, turns around and walks away.',
+      lens: ['The double edge of complaining together', 'Complaining together quickly raises cohesion because it creates a common opponent. The cost is that the problem gets pushed to a personal level. Once the person at the center feels ganged up on, he retreats into defensiveness, and any later proposal for improvement is read as an attack.'] },
+    { t: 'Calm everyone down: this sprint is already full, so let the team leader handle it.', d: C(2, -2, -1), f: 'smooth',
+      fb: 'Everyone goes back to work, and that week\'s tickets do get cleared faster than expected. But on his way out, Cheng-han mutters: so it\'s the same as always. Wei Chang doesn\'t say a word in the channel all afternoon.',
+      lens: ['Avoiding is not neutral', 'Avoiding protects output in the short term, but members learn one thing: on this team, raising a problem goes nowhere. That lesson builds up into silence, and silence is often misread as the problem having been solved.'] },
+    { t: 'Say plainly that it is not your responsibility; Po-jui\'s performance is the team leader\'s job to manage.', d: C(0, -3, 1), f: 'exit',
+      fb: 'You are completely right, and it saves you a lot of trouble. Meng-chieh nods and leaves, and after that she never discusses anything with you again. Cheng-han starts going straight to the product managers to coordinate, bypassing the platform team\'s scheduling process altogether.',
+      lens: ['Formal authority vs. informal influence', 'Formally, this really is not a senior subordinate\'s responsibility. But on a team whose manager is not functioning, informal influence flows to the most trusted person. Turning down that role is a reasonable choice; the cost is that colleagues find other routes and the team\'s coordination costs shift elsewhere.'] }
+  ]
+};
+
+var R2 = {
+  time: 'Mon 15:20 Platform team desks',
+  title: 'You decide to take the first step',
+  talk: [
+    ['a', 'Narrator', 'The team leader went into a meeting room at noon and has not come out. The post-incident review is set for Thursday.'],
+    ['a', 'Narrator', 'The SOC 2 audit is three months away and will spot-check change logs and on-call records. The next on-call schedule has to be set by Wednesday.']
+  ],
+  q: 'Which way do you go?',
+  opts: [
+    { t: 'Talk to Po-jui privately. Use the tickets and the incident timeline; leave personality out and stick to concrete facts and consequences.', d: C(1, 1, -1), b: 'A',
+      fbFacts: 'You put the list up on the screen and go through it item by item. Po-jui doesn\'t push back, because every item has a timestamp. Halfway through, he pushes his chair back and says he knows what people say about him in the channel, and he knows he isn\'t good enough.',
+      fb: 'You talk to him from memory. Po-jui asks who has been talking about him, and says last month\'s config incident was not his fault alone. The conversation gets stuck on whose memory is more accurate and never recovers.',
+      lens: ['Facts first, judgments later', 'How a direct conversation goes depends heavily on the opening. Opening with verifiable behavior and its consequences keeps the other person\'s defenses lower; opening with personality or motives instantly turns the conversation into an argument over whose version is right.'] },
+    { t: 'Lead by example. Propose two-person review for high-risk changes and an on-call handoff checklist, starting with your own pairing with Po-jui.', d: C(2, 1, -2), b: 'B',
+      fb: 'You write the rules on one page: any change touching payments or databases needs two approvals; everyone signs up for the on-call schedule themselves by end of day each Wednesday; if someone doesn\'t sign up, the previous person\'s shift is extended. Po-jui has no objections. Meng-chieh studies it for a long time, then says this just means the whole team does extra work for him.',
+      lens: ['Turning a personal problem into a system problem', 'Designing a system avoids pointing the finger at one person and can protect both output and relationships. The risk is that if the system just spreads the burden evenly, strong performers feel punished and perceived fairness actually drops.'] },
+    { t: 'Go to Team Leader Huang. Frame it in terms of customer impact and staff attrition, not personal complaints.', d: C(1, 0, 1), b: 'C',
+      fbFacts: 'You walk in with the list. The team leader scrolls down two pages, his expression changes, and he says he will deal with it. On the way out, you are not sure whether he meant dealing with Po-jui or dealing with the list.',
+      fb: 'You talk for ten minutes. When you finish, the team leader says he understands and will find time to talk with Po-jui. Everyone on the team has heard that line before.',
+      lens: ['Framing upward communication', 'When raising a peer problem with a supervisor, the language of organizational concerns gets further than the language of personal grievance. Customer impact, audit risk and staffing costs are things a supervisor has to answer for; a hard-to-work-with coworker is not.'] },
+    { t: 'Go straight to the VP of Engineering. This has already cost customers; it should not stay inside the team.', d: C(2, -2, -2), b: 'D',
+      fb: 'After receiving the email, the VP asks for a formal incident report and copies Team Leader Huang. That afternoon, the team leader calls you into a small meeting room and asks just one question: why didn\'t you come to me first? Po-jui doesn\'t know who sent the email yet, but the whole team does.',
+      lens: ['The threshold for escalation', 'Going over a supervisor\'s head is legitimate when customer losses are involved, but it also sends a message: the team\'s internal channels have failed. If the evidence later turns out to be insufficient, the person who escalated bears the full trust cost, and the original problem is still there.'] },
+    { t: 'Do nothing. Finish your own tickets and leave the rest to time.', d: C(0, -2, 0), b: 'E',
+      fb: 'The next two weeks are quiet. In the third week, Wei Chang tells the team leader in a one-on-one that he is resigning, citing career plans. Meng-chieh starts booking all her leave. Po-jui\'s tickets are still sitting in the backlog.',
+      lens: ['Not acting is also a choice', 'Keeping the status quo is usually seen as costing nothing. In fact the cost shifts to whoever is willing to stay and clean up. When those people burn out, the team does not decline gradually; it collapses without warning.'] }
+  ]
+};
+
+var R3 = {
+  A: {
+    time: 'Wed 11:05, small meeting room',
+    title: 'Po-jui pushes back',
+    talk: [
+      ['b', 'Po-jui', 'You all think I can\'t do this. But when they transferred me three years ago, all I got was one week of shadowing.'],
+      ['b', 'Po-jui', 'I asked about the deploy and rollback process three times. Every time someone said they were busy and would show me later. So I stopped asking.'],
+      ['me', 'You', '……'],
+      ['b', 'Po-jui', 'OK, I admit I forgot to sign up for on-call. But that day I thought it was Meng-chieh\'s turn.']
+    ],
+    q: 'Some of what he says may be true. What next?',
+    opts: [
+      { t: 'Set up a six-week pairing plan: one service a week, and you walk him through a full deploy and rollback drill each time.', d: C(2, 2, -3),
+        fb: 'After six weeks, Po-jui can handle deploys for two services on his own. Your own tickets have piled up, and you logged in twice on weekends. Meng-chieh sees the two of you running drills and says: someone should have done this a long time ago.',
+        lens: ['Lack of ability or lack of motivation', 'Attributing long-term low performance to attitude by default is a common attribution error. The person\'s explanation may be self-serving, but organizations do often skip training investment when transferring staff. The way to tell the two apart is not to guess at motives but to provide adequate support once and see whether behavior changes.'] },
+      { t: 'Ask him to write his own three-month learning plan first, then discuss how to help.', d: C(1, 1, 0),
+        fb: 'Two weeks later Po-jui posts a document in the channel. It is thin, but it at least lists three services he wants to take on. You forward the link to the team leader, who for the first time leaves an approval comment on the document.',
+        lens: ['Responsibility stays with the person', 'The line between helping and doing the work for someone lies in who keeps ownership. Asking the other person to propose a plan first tests the willingness to improve and keeps the helper from taking on responsibility that was never theirs.'] },
+      { t: 'Decide it is just an excuse and end the conversation.', d: C(0, -1, 0),
+        fb: 'You walk out of the meeting room feeling emotionally manipulated. Maybe you were, maybe not. Nobody raises the issue again.',
+        lens: ['The cost of ending the conversation', 'Ending the conversation saves your own energy, but it also leaves the information at the level of guesswork. Every later move by either side rests on assumptions about the other\'s motives, and misunderstanding only deepens.'] }
+    ]
+  },
+  B: {
+    time: 'Wed 17:40, stand-up',
+    title: 'The new rule is out, and the heat lands on you',
+    talk: [
+      ['b', 'Meng-chieh', 'What does two-person approval even mean? I\'ve done this for five years, and now I need someone with me to change a config?'],
+      ['c', 'Cheng-han', 'Let\'s be honest: this rule was designed for one person, and six of us pay for it.'],
+      ['a', 'Wei Chang', '...I\'m fine with it, I guess.']
+    ],
+    q: 'The rule is being read as cleaning up after one person. What now?',
+    opts: [
+      { t: 'Put the rule on the table at the team meeting, explain that it also closes handover gaps and supports audit traceability, and open it to revision.', d: C(2, 2, -1),
+        fb: 'The team meeting runs forty minutes. Cheng-han proposes limiting two-person approval to payments and databases, and Meng-chieh adds a quarterly review. After the edits, the document is no longer yours; it belongs to the whole team.',
+        lens: ['What procedural justice does', 'When a rule\'s outcome is unwelcome, what decides whether members accept it is often the procedure: whether they had voice, whether standards are consistent, whether it can be revised. Opening participation dilutes control, and in return the rule actually gets followed.'] },
+      { t: 'Calm people down one by one in private and ask everyone to go along for three months.', d: C(1, 0, -2),
+        fb: 'People reluctantly agree. Over the three months, half of the two-person approvals are signed after the fact. The rule exists; the behavior has not changed.',
+        lens: ['Surface compliance', 'Rules adopted without open discussion tend to buy only surface compliance. Members go along without buying in, revert once oversight loosens, and managers often cannot see it in the records.'] },
+      { t: 'Withdraw the rule to avoid more internal conflict.', d: C(-1, -1, -1),
+        fb: 'You set the document back to draft. Friday\'s on-call schedule has another gap, and this time Wei Chang fills it himself.',
+        lens: ['The signal of backing down', 'Withdrawing as soon as resistance appears teaches the team that enough pushback means nothing has to change. The startup cost of any future improvement proposal goes up.'] }
+    ]
+  },
+  C: {
+    time: 'Two weeks later, Tue 09:30',
+    title: 'The team leader said he\'d handle it, then nothing',
+    talk: [
+      ['a', 'Narrator', 'Two weeks pass. Po-jui\'s backlog hasn\'t shrunk, and last week Wei Chang filled the on-call gap again.'],
+      ['a', 'Narrator', 'You run into the team leader in the break room. He says he\'s been busy with audit paperwork and is still thinking about how best to raise the issue.']
+    ],
+    q: 'The verbal promise hasn\'t been kept. Next step?',
+    opts: [
+      { t: 'Put it in writing: send an email summarizing what was discussed and when, and keep a copy for yourself.', d: C(2, 0, 1),
+        fb: 'Three days after the email, the team leader calls Po-jui into a meeting room alone for the first time. Nobody knows what was said, but that week Po-jui signs up for on-call himself.',
+        lens: ['Leave a trail for commitments', 'A written record is not a threat. It turns vague goodwill into a trackable item. With a conflict-avoidant manager, this is usually the cheapest push that works.'] },
+      { t: 'Remind him verbally once more and give him a bit more time.', d: C(0, 0, -1),
+        fb: 'The team leader says OK again. By week four, nothing has happened.',
+        lens: ['Repeating what doesn\'t work', 'When the same action is repeated three times with no change, the problem usually is not that the other person didn\'t understand but the incentive structure. Pushing harder in the same way only uses up your own credibility.'] },
+      { t: 'Give up on this route and go back to what you can control.', d: C(1, -1, 0),
+        fb: 'You stop expecting anything from the team leader. When Meng-chieh asks how the talk went, you just say we\'ll see. She gets it.',
+        lens: ['The limits of managing up', 'When formal channels really have failed, retreating to your own sphere of control is rational. But the team picks up the same signal and adjusts its own level of effort accordingly.'] }
+    ]
+  },
+  D: {
+    time: 'Three days later, Thu 15:00, team leader\'s office',
+    title: 'The team leader feels bypassed',
+    talk: [
+      ['a', 'Team Leader Huang', 'The VP forwarded me your email. He wants an improvement plan within two weeks.'],
+      ['a', 'Team Leader Huang', 'Yen-ting, I\'m not saying you\'re wrong. I\'m asking why you didn\'t come to me first.'],
+      ['a', 'Narrator', 'Another window is still open on his screen: a monthly meeting notice from the COO\'s office.']
+    ],
+    q: 'The move has been made. How do you land it?',
+    opts: [
+      { t: 'Invite the team leader to co-sign the reply and turn it into an improvement plan proposed by the whole team.', d: C(2, 2, 0),
+        fb: 'You spend an afternoon turning the reply into three improvement measures, signed by the entire Platform Engineering team. In the last paragraph the team leader adds a line himself: the team\'s manager did not step in early enough. You are a little surprised.',
+        lens: ['Give the other side a way out', 'After escalating, the most important step is giving the bypassed person a way to save face. Turning a personal accusation into a joint improvement plan channels the adversarial energy back to the problem itself.'] },
+      { t: 'Insist on submitting the report yourself, since the team has already been given too many chances.', d: C(1, -2, -1),
+        fb: 'The report is thorough, and the timeline is exact to the minute. From then on the team leader only talks to you in the channel. At the audit three months later, the platform team gets an observation, and Po-jui is sent to external training.',
+        lens: ['The gap between right and effective', 'Being right does not make the follow-through workable. Once the relationship between the initiator and the manager breaks down, even if the problem is acknowledged, every later improvement is missing a necessary partner.'] },
+      { t: 'Offer to withdraw it and say you\'d like the team to solve this internally.', d: C(-1, 0, -2),
+        fb: 'The VP\'s office closes the case, noting that the unit will handle it internally. Four weeks later everything is back to how it was, except that now you are no longer trusted either.',
+        lens: ['Withdrawal can\'t be undone', 'Withdrawing after escalating loses both the outside pressure and internal trust. This is usually the worst outcome of all the options, because the cost has already been paid while the effect is taken back.'] }
+    ]
+  },
+  E: {
+    time: 'Three weeks later, Mon 10:00',
+    title: 'Wei Chang hands in his resignation',
+    talk: [
+      ['a', 'Wei Chang', 'It\'s not because of Po-jui. It\'s just that here, no matter how much I do, nothing really comes of it.'],
+      ['b', 'Meng-chieh', 'My leave is booked solid next month. You\'ll have to sort it out yourselves.'],
+      ['a', 'Narrator', 'Six weeks until the audit. The team leader still hasn\'t acted.']
+    ],
+    q: 'Now it has finally landed on you. What now?',
+    opts: [
+      { t: 'Step in now: document the gaps of the past three weeks and meet with the team leader and Po-jui.', d: C(2, 1, -2),
+        fb: 'You act. A little late, but at least Wei Chang agrees to push his last day back a month. Meng-chieh says: if you\'d done this three weeks ago, Wei Chang wouldn\'t have wanted to leave.',
+        lens: ['Timing of intervention', 'The same action works less and costs more the later it comes. The bystander effect leaves everyone waiting for someone else to move first, and teams often fall apart faster than expected.'] },
+      { t: 'Write Wei Chang a reference letter and wish him well somewhere better.', d: C(-1, 1, 0),
+        fb: 'Wei Chang is grateful. Two weeks later he leaves, the headcount is not backfilled, and on-call rotates among the remaining four. Meng-chieh still takes her leave.',
+        lens: ['Kindness and problem-solving are two different things', 'Looking after individual members does not change the structure that creates the problem. When people leave, the load falls back on those who stay, and resignations follow one after another.'] },
+      { t: 'Do nothing and wait for performance calibration season.', d: C(-2, -2, 0),
+        fb: 'Calibration season arrives. The team leader rates Po-jui meets expectations, and rates everyone meets expectations. Meng-chieh clicks submit in the system, then starts sending out resumes.',
+        lens: ['Collusion of silence', 'When everyone concludes that speaking up is useless, low performance becomes institutionalized. At that point the problem is no longer one person; the team has recalibrated what it considers acceptable.'] }
+    ]
+  }
+};
+
+var R4 = {
+  time: 'Week 5, Thu 16:00, one-on-one',
+  title: 'The ball is tossed back to you',
+  talk: [
+    ['a', 'Team Leader Huang', 'Yen-ting, you\'re senior, and Po-jui listens to you. Could you take him under your wing?'],
+    ['a', 'Team Leader Huang', 'I know it\'s not your job, but you\'ve seen it yourself. It\'s hard for me to deal with on my end.'],
+    ['a', 'Narrator', 'He doesn\'t say what makes it hard. You don\'t ask.'],
+    ['a', 'Narrator', 'What he is handing over is the responsibility. The appraisal authority, the hours, and the accountability for success or failure all stay with him.']
+  ],
+  q: 'Take it on or not? And if so, on what terms?',
+  opts: [
+    { t: 'Accept, but ask for coaching to be written into this quarter\'s goals and for your ticket load to be reduced to match.', d: C(1, 1, 2),
+      fb: 'The team leader frowns, then agrees to move maintenance of two services out of your scope and write it into the quarterly goals. For the first time in three years, someone has made this a formal arrangement.',
+      lens: ['Delegation comes with authority and resources', 'Full delegation includes four things: responsibility, the authority needed to carry it out, matching resources and hours, and the accountability that ultimately remains with the manager. Handing over only the first and leaving the other three untouched is shifting blame, not delegating. Writing the work into goals and adjusting the load fills in the resources piece.'] },
+    { t: 'Accept with just a verbal yes; you don\'t want to complicate things.', d: C(1, 1, -3),
+      fb: 'You start spending five extra hours a week. Three months later Po-jui has improved somewhat, your on-time ticket rate has slipped, and at the calibration meeting you are rated needs improvement. Nobody remembers where those five hours went.',
+      lens: ['Invisible contributions', 'Effort that is not recorded does not exist at appraisal time. People who carry invisible work over the long run often end up losing both energy and standing. This is a common path by which helpful senior employees leave organizations.'] },
+    { t: 'Decline. Make clear that managing subordinates\' performance is the manager\'s job.', d: C(-1, 0, 1),
+      fb: 'The team leader says nothing more. For the next two months, Po-jui\'s situation stays the same. You have protected your time and your boundaries.',
+      lens: ['The value and cost of boundaries', 'Refusing responsibility that is not yours is legitimate self-protection, and it forces the problem back to the level that should own it. The cost is that if the manager really does nothing, the problem may simply stop there.'] },
+    { t: 'Accept, but ask for a three-month checkpoint and a clear exit clause.', d: C(2, 1, 1),
+      fb: 'You write three lines: in three months, check whether he can deploy two services independently; if not, the team leader starts formal performance coaching. The team leader hesitates for a long time, then clicks approve. Once Po-jui hears about it, he asks for time on your calendar for the first time.',
+      lens: ['Put help inside a framework with an end point', 'Help without an end point turns into doing someone\'s work indefinitely. A checkpoint and exit clause make the standard clear to the person, and they hand final accountability back to the manager, so the helper does not have to judge success or failure alone.'] }
+  ]
+};
+
+var R5 = {
+  time: 'Week 12, one week before the audit',
+  title: 'The final move',
+  talk: [
+    ['a', 'Narrator', 'Po-jui passed one of his two checkpoints and narrowly missed the other. He no longer lets tickets slide, but he still won\'t touch payment-related changes.'],
+    ['b', 'Meng-chieh', 'I\'ve applied to transfer to Data Engineering. I\'m not saying it out of anger; I submitted the form yesterday.'],
+    ['a', 'Narrator', 'The auditors arrive next week and will sample change records and on-call records.']
+  ],
+  q: 'One last decision before the audit.',
+  opts: [
+    { t: 'At the team meeting, lay out the two-person approval, the checkpoint results and the gaps all at once, and let the whole team decide what to do next.', d: C(2, 3, 0),
+      fb: 'The meeting isn\'t easy. After Meng-chieh has her say, Cheng-han proposes tiering on-call by skill level, with only qualified people scheduled for high-risk slots. For the first time in three years, the team deals with its own problems in a meeting rather than in private messages.',
+      lens: ['Bring the conflict into the open', 'Effective teams are not free of conflict; they handle it in a setting with rules. Open discussion is the most uncomfortable in the moment, yet it is one of the few approaches that protects both output and relationships.'] },
+    { t: 'Compile three months of records into a formal report and send it to the VP of Engineering and the team leader.', d: C(2, -1, 0),
+      fb: 'The report is solid, and the VP asks the platform team for a staffing improvement plan. The team leader doesn\'t look at you in the meeting. Po-jui is sent to external training. The problem is acknowledged, and the relationship goes cold.',
+      lens: ['Trade-offs of the formal route', 'Formal channels can bring structural change, but they move the problem from the interpersonal level to the organizational level, and the relationships between those involved almost inevitably suffer along the way. Whether it is worth it depends on the nature of the risk.'] },
+    { t: 'Help Meng-chieh\'s transfer go smoothly and keep the status quo through the audit.', d: C(0, -2, -1),
+      fb: 'Meng-chieh gets her transfer and even buys everyone drinks on her way out. The audit passes without trouble. Three months later, Wei Chang also applies to transfer.',
+      lens: ['Absorbing the problem through turnover', 'Letting unhappy people leave can make the visible conflict disappear. The organization pays ongoing recruiting and training costs, and those who stay lower their expectations of the team another notch.'] },
+    { t: 'Do nothing until the audit is over.', d: C(-1, -2, 0),
+      fb: 'The auditors sample the on-call records and find four blanks in three months. The platform team gets a nonconformity. At the review meeting the team leader says internal management will be tightened.',
+      lens: ['Where procrastination ends', 'Procrastination is usually not a decision to leave things alone but handing the decision to outside events. When those events arrive, the team no longer chooses how or when to respond.'] }
+  ]
+};
+
+/* 遊戲流程 */
+var scene = document.getElementById('scene'), nextBtn = document.getElementById('next'), tip = document.getElementById('tip');
+var current = null;
+
+function clamp(x) { return Math.max(0, Math.min(10, x)); }
+function paint(delta) {
+  var vals = [S.work, S.trust, S.cap];
+  for (var i = 0; i < 3; i++) {
+    document.getElementById('v' + (i + 1)).textContent = vals[i];
+    document.getElementById('b' + (i + 1)).style.width = (vals[i] * 10) + '%';
+    var d = document.getElementById('d' + (i + 1));
+    if (delta) {
+      var v = [delta.work, delta.trust, delta.cap][i];
+      d.textContent = v > 0 ? '+' + v : (v < 0 ? String(v) : '±0');
+      d.className = 'gd ' + (v > 0 ? 'up' : v < 0 ? 'down' : '');
+    } else { d.textContent = ''; d.className = 'gd'; }
+  }
+}
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+function renderRound(data) {
+  current = data; picked = false;
+  document.getElementById('mLeft').textContent = 'Round ' + round + '/5';
+  document.getElementById('mRight').textContent = data.time;
+  nextBtn.disabled = true;
+  tip.textContent = 'Choose an action: keys A to ' + String.fromCharCode(64 + data.opts.length);
+  var h = '<h2 class="rt">' + esc(data.title) + '</h2><div class="talk">';
+  data.talk.forEach(function (l) {
+    h += '<div class="line ' + l[0] + '"><span class="who">' + esc(l[1]) + '</span><span class="say">' + esc(l[2]) + '</span></div>';
+  });
+  h += '</div><div class="ask">' + esc(data.q) + '</div><div class="opts">';
+  data.opts.forEach(function (o, i) {
+    h += '<button class="opt" data-i="' + i + '"><span class="k">' + String.fromCharCode(65 + i) + '</span><span class="tx">' + esc(o.t) + '</span></button>';
+  });
+  h += '<button class="fold" type="button">See the options not chosen</button></div>';
+  scene.innerHTML = h;
+  scene.scrollTop = 0;
+  scene.querySelectorAll('.opt').forEach(function (b) {
+    b.addEventListener('click', function () { choose(+b.dataset.i); });
+  });
+  var fold = scene.querySelector('.fold');
+  fold.addEventListener('click', function () {
+    var open = fold.parentNode.classList.toggle('open');
+    fold.textContent = open ? 'Hide other options' : 'See the options not chosen';
+  });
+}
+
+function choose(i) {
+  if (picked || !current) return;
+  var o = current.opts[i];
+  if (!o) return;
+  picked = true;
+  var btns = scene.querySelectorAll('.opt');
+  btns.forEach(function (b) { b.disabled = true; });
+  btns[i].classList.add('chosen');
+  scene.querySelector('.opts').classList.add('resolved');
+  S.work = clamp(S.work + o.d.work);
+  S.trust = clamp(S.trust + o.d.trust);
+  S.cap = clamp(S.cap + o.d.cap);
+  paint(o.d);
+  if (o.f) flags[o.f] = true;
+  if (o.b) branch = o.b;
+  var text = (o.fbFacts && flags.facts) ? o.fbFacts : o.fb;
+  path.push({ r: round, t: o.t });
+  var box = document.createElement('div');
+  box.innerHTML =
+    '<div class="fb"><span class="lbl">Consequence</span><p>' + esc(text) + '</p></div>' +
+    '<div class="lens"><span class="lbl">Theory lens</span><h4>' + esc(o.lens[0]) + '</h4><p>' + esc(o.lens[1]) + '</p></div>';
+  scene.appendChild(box);
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  nextBtn.disabled = false;
+  nextBtn.firstChild.nodeValue = round >= 5 ? 'See results' : 'Next round';
+  tip.textContent = 'Press Enter or click on the right to continue';
+  nextBtn.focus();
+}
+
+function startGame() {
+  S = { work: 5, trust: 5, cap: 5 }; flags = {}; path = []; round = 1; branch = null;
+  paint(null);
+  renderRound(R1);
+}
+
+nextBtn.addEventListener('click', advance);
+function advance() {
+  if (nextBtn.disabled) return;
+  round++;
+  if (round === 2) renderRound(R2);
+  else if (round === 3) renderRound(R3[branch] || R3.A);
+  else if (round === 4) renderRound(R4);
+  else if (round === 5) renderRound(R5);
+  else showEnd();
+}
+
+document.getElementById('again').addEventListener('click', function () { startGame(); go(4); });
+
+addEventListener('keydown', function (e) {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = (e.key || '').toUpperCase();
+  if (k === 'R') { startGame(); go(4); return; }
+  var active = document.querySelector('.slide.active');
+  if (!active) return;
+  if (active.id === 'game') {
+    if (!picked && current && k >= 'A' && k <= 'E') {
+      var i = k.charCodeAt(0) - 65;
+      if (i < current.opts.length) { e.preventDefault(); choose(i); }
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === 'ArrowRight') && picked) { e.preventDefault(); advance(); }
+    return;
+  }
+  if (e.key === 'Enter' || e.key === 'ArrowRight') {
+    var b = active.querySelector('.actionbar .btn:last-child');
+    if (b) { e.preventDefault(); b.click(); }
+  }
+});
+
+/* 結局 */
+var ENDINGS = [
+  { test: function () { return S.work >= 7 && S.trust >= 7 && S.cap >= 5; },
+    tag: 'The best possible outcome', title: 'The problem was <span class="r">solved through the system</span>',
+    b1: 'Po-jui is still less capable than the others, but work has been reassigned to what he can handle, high-risk changes need two-person approval, and the on-call schedule has backfill rules. The audit passes smoothly.',
+    b2: 'What really changed was not one person\'s attitude but how the team handles problems: from private messages to team meetings, from complaints to recorded decisions. This is rare in real organizations because it takes someone willing to spend credibility first to get it started.' },
+  { test: function () { return S.work >= 7 && S.trust < 5; },
+    tag: 'The work got done', title: 'Output was saved, <span class="r">the team fell apart</span>',
+    b1: 'The audit materials can be handed in, and the on-call schedule gets filled. Meng-chieh has transferred out, Wei Chang is weighing his options, and Cheng-han no longer joins any team discussion.',
+    b2: 'This is where most teams actually end up: the work gets done, and relationships pay the price. Nothing looks wrong in the short term, because resignations come months later, and by then nobody usually connects them to this period.' },
+  { test: function () { return S.trust >= 7 && S.work < 5; },
+    tag: 'Everyone is still here', title: 'Relationships held, <span class="r">the problem stayed put</span>',
+    b1: 'Nobody left, and the mood on the team is even better than three months ago. Po-jui still won\'t touch payment-related changes, and the on-call schedule still has occasional blanks.',
+    b2: 'Sacrificing output to protect members\' feelings is just as one-sided a choice. Its risk surfaces later: when the audit or the next P1 incident actually happens, the team finds it has been jointly sustaining a status quo that falls short of the standard.' },
+  { test: function () { return S.work < 5 && S.trust < 5; },
+    tag: 'Nothing changed', title: 'This time, <span class="r">silence won</span>',
+    b1: 'The audit produces a nonconformity, and the team leader says internal management will be tightened. Po-jui is rated meets expectations, just like everyone else. Meng-chieh starts sending out resumes.',
+    b2: 'When everyone learns that speaking up is useless, low performance becomes the new standard. At that point the problem no longer lies with one person but with how the team has recalibrated what counts as acceptable.' },
+  { test: function () { return S.cap <= 3; },
+    tag: 'You got used up', title: 'Things moved forward, <span class="r">at your own expense</span>',
+    b1: 'Po-jui has improved a little and your colleagues are still here, but the extra time you spent over these three months appears in no record, and your on-time ticket rate was rated needs improvement.',
+    b2: 'Taking on informal responsibility without formal support is the classic way senior employees burn out. Those willing to fill the gaps wear out first, while the organization mistakenly believes the problem is solved.' },
+  { test: function () { return true; },
+    tag: 'Half and half', title: 'Some things changed, <span class="r">some did not</span>',
+    b1: 'The system shifted a little and some relationships were preserved, but nothing was fully resolved. Looking back three months later, it feels like a lot was done and yet nothing was solved.',
+    b2: 'This is the most common state in real organizations. The question worth asking is: in which round would a different choice have sent the rest of the path in a completely different direction?' }
+];
+
+function showEnd() {
+  var e = ENDINGS.find(function (x) { return x.test(); });
+  document.getElementById('endTag').textContent = e.tag;
+  document.getElementById('endTitle').innerHTML = e.title;
+  document.getElementById('endBody').textContent = e.b1;
+  document.getElementById('endBody2').textContent = e.b2;
+  document.getElementById('log').innerHTML = path.map(function (p) {
+    return '<p><b>R' + p.r + '</b><span>' + esc(p.t) + '</span></p>';
+  }).join('');
+  drawChart();
+  go(5);
+}
+
+function drawChart() {
+  var W = 520, H = 340, L = 54, R = 34, T = 34, B = 56;
+  var x0 = L, x1 = W - R, y0 = H - B, y1 = T;
+  function px(v) { return x0 + (v / 10) * (x1 - x0); }
+  function py(v) { return y0 - (v / 10) * (y0 - y1); }
+  var F = 'Noto Sans TC, sans-serif', M = 'JetBrains Mono, monospace';
+  var s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#F4F4F0"/>';
+  s += '<rect x="' + px(5) + '" y="' + py(10) + '" width="' + (px(10) - px(5)) + '" height="' + (py(5) - py(10)) + '" fill="#E4E4DE"/>';
+  for (var g = 0; g <= 10; g += 2) {
+    s += '<line x1="' + px(g) + '" y1="' + y1 + '" x2="' + px(g) + '" y2="' + y0 + '" stroke="#DCDCD5" stroke-width="1"/>';
+    s += '<line x1="' + x0 + '" y1="' + py(g) + '" x2="' + x1 + '" y2="' + py(g) + '" stroke="#DCDCD5" stroke-width="1"/>';
+  }
+  s += '<line x1="' + px(5) + '" y1="' + y1 + '" x2="' + px(5) + '" y2="' + y0 + '" stroke="#6B6B64" stroke-width="1" stroke-dasharray="4 4"/>';
+  s += '<line x1="' + x0 + '" y1="' + py(5) + '" x2="' + x1 + '" y2="' + py(5) + '" stroke="#6B6B64" stroke-width="1" stroke-dasharray="4 4"/>';
+  s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x1 + '" y2="' + y0 + '" stroke="#232320" stroke-width="1.6"/>';
+  s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1 + '" stroke="#232320" stroke-width="1.6"/>';
+  s += '<text x="' + px(7.5) + '" y="' + py(9.3) + '" text-anchor="middle" font-size="12" fill="#232320" font-family="' + F + '" font-weight="700">Both</text>';
+  s += '<text x="' + px(2.5) + '" y="' + py(0.8) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">Lost both</text>';
+  s += '<text x="' + px(7.5) + '" y="' + py(0.8) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">Task only</text>';
+  s += '<text x="' + px(2.5) + '" y="' + py(9.3) + '" text-anchor="middle" font-size="12" fill="#6B6B64" font-family="' + F + '">People only</text>';
+  s += '<text x="' + ((x0 + x1) / 2) + '" y="' + (y0 + 24) + '" text-anchor="middle" font-size="11" letter-spacing="1.6" fill="#6B6B64" font-family="' + M + '">TASK PROGRESS</text>';
+  s += '<text x="16" y="' + ((y0 + y1) / 2) + '" text-anchor="middle" font-size="11" letter-spacing="1.6" fill="#6B6B64" font-family="' + M + '" transform="rotate(-90 16 ' + ((y0 + y1) / 2) + ')">TEAM TRUST</text>';
+  var cx = Math.min(Math.max(px(S.work), x0 + 17), x1 - 17);
+  var cy = Math.min(Math.max(py(S.trust), y1 + 17), y0 - 17);
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="9" fill="#E61919"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="15" fill="none" stroke="#E61919" stroke-width="1.4"/>';
+  s += '<text x="' + x0 + '" y="' + (H - 12) + '" font-size="12.5" fill="#232320" font-family="' + F + '" font-weight="700">Work ' + S.work + ' | Trust ' + S.trust + ' | Capital ' + S.cap + '</text>';
+  document.getElementById('tradeoff').innerHTML = s;
+}
+</script>
+
+
+<script>
+/* ── FITONE：手機上讓每一頁盡量落在一個畫面內 ──
+   做法是對舞台整體套用 zoom，版面比例不變、字一起變小，因此不會破壞既有排版。
+   縮放有下限，正文不會小於約 11px；仍放不下的頁面維持可捲動，不硬壓成看不清的字級。 */
+(function () {
+  var MIN = 0.76;                 /* 流動版面的正文為 14.5px，乘以 0.76 約 11px */
+  var stage = document.getElementById('stage');
+  var vp = document.getElementById('viewport');
+  if (!stage || !vp) return;
+
+  /* Safari 的下方工具列會蓋住畫面，clientHeight 量不到這一段，改以 visualViewport 為準 */
+  function visH() {
+    var a = vp.clientHeight;
+    var b = (window.visualViewport && window.visualViewport.height) || a;
+    return Math.max(320, Math.min(a, b));
+  }
+
+  function clear() {
+    stage.style.zoom = '';
+    var a = document.querySelector('.slide.active');
+    if (a) a.style.minHeight = '';
+  }
+
+  function fitOne() {
+    if (!document.body.classList.contains('flow')) { clear(); return; }
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = 1;
+    /* 先把撐滿一屏的 min-height 收掉，量到的才是內容真正需要的高度 */
+    for (var pass = 0; pass < 4; pass++) {
+      stage.style.zoom = k === 1 ? '' : String(k);
+      slide.style.minHeight = '0px';
+      var natural = stage.getBoundingClientRect().height;
+      if (natural <= H + 0.5) break;
+      var nk = Math.max(MIN, k * (H / natural));
+      if (nk >= k - 0.003) { k = nk; break; }
+      k = nk;
+    }
+    stage.style.zoom = k === 1 ? '' : String(k);
+    slide.style.minHeight = '0px';
+    /* 舞台的框線等不屬於頁面內容，撐滿時要扣掉，否則每頁都會多出幾個像素而產生捲動 */
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+    vp.scrollTop = 0;
+  }
+
+  /* 互動頁答題後版面會變高，這時只縮不放，避免作答途中字忽大忽小 */
+  var tid = 0;
+  function tighten() {
+    if (!document.body.classList.contains('flow')) return;
+    var slide = document.querySelector('.slide.active');
+    if (!slide) return;
+    var H = visH(), k = +(stage.style.zoom || 1);
+    slide.style.minHeight = '0px';
+    var h = stage.getBoundingClientRect().height;
+    if (h > H + 0.5 && k > MIN) {
+      k = Math.max(MIN, k * (H / h));
+      stage.style.zoom = String(k);
+    }
+    var over = (stage.getBoundingClientRect().height - slide.getBoundingClientRect().height) / k;
+    slide.style.minHeight = Math.max(0, Math.floor(H / k - over) - 1) + 'px';
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.ix')) return;
+    clearTimeout(tid); tid = setTimeout(tighten, 120);
+  }, true);
+
+  var base = window.go;
+  if (typeof base === 'function') {
+    window.go = function (n) { base(n); fitOne(); };
+  }
+  addEventListener('resize', function () { setTimeout(fitOne, 60); });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { clearTimeout(tid); tid = setTimeout(fitOne, 150); });
+  }
+  addEventListener('orientationchange', function () { setTimeout(fitOne, 220); });
+  setTimeout(fitOne, 0);
+})();
+</script>
+<script>
+/* ── 手機翻頁：頁尾的上一頁與下一頁，加上左右滑動 ──
+   互動頁點內容不翻頁，桌機靠方向鍵，手機需要固定的入口 */
+(function () {
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var vp = document.getElementById('viewport');
+  if (!slides.length || !vp || typeof window.go !== 'function') return;
+
+  function cur() {
+    for (var k = 0; k < slides.length; k++) if (slides[k].classList.contains('active')) return k;
+    return 0;
+  }
+  function mk(cls, txt) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgbtn ' + cls; b.textContent = txt;
+    return b;
+  }
+  slides.forEach(function (s) {
+    var f = s.querySelector('.footer-row, .foot');
+    if (!f) return;
+    var p = mk('prev', '\u2039 Previous'), n = mk('next', 'Next \u203A');
+    f.insertBefore(p, f.firstChild);
+    f.appendChild(n);
+    p.addEventListener('click', function (e) { e.stopPropagation(); go(cur() - 1); });
+    n.addEventListener('click', function (e) { e.stopPropagation(); go(cur() + 1); });
+  });
+
+  function sync() {
+    var k = cur();
+    slides.forEach(function (s) {
+      var p = s.querySelector('.pgbtn.prev'), n = s.querySelector('.pgbtn.next');
+      if (p) p.disabled = k === 0;
+      if (n) n.disabled = k === slides.length - 1;
+    });
+  }
+  var base = window.go;
+  window.go = function (n) { base(n); sync(); };
+  sync();
+
+  /* 左右滑動翻頁。垂直為主的動作留給捲動，長按後的移動不算 */
+  var x0 = 0, y0 = 0, t0 = 0, track = false;
+  vp.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { track = false; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); track = true;
+  }, { passive: true });
+  vp.addEventListener('touchend', function (e) {
+    if (!track) return;
+    track = false;
+    if (Date.now() - t0 > 600) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    go(cur() + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
+</script>
+
+<script>
+/* FSBTN v2：整份講義進入全螢幕。瀏覽器自己的全螢幕在 macOS 可能仍固定顯示工具列，
+   由網頁主動要求的全螢幕不受那個設定影響，投影時畫面乾淨。
+   鈕在右下角，只有圖示、每一頁都在，平時半透明，滑過才變深。鍵盤 F 也可切換。 */
+(function () {
+  if (document.querySelector('.fsbtn')) return;
+  var root = document.documentElement;
+  if (!(root.requestFullscreen || root.webkitRequestFullscreen)) return;
+
+  var IN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+    + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+
+  function isFs() {
+    var el = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!el && el === root;
+  }
+  function enter() {
+    var fn = root.requestFullscreen || root.webkitRequestFullscreen;
+    try { var p = fn.call(root); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function exit() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  }
+  function toggle() { isFs() ? exit() : enter(); }
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fsbtn';
+  b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+
+  function label() {
+    if (isFs()) { b.innerHTML = OUT; b.title = 'Exit full screen (or press Esc or F)'; b.setAttribute('aria-label', 'Exit full screen'); }
+    else { b.innerHTML = IN; b.title = 'Play full screen; press Esc or F to exit'; b.setAttribute('aria-label', 'Full screen'); }
+  }
+  label();
+  document.body.appendChild(b);
+
+  /* 位置：舞台下方若有留白帶就放進去，右緣對齊舞台；不夠就貼回視窗右下角 */
+  var stage = document.getElementById('stage');
+  function place() {
+    if (!stage) return;
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    var s = b.offsetHeight || 30, gap = 10;
+    if (innerHeight - r.bottom >= s + gap * 2) {
+      b.style.bottom = Math.round(Math.max(gap, (innerHeight - r.bottom - s) / 2)) + 'px';
+      b.style.right = Math.round(Math.max(gap, innerWidth - r.right)) + 'px';
+    } else {
+      b.style.bottom = '14px';
+      b.style.right = '14px';
+    }
+  }
+  function sync() { label(); place(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('input, select, textarea, [contenteditable="true"]')) return;
+    if (t && /^(INPUT|TEXTAREA|SELECT|VIDEO)$/.test(t.tagName)) return;
+    if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggle(); }
+  });
+  document.addEventListener('fullscreenchange', function () { setTimeout(sync, 60); });
+  document.addEventListener('webkitfullscreenchange', function () { setTimeout(sync, 60); });
+  addEventListener('resize', sync);
+  addEventListener('load', sync);
+  setTimeout(sync, 80); setTimeout(sync, 420);
+})();
+</script>
+<script>
+/* ── ORPHAN v1：末行只剩一兩個字時，把末尾幾個字綁在一起 ──
+   CSS 的 text-wrap 只能處理一部分：balance 對行數少的區塊有效，pretty 只會往下拉一個字，
+   長段落與窄欄位仍會留下孤兒字。這裡實測每個文字元素最後一行的字數，不足就在末尾幾個字
+   之間插入 word joiner（U+2060，零寬、不顯示），讓它們不能被拆開，一起落到末行。
+   用字元而不是包 span，是因為孤兒字常常跨越行內元素的邊界，例如句號後面接一個 <span>。
+   末行變長、倒數第二行變短，總行數不變，所以不影響縮放與版面高度。 */
+(function () {
+  var MIN = 3;                 /* 末行至少要有幾個實字 */
+  var MAXGROUP = 6;            /* 一次最多綁幾個字，綁太多會把整句話拖下來 */
+  var WJ = '⁠';
+  var SKIP = 'svg, .pagenum, .meta-row, .footer-row, code, pre, .fsbtn, .pdfbtn, .ix-bar .ctl';
+  var PUNCT = /[\s⁠。，、；：？！（）「」『』〈〉《》【】\[\]\.,;:?!()"'—–…\-]/;
+
+  function clear(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    var hit = [];
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf(WJ) >= 0) hit.push(n);
+    for (var i = 0; i < hit.length; i++) hit[i].nodeValue = hit[i].nodeValue.split(WJ).join('');
+  }
+
+  /* 由尾端往前取字元與它們的行位置，最多看 16 個 */
+  function tail(el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), n, nodes = [];
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.trim()) nodes.push(n);
+    if (!nodes.length) return null;
+    var r = document.createRange(), seq = [];
+    for (var i = nodes.length - 1; i >= 0 && seq.length < 16; i--) {
+      var s = nodes[i].nodeValue;
+      for (var j = s.length - 1; j >= 0 && seq.length < 16; j--) {
+        if (/[\s⁠]/.test(s[j])) continue;
+        try { r.setStart(nodes[i], j); r.setEnd(nodes[i], j + 1); } catch (e) { continue; }
+        var q = r.getClientRects()[0];
+        if (!q || !q.height) continue;
+        seq.push({ node: nodes[i], idx: j, top: Math.round(q.top), ch: s[j] });
+      }
+    }
+    return seq.length ? seq : null;
+  }
+
+  /* 不列舉版型的 class，而是掃出所有自己排成一個文字區塊的元素。
+     行內元素只是整段文字的片段，它自己的末行不等於段落的末行，因此排除。 */
+  function candidates(root) {
+    var out = [], w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null), el;
+    while ((el = w.nextNode())) {
+      if (el.closest(SKIP)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.display === 'inline') continue;
+      var has = false, c;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        c = el.childNodes[i];
+        if (c.nodeType === 3 && c.nodeValue.trim()) { has = true; break; }
+      }
+      if (!has && el.children.length && (el.textContent || '').trim()) {
+        has = true;
+        for (var j = 0; j < el.children.length; j++)
+          if (getComputedStyle(el.children[j]).display !== 'inline') { has = false; break; }
+      }
+      if (has) out.push(el);
+    }
+    return out;
+  }
+
+  function fix(el) {
+    /* 字距拉開的等寬標籤：插入的接合字元會吃到一個字距而露出明顯的空隙，
+       這類元素本來就是短標籤，跳過不處理 */
+    var ls = parseFloat(getComputedStyle(el).letterSpacing);
+    if (ls && ls >= 0.5) return;
+    var seq = tail(el);
+    if (!seq || seq.length < 3) return;
+    var lastTop = seq[0].top, onLast = 0, differs = false;
+    for (var i = 0; i < seq.length; i++) {
+      if (Math.abs(seq[i].top - lastTop) <= 3) onLast++;
+      else { differs = true; break; }
+    }
+    if (!differs) return;                     /* 只有一行，沒有孤兒字問題 */
+    var core = 0;
+    for (var k = 0; k < onLast; k++) if (!PUNCT.test(seq[k].ch)) core++;
+    if (core >= MIN) return;
+    var need = Math.min(MAXGROUP, seq.length, onLast + (MIN - core));
+    if (need < 2) return;
+    var before = el.scrollWidth;
+    var done = [];
+    /* 由最後一個字往前，在相鄰兩字之間插入 word joiner。索引由大而小，不會互相位移 */
+    for (var m = 0; m < need - 1; m++) {
+      var g = seq[m], v = g.node.nodeValue;
+      g.node.nodeValue = v.slice(0, g.idx) + WJ + v.slice(g.idx);
+      done.push(g.node);
+    }
+    /* 綁起來之後若撐破欄寬，還原這個元素 */
+    if (el.scrollWidth > Math.max(before, el.clientWidth) + 2) clear(el);
+  }
+
+  var tid = 0;
+  function run() {
+    var sl = document.querySelector('.slide.active') || document.body;
+    clear(sl);
+    var list = candidates(sl);
+    for (var i = 0; i < list.length; i++) fix(list[i]);
+  }
+  function later() { clearTimeout(tid); tid = setTimeout(run, 60); }
+
+  var base = window.show;
+  if (typeof base === 'function') window.show = function (n) { base(n); later(); };
+  addEventListener('resize', later);
+  addEventListener('load', later);
+  if (window.visualViewport) visualViewport.addEventListener('resize', later);
+  document.addEventListener('fullscreenchange', later);
+  document.addEventListener('click', function (e) { if (e.target.closest('.ix')) later(); }, true);
+  window.addEventListener('beforeprint', run);
+  setTimeout(run, 120); setTimeout(run, 500);
+})();
+</script>
+
+<script>
+/* ── REVDATE v1：頁首的 REV 改成這份檔案的更新日期 ──
+   document.lastModified 讀的是伺服器回的 Last-Modified，GitHub Pages 會給真正的
+   部署時間；本機開啟時則是檔案自己的修改時間。兩種情況都是「這份內容的版本」，
+   不是列印當天的日期。取不到有效日期就不動，保留原本寫死的 REV。 */
+(function () {
+  var d = new Date(document.lastModified);
+  if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+  function p(n) { return (n < 10 ? '0' : '') + n; }
+  var txt = 'REV ' + d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+  var RE = /REV\s+\d{4}\.\d{2}(?:\.\d{2})?/;
+  function stamp() {
+    /* 各檔的 REV 標記寫法不同：有的在頁首的 .m、有的是 .rev、有的在頁尾的一段文字裡。
+       因此不指定 class，改成掃出所有沒有子元素、且文字符合 REV 年.月 的節點就地替換。 */
+    var list = document.querySelectorAll('.meta-row *, .footer-row *, footer *, .rev, .cover-meta *, .data-cell *');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (el.children.length) continue;
+      var t = el.textContent;
+      if (!RE.test(t)) continue;
+      el.textContent = t.replace(RE, txt);
+    }
+  }
+  stamp();
+  window.addEventListener('beforeprint', stamp);
+})();
+</script>
+</body>
+</html>

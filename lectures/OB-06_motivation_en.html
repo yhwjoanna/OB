@@ -3292,7 +3292,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(27) .axis-row .k, html[lang="en
 })();
 </script>
 <script>
-/* ── AUTOFIT v1：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
+/* ── AUTOFIT v1.2：桌機版面格內文字偏少、上下大片空白時，整頁等比放大格內文字 ──
    同一頁所有格子用同一個倍率，維持既有的字級階層與卡片標題對齊。
    倍率取最緊的那一格：任何一格的內容高度超過格高的 FILL 就停，最多放大 FMAX 倍，正文不超過 CAP。
    只作用在桌機與列印的 1280×720 版面；手機流式模式交給 TYPE v2，這裡會還原。 */
@@ -3362,7 +3362,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(27) .axis-row .k, html[lang="en
     for (var i = 0; i < boxes.length; i++) {
       var b = boxes[i];
       if (b.matches('.axis-row > .k')) {
-        var bad = [].slice.call(b.children).some(function (c) { return c.dataset.afLines && lines(c) > +c.dataset.afLines; });
+        var bad = [].slice.call(b.children).some(function (c) { return (c.dataset.afLines && lines(c) > +c.dataset.afLines) || c.scrollWidth > c.clientWidth + 1; });
         if (bad) return false;
       }
       if (fill(b) > lim) return false;
@@ -3418,6 +3418,34 @@ html[lang="en"] body:not(.flow) .slide:nth-child(27) .axis-row .k, html[lang="en
     s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
     if (hidden) { s.style.visibility = ''; s.style.display = ''; }
   }
+  /* 驗證：孤兒字模組之後可能多綁出一行，放大後若有格子被撐破就逐步縮回 */
+  function overflowed(s, boxes) {
+    for (var i = 0; i < boxes.length; i++) {
+      var b = boxes[i];
+      if (b.scrollHeight > b.clientHeight + 1 || b.scrollWidth > b.clientWidth + 1) return true;
+      for (var c = b.firstElementChild; c; c = c.nextElementSibling) if (c.scrollWidth > c.clientWidth + 1 && c.clientWidth) return true;
+      for (var a = b.parentElement; a && a !== s; a = a.parentElement)
+        if (a.scrollHeight > a.clientHeight + 1 && a.matches('.cmp-wrap, .main, .axis-list, [class*="grid"]')) return true;
+    }
+    return s.scrollHeight > s.clientHeight + 1;
+  }
+  function verify(s) {
+    if (!s.dataset.af || document.body.classList.contains('flow')) return;
+    var all = boxesOf(s); if (!all.length) return;
+    var K = all.filter(function (b) { return b.matches('.axis-row > .k'); });
+    var V = all.filter(function (b) { return K.indexOf(b) < 0; });
+    var p = s.dataset.af.split('/'), f = +p[0], fk = p[1] ? +p[1] : 1;
+    if (f <= 1 && fk <= 1) return;
+    var hidden = !s.classList.contains('active');
+    if (hidden) { s.style.visibility = 'hidden'; s.style.display = 'flex'; }
+    var elsV = textEls(V), elsK = textEls(K);
+    for (var it = 0; it < 10 && overflowed(s, all); it++) {
+      fk = fk > 1 ? Math.max(1, fk * 0.95) : 1; f = Math.max(1, f * 0.97);
+      apply(elsK, fk); apply(elsV, f);
+    }
+    s.dataset.af = f.toFixed(2) + (K.length ? '/' + fk.toFixed(2) : '');
+    if (hidden) { s.style.visibility = ''; s.style.display = ''; }
+  }
   function clearAll() {
     slides.forEach(function (s) { var bx = boxesOf(s); if (bx.length) apply(textEls(bx), 1); delete s.dataset.af; });
   }
@@ -3429,6 +3457,11 @@ html[lang="en"] body:not(.flow) .slide:nth-child(27) .axis-row .k, html[lang="en
     mode = 'desk';
     slides.forEach(fitSlide);
     window.dispatchEvent(new Event('resize'));
+    setTimeout(function () { slides.forEach(verify); }, 700);
+  }
+  var baseShow = window.show;
+  if (typeof baseShow === 'function') {
+    window.show = function (n) { baseShow(n); var a = document.querySelector('section.slide.active'); if (a && mode === 'desk') setTimeout(function () { verify(a); }, 60); };
   }
   function start() { run(); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(start, 30); });
