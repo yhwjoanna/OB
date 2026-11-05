@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>OB／CH 12 領導</title>
+<title>OB／CH 11·12 溝通與領導</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -597,6 +597,30 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
 </style>
+<style>
+  /* ── CH 11 管道豐富度帶（2026-11） ── */
+  .rich { flex: none; display: flex; align-items: center; gap: 14px; padding: 12px 28px; border-bottom: 1px solid var(--ink); }
+  .rich-end { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: #6B6B64; white-space: nowrap; }
+  .rich-row { flex: 1; display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; list-style: none; margin: 0; padding: 0; counter-reset: rk; }
+  .rich-row li { position: relative; font-size: 14px; font-weight: 700; line-height: 1.3; text-align: center; padding: 22px 0 8px; white-space: nowrap; letter-spacing: -0.01em;
+    background: linear-gradient(#C9C9C2, #C9C9C2) top / 100% 6px no-repeat; }
+  .rich-row li:nth-child(1) { background-color: transparent; }
+  .rich-row li::before { counter-increment: rk; content: counter(rk, decimal-leading-zero); position: absolute; top: 8px; left: 0; right: 0;
+    font-family: var(--mono); font-size: 10px; font-weight: 400; color: #8A8A82; }
+  .rich-row li:nth-child(n+4) { background-image: linear-gradient(#9C9C94, #9C9C94); }
+  .rich-row li:nth-child(n+7) { background-image: linear-gradient(#55524B, #55524B); }
+  .rich-row li:nth-child(10) { background-image: linear-gradient(var(--red), var(--red)); }
+  .grid4.ch-grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; }
+  .ch-grid .cell h3 { margin-top: 2px; }
+  body.flow .rich { flex-direction: column; align-items: stretch; padding: 12px 20px; }
+  body.flow .rich-row { grid-template-columns: repeat(2, 1fr); }
+  body.flow .rich-row li { font-size: 13.5px; }
+</style>
+<style>
+/* PRIO v1：講授優先序圓點（藍＝必講、黑＝選講、黃＝略過），放在頁碼左側 */
+.prio{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:1px;margin-right:8px;font-style:normal}
+.prio.must{background:#1F4FA3}.prio.opt{background:#232320}.prio.skip{background:#F2B705;box-shadow:inset 0 0 0 1px #B88A00}
+</style>
 </head>
 <body>
 
@@ -609,13 +633,13 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       <div class="main cover-main">
         <div class="cover-left">
           <span class="crosshair">+</span>
-          <span class="kicker">CH／12 ── LEADERSHIP</span>
-          <div class="cover-code">12</div>
-          <h1 class="cover-title">領導</h1>
-          <div class="cover-en">Leadership</div>
+          <span class="kicker">CH／11·12 ── COMMUNICATION ＆ LEADERSHIP</span>
+          <div class="cover-code">11·12</div>
+          <h1 class="cover-title">溝通與領導</h1>
+          <div class="cover-en">Communication and Leadership</div>
           <div class="cover-agenda">
             <span class="lbl">[ AGENDA ]</span>
-            <div class="items">領導的定義 ── 特質理論 ── 行為理論 ── 權變理論（Fiedler、SLT、路徑-目標）── LMX ── 魅力型領導 ── 交易型與轉換型 ── 真誠與僕人式領導 ── 信任 ── 建言與回應 ── 案例 ── 不當督導</div>
+            <div class="items">人際溝通的三種方式 ── 選擇溝通方法與管道豐富度 ── 有效溝通的三個障礙 ── 領導的定義 ── 特質理論 ── 行為理論 ── 權變理論（Fiedler、SLT、路徑-目標）── LMX ── 魅力型領導 ── 交易型與轉換型 ── 真誠與僕人式領導 ── 信任 ── 建言與回應 ── 案例 ── 不當督導</div>
           </div>
         </div>
         <div class="cover-right">
@@ -625,14 +649,76 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="data-cell"><span class="lbl">VERSION</span><span class="val">中文版</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01／50</span></div>
+    </section>
+
+    <!-- 人際溝通的三種方式 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 11</span><span class="m g">SEC 1 ── MODES</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">02</div>
+        <div class="t"><h2>人際溝通的三種方式</h2><span class="en">ORAL, WRITTEN ＆ NONVERBAL COMMUNICATION</span></div>
+        <div class="note">[ 3 MODES ]</div>
+      </div>
+      <div class="def-band">溝通（communication）同時包含意義的傳遞與理解兩個層面。與他人溝通有三種基本方式：口語、書面與非語言。</div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／ORAL ]</span><h3>口語溝通</h3><ul><li>同步溝通：傳送者與接收者同時在場、注意且專注，例如面對面交談、視訊或電話</li><li>非同步溝通：雙方不必同時在場，例如語音訊息</li><li>形式包括交談與討論、會議、演講</li></ul></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／WRITTEN ]</span><h3>書面溝通</h3><ul><li>信件、電子郵件、即時通訊、部落格、電子報，以及任何傳達文字或符號的方式</li><li>有些方式會留下長期紀錄，有些的優勢是快速且短暫</li><li>分散的遠距團隊即使幾乎完全依賴書面溝通，也能高效運作</li></ul></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／NONVERBAL ]</span><h3>非語言溝通</h3><ul><li>身體動作、說話的音調、臉部表情，以及雙方之間的空間距離與時間</li><li>與客戶、同事、部屬、主管互動時，留意對方的線索，也留意自己的非語言行為</li><li>訊息之間出現矛盾時容易造成誤解，各種溝通方式應保持一致</li></ul></div>
+      </div>
+      <div class="keyline">積極傾聽依序是感受、處理、回應對方的訊息；反映式傾聽以<span class="r">認可或重述</span>對方的訊息，鼓勵對方進一步說明</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.02／50</span></div>
+    </section>
+
+    <!-- 選擇溝通方法與管道豐富度 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 11</span><span class="m g">SEC 2 ── CHANNELS</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>選擇溝通方法與管道豐富度</h2><span class="en">CHOOSING A COMMUNICATION METHOD</span></div>
+        <div class="note">[ 4 METHODS ]</div>
+      </div>
+      <div class="def-band">管道豐富度（channel richness）指一個管道在一次溝通中能承載的資訊量。涉及情緒、衝突或需要來回討論的議題適合豐富度高的管道，需要多人知悉或留下紀錄的訊息適合書面管道。</div>
+      <div class="rich" aria-label="管道豐富度由低到高">
+        <span class="rich-end">低管道豐富度</span>
+        <ol class="rich-row">
+          <li>正式報告、公告</li><li>備忘錄、信件</li><li>預錄演講</li><li>電子郵件</li><li>線上討論群組</li>
+          <li>語音訊息</li><li>現場演講</li><li>電話交談</li><li>視訊會議</li><li>面對面談話</li>
+        </ol>
+        <span class="rich-end">高管道豐富度</span>
+      </div>
+      <div class="grid4 ch-grid">
+        <div class="cell"><span class="tag">[ 01／MEETING ]</span><h3>面對面或虛擬會議</h3><ul><li>為團隊設定架構、假設或期望</li><li>討論衝突、績效目標或行為問題</li><li>涉及他人情緒或容易被誤解的感受</li></ul></div>
+        <div class="cell"><span class="tag">[ 02／PHONE ]</span><h3>電話交談</h3><ul><li>需要在 30 分鐘內完成或回答的事</li><li>問題或想法需要大量口頭解釋</li><li>訊息需謹慎傳達，但無法當面管理印象</li></ul></div>
+        <div class="cell"><span class="tag">[ 03／TEXT ]</span><h3>簡訊或即時通訊</h3><ul><li>快速、非關鍵且多人都能回答的問題</li><li>需要通知團隊的簡短補充資訊</li><li>詢問對方是否有空開會或通話</li></ul></div>
+        <div class="cell"><span class="tag">[ 04／EMAIL ]</span><h3>電子郵件</h3><ul><li>向團隊中許多人傳達訊息</li><li>會議後確認期望或共識</li><li>正式批准、機密資訊、需要遵循的程序</li></ul></div>
+      </div>
+      <div class="src">管道豐富度依 Robbins 與 Judge（2024）圖表 11-4 重繪，原始來源為 Daft 與 Noe（2001）；四種方法的適用情境整理自圖表 11-3，原始來源為 Ellis（2021）。</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.03／50</span></div>
+    </section>
+
+    <!-- 有效溝通的三個障礙 -->
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB／CH 11</span><span class="m g">SEC 3 ── BARRIERS</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">04</div>
+        <div class="t"><h2>有效溝通的三個障礙</h2><span class="en">BARRIERS TO EFFECTIVE COMMUNICATION</span></div>
+        <div class="note">[ 3 BARRIERS ]</div>
+      </div>
+      <div class="grid3r">
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 01／OVERLOAD ]</span><h3>資訊超載</h3><p>需要處理的資訊超過處理能力。</p><ul><li>關閉通知，在固定時間查看電子郵件</li><li>重要郵件單獨處理，較不重要的批量處理</li><li>只有所有人都需要時才回覆全部</li></ul></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 02／APPREHENSION ]</span><h3>溝通焦慮</h3><p>溝通時感受到過度的緊張或不安。</p><ul><li>培養情緒調節技巧，因應升高的焦慮感</li><li>情緒調節的策略可對照情緒與心情一章</li></ul></div>
+        <div class="cell"><span class="corner">+</span><span class="tag">[ 03／CRISIS ]</span><h3>危機時的溝通</h3><p>危機發生時，訊息的傳遞方式影響問題能否被解決。</p><ul><li>有效地傳遞訊息</li><li>共同合作，而非各自獨立</li><li>運用科技掌握狀況，共同找出解決方法</li></ul></div>
+      </div>
+      <div class="keyline">決定溝通方式時先考慮<span class="r">同步性</span>：訊息是否需要所有人在心理與實體上同時在場</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.04／50</span></div>
     </section>
 
     <!-- 領導定義 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 1 ── DEFINITION</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── DEFINITION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">02</div>
+        <div class="idx">05</div>
         <div class="t"><h2>領導（leadership）的定義</h2><span class="en">WHAT IS LEADERSHIP?</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -642,14 +728,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／MANAGEMENT ]</span><h3>管理與領導</h3><p>並非所有的領導者都是管理者，也並非所有的管理者都是領導者。管理處理複雜、維持秩序；領導處理變革、指引方向。</p></div>
         <div class="cell"><span class="tag">[ 04／EFFECTIVENESS ]</span><h3>組織效能</h3><p>組織為了達成理想效能，必須具備強而有力的領導與管理，兩者相輔相成、缺一不可。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.02／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.05／50</span></div>
     </section>
 
     <!-- 特質理論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">03</div>
+        <div class="idx">06</div>
         <div class="t"><h2>特質理論</h2><span class="en">TRAIT THEORIES OF LEADERSHIP</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -658,14 +744,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／FINDINGS ]</span><h3>主要發現</h3><p>外向是能否成為有效領導者的最重要特質，但與預測領導者效能相比，外向與領導者「產生」的關聯更強烈。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／OTHERS ]</span><h3>其他重要特質</h3><p>勤勉盡責與外向皆與領導者的自我效能有正面關聯。多數人希望追隨一個有自信帶領大家往正確方向邁進的領導者。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.03／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.06／50</span></div>
     </section>
 
     <!-- 好的領導者特質 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">04</div>
+        <div class="idx">07</div>
         <div class="t"><h2>好的領導者特質</h2><span class="en">TRAITS OF EFFECTIVE LEADERS</span></div>
         <div class="note">[ 4 TRAITS ]</div>
       </div>
@@ -675,14 +761,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／OPENNESS ]</span><h3>胸懷開闊</h3><p>富創造力亦具備彈性，能接納新觀點、因應變局調整方向。</p></div>
         <div class="cell"><span class="tag">[ 04／EI ]</span><h3>情緒智力</h3><p>具備同理心，能感受他人需求；情緒智力對展現體恤型領導尤其關鍵。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.04／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.07／50</span></div>
     </section>
 
     <!-- 特質理論結論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 2 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">05</div>
+        <div class="idx">08</div>
         <div class="t"><h2>特質理論的結論</h2><span class="en">CONCLUSIONS ON TRAIT THEORIES</span></div>
         <div class="note">[ 2 SIDES ]</div>
       </div>
@@ -700,14 +786,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>特質理論可以協助預測領導，但無法完全解釋領導。這促使研究者轉向探討行為理論，以進一步界定領導者的表現。行為理論的重要意涵：領導若是行為，就可以被訓練與學習。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.05／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.08／50</span></div>
     </section>
 
     <!-- 行為理論 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">06</div>
+        <div class="idx">09</div>
         <div class="t"><h2>行為理論</h2><span class="en">BEHAVIORAL THEORIES OF LEADERSHIP</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -716,14 +802,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">主要研究</span><span class="ax">POINT／02</span></div><div class="v">俄亥俄州立大學研究找到兩類向度可以充分解釋部屬所描述的領導行為：倡導結構和體恤。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">文化差異</span><span class="ax">POINT／03</span></div><div class="v">GLOBE 計畫認為，倡導結構和體恤何者較為合適，有其國際差異。例如在巴西，美國管理者就必須以團隊導向、參與式，以及人性化的方式來領導團隊。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.06／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.09／50</span></div>
     </section>
 
     <!-- 倡導結構與體恤 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">07</div>
+        <div class="idx">10</div>
         <div class="t"><h2>倡導結構與體恤</h2><span class="en">INITIATING STRUCTURE ＆ CONSIDERATION</span></div>
         <div class="note">[ 2 DIMENSIONS ]</div>
       </div>
@@ -743,14 +829,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <p>領導者願意和部屬建立互相信任、尊重部屬意見，以及注重部屬感受的工作關係，包括關心員工福祉、提供支持和鼓勵。體恤與部屬的滿意度、激勵及領導者的受尊敬程度關聯較強。</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.07／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.10／50</span></div>
     </section>
 
     <!-- 特質行為總結 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 3 ── SUMMARY</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── SUMMARY</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">08</div>
+        <div class="idx">11</div>
         <div class="t"><h2>特質理論和行為理論的總結</h2><span class="en">TRAITS ＆ BEHAVIORS ── SUMMARY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -759,14 +845,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／IMPORTANCE ]</span><h3>重要性</h3><p>特質和行為在決定領導效能上確實十分重要，但並不保證這樣就能領導成功。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／LIMITS ]</span><h3>侷限性</h3><p>這些理論無法完全解釋領導的複雜性，促使後續研究者探索更全面的權變理論。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.08／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.11／50</span></div>
     </section>
 
     <!-- 權變理論簡介 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── CONTINGENCY THEORIES</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── CONTINGENCY THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">09</div>
+        <div class="idx">12</div>
         <div class="t"><h2>權變理論簡介</h2><span class="en">CONTINGENCY THEORIES</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -775,14 +861,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／MODELS ]</span><h3>主要模式</h3><p>包括 Fiedler 權變模式、情境領導理論、路徑-目標理論和領導者-參與模式。各模式對情境的界定不同，但共同主張：沒有放諸四海皆準的領導風格。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／MEANING ]</span><h3>理論意義</h3><p>試圖解釋領導效能如何受到特定情境因素的影響，為領導實踐提供更靈活的指導。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.09／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.12／50</span></div>
     </section>
 
     <!-- Fiedler -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">10</div>
+        <div class="idx">13</div>
         <div class="t"><h2>Fiedler 權變模式</h2><span class="en">FIEDLER CONTINGENCY MODEL</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -792,12 +878,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">情境因素</span><span class="ax">3 FACTORS</span></div><div class="v">評估三個主要情境因素：領導者與部屬的關係、工作結構和職位權力。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">應用</span><span class="ax">APPLICATION</span></div><div class="v">根據這些因素的組合，可以判斷哪種領導風格在特定情境下最有效。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.10／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.13／50</span></div>
     </section>
 
     <!-- Fiedler 圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／F-01 Fiedler 模式研究發現</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -890,14 +976,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 <text x="901.25" y="696" text-anchor="middle" font-size="17.3" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">弱</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.11／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.14／50</span></div>
     </section>
 
     <!-- SLT -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── SLT</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── SLT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">12</div>
+        <div class="idx">15</div>
         <div class="t"><h2>情境領導理論（SLT）</h2><span class="en">SITUATIONAL LEADERSHIP THEORY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -906,14 +992,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／STRENGTHS ]</span><h3>優點</h3><p>有直覺上的吸引力，確認了被領導者的重要性，並將邏輯建築在領導者可以彌補被領導者在能力與激勵程度上的限制。依部屬準備度搭配指導型、推銷型、參與型或授權型風格。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／LIMITS ]</span><h3>侷限性</h3><p>模式本身模糊、不一致，以及測試理論的研究方法有問題，影響了理論的實際應用價值。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.12／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.15／50</span></div>
     </section>
 
     <!-- 路徑目標 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 4 ── PATH-GOAL</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── PATH-GOAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">13</div>
+        <div class="idx">16</div>
         <div class="t"><h2>路徑-目標理論</h2><span class="en">PATH-GOAL THEORY</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -923,14 +1009,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／SITUATION ]</span><h3>情境適應</h3><p>領導者所採取之領導行為，端視情境的複雜度而定。例如當任務不明確時，指導式領導可能更有效。</p></div>
         <div class="cell"><span class="tag">[ 04／DIFFERENCES ]</span><h3>個別差異</h3><p>考慮到部屬的個別差異，如積極設定目標的領導者能幫助認真盡責的部屬成就高績效。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.13／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.16／50</span></div>
     </section>
 
     <!-- LMX -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── LMX</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">14</div>
+        <div class="idx">17</div>
         <div class="t"><h2>領導者-成員交換理論（LMX）</h2><span class="en">LEADER-MEMBER EXCHANGE THEORY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -939,12 +1025,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／SELECTION ]</span><h3>選擇標準</h3><p>領導者會依部屬的人口統計變項、態度和人格特質與其相似，或因為比外團體成員更具勝任能力而加以挑選；這種選擇並非隨機。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／EFFECTS ]</span><h3>影響</h3><p>內團體部屬將獲得較高的績效評估、對上司滿意度較高、較可能產生公民行為；但差別待遇也可能對組織整體氛圍產生負面影響。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.14／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.17／50</span></div>
     </section>
 
     <!-- LMX 圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 5 ── LMX</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── LMX</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／L-01 領導者-成員交換理論</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1006,14 +1092,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 <path d="M907 488 l-6 -12 h12 z" fill="#666666"/></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.15／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.18／50</span></div>
     </section>
 
     <!-- 魅力型領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">16</div>
+        <div class="idx">19</div>
         <div class="t"><h2>魅力型領導</h2><span class="en">CHARISMATIC LEADERSHIP</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1023,14 +1109,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／EFFECTS ]</span><h3>影響</h3><p>希臘最近的研究認為，魅力型領導可以透過在追隨者中建立共同的團體認同，提升追隨者的組織認同（承諾）。</p></div>
         <div class="cell"><span class="tag">[ 04／LEARNABLE ]</span><h3>培養</h3><p>魅力可以通過學習和實踐來培養，如使用生動的語氣、眼神接觸和表情來強化訊息，並激發追隨者的潛能。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.16／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.19／50</span></div>
     </section>
 
     <!-- 魅力機制 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">17</div>
+        <div class="idx">20</div>
         <div class="t"><h2>魅力型領導的影響機制</h2><span class="en">HOW CHARISMATIC LEADERS INFLUENCE</span></div>
         <div class="note">[ 3 STEPS ]</div>
       </div>
@@ -1039,14 +1125,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">願景聲明</span><span class="ax">STEP／02</span></div><div class="v">透過正式且明確的願景聲明，清晰地表達組織的願景或使命。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">傳達價值觀</span><span class="ax">STEP／03</span></div><div class="v">透過文字與行動傳達新價值觀，引導情緒，從事非傳統行為，展現面對願景的勇氣與信念。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.17／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.20／50</span></div>
     </section>
 
     <!-- 魅力情境 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">18</div>
+        <div class="idx">21</div>
         <div class="t"><h2>魅力型領導的情境因素</h2><span class="en">SITUATIONAL FACTORS</span></div>
         <div class="note">[ 4 FACTORS ]</div>
       </div>
@@ -1056,14 +1142,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／LEVEL ]</span><h3>組織層級</h3><p>魅力型領導在組織高層較顯重要，但就組織橫向水平運作上，也可從遠端或近距離發揮其效能。</p></div>
         <div class="cell"><span class="tag">[ 04／INDIVIDUAL ]</span><h3>個人差異</h3><p>有些人的人格特質就是特別容易受到魅力領導的影響，效果可能因追隨者的個性而異。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.18／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.21／50</span></div>
     </section>
 
     <!-- 魅力陰暗面 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 6 ── DARK SIDE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── DARK SIDE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">19</div>
+        <div class="idx">22</div>
         <div class="t"><h2>魅力型領導的陰暗面</h2><span class="en">THE DARK SIDE OF CHARISMA</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1072,14 +1158,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02／NARCISSISM ]</span><h3>自戀傾向</h3><p>自戀的人，部分行為與魅力型領導有高度相關，可能導致領導者忽視他人的需求和意見。組織給予魅力型執行長的高薪與寬容，也可能放大這些風險。</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／BALANCE ]</span><h3>平衡觀點</h3><p>魅力型領導整體而言仍有其效果，只是它不是永遠的答案，其效果需要根據具體情況來評估。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.19／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.22／50</span></div>
     </section>
 
     <!-- 交易vs轉換 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSACTIONAL vs. TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── TRANSACTIONAL vs. TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">20</div>
+        <div class="idx">23</div>
         <div class="t"><h2>交易型領導與轉換型領導</h2><span class="en">TRANSACTIONAL vs. TRANSFORMATIONAL</span></div>
         <div class="note">[ 6 DIMENSIONS ]</div>
       </div>
@@ -1096,14 +1182,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </table>
       </div>
       <div class="keyline">兩者的差別在於交換的是<span class="r">報酬，還是目標本身</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.20／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.23／50</span></div>
     </section>
 
     <!-- 特徵 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── CHARACTERISTICS</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CHARACTERISTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">21</div>
+        <div class="idx">24</div>
         <div class="t"><h2>交易型和轉換型領導的特徵</h2><span class="en">CHARACTERISTICS</span></div>
         <div class="note">[ 4＋4 ]</div>
       </div>
@@ -1131,14 +1217,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.21／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.24／50</span></div>
     </section>
 
     <!-- 關係 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">22</div>
+        <div class="idx">25</div>
         <div class="t"><h2>交易型和轉換型領導的關係</h2><span class="en">COMPLEMENTARY, NOT OPPOSING</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1148,14 +1234,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／PERFORMANCE ]</span><h3>績效提升</h3><p>轉換型領導是建立在交易型領導之上：其所產生的部屬努力與績效水準，超過了僅用交易型方法時所擁有的。</p></div>
         <div class="cell"><span class="tag">[ 04／FULL RANGE ]</span><h3>全範圍領導</h3><p>全範圍的領導模式強調領導者應該能夠靈活運用不同的領導風格，以適應不同的情境需求。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.22／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.25／50</span></div>
     </section>
 
     <!-- 補充研究：轉換型領導真的比較有效嗎 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── META-ANALYSIS</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── META-ANALYSIS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">23</div>
+        <div class="idx">26</div>
         <div class="t"><h2>補充研究：轉換型領導的優勢只比權宜獎賞多 .05</h2><span class="en">A META-ANALYTIC TEST OF RELATIVE VALIDITY</span></div>
         <div class="note">[ JAP 2004 ]<br>87 STUDIES／626 rs</div>
       </div>
@@ -1168,14 +1254,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">轉換型領導的優勢是程度差異，效標不同排序就不同</div>
       <div class="src">Judge, T. A., &amp; Piccolo, R. F. (2004). Transformational and transactional leadership: A meta-analytic test of their relative validity. <i>Journal of Applied Psychology</i>, <i>89</i>(5), 755–768. https://doi.org/10.1037/0021-9010.89.5.755　｜　van Knippenberg, D., &amp; Sitkin, S. B. (2013). A critical assessment of charismatic-transformational leadership research: Back to the drawing board? <i>The Academy of Management Annals</i>, <i>7</i>(1), 1–60. https://doi.org/10.1080/19416520.2013.759433</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.23／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.26／50</span></div>
     </section>
 
     <!-- 轉換型運作 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">24</div>
+        <div class="idx">27</div>
         <div class="t"><h2>轉換型領導的運作方式</h2><span class="en">HOW TRANSFORMATIONAL LEADERSHIP WORKS</span></div>
         <div class="note">[ 4 MECHANISMS ]</div>
       </div>
@@ -1185,12 +1271,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／LONG-TERM ]</span><h3>長期激勵</h3><p>以長期結果來設計酬償計畫，鼓勵員工關注組織的長遠發展，而非短期數字。</p></div>
         <div class="cell"><span class="tag">[ 04／CREATIVITY ]</span><h3>創造力促進</h3><p>對工作者的創造力有正面影響，鼓勵創新思維和解決問題的新方法；追隨者也更願意提出構想。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.24／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.27／50</span></div>
     </section>
 
     <!-- 全範圍圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／T-01 全範圍領導模式</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1226,14 +1312,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 <text x="700" y="606" text-anchor="middle" font-size="13.5" font-weight="400" fill="#6B6B64" font-family="Noto Sans TC, PingFang TC, sans-serif">愈往右上（積極且有效）愈接近轉換型領導；左下為消極且無效的放任</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.25／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.28／50</span></div>
     </section>
 
     <!-- 轉換型評估 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 7 ── EVALUATION</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── EVALUATION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">26</div>
+        <div class="idx">29</div>
         <div class="t"><h2>轉換型領導的評估</h2><span class="en">EVALUATING TRANSFORMATIONAL LEADERSHIP</span></div>
         <div class="note">[ 4 LEVELS ]</div>
       </div>
@@ -1243,14 +1329,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／TEAM ]</span><h3>團隊層面</h3><p>團隊層次的轉換型領導則強調團體目標、共享價值觀與信念，以及步調一致的努力。</p></div>
         <div class="cell"><span class="tag">[ 04／ORGANIZATION ]</span><h3>組織影響</h3><p>轉換型領導能夠推動組織變革，提高員工滿意度和組織承諾度。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.26／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.29／50</span></div>
     </section>
 
     <!-- 真誠領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── AUTHENTIC</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── AUTHENTIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">27</div>
+        <div class="idx">30</div>
         <div class="t"><h2>真誠領導</h2><span class="en">AUTHENTIC LEADERSHIP</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1260,14 +1346,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／SELF-AWARENESS ]</span><h3>自我認知</h3><p>強調領導者對自己的深入了解，包括優點、缺點和價值觀，並能在回饋中持續修正自我認識。</p></div>
         <div class="cell"><span class="tag">[ 04／ETHICS ]</span><h3>道德標準</h3><p>真誠領導者堅持高道德標準，即使在面對壓力時也不妥協，因此能成為部屬的道德楷模。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.27／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.30／50</span></div>
     </section>
 
     <!-- 補充：信任 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── TRUST</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── TRUST</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">28</div>
+        <div class="idx">31</div>
         <div class="t"><h2>信任與領導</h2><span class="en">TRUST AND LEADERSHIP</span></div>
         <div class="note">[ 3 CHARACTERISTICS ]</div>
       </div>
@@ -1278,12 +1364,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03／ABILITY ]</span><h3>能力</h3><span class="en-term">ABILITY</span><p>具備技術與人際方面的知識和技能，讓人相信領導方向符合大家的最佳利益。</p></div>
       </div>
       <div class="keyline">信任的結果：<span class="r">冒險嘗試、資訊分享</span>、團體效能與生產力的提升</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.28／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.31／50</span></div>
     </section>
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── ETHICAL LEADERSHIP</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── ETHICAL LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">29</div>
+        <div class="idx">32</div>
         <div class="t"><h2>倫理領導</h2><span class="en">ETHICAL LEADERSHIP ＆ SOCIALIZED CHARISMA</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1309,15 +1395,15 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul></div>
       </div>
       <div class="keyline">倫理領導的檢驗點是對高績效違規者的處置，不是守則的字數</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.29／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.32／50</span></div>
     </section>
 
 
     <!-- 僕人式領導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── SERVANT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">30</div>
+        <div class="idx">33</div>
         <div class="t"><h2>僕人式領導</h2><span class="en">SERVANT LEADERSHIP</span></div>
         <div class="note">[ 5 BEHAVIORS ]</div>
       </div>
@@ -1329,12 +1415,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 05 ]</span><h3>積極發展部屬的潛能</h3><p>把部屬的成長放在自身利益之前。</p></div>
       </div>
       <div class="keyline">僕人式領導能提升部屬的<span class="r">自我效能</span>、對主管的認同和對公平的認知，進而提升團隊效力與績效，並與高度的組織公民行為和創意績效密切關聯</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.30／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.33／50</span></div>
     </section>
 
     <!-- 僕人式圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 8 ── SERVANT</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── SERVANT</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／S-01 僕人式領導——補充圖</span><span>SRC：ROBBINS ＆ JUDGE</span></div>
         <div class="fig-body">
@@ -1376,14 +1462,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 <path d="M768 315 L756.0 320.1 L756.0 309.9 z" fill="#0A0A0A"/></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.31／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.34／50</span></div>
     </section>
 
     <!-- 建言 1：邀請建言 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">32</div>
+        <div class="idx">35</div>
         <div class="t"><h2>邀請部屬建言，未必換來建言</h2><span class="en">VOICE SOLICITATION</span></div>
         <div class="note">[ 2 PATHWAYS ]</div>
       </div>
@@ -1394,14 +1480,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">愈刻意邀請，愈把互動推向<span class="r">自我保護</span></div>
       <div class="src">Song, Q., Yang, S., Chen, Y., Ren, S., &amp; Guo, Y. (2026). When inviting voice backfires: How leader dominance shapes employee responses to voice solicitation. <i>Journal of Organizational Behavior</i>. 提前線上出版。https://doi.org/10.1002/job.70052</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.32／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.35／50</span></div>
     </section>
 
     <!-- 建言 2：主管求回饋 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">33</div>
+        <div class="idx">36</div>
         <div class="t"><h2>主管自己求回饋，效果有一個甜蜜點</h2><span class="en">LEADER FEEDBACK-SEEKING</span></div>
         <div class="note">[ 2 PATHS ＋ 1 MODERATOR ]</div>
       </div>
@@ -1411,14 +1497,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">真誠地問，力道最大，也最容易問過頭；不真誠地問，<span class="r">幾乎什麼都不會發生</span></div>
       <div class="src">Lou, M., Teng, E., Tekleab, A. G., Zhang, L., &amp; Su, Y. (2026). Does leader feedback-seeking behavior fuel employee voice? The roles of organization-based self-esteem, workplace anxiety and apparent sincerity of leader. <i>Journal of Organizational Behavior</i>. 提前線上出版。https://doi.org/10.1002/job.70078</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.33／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.36／50</span></div>
     </section>
 
     <!-- 建言 3：回應建言 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">34</div>
+        <div class="idx">37</div>
         <div class="t"><h2>收到建言之後，速度與透明度都在說話</h2><span class="en">RESPONDING TO VOICE</span></div>
         <div class="note">[ 2 LEVERS ]</div>
       </div>
@@ -1428,12 +1514,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">回應建言的關鍵在於<span class="r">讓部屬看得懂判準</span></div>
       <div class="src">Chon, D., Sezer, O., &amp; Flynn, F. J. (2026). Not so fast? Rapid response to voice leads to perceived inauthenticity. <i>Academy of Management Journal</i>, <i>69</i>(1), 123–148. https://doi.org/10.5465/amj.2023.1044　｜　Ji, X., Liu, B., Zhang, X., &amp; Xu, M. (2026). Paving the path to employee voice: Leader voice endorsement transparency and its impact on voice behavior. <i>Applied Psychology</i>, <i>75</i>(1), e70071. https://doi.org/10.1111/apps.70071</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.34／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.37／50</span></div>
     </section>
 
     <!-- 建言 4：整合圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 9 ── VOICE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／V-01 建言歷程的三個關卡</span><span>SRC：2026 年四項研究整理</span></div>
         <div class="fig-body">
@@ -1509,14 +1595,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
         <div class="cite">整理自 Song 等（2026）、Lou 等（2026）、Chon 等（2026）與 Ji 等（2026）。三個關卡並非依序發生，而是同一段主管與部屬關係中反覆出現的三種時刻。</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.35／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.38／50</span></div>
     </section>
 
     <!-- 案例：黃仁勳與 Glassdoor 2026 最佳 CEO -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">36</div>
+        <div class="idx">39</div>
         <div class="t"><h2>案例：黃仁勳與 Glassdoor 2026 最佳 CEO</h2><span class="en">THE NO. 1 CEO ON GLASSDOOR</span></div>
         <div class="note">[ GLASSDOOR 2026 ]<br>99% APPROVAL</div>
       </div>
@@ -1529,14 +1615,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">六十位直屬部屬、不做一對一、當眾給回饋，三項作法都與教科書對控制幅度與回饋的建議相反</div>
       <div class="src">Glassdoor（2026 年 8 月 12 日）。<i>Glassdoor unveils 2026 best CEOs list</i>［新聞稿］。Business Wire。　｜　NVIDIA（2026 年 8 月 12 日）。NVIDIA CEO tops Glassdoor’s 2026 list of best CEOs。NVIDIA Blog。　｜　Hart, J.（2026 年 3 月 26 日）。Jensen Huang runs Nvidia with 60 direct reports and no one-on-ones。Business Insider。　｜　Fortune（2024 年 12 月 13 日）Top 5 Things 電子郵件制度；Fortune（2024 年 9 月 5 日）與 Patrick Collison 的爐邊談話。　｜　濃湯哲學出自黃仁勳於劍橋大學學聯（Cambridge Union）的演說，見經理人（2025 年 11 月 24 日）與數位時代（2025 年 11 月 27 日）報導。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.36／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.39／50</span></div>
     </section>
 
     <!-- 這個 99% 該怎麼讀 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 10 ── CASE</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">37</div>
+        <div class="idx">40</div>
         <div class="t"><h2>這個 99% 該怎麼讀</h2><span class="en">HOW TO READ AN APPROVAL RATING</span></div>
         <div class="note">[ GLASSDOOR 2026 ]<br>CRITICAL READING</div>
       </div>
@@ -1549,14 +1635,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">高核准率是一個待解釋的現象，<span class="r">解釋它需要另外的證據</span></div>
       <div class="src">Glassdoor（2026 年 8 月 12 日）。<i>Glassdoor unveils 2026 best CEOs list</i>［新聞稿］。Business Wire。　｜　NVIDIA 公司評論頁，Glassdoor，2026 年 8 月 23 日擷取，整體 4.5、評論 3,969 則。　｜　員工引述由 NVIDIA 官方部落格（2026 年 8 月 12 日）自 Glassdoor 評論中選錄。　｜　Fortune（2024 年 9 月 5 日）離職率與員工持股折扣。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.37／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.40／50</span></div>
     </section>
 
     <!-- 風格限制 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── LIMITATIONS</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── LIMITATIONS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">38</div>
+        <div class="idx">41</div>
         <div class="t"><h2>不同領導風格的限制</h2><span class="en">LIMITATIONS OF LEADERSHIP STYLES</span></div>
         <div class="note">[ 4 STYLES ]</div>
       </div>
@@ -1582,12 +1668,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <ol><li>過度滿足部屬需求可能忽略組織目標。</li><li>避免依賴感情維繫影響客觀決策。</li></ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.38／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.41／50</span></div>
     </section>
     <section class="slide gd-page ld-sub">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">39</div>
+        <div class="idx">42</div>
         <div class="t"><h2>挑戰領導的觀點：歸因與替代品</h2><span class="en">ATTRIBUTION THEORY OF LEADERSHIP ── SUBSTITUTES ＆ NEUTRALIZERS</span></div>
         <div class="note">[ 2 CHALLENGES ]</div>
       </div>
@@ -1618,13 +1704,13 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="keyline">替代品讓領導者的行為變得多餘，中和物讓領導者的行為失效；兩者都提醒領導效果有其邊界</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.39／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.42／50</span></div>
     </section>
 
     <section class="slide gd-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 11 ── SELECTING ＆ TRAINING</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── SELECTING ＆ TRAINING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">40</div>
+        <div class="idx">43</div>
         <div class="t"><h2>尋找與培養有效的領導者</h2><span class="en">SELECTING ＆ TRAINING LEADERS</span></div>
         <div class="note">[ 2 ROUTES ]</div>
       </div>
@@ -1646,15 +1732,15 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </ul></div>
       </div>
       <div class="keyline">甄選看特質與情境的配對，訓練教可觀察的行為</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.40／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.43／50</span></div>
     </section>
 
 
     <!-- 不當督導 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">41</div>
+        <div class="idx">44</div>
         <div class="t"><h2>不當督導</h2><span class="en">ABUSIVE SUPERVISION</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1664,14 +1750,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 03／CATEGORY ]</span><h3>學術上的分類</h3><p>這是一種破壞性領導（destructive leadership）的形式，與部屬的偏差行為、離職傾向及家庭衝突相關。</p></div>
         <div class="cell"><span class="tag">[ 04／CORE ]</span><h3>核心特徵</h3><p>其核心在於長期、反覆且負面的非身體行為；組織應建立申訴管道並追究管理責任。</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.41／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.44／50</span></div>
     </section>
 
     <!-- 常見行為類型 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">42</div>
+        <div class="idx">45</div>
         <div class="t"><h2>不當督導的常見行為類型</h2><span class="en">COMMON ABUSIVE BEHAVIORS</span></div>
         <div class="note">[ 6 TYPES ]</div>
       </div>
@@ -1684,14 +1770,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="cell"><span class="tag">[ 06 ]</span><h3>功過歸屬不公</h3><p>將部屬的成功歸為己有，而將錯誤或失敗完全推卸給部屬。</p></div>
       </div>
       <div class="keyline">這些行為會對員工的心理健康、工作滿意度和組織承諾產生<span class="r">嚴重負面影響</span>，最終損害團隊績效和組織穩定</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.42／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.45／50</span></div>
     </section>
 
     <!-- 誤解 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 12 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">43</div>
+        <div class="idx">46</div>
         <div class="t"><h2>實務上常見的誤解</h2><span class="en">COMMON MISCONCEPTIONS</span></div>
         <div class="note">[ 5 POINTS ]</div>
       </div>
@@ -1702,12 +1788,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         <div class="axis-row"><div class="k"><span class="zh">講話直接</span><span class="ax">≠ 貶抑</span></div><div class="v">直言不諱與公開羞辱或貶低員工的行為有本質上的區別，後者會損害員工尊嚴。</div></div>
         <div class="axis-row"><div class="k"><span class="zh">判斷關鍵</span><span class="ax">KEY</span></div><div class="v">判斷是否為不當督導，核心在於這些負面行為是否長期、反覆出現並造成傷害。</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.43／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.46／50</span></div>
     </section>
 
     <!-- 不當督導圖 -->
     <section class="slide">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 16 ── MENTORING</span><span class="m">REV 2026.11</span></div>
       <div class="fig-wrap">
         <div class="fig-head"><span>FIG／M-01 師徒關係中的職涯功能與社會心理功能</span></div>
         <div class="fig-body">
@@ -1746,12 +1832,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 <text x="530" y="720" text-anchor="middle" font-size="15.9" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">職涯功能助徒弟往上走；社會心理功能助徒弟站得穩</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.44／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.47／50</span></div>
     </section>
     <section class="slide as-case">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 13 ── MENTORING</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 16 ── MENTORING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">45</div>
+        <div class="idx">48</div>
         <div class="t"><h2>補充研究：徒弟不開口求教，是怕成為負擔</h2><span class="en">THE INEQUITY ILLUSION OF ADVICE SEEKING ── BURMEISTER &amp; LEVIN</span></div>
         <div class="note">[ AMJ 2026 ]<br>9 STUDIES／2 FIELD EXPERIMENTS</div>
       </div>
@@ -1786,12 +1872,12 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
       </div>
       <div class="keyline">有效的制度不只提供接觸專家的管道，也降低使用管道的情緒成本</div>
       <div class="cite">Burmeister, A., &amp; Levin, D. Z. (2026). A prosocial perspective on advice seeking and networking: How focusing on what advice givers can gain motivates advice seekers to reach out more. <i>Academy of Management Journal</i>. Advance online publication. <a href="https://doi.org/10.5465/amj.2024.0635" target="_blank" rel="noopener" style="color: var(--gray);">https://doi.org/10.5465/amj.2024.0635</a>　AOM Insights 摘要：<a href="https://journals.aom.org/doi/10.5465/amj.2024.0635.summary" target="_blank" rel="noopener" style="color: var(--gray);">The surprising reason people don't ask for advice</a>（2026-08-21）　Michelangelo 現象：Rusbult, C. E., Finkel, E. J., &amp; Kumashiro, M. (2009). <a href="https://doi.org/10.1111/j.1467-8721.2009.01657.x" target="_blank" rel="noopener" style="color: var(--gray);">The Michelangelo phenomenon</a>. <i>Current Directions in Psychological Science, 18</i>(6), 305–309.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.45／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.48／50</span></div>
     </section>
         <section class="slide ix-page">
-      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 14 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
+      <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">SEC 17 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">46</div>
+        <div class="idx">49</div>
         <div class="t"><h2>章末自我檢核</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
         <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
       </div>
@@ -1815,20 +1901,21 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           <div class="ix-fb"></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.46／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.49／50</span></div>
     </section>
 <section class="slide rf-page">
       <div class="meta-row"><span class="m">OB／CH 12</span><span class="m g">REFERENCES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">47</div>
+        <div class="idx">50</div>
         <div class="t"><h2>參考文獻</h2><span class="en">REFERENCES ── APA 7TH</span></div>
-        <div class="note">[ APA 7 ]<br>14 ITEMS</div>
+        <div class="note">[ APA 7 ]<br>16 ITEMS</div>
       </div>
       <div class="rf">
         <div class="rf-cols c2 dense">
           <div class="rf-grp"><h3>期刊與專書 ── ARTICLES ＆ BOOKS</h3>
             <p>Burmeister, A., &amp; Levin, D. Z. (2026). A prosocial perspective on advice seeking and networking: How focusing on what advice givers can gain motivates advice seekers to reach out more. <i>Academy of Management Journal</i>. 提前線上出版。https://doi.org/10.5465/amj.2024.0635</p>
             <p>Chon, D., Sezer, O., &amp; Flynn, F. J. (2026). Not so fast? Rapid response to voice leads to perceived inauthenticity. <i>Academy of Management Journal, 69</i>(1), 123–148. https://doi.org/10.5465/amj.2023.1044</p>
+            <p>Daft, R. L., &amp; Noe, R. A. (2001). Organizational behavior. Harcourt College Publishers.</p>
             <p>Ji, X., Liu, B., Zhang, X., &amp; Xu, M. (2026). Paving the path to employee voice: Leader voice endorsement transparency and its impact on voice behavior. <i>Applied Psychology, 75</i>(1), e70071. https://doi.org/10.1111/apps.70071</p>
             <p>Judge, T. A., &amp; Piccolo, R. F. (2004). Transformational and transactional leadership: A meta-analytic test of their relative validity. <i>Journal of Applied Psychology, 89</i>(5), 755–768. https://doi.org/10.1037/0021-9010.89.5.755</p>
             <p>Lou, M., Teng, E., Tekleab, A. G., Zhang, L., &amp; Su, Y. (2026). Does leader feedback-seeking behavior fuel employee voice? The roles of organization-based self-esteem, workplace anxiety and apparent sincerity of leader. <i>Journal of Organizational Behavior</i>. 提前線上出版。https://doi.org/10.1002/job.70078</p>
@@ -1838,6 +1925,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
           </div>
           <div class="rf-grp"><h3>報告、新聞與影音 ── REPORTS, NEWS ＆ MEDIA</h3>
             <p>Bratsis, N. (2026, August 21). <i>The surprising reason people don&#39;t ask for advice</i>. AOM Insights, Academy of Management.</p>
+            <p>Ellis, C. D. (2021, March 30). Stop. Does that message really need to be an email? <i>Harvard Business Review</i>. https://hbr.org/2021/03/stop-does-that-message-really-need-to-be-an-email</p>
             <p>Glassdoor. (2026, August 12). <i>Glassdoor unveils 2026 best CEOs list</i> [新聞稿]. Business Wire.</p>
             <p>Hart, J. (2026, March 26). Jensen Huang runs Nvidia with 60 direct reports and no one-on-ones. <i>Business Insider</i>.</p>
             <p>NVIDIA. (2026, August 12). <i>NVIDIA CEO tops Glassdoor&#39;s 2026 list of best CEOs</i>. NVIDIA Blog.</p>
@@ -1847,7 +1935,7 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
         </div>
       </div>
       <div class="rf-note">本章講義引用的來源，格式為 APA 第七版，期刊名稱與卷數以斜體標示；標為提前線上出版者，卷期與頁碼尚未確定。教科書見封面。</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.47／47</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.50／50</span></div>
     </section>
 
 
