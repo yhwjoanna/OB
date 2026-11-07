@@ -211,6 +211,8 @@ dl.facts dd{margin:0}
 .ses .todo{display:flex;gap:.5rem;align-items:baseline;margin-top:.75rem;font-size:.8125rem;letter-spacing:.006em;color:var(--muted)}
 /* 末行只剩一個字會讀成斷掉的句子，讓瀏覽器把前一行的字挪下來 */
 .ses .todo > span:last-child,.ses .read,.ses .note,.due .t,.card p,.lede{text-wrap:pretty}
+.ses .todo.talk{margin-top:.375rem}
+.ses .todo a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .ses .todo .mk{flex:none;font:600 .5625rem/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .ses .note{margin:.7rem 0 0;font-size:.75rem;letter-spacing:.01em;color:var(--faint)}
 /* 現在這一次：整頁唯一被抬起的卡片，教材按鈕放大為主要動作 */
@@ -469,6 +471,7 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
      open ：個別指定開放日，省略則依 OPEN_DAYS（預設上課日前一天）
      items：教材，有 href 即可點選；沒有 href 代表電子講義尚未製作
      todo ：當次的活動或繳交事項
+     talk ：業界講座 14:00–16:00，講者連到海報與講者經歷 PDF，不受開放日限制
      2026-11-07 更新：第 5 至 8 次加入業界講座
      ══════════════════════════════════════════════════════════ */
   var SESSIONS = [
@@ -503,21 +506,23 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
       items: [
         { unit: 'CH 9·10', label: '團體行為與工作團隊', href: 'lectures/OB-07_teams.html' },
         { unit: 'CH 11·12', label: '溝通與領導', href: 'lectures/OB-08_leadership.html' }],
-      todo: '14:00–16:00 業界講座：AI 時代的主管新角色——人才培育與領導力再進化（彭智彬，智路管理顧問有限公司總經理）' },
+      talk: { title: 'AI 時代的主管新角色——人才培育與領導力再進化', who: '彭智彬，智路管理顧問有限公司總經理', href: 'docs/guest_lectures_2026fall.pdf' } },
 
     { n: 6, date: '2026-11-15', title: '組織文化與變革、壓力與健康',
       items: [
         { unit: 'CH 16', label: '組織文化與變革', href: null },
         { unit: 'CH 18', label: '組織中的壓力與健康', href: 'lectures/OB-10_stress.html' }],
-      todo: '14:00–16:00 業界講座：企業導入 AI 的文化轉型與員工調適（江逸之，前《天下雜誌》創新學院總監）' },
+      talk: { title: '企業導入 AI 的文化轉型與員工調適', who: '江逸之，前《天下雜誌》創新學院總監', href: 'docs/guest_lectures_2026fall.pdf' } },
 
     { n: 7, date: '2026-11-29', title: '權力與政治、期末報告檢核',
       items: [{ unit: 'CH 13', label: '權力與政治', href: 'lectures/OB-09_power.html' }],
-      todo: '個人作業二（前一日 17:00 截止）　·　期末報告小組檢核討論　·　14:00–16:00 業界講座：組織變革管理（李紹唐，前 Oracle 臺灣區董事總經理、二代大學校長）' },
+      todo: '個人作業二（前一日 17:00 截止）　·　期末報告小組檢核討論',
+      talk: { title: '組織變革管理', who: '李紹唐，前 Oracle 臺灣區董事總經理、二代大學校長', href: 'docs/guest_lectures_2026fall.pdf' } },
 
     { n: 8, date: '2026-12-20', title: '期末專題影展',
       items: [{ unit: '模擬', label: '變動薪資計劃獎勵', href: 'sims/OB-06_sim_pay.html' }],
-      todo: '各組上傳教學短影片並觀看影展　·　14:00–16:00 業界講座：遠傳的 AI 轉型與人才永續（李明益，遠傳電信人力資源處協理）' }
+      todo: '各組上傳教學短影片並觀看影展',
+      talk: { title: '遠傳的 AI 轉型與人才永續', who: '李明益，遠傳電信人力資源處協理', href: 'docs/guest_lectures_2026fall.pdf' } }
   ];
 
   var JOIN = 'https://classroom.google.com/c/ODcyNzY2NjQ2OTM0?cjc=jom37a4a';
@@ -663,6 +668,17 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
         t.appendChild(el('span', 'mk', '事項'));
         t.appendChild(el('span', null, s.todo));
         box.appendChild(t);
+      }
+      if (s.talk) {
+        var k = el('div', 'todo talk');
+        k.appendChild(el('span', 'mk', '講座'));
+        var ks = el('span', null, '14:00–16:00　' + s.talk.title + '（');
+        var ka = el('a', null, s.talk.who);
+        ka.href = s.talk.href; ka.target = '_blank'; ka.rel = 'noopener';
+        ka.title = '講座海報與講者經歷（PDF）';
+        ks.appendChild(ka); ks.appendChild(document.createTextNode('）'));
+        k.appendChild(ks);
+        box.appendChild(k);
       }
       row.appendChild(box);
       tl.appendChild(row);
