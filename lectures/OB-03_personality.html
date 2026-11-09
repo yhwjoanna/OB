@@ -3037,5 +3037,167 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   window.addEventListener('beforeprint', stamp);
 })();
 </script>
+
+<style>
+  /* ── PGBAR v1：底部進度條、頁碼鈕、快速換頁面板 ──
+     桌機與投影用。拖曳或點擊底部細條換頁，滑過顯示該頁的章節與標題；右下角頁碼鈕（或 G 鍵）開啟滑桿面板；
+     直接輸入數字再按 Enter 跳頁。手機流式模式、窄畫面與列印一律隱藏。 */
+  #pgbar { position: fixed; left: 0; right: 0; bottom: 0; height: 22px; z-index: 9997; cursor: pointer;
+    touch-action: none; -webkit-user-select: none; user-select: none; }
+  #pgbar .trk { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(35, 35, 32, 0.22);
+    transition: height 180ms cubic-bezier(.16, 1, .3, 1); }
+  #pgbar:hover .trk, #pgbar.drag .trk { height: 10px; }
+  #pgbar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #E61919;
+    transition: width 220ms cubic-bezier(.16, 1, .3, 1); }
+  #pgbar.drag .fill { transition: none; }
+  #pgbar .tk { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(35, 35, 32, 0.55); }
+  #pgbar .tip { position: absolute; bottom: 24px; left: 0; max-width: min(560px, 80vw); background: #F4F4F0; color: #232320;
+    border: 1px solid #232320; padding: 7px 12px 8px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); pointer-events: none;
+    opacity: 0; transform: translateY(4px); transition: opacity 140ms ease, transform 140ms ease; white-space: nowrap; }
+  #pgbar .tip.on { opacity: 1; transform: none; }
+  #pgbar .tip small { display: block; font: 500 11px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace; letter-spacing: 0.1em;
+    color: #666; overflow: hidden; text-overflow: ellipsis; }
+  #pgbar .tip b { display: block; font: 700 14px/1.4 'Noto Sans TC', 'Noto Sans', sans-serif; overflow: hidden; text-overflow: ellipsis; }
+  #pgbtn { position: fixed; z-index: 9998; bottom: 14px; right: 52px; height: 30px; padding: 0 10px; display: inline-flex; align-items: center;
+    cursor: pointer; font: 500 12px/1 'JetBrains Mono', ui-monospace, Menlo, monospace; letter-spacing: 0.08em; color: #232320;
+    background: rgba(244, 244, 240, 0.72); border: 1px solid rgba(35, 35, 32, 0.22); border-radius: 7px; opacity: 0;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  /* 平時隱形，避免蓋住頁尾的頁碼；滑到底部進度條或鈕本身、輸入頁碼、面板開啟時才出現 */
+  #pgbar:hover ~ #pgbtn, #pgbtn:hover, #pgbtn:focus-visible, #pgbtn.typing, #pgbtn[aria-expanded="true"] { opacity: 1; }
+  #pgbtn b { font-weight: 700; margin-right: 2px; }
+  #pgbtn:hover, #pgbtn:focus-visible, #pgbtn.typing, #pgbtn[aria-expanded="true"] { background: #232320; color: #F4F4F0; border-color: #232320; }
+  #pgbtn.typing { color: #FF6259; }
+  #pgbtn:focus-visible, #pgbar:focus-visible, #pgjump input:focus-visible { outline: 2px solid #E61919; outline-offset: 2px; }
+  #pgjump { position: fixed; left: 50%; bottom: 36px; transform: translate(-50%, 12px); width: min(560px, 92vw); z-index: 9999;
+    background: #F4F4F0; color: #232320; border: 1px solid #232320; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22); padding: 14px 20px 12px;
+    opacity: 0; visibility: hidden; transition: opacity 160ms ease, transform 200ms cubic-bezier(.16, 1, .3, 1), visibility 0s 200ms; }
+  #pgjump.on { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity 160ms ease, transform 200ms cubic-bezier(.16, 1, .3, 1); }
+  #pgjump .jh { font: 500 11px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace; letter-spacing: 0.1em; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #pgjump .jt { font: 700 17px/1.35 'Noto Sans TC', 'Noto Sans', sans-serif; margin: 2px 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #pgjump input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 20px; margin: 0; background: transparent; cursor: pointer; display: block; }
+  #pgjump input[type=range]::-webkit-slider-runnable-track { height: 4px; background: rgba(35, 35, 32, 0.22); }
+  #pgjump input[type=range]::-moz-range-track { height: 4px; background: rgba(35, 35, 32, 0.22); }
+  #pgjump input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #E61919; border: 2px solid #F4F4F0; box-shadow: 0 0 0 1px #232320; margin-top: -6px; }
+  #pgjump input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #E61919; border: 2px solid #F4F4F0; box-shadow: 0 0 0 1px #232320; box-sizing: border-box; }
+  #pgjump .ticks { position: relative; height: 12px; margin: 4px 8px 0; }
+  #pgjump .ticks i { position: absolute; top: 0; width: 1px; height: 5px; background: rgba(35, 35, 32, 0.3); }
+  #pgjump .ticks i.sec { width: 2px; height: 11px; background: #232320; margin-left: -0.5px; }
+  #pgjump .help { font: 400 11px/1.5 'JetBrains Mono', ui-monospace, Menlo, monospace; letter-spacing: 0.04em; color: #666; margin-top: 6px; }
+  body.flow #pgbar, body.flow #pgbtn, body.flow #pgjump { display: none !important; }
+  @media (max-width: 700px) { #pgbar, #pgbtn, #pgjump { display: none !important; } }
+  @media print { #pgbar, #pgbtn, #pgjump { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { #pgbar .trk, #pgbar .fill, #pgbar .tip, #pgbtn, #pgjump, #pgjump.on { transition: none; } }
+</style>
+<script>
+/* ── PGBAR v1：底部進度條、頁碼鈕、快速換頁面板 ──
+   以 .slide 的 .meta-row .m.g 當章節（例：SEC 3 ── TEAMS）、.title-row h2 當標題。
+   包裝既有的 show(n)，所有換頁（方向鍵、點擊、其他模組）都會同步進度條。 */
+(function () {
+  if (document.getElementById('pgbar') || typeof show !== 'function') return;
+  var S = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var NS = S.length; if (NS < 2) return;
+  var EN = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  var SL = EN ? '/' : '／';
+  var txt = function (el) { return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  var TITLE = S.map(function (s) {
+    var h = s.querySelector('.title-row h2') || s.querySelector('h1, h2, h3') || s.querySelector('.fig-head span') ||
+      s.querySelector('.q-text') || s.querySelector('.def-band') || s.querySelector('p');
+    var t = txt(h) || (s.classList.contains('cover') ? (EN ? 'Cover' : '封面') : '');
+    return t.length > 60 ? t.slice(0, 59) + '…' : t;
+  });
+  var SEC = S.map(function (s) { return txt(s.querySelector('.meta-row .m.g')); });
+  var KEY = SEC.map(function (v) { var m = /SEC\s*(\d+)/i.exec(v); return m ? 'SEC ' + m[1] : ''; });
+  var STARTS = []; KEY.forEach(function (v, k) { if (v && (k === 0 || KEY[k - 1] !== v)) STARTS.push(k); });
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var lab = function (k) { return 'P.' + pad(k + 1) + SL + NS + (SEC[k] ? '  ·  ' + SEC[k] : ''); };
+  var cur = 0;
+  S.forEach(function (s, k) { if (s.classList.contains('active')) cur = k; });
+
+  var bar = document.createElement('div'); bar.id = 'pgbar'; bar.setAttribute('role', 'slider'); bar.tabIndex = 0;
+  bar.setAttribute('aria-label', EN ? 'Drag to change slide' : '拖曳換頁');
+  bar.setAttribute('aria-valuemin', '1'); bar.setAttribute('aria-valuemax', String(NS));
+  bar.innerHTML = '<div class="trk"><div class="fill"></div></div><div class="tip" aria-hidden="true"><small></small><b></b></div>';
+  var btn = document.createElement('button'); btn.id = 'pgbtn'; btn.type = 'button';
+  btn.setAttribute('aria-label', EN ? 'Go to slide (G)' : '快速換頁（G）'); btn.setAttribute('aria-haspopup', 'dialog');
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'pgjump');
+  var jp = document.createElement('div'); jp.id = 'pgjump'; jp.setAttribute('role', 'dialog'); jp.setAttribute('aria-hidden', 'true');
+  jp.setAttribute('aria-label', EN ? 'Go to slide' : '快速換頁');
+  jp.innerHTML = '<div class="jh"></div><div class="jt"></div><input type="range" min="1" max="' + NS + '" step="1" value="1" aria-label="' +
+    (EN ? 'Choose a slide' : '選擇頁碼') + '"><div class="ticks"></div><div class="help">' +
+    (EN ? 'Drag the slider or use the arrow keys; type a number and press Enter to jump; Esc or Enter closes' : '拖曳滑桿或按方向鍵選頁；直接輸入數字再按 Enter 跳頁；Esc 或 Enter 關閉') + '</div>';
+  document.body.appendChild(bar); document.body.appendChild(btn); document.body.appendChild(jp);
+  var trk = bar.querySelector('.trk'), fill = bar.querySelector('.fill'), tip = bar.querySelector('.tip');
+  STARTS.slice(1).forEach(function (k) { var t = document.createElement('i'); t.className = 'tk'; t.style.left = (k / NS * 100) + '%'; trk.appendChild(t); });
+  var rg = jp.querySelector('input'), jh = jp.querySelector('.jh'), jt = jp.querySelector('.jt'), tks = jp.querySelector('.ticks');
+  for (var k = 0; k < NS; k++) { var tt = document.createElement('i'); if (STARTS.indexOf(k) >= 0) tt.className = 'sec'; tt.style.left = (NS > 1 ? k / (NS - 1) * 100 : 0) + '%'; tks.appendChild(tt); }
+
+  function jinfo(k) { jh.textContent = lab(k); jt.textContent = TITLE[k]; jt.title = TITLE[k]; }
+  function syncBtn() { btn.innerHTML = '<b>' + pad(cur + 1) + '</b> ' + SL + ' ' + pad(NS); }
+  function sync() {
+    fill.style.width = ((cur + 1) / NS * 100) + '%';
+    bar.setAttribute('aria-valuenow', String(cur + 1)); bar.setAttribute('aria-valuetext', lab(cur) + ' ' + TITLE[cur]);
+    if (!buf) { btn.classList.remove('typing'); syncBtn(); }
+    if (isOpen()) { rg.value = cur + 1; jinfo(cur); }
+  }
+  var _show = show;
+  show = function (n) {
+    _show(n); cur = Math.max(0, Math.min(NS - 1, n | 0));
+    S.forEach(function (s, k) { if (s.classList.contains('active')) cur = k; });
+    sync(); if (buf) btn.textContent = (EN ? 'Go to ' : '跳至 ') + buf;
+  };
+
+  var pageAt = function (x) { var r = trk.getBoundingClientRect(); return Math.min(NS, Math.max(1, Math.floor((x - r.left) / r.width * NS) + 1)); };
+  function tipAt(x) {
+    var p = pageAt(x); tip.querySelector('small').textContent = lab(p - 1); tip.querySelector('b').textContent = TITLE[p - 1]; tip.classList.add('on');
+    var w = tip.offsetWidth, r = trk.getBoundingClientRect(); tip.style.left = Math.max(r.left, Math.min(x - w / 2, r.right - w)) + 'px';
+  }
+  var drag = null;
+  bar.addEventListener('pointerdown', function (e) { e.stopPropagation(); e.preventDefault(); bar.setPointerCapture(e.pointerId); drag = { x: e.clientX, moved: false, last: cur + 1 }; bar.classList.add('drag'); tipAt(e.clientX); });
+  bar.addEventListener('pointermove', function (e) { tipAt(e.clientX); if (!drag) return; if (Math.abs(e.clientX - drag.x) > 3) drag.moved = true; if (!drag.moved) return; var p = pageAt(e.clientX); if (p !== drag.last) { drag.last = p; if (p - 1 !== cur) show(p - 1); } });
+  function endDrag(e) { if (!drag) return; var d = drag; drag = null; bar.classList.remove('drag'); try { bar.releasePointerCapture(e.pointerId); } catch (_) {}
+    if (!d.moved) { var p = pageAt(e.clientX); if (p - 1 !== cur) show(p - 1); } if (e.pointerType !== 'mouse') tip.classList.remove('on'); }
+  bar.addEventListener('pointerup', endDrag); bar.addEventListener('pointercancel', endDrag);
+  bar.addEventListener('pointerleave', function () { if (!drag) tip.classList.remove('on'); });
+  ['click', 'touchstart', 'touchend', 'wheel', 'mousedown'].forEach(function (ev) { bar.addEventListener(ev, function (e) { e.stopPropagation(); }, { passive: ev !== 'click' }); });
+  bar.addEventListener('keydown', function (e) { if (e.key === 'Home' || e.key === 'End') { e.stopPropagation(); e.preventDefault(); show(e.key === 'Home' ? 0 : NS - 1); } });
+
+  function openJ() { rg.value = cur + 1; jinfo(cur); jp.classList.add('on'); jp.setAttribute('aria-hidden', 'false'); btn.setAttribute('aria-expanded', 'true'); setTimeout(function () { rg.focus({ preventScroll: true }); }, 30); }
+  function closeJ(back) { jp.classList.remove('on'); jp.setAttribute('aria-hidden', 'true'); btn.setAttribute('aria-expanded', 'false'); if (back) btn.focus({ preventScroll: true }); }
+  var isOpen = function () { return jp.classList.contains('on'); };
+  btn.addEventListener('click', function (e) { e.stopPropagation(); isOpen() ? closeJ(true) : openJ(); });
+  ['pointerdown', 'mousedown'].forEach(function (ev) { btn.addEventListener(ev, function (e) { e.stopPropagation(); }); });
+  rg.addEventListener('input', function () { var p = +rg.value; jinfo(p - 1); if (p - 1 !== cur) show(p - 1); });
+  ['pointerdown', 'click', 'touchstart', 'touchend', 'wheel', 'mousedown'].forEach(function (ev) { jp.addEventListener(ev, function (e) { e.stopPropagation(); }, { passive: ev !== 'click' }); });
+  var swallow = false;
+  document.addEventListener('pointerdown', function (e) { if (isOpen() && !jp.contains(e.target) && e.target !== btn && !btn.contains(e.target)) { closeJ(); swallow = true; setTimeout(function () { swallow = false; }, 400); } }, true);
+  addEventListener('click', function (e) { if (swallow) { swallow = false; e.stopPropagation(); } }, true);
+
+  var buf = '', bt = null;
+  function clearBuf() { buf = ''; clearTimeout(bt); btn.classList.remove('typing'); syncBtn(); }
+  function showBuf() { btn.textContent = (EN ? 'Go to ' : '跳至 ') + buf; btn.classList.add('typing'); clearTimeout(bt); bt = setTimeout(clearBuf, 2500); }
+  var editable = function (t) { return t && (t.isContentEditable || (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && t !== rg)); };
+  addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return; var k = e.key, t = e.target;
+    if (editable(t)) return;
+    var stop = function () { e.preventDefault(); e.stopImmediatePropagation(); };
+    if (/^[0-9]$/.test(k)) { stop(); if (buf.length < 3) { buf += k; if (buf === '0') buf = ''; } if (buf) showBuf(); return; }
+    if (buf) {
+      if (k === 'Enter') { stop(); var n = Math.min(NS, Math.max(1, parseInt(buf, 10))); clearBuf(); if (isOpen()) closeJ(); if (n - 1 !== cur) show(n - 1); return; }
+      if (k === 'Backspace') { stop(); buf = buf.slice(0, -1); buf ? showBuf() : clearBuf(); return; }
+      if (k === 'Escape') { stop(); clearBuf(); return; }
+    }
+    if (isOpen()) {
+      if (k === 'Escape' || k === 'Enter') { stop(); closeJ(true); return; }
+      if (t === rg && /^(Arrow|Page|Home|End)/.test(k)) { e.stopImmediatePropagation(); return; }
+      if (/^(ArrowLeft|ArrowRight|ArrowUp|ArrowDown|PageUp|PageDown| )$/.test(k)) { stop(); var d = /Left|Up|PageUp/.test(k) ? -1 : 1; var p = Math.min(NS, Math.max(1, cur + 1 + d)); rg.value = p; jinfo(p - 1); if (p - 1 !== cur) show(p - 1); return; }
+    }
+    if ((k === 'Enter' || k === ' ') && t && t.tagName === 'BUTTON') { e.stopImmediatePropagation(); return; }
+    if (k === 'g' || k === 'G') { stop(); isOpen() ? closeJ(true) : openJ(); return; }
+  }, true);
+  sync();
+})();
+</script>
+
 </body>
 </html>
