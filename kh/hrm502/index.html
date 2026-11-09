@@ -467,112 +467,91 @@ footer{margin-top:3.5rem;padding-top:1.25rem;border-top:1px solid var(--line);
      todo ：當次的活動或繳交事項
      ══════════════════════════════════════════════════════════ */
   var SESSIONS = [
-  {
-    "n": 9,
-    "date": "2026-11-06",
-    "title": "工作動機與激勵",
-    "items": [
-      {
-        "unit": "CH 7·8",
-        "label": "工作動機與激勵",
-        "href": "../../lectures/OB-06_motivation.html"
-      }
-    ]
-  },
-  {
-    "n": 10,
-    "date": "2026-11-13",
-    "title": "團體行為與工作團隊",
-    "items": [
-      {
-        "unit": "CH 9·10",
-        "label": "團體行為與工作團隊",
-        "href": "../../lectures/OB-07_teams.html"
-      },
-      {
-        "unit": "模擬",
-        "label": "變動薪資計劃獎勵",
-        "href": "../../sims/OB-06_sim_pay.html"
-      },
-      {
-        "unit": "測評",
-        "label": "測評問卷",
-        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
-      }
-    ]
-  },
-  {
-    "n": 11,
-    "date": "2026-11-20",
-    "title": "溝通與領導",
-    "items": [
-      {
-        "unit": "CH 11·12",
-        "label": "溝通與領導",
-        "href": "../../lectures/OB-08_leadership.html"
-      },
-      {
-        "unit": "模擬",
-        "label": "難相處的同事",
-        "href": "../../sims/OB-07_sim_teammate.html"
-      },
-      {
-        "unit": "測評",
-        "label": "測評問卷",
-        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
-      }
-    ],
-    "todo": "期末報告小組檢核討論"
-  },
-  {
-    "n": 12,
-    "date": "2026-11-27",
-    "title": "組織文化與變革",
-    "items": [
-      {
-        "unit": "CH 16",
-        "label": "組織文化與變革",
-        "href": null
-      },
-      {
-        "unit": "測評",
-        "label": "測評問卷",
-        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
-      }
-    ],
-    "todo": "個人作業二（前一日 23:59 截止）"
-  },
-  {
-    "n": 13,
-    "date": "2026-12-04",
-    "title": "組織中的壓力與健康",
-    "items": [
-      {
-        "unit": "CH 18",
-        "label": "組織中的壓力與健康",
-        "href": "../../lectures/OB-10_stress.html"
-      },
-      {
-        "unit": "測評",
-        "label": "測評問卷",
-        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
-      }
-    ]
-  },
-  {
-    "n": 15,
-    "date": "2026-12-18",
-    "title": "期末專題口頭報告",
-    "items": [
-      {
-        "unit": "測評",
-        "label": "測評問卷",
-        "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
-      }
-    ],
-    "todo": "簡報初版於前一日 23:59 前上傳，報告後依意見修改再上傳"
-  }
-];
+    {
+      "n": 9,
+      "date": "2026-11-06",
+      "title": "工作動機與激勵",
+      "items": [
+        {
+          "unit": "CH 7·8",
+          "label": "工作動機與激勵",
+          "href": "../../lectures/OB-06_motivation.html"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "date": "2026-11-13",
+      "title": "團體行為與工作團隊",
+      "items": [
+        {
+          "unit": "CH 9·10",
+          "label": "團體行為與工作團隊",
+          "href": "../../lectures/OB-07_teams.html"
+        },
+        {
+          "unit": "模擬",
+          "label": "變動薪資計劃獎勵",
+          "href": "../../sims/OB-06_sim_pay.html"
+        },
+        {
+          "unit": "測評",
+          "label": "測評問卷",
+          "href": "https://docs.google.com/forms/d/e/1FAIpQLSfa0rs1jHyGbVLHjv3-chGiaaoZnqHJ7xWbGwyt_t6KT8eP1g/viewform"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "date": "2026-11-20",
+      "title": "溝通與領導",
+      "items": [
+        {
+          "unit": "CH 11·12",
+          "label": "溝通與領導",
+          "href": "../../lectures/OB-08_leadership.html"
+        },
+        {
+          "unit": "模擬",
+          "label": "難相處的同事",
+          "href": "../../sims/OB-07_sim_teammate.html"
+        }
+      ],
+      "todo": "期末報告小組檢核討論"
+    },
+    {
+      "n": 12,
+      "date": "2026-11-27",
+      "title": "組織文化與變革",
+      "items": [
+        {
+          "unit": "CH 16",
+          "label": "組織文化與變革",
+          "href": null
+        }
+      ],
+      "todo": "個人作業二（前一日 23:59 截止）"
+    },
+    {
+      "n": 13,
+      "date": "2026-12-04",
+      "title": "組織中的壓力與健康",
+      "items": [
+        {
+          "unit": "CH 18",
+          "label": "組織中的壓力與健康",
+          "href": "../../lectures/OB-10_stress.html"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "date": "2026-12-18",
+      "title": "期末專題口頭報告",
+      "items": [],
+      "todo": "簡報初版於前一日 23:59 前上傳，報告後依意見修改再上傳"
+    }
+  ];
 
   var JOIN = 'https://classroom.google.com/';
 
