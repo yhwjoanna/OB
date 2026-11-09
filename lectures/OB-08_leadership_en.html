@@ -626,20 +626,33 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 html[lang="en"] .axis-row .k .zh { hyphens: auto; overflow-wrap: break-word; }
 html[lang="en"] .um-k { letter-spacing: 0 !important; }
 html[lang="en"] .rich-row li { white-space: normal !important; font-size: 13px !important; letter-spacing: 0 !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(26) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(40) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(48) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell li, html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell p { font-size: 12.6px !important; line-height: 1.38 !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(26) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(26) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(26) .cell h3 { margin-bottom: 4px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(35) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(35) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(35) .cell h3 { margin-bottom: 4px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(39) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(39) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(39) .cell h3 { margin-bottom: 4px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(40) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(40) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(40) .cell h3 { margin-bottom: 4px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
-html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4px !important; }
+  /* ── 課堂影片頁 ── */
+  .vid-main { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 1fr; background: var(--ink); gap: 1px; }
+  .vidcell { background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 26px 30px; gap: 13px; }
+  .vidcell a.vlink { position: relative; display: block; width: 100%; max-width: 560px; }
+  .vidcell a.vlink img { width: 100%; display: block; border: 1px solid var(--ink); }
+  .vidcell .vplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 0; height: 0; border-left: 34px solid var(--red); border-top: 21px solid transparent; border-bottom: 21px solid transparent; }
+  .vidcell .vtag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); text-align: center; }
+  .vid-obs { display: grid; grid-template-rows: 1fr 1fr 1fr; background: var(--ink); gap: 1px; min-height: 0; }
+  .vid-obs .cell { padding: 14px 22px; }
+  .vid-obs .cell p { font-size: 13.5px; line-height: 1.58; }
+  body.flow .vid-main { grid-template-columns: 1fr; }
+  body.flow .vid-obs { grid-template-rows: none; }
+html[lang="en"] body:not(.flow) .slide:nth-child(28) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(42) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(51) .def-band { font-size: 13.5px !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(51) .cell li, html[lang="en"] body:not(.flow) .slide:nth-child(51) .cell p { font-size: 12.6px !important; line-height: 1.38 !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(28) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(28) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(28) .cell h3 { margin-bottom: 4px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(37) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(37) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(37) .cell h3 { margin-bottom: 4px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(41) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(41) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(41) .cell h3 { margin-bottom: 4px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(42) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(42) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(42) .cell h3 { margin-bottom: 4px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(51) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(51) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
+html[lang="en"] body:not(.flow) .slide:nth-child(51) .cell h3 { margin-bottom: 4px !important; }
 </style>
 </head>
 <body>
@@ -669,7 +682,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           <div class="data-cell"><span class="lbl">VERSION</span><span class="val">English version</span></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum">P.01/53</span></div>
     </section>
 
     <!-- 人際溝通的三種方式 -->
@@ -687,14 +700,36 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/NONVERBAL ]</span><h3>Nonverbal communication</h3><ul><li>Body movements, vocal intonation, facial expressions, and the physical distance and timing between parties</li><li>When interacting with clients, coworkers, subordinates, and supervisors, watch their cues as well as one's own nonverbal behavior</li><li>Contradictory messages invite misunderstanding; all modes of communication should be consistent</li></ul></div>
       </div>
       <div class="keyline">Active listening means sensing, processing, and responding to a message; reflective listening <span class="r">validates or restates</span> the message to encourage the speaker to elaborate</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.02/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.02/53</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB/CH 11</span><span class="m g">SEC 1 ── MODES</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">03</div>
+        <div class="t"><h2>Video: It's Not About the Nail</h2><span class="en">LISTENING BEFORE FIXING</span></div>
+        <div class="note">[ VIDEO ]<br>1:41<br>JASON HEADLEY</div>
+      </div>
+      <div class="vid-main">
+        <div class="vidcell">
+          <a class="vlink" href="https://www.youtube.com/watch?v=-4EDhdAHrOg" target="_blank" rel="noopener"><img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 560 315%22%3E%3Crect width=%22560%22 height=%22315%22 fill=%22%23171614%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22559%22 height=%22314%22 fill=%22none%22 stroke=%22%233A3833%22/%3E%3Ctext x=%2228%22 y=%2244%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2211%22 letter-spacing=%222%22 fill=%22%23B8B4AA%22%3ESHORT FILM %C2%B7 2013%3C/text%3E%3Ctext x=%2228%22 y=%2292%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2232%22 font-weight=%22800%22 fill=%22%23F4F3EE%22%3EIt's Not About the Nail%3C/text%3E%3Ctext x=%2228%22 y=%22124%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2217%22 fill=%22%23B8B4AA%22%3EJason Headley%3C/text%3E%3Ctext x=%22532%22 y=%22290%22 text-anchor=%22end%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2212%22 letter-spacing=%222%22 fill=%22%23FF6259%22%3E1:41%3C/text%3E%3C/svg%3E" alt="It's Not About the Nail video card"><span class="vplay"></span></a>
+          <span class="vtag">PLAY ON YOUTUBE ↗ ── IT'S NOT ABOUT THE NAIL · 1:41</span>
+        </div>
+        <div class="vid-obs">
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 01/WATCH FOR ]</span><h3>What each person wants</h3><p>She describes how she feels; he goes straight to the fix. Mark the moment the exchange stops working, and what each of them is asking for at that point.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 02/CONCEPTS ]</span><h3>Active and reflective listening</h3><p>Active listening means sensing, processing, and then responding to the message. Reflective listening acknowledges or restates it so the speaker keeps going. Advice before acknowledgment is a response that skipped the first two steps.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 03/DISCUSS ]</span><h3>Rewrite his first line</h3><p>When did a colleague last bring a problem and receive a solution before being heard? Rewrite his opening line as a reflective response, in one sentence, and compare with the person next to you.</p></div>
+          </div>
+      </div>
+      <div class="src">Headley, J. (2013). <i>It's not about the nail</i> [Video]. YouTube. https://www.youtube.com/watch?v=-4EDhdAHrOg</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.03/53</span></div>
     </section>
 
     <!-- 選擇溝通方法與管道豐富度 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 11</span><span class="m g">SEC 2 ── CHANNELS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">03</div>
+        <div class="idx">04</div>
         <div class="t"><h2>Choosing a Method and Channel Richness</h2><span class="en">CHOOSING A COMMUNICATION METHOD</span></div>
         <div class="note">[ 4 METHODS ]</div>
       </div>
@@ -714,14 +749,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 04/EMAIL ]</span><h3>Email</h3><ul><li>Communicating with many people on the team</li><li>Confirming expectations or agreements after a meeting</li><li>Formal approvals, confidential information, procedures to be followed</li></ul></div>
       </div>
       <div class="src">Channel richness redrawn from Robbins and Judge (2024), Exhibit 11-4, originally from Daft and Noe (2001); uses of the four methods summarized from Exhibit 11-3, originally from Ellis (2021).</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.03/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.04/53</span></div>
     </section>
 
     <!-- 有效溝通的三個障礙 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 11</span><span class="m g">SEC 3 ── BARRIERS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">04</div>
+        <div class="idx">05</div>
         <div class="t"><h2>Three Barriers to Effective Communication</h2><span class="en">BARRIERS TO EFFECTIVE COMMUNICATION</span></div>
         <div class="note">[ 3 BARRIERS ]</div>
       </div>
@@ -731,14 +766,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/CRISIS ]</span><h3>Communicating in a crisis</h3><p>In a crisis, how messages are delivered affects whether problems get solved.</p><ul><li>Deliver messages effectively</li><li>Work together rather than in isolation</li><li>Use technology to track the situation and find solutions together</li></ul></div>
       </div>
       <div class="keyline">When choosing how to communicate, consider <span class="r">synchronicity</span> first: does the message require everyone to be mentally and physically present at the same time?</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.04/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.05/53</span></div>
     </section>
 
     <!-- 領導定義 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 4 ── DEFINITION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">05</div>
+        <div class="idx">06</div>
         <div class="t"><h2>Defining Leadership</h2><span class="en">WHAT IS LEADERSHIP?</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -748,14 +783,36 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/MANAGEMENT ]</span><h3>Management and leadership</h3><p>Not all leaders are managers, nor are all managers leaders. Management copes with complexity and maintains order; leadership copes with change and sets direction.</p></div>
         <div class="cell"><span class="tag">[ 04/EFFECTIVENESS ]</span><h3>Organizational effectiveness</h3><p>For optimal effectiveness, organizations need strong leadership and strong management; the two complement each other and both are essential.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.05/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.06/53</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 4 ── DEFINITION</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">07</div>
+        <div class="t"><h2>Video: Everyday Leadership</h2><span class="en">DREW DUDLEY ── THE LOLLIPOP MOMENT</span></div>
+        <div class="note">[ VIDEO ]<br>6:00<br>TEDxTORONTO 2010</div>
+      </div>
+      <div class="vid-main">
+        <div class="vidcell">
+          <a class="vlink" href="https://www.ted.com/talks/drew_dudley_everyday_leadership" target="_blank" rel="noopener"><img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 560 315%22%3E%3Crect width=%22560%22 height=%22315%22 fill=%22%23171614%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22559%22 height=%22314%22 fill=%22none%22 stroke=%22%233A3833%22/%3E%3Ctext x=%2228%22 y=%2244%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2211%22 letter-spacing=%222%22 fill=%22%23B8B4AA%22%3ETEDxTORONTO %C2%B7 2010%3C/text%3E%3Ctext x=%2228%22 y=%2292%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2232%22 font-weight=%22800%22 fill=%22%23F4F3EE%22%3EEveryday Leadership%3C/text%3E%3Ctext x=%2228%22 y=%22124%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2217%22 fill=%22%23B8B4AA%22%3EDrew Dudley%3C/text%3E%3Ctext x=%22532%22 y=%22290%22 text-anchor=%22end%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2212%22 letter-spacing=%222%22 fill=%22%23FF6259%22%3E6:00%3C/text%3E%3C/svg%3E" alt="Everyday Leadership video card"><span class="vplay"></span></a>
+          <span class="vtag">PLAY ON TED.COM ↗ ── EVERYDAY LEADERSHIP · 6:00</span>
+        </div>
+        <div class="vid-obs">
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 01/WATCH FOR ]</span><h3>Leadership made too big to reach</h3><p>Dudley's claim that people have made leadership into something bigger than themselves, and the story of a moment he does not even remember.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 02/CONCEPTS ]</span><h3>Influence from the person, not the position</h3><p>Leadership is the ability to influence a group toward goals, and the influence can come from the person rather than the position. Individualized consideration in transformational leadership works the same way: one person at a time.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 03/DISCUSS ]</span><h3>Your lollipop moment</h3><p>Name a moment at work when someone changed how you saw yourself. Did that person know? What would change if teams told each other?</p></div>
+          </div>
+      </div>
+      <div class="src">Dudley, D. (2010, September). <i>Everyday leadership</i> [Video]. TEDxToronto, TED Conferences. https://www.ted.com/talks/drew_dudley_everyday_leadership</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.07/53</span></div>
     </section>
 
     <!-- 特質理論 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">06</div>
+        <div class="idx">08</div>
         <div class="t"><h2>Trait Theories</h2><span class="en">TRAIT THEORIES OF LEADERSHIP</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -764,14 +821,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/FINDINGS ]</span><h3>Key findings</h3><p>Extraversion is the most important trait of effective leaders, but it is more strongly related to leader emergence than to leader effectiveness.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/OTHERS ]</span><h3>Other important traits</h3><p>Conscientiousness and extraversion are both positively related to leader self-efficacy. Most people want to follow a leader who is confident about leading the group in the right direction.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.06/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.08/53</span></div>
     </section>
 
     <!-- 好的領導者特質 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">07</div>
+        <div class="idx">09</div>
         <div class="t"><h2>Traits of Good Leaders</h2><span class="en">TRAITS OF EFFECTIVE LEADERS</span></div>
         <div class="note">[ 4 TRAITS ]</div>
       </div>
@@ -781,14 +838,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/OPENNESS ]</span><h3>Openness</h3><p>Creative and flexible; receptive to new ideas and able to adjust course as conditions change.</p></div>
         <div class="cell"><span class="tag">[ 04/EI ]</span><h3>Emotional intelligence</h3><p>Empathic and attuned to others' needs; EI is especially important for considerate leadership.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.07/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.09/53</span></div>
     </section>
 
     <!-- 特質理論結論 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 5 ── TRAIT THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">08</div>
+        <div class="idx">10</div>
         <div class="t"><h2>Conclusions on Trait Theories</h2><span class="en">CONCLUSIONS ON TRAIT THEORIES</span></div>
         <div class="note">[ 2 SIDES ]</div>
       </div>
@@ -806,14 +863,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           <p>Trait theories help predict leadership but cannot fully explain it. This led researchers to behavioral theories to further specify what leaders do. A key implication: if leadership is behavior, it can be trained and learned.</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.08/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.10/53</span></div>
     </section>
 
     <!-- 行為理論 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 6 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">09</div>
+        <div class="idx">11</div>
         <div class="t"><h2>Behavioral Theories</h2><span class="en">BEHAVIORAL THEORIES OF LEADERSHIP</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -822,14 +879,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="axis-row"><div class="k"><span class="zh">Key research</span><span class="ax">POINT / 02</span></div><div class="v">The Ohio State studies found two dimensions that substantially accounted for leadership behavior as described by subordinates: initiating structure and consideration.</div></div>
         <div class="axis-row"><div class="k"><span class="zh">Cultural differences</span><span class="ax">POINT / 03</span></div><div class="v">The GLOBE program suggests that the appropriateness of initiating structure versus consideration varies across countries. In Brazil, for example, U.S. managers need to lead in a team-oriented, participative, and humane way.</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.09/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.11/53</span></div>
     </section>
 
     <!-- 倡導結構與體恤 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 6 ── BEHAVIORAL THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">10</div>
+        <div class="idx">12</div>
         <div class="t"><h2>Initiating Structure and Consideration</h2><span class="en">INITIATING STRUCTURE & CONSIDERATION</span></div>
         <div class="note">[ 2 DIMENSIONS ]</div>
       </div>
@@ -849,14 +906,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           <p>The extent to which a leader has job relationships characterized by mutual trust, respect for subordinates' ideas, and regard for their feelings, including concern for employee well-being, support, and encouragement. Consideration is more strongly related to follower satisfaction, motivation, and respect for the leader.</p>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.10/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.12/53</span></div>
     </section>
 
     <!-- 特質行為總結 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 6 ── SUMMARY</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">11</div>
+        <div class="idx">13</div>
         <div class="t"><h2>Summary of Trait and Behavioral Theories</h2><span class="en">TRAITS & BEHAVIORS ── SUMMARY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -865,14 +922,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/IMPORTANCE ]</span><h3>Importance</h3><p>Traits and behaviors are important in determining leader effectiveness, but they do not guarantee success.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/LIMITS ]</span><h3>Limitations</h3><p>These theories cannot fully explain the complexity of leadership, which led later researchers to more comprehensive contingency theories.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.11/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.13/53</span></div>
     </section>
 
     <!-- 權變理論簡介 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 7 ── CONTINGENCY THEORIES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">12</div>
+        <div class="idx">14</div>
         <div class="t"><h2>Introduction to Contingency Theories</h2><span class="en">CONTINGENCY THEORIES</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -881,14 +938,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/MODELS ]</span><h3>Main models</h3><p>These include the Fiedler contingency model, situational leadership theory, path-goal theory, and the leader-participation model. Each defines the situation differently, but all hold that no leadership style fits every situation.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/MEANING ]</span><h3>Theoretical significance</h3><p>They seek to explain how leadership effectiveness depends on specific situational factors, giving more flexible guidance for leadership practice.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.12/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.14/53</span></div>
     </section>
 
     <!-- Fiedler -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 7 ── FIEDLER</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">13</div>
+        <div class="idx">15</div>
         <div class="t"><h2>Fiedler Contingency Model</h2><span class="en">FIEDLER CONTINGENCY MODEL</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -898,7 +955,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="axis-row"><div class="k"><span class="zh">Situational factors</span><span class="ax">3 FACTORS</span></div><div class="v">Three key situational factors are assessed: leader-member relations, task structure, and position power.</div></div>
         <div class="axis-row"><div class="k"><span class="zh">Application</span><span class="ax">APPLICATION</span></div><div class="v">The combination of these factors indicates which leadership style is most effective in a given situation.</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.13/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.15/53</span></div>
     </section>
 
     <!-- Fiedler 圖 -->
@@ -996,14 +1053,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
 <text x="901.25" y="696" text-anchor="middle" font-size="17.3" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Weak</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.14/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.16/53</span></div>
     </section>
 
     <!-- SLT -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 7 ── SLT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">15</div>
+        <div class="idx">17</div>
         <div class="t"><h2>Situational Leadership Theory (SLT)</h2><span class="en">SITUATIONAL LEADERSHIP THEORY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1012,14 +1069,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/STRENGTHS ]</span><h3>Strengths</h3><p>Intuitively appealing, it acknowledges the importance of followers and builds on the logic that leaders can compensate for followers' limits in ability and motivation. Telling, selling, participating, or delegating styles are matched to follower readiness.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/LIMITS ]</span><h3>Limitations</h3><p>Ambiguities and inconsistencies in the model, and problems with the methods used to test it, limit its practical value.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.15/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.17/53</span></div>
     </section>
 
     <!-- 路徑目標 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 7 ── PATH-GOAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">16</div>
+        <div class="idx">18</div>
         <div class="t"><h2>Path-Goal Theory</h2><span class="en">PATH-GOAL THEORY</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1029,14 +1086,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/SITUATION ]</span><h3>Situational fit</h3><p>The leader's behavior depends on the complexity of the situation. For example, directive leadership may be more effective when tasks are ambiguous.</p></div>
         <div class="cell"><span class="tag">[ 04/DIFFERENCES ]</span><h3>Individual differences</h3><p>Followers' individual differences are considered; for example, leaders who set goals actively help conscientious followers achieve high performance.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.16/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.18/53</span></div>
     </section>
 
     <!-- LMX -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 8 ── LMX</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">17</div>
+        <div class="idx">19</div>
         <div class="t"><h2>Leader-Member Exchange (LMX) Theory</h2><span class="en">LEADER-MEMBER EXCHANGE THEORY</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1045,7 +1102,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/SELECTION ]</span><h3>Selection criteria</h3><p>Leaders choose followers whose demographics, attitudes, and personality are similar to their own, or who are more competent than out-group members; the choice is not random.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/EFFECTS ]</span><h3>Effects</h3><p>In-group followers receive higher performance ratings, are more satisfied with their supervisor, and are more likely to engage in citizenship behavior; however, differential treatment may harm the overall organizational climate.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.17/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.19/53</span></div>
     </section>
 
     <!-- LMX 圖 -->
@@ -1112,14 +1169,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
 <path d="M907 488 l-6 -12 h12 z" fill="#666666"/></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.18/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.20/53</span></div>
     </section>
 
     <!-- 魅力型領導 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">19</div>
+        <div class="idx">21</div>
         <div class="t"><h2>Charismatic Leadership</h2><span class="en">CHARISMATIC LEADERSHIP</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1129,14 +1186,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/EFFECTS ]</span><h3>Effects</h3><p>Recent research in Greece suggests that charismatic leadership can raise followers' organizational identification (commitment) by building a shared group identity among them.</p></div>
         <div class="cell"><span class="tag">[ 04/LEARNABLE ]</span><h3>Development</h3><p>Charisma can be developed through learning and practice, e.g., using an animated voice, eye contact, and facial expressions to reinforce messages and drawing out followers' potential.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.19/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.21/53</span></div>
     </section>
 
     <!-- 魅力機制 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">20</div>
+        <div class="idx">22</div>
         <div class="t"><h2>How Charismatic Leaders Influence Followers</h2><span class="en">HOW CHARISMATIC LEADERS INFLUENCE</span></div>
         <div class="note">[ 3 STEPS ]</div>
       </div>
@@ -1145,14 +1202,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="axis-row"><div class="k"><span class="zh">Vision statement</span><span class="ax">STEP / 02</span></div><div class="v">Express the organization's vision or mission clearly through a formal, explicit vision statement.</div></div>
         <div class="axis-row"><div class="k"><span class="zh">Conveying values</span><span class="ax">STEP / 03</span></div><div class="v">Convey new values through words and actions, evoke emotions, and engage in unconventional behavior to show courage and conviction about the vision.</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.20/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.22/53</span></div>
     </section>
 
     <!-- 魅力情境 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 9 ── CHARISMATIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">21</div>
+        <div class="idx">23</div>
         <div class="t"><h2>Situational Factors in Charismatic Leadership</h2><span class="en">SITUATIONAL FACTORS</span></div>
         <div class="note">[ 4 FACTORS ]</div>
       </div>
@@ -1162,14 +1219,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/LEVEL ]</span><h3>Organizational level</h3><p>Charismatic leadership matters more at upper levels of the organization, but it can also be effective laterally, from a distance or up close.</p></div>
         <div class="cell"><span class="tag">[ 04/INDIVIDUAL ]</span><h3>Individual differences</h3><p>Some people's personalities make them especially susceptible to charismatic leadership, so its effects may vary with follower personality.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.21/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.23/53</span></div>
     </section>
 
     <!-- 魅力陰暗面 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 9 ── DARK SIDE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">22</div>
+        <div class="idx">24</div>
         <div class="t"><h2>The Dark Side of Charismatic Leadership</h2><span class="en">THE DARK SIDE OF CHARISMA</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1178,14 +1235,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 02/NARCISSISM ]</span><h3>Narcissism</h3><p>Some narcissistic behaviors are highly correlated with charismatic leadership and may lead leaders to ignore others' needs and opinions. The high pay and leeway organizations give charismatic CEOs may amplify these risks.</p></div>
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/BALANCE ]</span><h3>Balanced view</h3><p>Overall, charismatic leadership is still effective, but it is not always the answer; its effects must be judged case by case.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.22/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.24/53</span></div>
     </section>
 
     <!-- 交易vs轉換 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── TRANSACTIONAL vs. TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">23</div>
+        <div class="idx">25</div>
         <div class="t"><h2>Transactional and Transformational Leadership</h2><span class="en">TRANSACTIONAL vs. TRANSFORMATIONAL</span></div>
         <div class="note">[ 6 DIMENSIONS ]</div>
       </div>
@@ -1202,14 +1259,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         </table>
       </div>
       <div class="keyline">The difference lies in what is exchanged: <span class="r">rewards, or the goals themselves</span></div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.23/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.25/53</span></div>
     </section>
 
     <!-- 特徵 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── CHARACTERISTICS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">24</div>
+        <div class="idx">26</div>
         <div class="t"><h2>Characteristics of Transactional and Transformational Leaders</h2><span class="en">CHARACTERISTICS</span></div>
         <div class="note">[ 4+4 ]</div>
       </div>
@@ -1237,14 +1294,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           </ul>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.24/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.26/53</span></div>
     </section>
 
     <!-- 關係 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── FULL RANGE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">25</div>
+        <div class="idx">27</div>
         <div class="t"><h2>How Transactional and Transformational Leadership Relate</h2><span class="en">COMPLEMENTARY, NOT OPPOSING</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1254,14 +1311,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/PERFORMANCE ]</span><h3>Performance gains</h3><p>Transformational leadership builds on transactional leadership: it produces levels of follower effort and performance beyond what a transactional approach alone would achieve.</p></div>
         <div class="cell"><span class="tag">[ 04/FULL RANGE ]</span><h3>Full range of leadership</h3><p>The full range of leadership model holds that leaders should be able to use different styles flexibly to fit the demands of different situations.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.25/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.27/53</span></div>
     </section>
 
     <!-- 補充研究：轉換型領導真的比較有效嗎 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── META-ANALYSIS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">26</div>
+        <div class="idx">28</div>
         <div class="t"><h2>Supplementary research: transformational leadership outperforms contingent reward by only .05</h2><span class="en">A META-ANALYTIC TEST OF RELATIVE VALIDITY</span></div>
         <div class="note">[ JAP 2004 ]<br>87 STUDIES/626 rs</div>
       </div>
@@ -1274,14 +1331,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">The transformational advantage is a matter of degree; rankings shift with the criterion</div>
       <div class="src">Judge, T. A., &amp; Piccolo, R. F. (2004). Transformational and transactional leadership: A meta-analytic test of their relative validity. <i>Journal of Applied Psychology</i>, <i>89</i>(5), 755–768. https://doi.org/10.1037/0021-9010.89.5.755 | van Knippenberg, D., &amp; Sitkin, S. B. (2013). A critical assessment of charismatic-transformational leadership research: Back to the drawing board? <i>The Academy of Management Annals</i>, <i>7</i>(1), 1–60. https://doi.org/10.1080/19416520.2013.759433</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.26/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.28/53</span></div>
     </section>
 
     <!-- 轉換型運作 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── TRANSFORMATIONAL</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">27</div>
+        <div class="idx">29</div>
         <div class="t"><h2>How transformational leadership works</h2><span class="en">HOW TRANSFORMATIONAL LEADERSHIP WORKS</span></div>
         <div class="note">[ 4 MECHANISMS ]</div>
       </div>
@@ -1291,7 +1348,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/LONG-TERM ]</span><h3>Long-term incentives</h3><p>Compensation plans are built around long-term results, focusing employees on the organization's long-term development rather than short-term numbers.</p></div>
         <div class="cell"><span class="tag">[ 04/CREATIVITY ]</span><h3>Fostering creativity</h3><p>Positively affects employee creativity, encouraging innovative thinking and new approaches to problems; followers are also more willing to offer ideas.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.27/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.29/53</span></div>
     </section>
 
     <!-- 全範圍圖 -->
@@ -1332,14 +1389,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
 <text x="700" y="606" text-anchor="middle" font-size="13.5" font-weight="400" fill="#6B6B64" font-family="Noto Sans TC, PingFang TC, sans-serif">Upper right (active, effective) is closer to transformational leadership; lower left is passive, ineffective laissez-faire</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.28/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.30/53</span></div>
     </section>
 
     <!-- 轉換型評估 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 10 ── EVALUATION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">29</div>
+        <div class="idx">31</div>
         <div class="t"><h2>Evaluating transformational leadership</h2><span class="en">EVALUATING TRANSFORMATIONAL LEADERSHIP</span></div>
         <div class="note">[ 4 LEVELS ]</div>
       </div>
@@ -1349,14 +1406,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/TEAM ]</span><h3>Team level</h3><p>Team-level transformational leadership emphasizes group goals, shared values and beliefs, and unified effort.</p></div>
         <div class="cell"><span class="tag">[ 04/ORGANIZATION ]</span><h3>Organizational impact</h3><p>Transformational leadership can drive organizational change and raise employee satisfaction and organizational commitment.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.29/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.31/53</span></div>
     </section>
 
     <!-- 真誠領導 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 11 ── AUTHENTIC</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">30</div>
+        <div class="idx">32</div>
         <div class="t"><h2>Authentic leadership</h2><span class="en">AUTHENTIC LEADERSHIP</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1366,14 +1423,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/SELF-AWARENESS ]</span><h3>Self-awareness</h3><p>Emphasizes leaders' deep understanding of their own strengths, weaknesses, and values, continually revised in light of feedback.</p></div>
         <div class="cell"><span class="tag">[ 04/ETHICS ]</span><h3>Moral standards</h3><p>Authentic leaders hold high moral standards and do not compromise under pressure, so they become moral role models for followers.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.30/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.32/53</span></div>
     </section>
 
     <!-- 補充：信任 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 11 ── TRUST</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">31</div>
+        <div class="idx">33</div>
         <div class="t"><h2>Trust and leadership</h2><span class="en">TRUST AND LEADERSHIP</span></div>
         <div class="note">[ 3 CHARACTERISTICS ]</div>
       </div>
@@ -1384,12 +1441,12 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="corner">+</span><span class="tag">[ 03/ABILITY ]</span><h3>Ability</h3><span class="en-term">ABILITY</span><p>Technical and interpersonal knowledge and skills that convince others the leader's direction serves everyone's best interests.</p></div>
       </div>
       <div class="keyline">Outcomes of trust: <span class="r">risk taking, information sharing</span>, higher group effectiveness and productivity</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.31/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.33/53</span></div>
     </section>
     <section class="slide gd-page">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 11 ── ETHICAL LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">32</div>
+        <div class="idx">34</div>
         <div class="t"><h2>Ethical leadership</h2><span class="en">ETHICAL LEADERSHIP & SOCIALIZED CHARISMA</span></div>
         <div class="note">[ 3 POINTS ]</div>
       </div>
@@ -1415,7 +1472,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           </ul></div>
       </div>
       <div class="keyline">The test of ethical leadership is how high-performing violators are handled, not the length of the code</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.32/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.34/53</span></div>
     </section>
 
 
@@ -1423,7 +1480,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 11 ── SERVANT</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">33</div>
+        <div class="idx">35</div>
         <div class="t"><h2>Servant leadership</h2><span class="en">SERVANT LEADERSHIP</span></div>
         <div class="note">[ 5 BEHAVIORS ]</div>
       </div>
@@ -1435,7 +1492,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 05 ]</span><h3>Commitment to the growth of others</h3><p>Put followers' growth ahead of self-interest.</p></div>
       </div>
       <div class="keyline">Servant leadership raises followers' <span class="r">self-efficacy</span>, identification with the supervisor, and perceptions of justice, which improve team effectiveness and performance; it is closely linked to higher organizational citizenship behavior and creative performance</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.33/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.35/53</span></div>
     </section>
 
     <!-- 僕人式圖 -->
@@ -1482,14 +1539,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
 <path d="M768 315 L756.0 320.1 L756.0 309.9 z" fill="#0A0A0A"/></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.34/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.36/53</span></div>
     </section>
 
     <!-- 建言 1：邀請建言 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">35</div>
+        <div class="idx">37</div>
         <div class="t"><h2>Inviting voice does not guarantee voice</h2><span class="en">VOICE SOLICITATION</span></div>
         <div class="note">[ 2 PATHWAYS ]</div>
       </div>
@@ -1500,14 +1557,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">The more deliberate the invitation, the more it pushes the interaction toward <span class="r">self-protection</span></div>
       <div class="src">Song, Q., Yang, S., Chen, Y., Ren, S., &amp; Guo, Y. (2026). When inviting voice backfires: How leader dominance shapes employee responses to voice solicitation. <i>Journal of Organizational Behavior</i>. Advance online publication. https://doi.org/10.1002/job.70052</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.35/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.37/53</span></div>
     </section>
 
     <!-- 建言 2：主管求回饋 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">36</div>
+        <div class="idx">38</div>
         <div class="t"><h2>Leader feedback seeking has a sweet spot</h2><span class="en">LEADER FEEDBACK-SEEKING</span></div>
         <div class="note">[ 2 PATHS + 1 MODERATOR ]</div>
       </div>
@@ -1517,14 +1574,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">Sincere asking has the strongest effect and is the easiest to overdo; insincere asking <span class="r">changes almost nothing</span></div>
       <div class="src">Lou, M., Teng, E., Tekleab, A. G., Zhang, L., &amp; Su, Y. (2026). Does leader feedback-seeking behavior fuel employee voice? The roles of organization-based self-esteem, workplace anxiety and apparent sincerity of leader. <i>Journal of Organizational Behavior</i>. Advance online publication. https://doi.org/10.1002/job.70078</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.36/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.38/53</span></div>
     </section>
 
     <!-- 建言 3：回應建言 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 12 ── VOICE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">37</div>
+        <div class="idx">39</div>
         <div class="t"><h2>After voice, speed and transparency also send signals</h2><span class="en">RESPONDING TO VOICE</span></div>
         <div class="note">[ 2 LEVERS ]</div>
       </div>
@@ -1534,7 +1591,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">The key to responding to voice is <span class="r">making the criteria clear to followers</span></div>
       <div class="src">Chon, D., Sezer, O., &amp; Flynn, F. J. (2026). Not so fast? Rapid response to voice leads to perceived inauthenticity. <i>Academy of Management Journal</i>, <i>69</i>(1), 123–148. https://doi.org/10.5465/amj.2023.1044 | Ji, X., Liu, B., Zhang, X., &amp; Xu, M. (2026). Paving the path to employee voice: Leader voice endorsement transparency and its impact on voice behavior. <i>Applied Psychology</i>, <i>75</i>(1), e70071. https://doi.org/10.1111/apps.70071</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.37/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.39/53</span></div>
     </section>
 
     <!-- 建言 4：整合圖 -->
@@ -1615,14 +1672,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         </div>
         <div class="cite">Synthesized from Song et al. (2026), Lou et al. (2026), Chon et al. (2026), and Ji et al. (2026). The three gates are not sequential; they are three recurring moments within the same leader-follower relationship.</div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.38/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.40/53</span></div>
     </section>
 
     <!-- 案例：黃仁勳與 Glassdoor 2026 最佳 CEO -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 13 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">39</div>
+        <div class="idx">41</div>
         <div class="t"><h2>Case: Jensen Huang and Glassdoor's 2026 Best CEOs</h2><span class="en">THE NO. 1 CEO ON GLASSDOOR</span></div>
         <div class="note">[ GLASSDOOR 2026 ]<br>99% APPROVAL</div>
       </div>
@@ -1635,14 +1692,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">60 direct reports, no one-on-ones, public feedback: all three run counter to textbook advice on span of control and feedback</div>
       <div class="src">Glassdoor. (2026, August 12). <i>Glassdoor unveils 2026 best CEOs list</i> [Press release]. Business Wire. | NVIDIA. (2026, August 12). NVIDIA CEO tops Glassdoor’s 2026 list of best CEOs. NVIDIA Blog. | Hart, J. (2026, March 26). Jensen Huang runs Nvidia with 60 direct reports and no one-on-ones. Business Insider. | Fortune (2024, December 13), Top 5 Things email practice; Fortune (2024, September 5), fireside chat with Patrick Collison. | The soup philosophy comes from Huang's speech at the Cambridge Union, as reported by Manager Today (2025, November 24) and Business Next (2025, November 27).</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.39/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.41/53</span></div>
     </section>
 
     <!-- 這個 99% 該怎麼讀 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 13 ── CASE</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">40</div>
+        <div class="idx">42</div>
         <div class="t"><h2>How to read this 99%</h2><span class="en">HOW TO READ AN APPROVAL RATING</span></div>
         <div class="note">[ GLASSDOOR 2026 ]<br>CRITICAL READING</div>
       </div>
@@ -1655,14 +1712,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">A high approval rating is a phenomenon to be explained; <span class="r">explaining it requires other evidence</span></div>
       <div class="src">Glassdoor. (2026, August 12). <i>Glassdoor unveils 2026 best CEOs list</i> [Press release]. Business Wire. | NVIDIA company reviews page, Glassdoor, retrieved August 23, 2026: overall 4.5, 3,969 reviews. | Employee quotes selected from Glassdoor reviews by the NVIDIA official blog (2026, August 12). | Fortune (2024, September 5): turnover rate and employee stock discount.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.40/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.42/53</span></div>
     </section>
 
     <!-- 風格限制 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 14 ── LIMITATIONS</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">41</div>
+        <div class="idx">43</div>
         <div class="t"><h2>Limitations of Leadership Styles</h2><span class="en">LIMITATIONS OF LEADERSHIP STYLES</span></div>
         <div class="note">[ 4 STYLES ]</div>
       </div>
@@ -1688,12 +1745,12 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           <ol><li>Overserving followers' needs may neglect organizational goals.</li><li>Avoid letting emotional ties bias objective decisions.</li></ol>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.41/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.43/53</span></div>
     </section>
     <section class="slide gd-page ld-sub">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 14 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">42</div>
+        <div class="idx">44</div>
         <div class="t"><h2>Challenges to Leadership: Attribution and Substitutes</h2><span class="en">ATTRIBUTION THEORY OF LEADERSHIP ── SUBSTITUTES & NEUTRALIZERS</span></div>
         <div class="note">[ 2 CHALLENGES ]</div>
       </div>
@@ -1724,13 +1781,35 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         </div>
       </div>
       <div class="keyline">Substitutes make leader behavior unnecessary; neutralizers make it ineffective; both show that leadership effects have limits</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.42/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.44/53</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 14 ── CHALLENGES TO LEADERSHIP</span><span class="m">REV 2026.11</span></div>
+      <div class="title-row">
+        <div class="idx">45</div>
+        <div class="t"><h2>Video: How to Start a Movement</h2><span class="en">DEREK SIVERS ── THE FIRST FOLLOWER</span></div>
+        <div class="note">[ VIDEO ]<br>2:52<br>TED 2010</div>
+      </div>
+      <div class="vid-main">
+        <div class="vidcell">
+          <a class="vlink" href="https://www.ted.com/talks/derek_sivers_how_to_start_a_movement" target="_blank" rel="noopener"><img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 560 315%22%3E%3Crect width=%22560%22 height=%22315%22 fill=%22%23171614%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22559%22 height=%22314%22 fill=%22none%22 stroke=%22%233A3833%22/%3E%3Ctext x=%2228%22 y=%2244%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2211%22 letter-spacing=%222%22 fill=%22%23B8B4AA%22%3ETED %C2%B7 2010%3C/text%3E%3Ctext x=%2228%22 y=%2292%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2232%22 font-weight=%22800%22 fill=%22%23F4F3EE%22%3EHow to Start a Movement%3C/text%3E%3Ctext x=%2228%22 y=%22124%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2217%22 fill=%22%23B8B4AA%22%3EDerek Sivers%3C/text%3E%3Ctext x=%22532%22 y=%22290%22 text-anchor=%22end%22 font-family=%22ui-monospace,Menlo,monospace%22 font-size=%2212%22 letter-spacing=%222%22 fill=%22%23FF6259%22%3E2:52%3C/text%3E%3C/svg%3E" alt="How to Start a Movement video card"><span class="vplay"></span></a>
+          <span class="vtag">PLAY ON TED.COM ↗ ── HOW TO START A MOVEMENT · 2:52</span>
+        </div>
+        <div class="vid-obs">
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 01/WATCH FOR ]</span><h3>The first follower</h3><p>The lone dancer, the first person who joins, and the point where joining becomes less risky than staying out. Count how many people it takes before the crowd tips.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 02/CONCEPTS ]</span><h3>Attribution and substitutes</h3><p>Attribution theory: leadership is what observers assign to the person out front, and the first follower turns a lone nut into a leader. Once the crowd is dancing, the leader matters less, which is what substitutes for leadership describe.</p></div>
+          <div class="cell"><span class="corner">+</span><span class="tag">[ 03/DISCUSS ]</span><h3>Who was your first follower?</h3><p>For a change in your organization that stuck, who joined first, and in public? How did the initiator treat that person as an equal?</p></div>
+          </div>
+      </div>
+      <div class="src">Sivers, D. (2010, February). <i>How to start a movement</i> [Video]. TED2010, TED Conferences. https://www.ted.com/talks/derek_sivers_how_to_start_a_movement</div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.45/53</span></div>
     </section>
 
     <section class="slide gd-page">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 14 ── SELECTING & TRAINING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">43</div>
+        <div class="idx">46</div>
         <div class="t"><h2>Finding and Creating Effective Leaders</h2><span class="en">SELECTING & TRAINING LEADERS</span></div>
         <div class="note">[ 2 ROUTES ]</div>
       </div>
@@ -1752,7 +1831,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           </ul></div>
       </div>
       <div class="keyline">Selection matches traits to situations; training teaches observable behaviors</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.43/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.46/53</span></div>
     </section>
 
 
@@ -1760,7 +1839,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">44</div>
+        <div class="idx">47</div>
         <div class="t"><h2>Abusive Supervision</h2><span class="en">ABUSIVE SUPERVISION</span></div>
         <div class="note">[ 4 POINTS ]</div>
       </div>
@@ -1770,14 +1849,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 03/CATEGORY ]</span><h3>Academic Classification</h3><p>A form of destructive leadership, associated with subordinates' deviant behavior, turnover intentions, and family conflict.</p></div>
         <div class="cell"><span class="tag">[ 04/CORE ]</span><h3>Core Features</h3><p>Its core is sustained, repeated, negative nonphysical behavior; organizations should set up grievance channels and hold managers accountable.</p></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.44/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.47/53</span></div>
     </section>
 
     <!-- 常見行為類型 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">45</div>
+        <div class="idx">48</div>
         <div class="t"><h2>Common Types of Abusive Supervision</h2><span class="en">COMMON ABUSIVE BEHAVIORS</span></div>
         <div class="note">[ 6 TYPES ]</div>
       </div>
@@ -1790,14 +1869,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="cell"><span class="tag">[ 06 ]</span><h3>Unfair Credit and Blame</h3><p>Claiming subordinates' successes while shifting mistakes and failures entirely onto them.</p></div>
       </div>
       <div class="keyline">These behaviors have <span class="r">serious negative effects</span> on employees' mental health, job satisfaction, and organizational commitment, ultimately harming team performance and organizational stability</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.45/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio opt" aria-hidden="true"></i>P.48/53</span></div>
     </section>
 
     <!-- 誤解 -->
     <section class="slide">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 15 ── ABUSIVE SUPERVISION</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">46</div>
+        <div class="idx">49</div>
         <div class="t"><h2>Common Misconceptions in Practice</h2><span class="en">COMMON MISCONCEPTIONS</span></div>
         <div class="note">[ 5 POINTS ]</div>
       </div>
@@ -1808,7 +1887,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
         <div class="axis-row"><div class="k"><span class="zh">Blunt Speech</span><span class="ax">≠ BELITTLING</span></div><div class="v">Speaking candidly differs fundamentally from publicly humiliating or belittling employees; the latter damages their dignity.</div></div>
         <div class="axis-row"><div class="k"><span class="zh">Key Criterion</span><span class="ax">KEY</span></div><div class="v">The key test for abusive supervision is whether the negative behaviors are sustained, repeated, and harmful.</div></div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.46/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.49/53</span></div>
     </section>
 
     <!-- 不當督導圖 -->
@@ -1852,12 +1931,12 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
 <text x="530" y="720" text-anchor="middle" font-size="15.9" font-weight="400" fill="#666666" font-family="Noto Sans TC, PingFang TC, sans-serif">Career functions help the protégé advance; psychosocial functions help the protégé stay steady</text></svg>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.47/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.50/53</span></div>
     </section>
     <section class="slide as-case">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 16 ── MENTORING</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">48</div>
+        <div class="idx">51</div>
         <div class="t"><h2>Supplementary Research: Protégés Don't Ask for Fear of Being a Burden</h2><span class="en">THE INEQUITY ILLUSION OF ADVICE SEEKING ── BURMEISTER &amp; LEVIN</span></div>
         <div class="note">[ AMJ 2026 ]<br>9 STUDIES/2 FIELD EXPERIMENTS</div>
       </div>
@@ -1890,12 +1969,12 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
       </div>
       <div class="keyline">Effective systems not only provide access to experts but also lower the emotional cost of using that access</div>
       <div class="cite">Burmeister, A., &amp; Levin, D. Z. (2026). A prosocial perspective on advice seeking and networking: How focusing on what advice givers can gain motivates advice seekers to reach out more. <i>Academy of Management Journal</i>. Advance online publication. <a href="https://doi.org/10.5465/amj.2024.0635" target="_blank" rel="noopener" style="color: var(--gray);">https://doi.org/10.5465/amj.2024.0635</a>　AOM Insights summary: <a href="https://journals.aom.org/doi/10.5465/amj.2024.0635.summary" target="_blank" rel="noopener" style="color: var(--gray);">The surprising reason people don't ask for advice</a> (2026-08-21)　Michelangelo phenomenon: Rusbult, C. E., Finkel, E. J., &amp; Kumashiro, M. (2009). <a href="https://doi.org/10.1111/j.1467-8721.2009.01657.x" target="_blank" rel="noopener" style="color: var(--gray);">The Michelangelo phenomenon</a>. <i>Current Directions in Psychological Science, 18</i>(6), 305–309.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.48/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.51/53</span></div>
     </section>
         <section class="slide ix-page">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">SEC 17 ── SELF-CHECK</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">49</div>
+        <div class="idx">52</div>
         <div class="t"><h2>End-of-Chapter Self-Check</h2><span class="en">END-OF-TOPIC CHECK ── 10 QUESTIONS</span></div>
         <div class="note">[ QUIZ ]<br>SINGLE CHOICE</div>
       </div>
@@ -1908,14 +1987,14 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           <div class="ix-fb"></div>
         </div>
       </div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.49/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio must" aria-hidden="true"></i>P.52/53</span></div>
     </section>
 <section class="slide rf-page">
       <div class="meta-row"><span class="m">OB/CH 12</span><span class="m g">REFERENCES</span><span class="m">REV 2026.11</span></div>
       <div class="title-row">
-        <div class="idx">50</div>
+        <div class="idx">53</div>
         <div class="t"><h2>References</h2><span class="en">REFERENCES ── APA 7TH</span></div>
-        <div class="note">[ APA 7 ]<br>16 ITEMS</div>
+        <div class="note">[ APA 7 ]<br>19 ITEMS</div>
       </div>
       <div class="rf">
         <div class="rf-cols c2 dense">
@@ -1932,17 +2011,20 @@ html[lang="en"] body:not(.flow) .slide:nth-child(48) .cell h3 { margin-bottom: 4
           </div>
           <div class="rf-grp"><h3>Reports, News and Media ── REPORTS, NEWS &amp; MEDIA</h3>
             <p>Bratsis, N. (2026, August 21). <i>The surprising reason people don&#39;t ask for advice</i>. AOM Insights, Academy of Management.</p>
+            <p>Dudley, D. (2010, September). <i>Everyday leadership</i> [Video]. TEDxToronto, TED Conferences. https://www.ted.com/talks/drew_dudley_everyday_leadership</p>
             <p>Ellis, C. D. (2021, March 30). Stop. Does that message really need to be an email? <i>Harvard Business Review</i>. https://hbr.org/2021/03/stop-does-that-message-really-need-to-be-an-email</p>
             <p>Glassdoor. (2026, August 12). <i>Glassdoor unveils 2026 best CEOs list</i> [Press release]. Business Wire.</p>
             <p>Hart, J. (2026, March 26). Jensen Huang runs Nvidia with 60 direct reports and no one-on-ones. <i>Business Insider</i>.</p>
+            <p>Headley, J. (2013). <i>It's not about the nail</i> [Video]. YouTube. https://www.youtube.com/watch?v=-4EDhdAHrOg</p>
             <p>NVIDIA. (2026, August 12). <i>NVIDIA CEO tops Glassdoor&#39;s 2026 list of best CEOs</i>. NVIDIA Blog.</p>
+            <p>Sivers, D. (2010, February). <i>How to start a movement</i> [Video]. TED2010, TED Conferences. https://www.ted.com/talks/derek_sivers_how_to_start_a_movement</p>
             <p>Business Next. (2025, November 27). 黃仁勳劍橋大學學聯演說報導 [Report on Jensen Huang's speech at the Cambridge Union].</p>
             <p>Manager Today. (2025, November 24). 黃仁勳劍橋大學學聯演說報導 [Report on Jensen Huang's speech at the Cambridge Union].</p>
           </div>
         </div>
       </div>
       <div class="rf-note">Sources cited in this chapter's slides, in APA 7th edition format; journal titles and volume numbers are italicized. For items marked advance online publication, volume, issue, and pages are not yet final. For the textbook, see the cover.</div>
-      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.50/50</span></div>
+      <div class="footer-row"><span>NSYSU ── HRM</span><span>YU-HSUAN WANG</span><span class="pagenum"><i class="prio skip" aria-hidden="true"></i>P.53/53</span></div>
     </section>
 
 
