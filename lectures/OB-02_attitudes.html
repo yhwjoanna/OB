@@ -553,6 +553,14 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
 </style>
+<style>
+  /* ── STAGEFIX v1：舞台固定 1280×720，不被視窗擠壓 ──
+     #viewport 是 flex 容器，舞台預設可以縮；視窗寬度在 980 到 1279px 之間（瀏覽器放大顯示、
+     投影機解析度較低、視窗沒開滿）時舞台會被壓窄但高度不變，文字重排後超出格子被裁掉。
+     固定不縮之後，縮放完全交給 fit() 的 transform。流式模式與列印不受影響。 */
+  body:not(.flow) #stage { flex: none; }
+  @media print { body #stage { flex: initial; } }
+</style>
 </head>
 <body>
 

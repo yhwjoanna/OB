@@ -334,6 +334,13 @@
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
 </style>
+<style>
+  /* ── STAGEFIX v1：視窗比 1280px 窄時舞台仍置中 ──
+     #viewport 是 grid 容器，欄寬會被 1280px 的舞台撐開、從左緣溢出，縮放後畫面偏右下、右側與底部被切。
+     把欄與列固定為容器大小，舞台超出時左右上下平均溢出，再由 fit() 的 transform 縮回視窗內。 */
+  body:not(.flow) #viewport { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  body:not(.flow) #stage { justify-self: center; align-self: center; }
+</style>
 </head>
 <body>
 

@@ -622,6 +622,18 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 .prio{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:1px;margin-right:8px;font-style:normal}
 .prio.must{background:#1F4FA3}.prio.opt{background:#232320}.prio.skip{background:#F2B705;box-shadow:inset 0 0 0 1px #B88A00}
 </style>
+<style>
+  /* ── STAGEFIX v1：舞台固定 1280×720，不被視窗擠壓 ──
+     #viewport 是 flex 容器，舞台預設可以縮；視窗寬度在 980 到 1279px 之間（瀏覽器放大顯示、
+     投影機解析度較低、視窗沒開滿）時舞台會被壓窄但高度不變，文字重排後超出格子被裁掉。
+     固定不縮之後，縮放完全交給 fit() 的 transform。流式模式與列印不受影響。 */
+  body:not(.flow) #stage { flex: none; }
+  @media print { body #stage { flex: initial; } }
+</style>
+<style>
+  /* ── PAGEFIT 2026-11-13：以實際網頁字型量測後，這一頁的格子內容高出格框，收緊內距 ── */
+  body:not(.flow) .slide:nth-child(8) .cell { padding: 15px 24px 13px; gap: 7px; }
+</style>
 </head>
 <body>
 

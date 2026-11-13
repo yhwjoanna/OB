@@ -361,6 +361,11 @@
   .slide p, .slide li, .slide .v, .slide .k, .slide dd, .slide .cite,
   .slide .src-band, .slide .note, .slide .quote { text-wrap: pretty; }
 </style>
+<style>
+  /* ── STAGEFIX v1：舞台固定 1280×720，不被視窗擠壓（視窗寬 1000 到 1279px 時原本會被壓窄、文字重排） ── */
+  body:not(.flow) #stage { flex: none; }
+  @media print { body #stage { flex: initial; } }
+</style>
 </head>
 <body>
 <div id="viewport"><div id="stage">

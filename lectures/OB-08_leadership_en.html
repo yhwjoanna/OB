@@ -657,6 +657,19 @@ html[lang="en"] body:not(.flow) .slide:nth-child(43) .cell h3 { margin-bottom: 4
 html[lang="en"] body:not(.flow) .slide:nth-child(52) .cell p, html[lang="en"] body:not(.flow) .slide:nth-child(52) .cell li { font-size: 13px !important; line-height: 1.42 !important; margin-bottom: 2px !important; }
 html[lang="en"] body:not(.flow) .slide:nth-child(52) .cell h3 { margin-bottom: 4px !important; }
 </style>
+<style>
+  /* ── STAGEFIX v1：舞台固定 1280×720，不被視窗擠壓 ──
+     #viewport 是 flex 容器，舞台預設可以縮；視窗寬度在 980 到 1279px 之間（瀏覽器放大顯示、
+     投影機解析度較低、視窗沒開滿）時舞台會被壓窄但高度不變，文字重排後超出格子被裁掉。
+     固定不縮之後，縮放完全交給 fit() 的 transform。流式模式與列印不受影響。 */
+  body:not(.flow) #stage { flex: none; }
+  @media print { body #stage { flex: initial; } }
+</style>
+<style>
+  /* ── PAGEFIT 2026-11-13：以實際網頁字型量測後，這一頁的格子內容高出格框，收緊內距 ── */
+  html[lang="en"] body:not(.flow) .slide:nth-child(10) .cell { padding: 14px 24px 12px; gap: 6px; }
+  html[lang="en"] body:not(.flow) .slide:nth-child(10) .cell p { font-size: 13px; line-height: 1.46; }
+</style>
 </head>
 <body>
 
@@ -1021,7 +1034,7 @@ html[lang="en"] body:not(.flow) .slide:nth-child(52) .cell h3 { margin-bottom: 4
 <text x="803.75" y="534" text-anchor="middle" font-size="17.3" font-weight="900" fill="#F4F4F0" font-family="JetBrains Mono, monospace">VII</text>
 <rect x="852.5" y="500" width="97.5" height="54" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.4"/>
 <text x="901.25" y="534" text-anchor="middle" font-size="17.3" font-weight="900" fill="#F4F4F0" font-family="JetBrains Mono, monospace">VIII</text>
-<text x="156" y="588" text-anchor="end" font-size="16.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Leader-member relations</text>
+<text x="156" y="580" text-anchor="end" font-size="15.5" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif"><tspan x="156">Leader-member</tspan><tspan x="156" dy="18">relations</tspan></text>
 <rect x="170.0" y="554" width="97.5" height="54" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.4"/>
 <text x="218.75" y="588" text-anchor="middle" font-size="17.3" font-weight="700" fill="#0A0A0A" font-family="Noto Sans TC, PingFang TC, sans-serif">Good</text>
 <rect x="267.5" y="554" width="97.5" height="54" fill="#F4F4F0" stroke="#0A0A0A" stroke-width="1.4"/>
