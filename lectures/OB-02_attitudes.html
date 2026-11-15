@@ -2649,5 +2649,25 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
 })();
 </script>
 
+<script>
+/* DEEPLINK v1：網址帶 #t=頁面標題 或 #p=頁碼 時直接跳到該頁。標題優先（頁序調整後仍有效），找不到才用頁碼 */
+(function () {
+  var S = document.querySelectorAll('section.slide');
+  if (!S.length || typeof window.show !== 'function') return;
+  function norm(x) { return String(x || '').replace(/[\s\u2060\u200b]+/g, ''); }
+  function target() {
+    var h = location.hash.replace(/^#/, ''); if (!h) return -1;
+    var q = {};
+    h.split('&').forEach(function (kv) { var j = kv.indexOf('='); if (j > 0) { try { q[kv.slice(0, j)] = decodeURIComponent(kv.slice(j + 1)); } catch (_) {} } });
+    if (q.t) { var want = norm(q.t); for (var k = 0; k < S.length; k++) { var hd = S[k].querySelector('h1, h2'); if (hd && norm(hd.textContent) === want) return k; } }
+    var p = parseInt(q.p, 10); if (p >= 1 && p <= S.length) return p - 1;
+    return -1;
+  }
+  function go() { var k = target(); if (k >= 0) window.show(k); }
+  addEventListener('load', function () { setTimeout(go, 0); });
+  addEventListener('hashchange', go);
+})();
+</script>
+
 </body>
 </html>
