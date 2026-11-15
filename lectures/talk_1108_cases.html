@@ -1,61 +1,351 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>OB／業界講座事例　11/8 彭智彬</title>
+<title>OB／講座事例與對應理論　11/8 彭智彬</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --paper: #F4F4F0; --ink: #232320; --red: #E61919; --gray: #666666; --card: #FBFBF7;
-    --sans: 'Noto Sans TC', sans-serif; --disp: 'Archivo Black', 'Noto Sans TC', sans-serif; --mono: 'JetBrains Mono', monospace; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.7; }
-  .wrap { max-width: 1240px; margin: 0 auto; border-left: 3px solid var(--ink); border-right: 3px solid var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
-  .meta { display: flex; justify-content: space-between; gap: 12px; padding: 12px 28px; border-bottom: 2px solid var(--ink); font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; color: #8A8A82; text-transform: uppercase; }
-  header { padding: 30px 28px 24px; border-bottom: 2px solid var(--ink); }
-  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--red); }
-  h1 { font-weight: 900; font-size: clamp(30px, 5vw, 46px); line-height: 1.12; letter-spacing: -.02em; margin-top: 8px; text-wrap: balance; }
-  .talk { margin-top: 12px; font-size: 16.5px; font-weight: 700; line-height: 1.6; }
-  .talk span { display: block; font-weight: 400; color: var(--gray); font-size: 15px; }
-  .lead { border-bottom: 1px solid var(--ink); padding: 14px 28px; font-size: 15.5px; font-weight: 700; line-height: 1.75; }
-  .grid { display: grid; grid-template-columns: 1fr; background: var(--ink); gap: 1px; border-bottom: 2px solid var(--ink); }
-  .case { background: var(--paper); padding: 22px 28px 24px; }
-  .no { font-family: var(--disp); font-size: 26px; line-height: 1; color: var(--red); letter-spacing: -.02em; }
-  .case h2 { font-weight: 800; font-size: 20px; line-height: 1.35; margin: 8px 0 8px; text-wrap: balance; }
-  .case p { font-size: 16px; line-height: 1.78; text-wrap: pretty; }
-  footer { margin-top: auto; display: flex; justify-content: space-between; gap: 12px; padding: 14px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: #8A8A82; text-transform: uppercase; }
-  footer a { color: inherit; }
-  @media (min-width: 780px) { .grid { grid-template-columns: 1fr 1fr; } .case:last-child:nth-child(odd) { grid-column: span 2; } }
-  @media (max-width: 520px) { .meta, header, .lead, .case, footer { padding-left: 18px; padding-right: 18px; } .wrap { border-left: 0; border-right: 0; } .case p { font-size: 15.5px; } }
-  @media print { .wrap { border: 0; } .case { break-inside: avoid; } }
+/* 一個事例一頁，課堂投影與學生課後複習共用（也放在課程網站 lectures/talk_1108_cases.html）。不含學生姓名。識別沿用課程主頁：紙、墨、單一紅、等寬字標籤。
+   每頁用同一套版面，字級倍率 --f 由腳本依視窗高度找出放得下的最大值。 */
+:root{
+  --paper:#F1F1EC; --card:#FBFBF7; --ink:#171614; --ink-2:#3A3833; --muted:#55524B; --faint:#6B675E;
+  --red:#D0221B; --line:rgba(23,22,20,.12); --line-2:rgba(23,22,20,.22);
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+#deck{--f:1;--head:0px;position:fixed;inset:0 0 44px 0}
+.pg{position:absolute;inset:0;display:flex;visibility:hidden;flex-direction:column;padding:calc(30px*var(--f)) calc(56px*var(--f)) calc(18px*var(--f));overflow:hidden}
+.pg.on{visibility:visible}
+.kick{display:flex;align-items:center;gap:calc(14px*var(--f));font:700 calc(13px*var(--f))/1 var(--mono);letter-spacing:.12em;color:var(--faint);flex:none}
+.kick .no{color:var(--red)}
+.kick .grp{color:var(--paper);background:var(--ink);border:1px solid var(--ink);border-radius:999px;padding:calc(6px*var(--f)) calc(12px*var(--f));letter-spacing:.08em;font-family:var(--sans);font-size:calc(13px*var(--f))}
+.kick .grp.off{background:none;color:var(--faint);border:1px solid var(--line-2)}
+.kick .cnt{margin-left:auto;font-family:var(--sans);letter-spacing:.04em;font-weight:500}
+h1{font-size:calc(38px*var(--f));font-weight:900;line-height:1.25;letter-spacing:-.01em;margin-top:calc(12px*var(--f));flex:none;text-wrap:balance}
+.head{flex:none;min-height:var(--head);padding-bottom:calc(14px*var(--f));border-bottom:2px solid var(--ink)}
+.detail{text-wrap:balance;font-size:calc(18.5px*var(--f));line-height:1.6;color:var(--ink-2);margin-top:calc(10px*var(--f))}
+.tl{list-style:none;flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(var(--rows),auto);grid-auto-flow:column;column-gap:calc(44px*var(--f));align-content:start;margin-top:calc(6px*var(--f))}
+.tl li{display:flex;gap:calc(14px*var(--f));align-items:flex-start;padding:calc(9px*var(--f)) 0;border-bottom:1px solid var(--line);min-width:0;break-inside:avoid}
+.tl .ch{flex:none;width:5.6em;text-align:center;font:700 calc(12px*var(--f))/1.5 var(--mono);letter-spacing:.05em;color:var(--muted);border:1px solid var(--line-2);border-radius:6px;padding:calc(2px*var(--f)) 0;margin-top:calc(3px*var(--f));white-space:nowrap}
+.tl li > div{min-width:0}
+.tl a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:calc(2px*var(--f));text-underline-offset:calc(4px*var(--f))}
+.tl a:hover{color:var(--red)}
+.tl a:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:3px}
+.tl p{font-size:calc(16px*var(--f));line-height:1.5;color:var(--muted);margin-top:calc(2px*var(--f));text-wrap:balance}
+.tl h3{font-size:calc(20px*var(--f));font-weight:700;line-height:1.35;text-wrap:balance}
+/* 底部導覽 */
+#nav{position:fixed;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;gap:12px;padding:0 20px;border-top:1px solid var(--line-2);background:var(--paper);font:500 13px/1 var(--sans);color:var(--faint)}
+#nav button{font:700 13px/1 var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line-2);border-radius:8px;height:30px;min-width:44px;padding:0 12px;cursor:pointer}
+#nav button:hover:not(:disabled){background:var(--ink);color:var(--paper)}
+#nav button:disabled{opacity:.35;cursor:default}
+#nav button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+#dots{display:flex;gap:6px;margin:0 auto}
+#dots button{min-width:30px;width:30px;padding:0;font:700 12px/1 var(--mono);color:var(--faint)}
+#dots button[aria-current="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#nav .tip{white-space:nowrap}
+.w{white-space:nowrap}
+#cnt{display:none;margin:0 auto;font:700 13px/1 var(--mono);color:var(--ink);letter-spacing:.06em}
+/* 直式或窄畫面：單欄、可捲動，不做字級配適 */
+@media (max-width:820px){
+  body{overflow:auto} #deck{position:static;padding-bottom:60px}
+  .pg{position:static;display:none;visibility:visible;padding:22px 18px 28px;overflow:visible} .pg.on{display:flex} .head{min-height:0}
+  h1{font-size:26px} .detail{font-size:16px} .tl{display:block}
+  .tl h3{font-size:18px} .tl p{font-size:15px} .kick{flex-wrap:wrap}
+  #nav .tip{display:none} #dots{display:none} #cnt{display:block}
+}
+@media print{ body{overflow:visible} #deck{position:static} .pg{position:static;display:flex!important;visibility:visible!important;page-break-after:always;min-height:0} #nav{display:none} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="meta"><span>OB／GUEST TALK</span><span>2026.11</span></div>
-  <header>
-    <span class="kicker">[ 業界講座事例 ]</span>
-    <h1>講座裡的十則事例</h1>
-    <p class="talk">11/8　彭智彬，智路管理顧問有限公司總經理<span>AI 時代的主管新角色——人才培育與領導力再進化</span></p>
-  </header>
-  <p class="lead">以下十則事例依 11/8 講座的課堂紀錄整理，供課堂分組討論使用。閱讀時可以留意：每則事例對應到哪些課堂上學過的理論。</p>
-  <main class="grid">
-      <article class="case"><span class="no">01</span><h2>總經理每月與員工座談六小時</h2><p>一家外商藥廠每月安排一天，總經理帶全部一級主管放下工作，與到職滿半年的員工座談六小時，了解員工真正的需求與困難。講者指出，這家公司十年內員工人數與營收都大幅成長。</p></article>
-      <article class="case"><span class="no">02</span><h2>開會請資淺的人先發言</h2><p>講者開會時鼓勵每個人提出看法，想法不成熟也不當場否定；並請資淺的成員先發言，避免資深成員說完之後，資淺者只能附和。</p></article>
-      <article class="case"><span class="no">03</span><h2>會議不超過兩小時，沒有結論就無效</h2><p>講者與團隊約定：除年度會議外，會議不超過兩小時；會議必須有結論，寫明誰在何時完成何事，否則視為無效。上任第一天也告訴部屬，任何建議或批評都可以私下提出。</p></article>
-      <article class="case"><span class="no">04</span><h2>創辦人遲到 20 分鐘，自己罰站 20 分鐘</h2><p>信義房屋創辦人周俊吉規定開會遲到幾分鐘，就在會議室後方站幾分鐘。他出差返國後開會遲到 20 分鐘，也一樣在後方站了 20 分鐘。講者說，重點在領導者是否以身作則。</p></article>
-      <article class="case"><span class="no">05</span><h2>主廚把自己列進懲處名單</h2><p>衛生單位稽查時，在飯店廚房冰箱發現個人飲料，列為重大缺失。主廚提報的懲處名單寫的是自己管理不當、記過一次。在很講究上下層級的廚房裡，部屬因此願意追隨。</p></article>
-      <article class="case"><span class="no">06</span><h2>陪部屬第一次授課，整天記錄、逐條回饋</h2><p>講者帶一位部屬轉任講師。部屬第一次獨立授課時，講者整天在場記錄觀察，課後逐條給回饋。多年後這位部屬傳訊感謝，所屬公司也獲得國家人才發展獎。</p></article>
-      <article class="case"><span class="no">07</span><h2>老闆把員工的報告交給 AI 改，再要員工照做</h2><p>講者朋友的老闆把員工交的報告交給 AI 修改，再要求員工照 AI 的指示執行。講者認為順序顛倒了：AI 協助產出，人負責查證、取捨與承擔責任。他也引述研究：對 AI 越信任，投入批判性思考的程度越低。</p></article>
-      <article class="case"><span class="no">08</span><h2>三位主管，只能先培育一位</h2><p>A 專業強但脾氣硬、常與同事爭執；B 學習意願高，但技術與策略思考較弱；C 技術沒問題，但積極性不足。講者先用一張光譜說明：有些特質和原生家庭、成長環境有關，上幾堂課也難改；有些能力給對訓練就能明顯進步。</p></article>
-      <article class="case"><span class="no">09</span><h2>業務冠軍升主管，未必是好主管</h2><p>現在做得好不代表未來做得好，一流業務升為主管後未必適任，因為需要的能力不同。講者建議同時看過去績效、潛力與學習敏捷度。講者自己早年應徵外商藥廠，也曾因為不是藥學系而落選。他建議看潛力時，並介紹評鑑中心：讓候選人在模擬辦公室裡扮演虛擬公司的副總，由評鑑人員觀察評分。</p></article>
-      <article class="case"><span class="no">10</span><h2>高階主管不願接受 360 度回饋</h2><p>一位績效與決策都很強的女性高階主管，在 360 度回饋中團隊面向的分數在區域墊底，總經理要求她接受教練輔導。她起初不願意接受，後來還哭了。多次對談後，她才理解自己的高標準和成長經驗有關，慢慢接受回饋。講者說，職位越高，部屬越少說實話。</p></article>
-  </main>
-  <footer><span>NSYSU ── HRM　組織行為</span><span>依課堂紀錄整理，僅供修課同學課堂使用</span></footer>
-</div>
+<main id="deck">
+<section class="pg on" data-n="11">
+  <div class="head">
+  <div class="kick"><span class="no">事例 01／10</span><span class="grp">第 1 組</span><span class="cnt">對應理論 11 項</span></div>
+  <h1>總經理每月與員工座談六小時</h1>
+  <p class="detail">一家外商藥廠每月安排一天，總經理帶全部一級主管放下工作，與到職滿半年的員工座談六小時，了解員工真正的需求與困難。講者指出，這家公司十年內員工人數與營收都大幅成長。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E6%94%B6%E5%88%B0%E5%BB%BA%E8%A8%80%E4%B9%8B%E5%BE%8C%EF%BC%8C%E9%80%9F%E5%BA%A6%E8%88%87%E9%80%8F%E6%98%8E%E5%BA%A6%E9%83%BD%E5%9C%A8%E8%AA%AA%E8%A9%B1&amp;p=38" target="_blank" rel="noopener" title="開啟講義：收到建言之後，速度與透明度都在說話（第 38 頁）">建言徵詢與回應</a></h3><p>主管開口徵詢不一定換來建言；回應的速度與透明度，決定部屬下次還說不說</p></div></li>
+<li><span class="ch">CH 11</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E9%81%B8%E6%93%87%E6%BA%9D%E9%80%9A%E6%96%B9%E6%B3%95%E8%88%87%E7%AE%A1%E9%81%93%E8%B1%90%E5%AF%8C%E5%BA%A6&amp;p=3" target="_blank" rel="noopener" title="開啟講義：選擇溝通方法與管道豐富度（第 3 頁）">管道豐富度；口語與非語言溝通</a></h3><p>面對面同時傳遞口語與非語言訊息，是豐富度最高的管道，適合需要來回討論的議題</p></div></li>
+<li><span class="ch">CH 3</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-02_attitudes.html#t=%E7%B5%84%E7%B9%94%E6%89%BF%E8%AB%BE%E8%88%87%E7%9F%A5%E8%A6%BA%E7%B5%84%E7%B9%94%E6%94%AF%E6%8C%81&amp;p=22" target="_blank" rel="noopener" title="開啟講義：組織承諾與知覺組織支持（第 22 頁）">知覺組織支持</a></h3><p>能參與決策、主管願意傾聽，員工較能感受到組織重視自己</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%93%A1%E5%B7%A5%E6%8A%95%E5%85%A5%E5%92%8C%E5%8F%83%E8%88%87&amp;p=45" target="_blank" rel="noopener" title="開啟講義：員工投入和參與（第 45 頁）">員工投入和參與</a></h3><p>參與相關決策可提升動機與承諾（前提：員工信任管理層）</p></div></li>
+<li><span class="ch">CH 18</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-10_stress.html#t=%E5%93%A1%E5%B7%A5%E5%8F%83%E8%88%87%E6%B1%BA%E7%AD%96%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7&amp;p=36" target="_blank" rel="noopener" title="開啟講義：員工參與決策的重要性（第 36 頁）">員工參與決策的重要性</a></h3><p>參與能減少不確定性、增加控制感，控制感是壓力最有效的解藥之一</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%85%AC%E5%B9%B3%E7%9A%84%E9%A1%9E%E5%88%A5&amp;p=29" target="_blank" rel="noopener" title="開啟講義：公平的類別（第 29 頁）">程序公平與人際公平</a></h3><p>有機會說出需求與困難是程序公平；被認真對待是人際公平</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%80%A1%E5%B0%8E%E7%B5%90%E6%A7%8B%E8%88%87%E9%AB%94%E6%81%A4&amp;p=11" target="_blank" rel="noopener" title="開啟講義：倡導結構與體恤（第 11 頁）">體恤</a></h3><p>花一整天了解員工的需求與困難，是關心部屬福祉、尊重部屬意見的體恤行為</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%83%95%E4%BA%BA%E5%BC%8F%E9%A0%98%E5%B0%8E&amp;p=34" target="_blank" rel="noopener" title="開啟講義：僕人式領導（第 34 頁）">僕人式領導：傾聽</a></h3><p>傾聽是僕人式領導的第一項行為（事例只看得到這一項，還不足以判斷整體風格）</p></div></li>
+<li><span class="ch">CH 3</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-02_attitudes.html#t=%E4%B8%BB%E8%A6%81%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%85%8B%E5%BA%A6&amp;p=8" target="_blank" rel="noopener" title="開啟講義：主要的工作態度（第 8 頁）">工作滿足感、心理賦權、員工敬業</a></h3><p>員工相信自己能影響工作環境（屬於可能的結果，前提是座談後意見真的有人處理）</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E4%BA%8C%E5%9B%A0%E5%AD%90%E7%90%86%E8%AB%96&amp;p=5" target="_blank" rel="noopener" title="開啟講義：二因子理論（第 5 頁）">二因子理論</a></h3><p>被認可接近激勵因素（座談處理的多半是保健因素，作用是避免不滿）</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E9%9C%80%E6%B1%82%E5%B1%A4%E6%AC%A1%E7%90%86%E8%AB%96&amp;p=3" target="_blank" rel="noopener" title="開啟講義：需求層次理論（第 3 頁）">需求層次理論</a></h3><p>被高層傾聽，對應社交需求與尊重需求（理論限制：需求未必由下而上逐層滿足）</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="11">
+  <div class="head">
+  <div class="kick"><span class="no">事例 02／10</span><span class="grp">第 2 組</span><span class="cnt">對應理論 11 項</span></div>
+  <h1>創辦人遲到 20 分鐘，自己罰站 20 分鐘</h1>
+  <p class="detail">信義房屋創辦人周俊吉規定開會遲到幾分鐘，就在會議室後方站幾分鐘。他出差返國後開會遲到 20 分鐘，也一樣在後方站了 20 分鐘。講者說，重點在領導者是否以身作則。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%80%AB%E7%90%86%E9%A0%98%E5%B0%8E&amp;p=33" target="_blank" rel="noopener" title="開啟講義：倫理領導（第 33 頁）">倫理領導</a></h3><p>領導者自己展現合乎規範的行為，高層的基調會沿著層級往下傳</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E7%9C%9F%E8%AA%A0%E9%A0%98%E5%B0%8E&amp;p=31" target="_blank" rel="noopener" title="開啟講義：真誠領導（第 31 頁）">真誠領導</a></h3><p>部屬對領導者的信任，建立在領導者言行一致與透明之上</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E4%BF%A1%E4%BB%BB%E8%88%87%E9%A0%98%E5%B0%8E&amp;p=32" target="_blank" rel="noopener" title="開啟講義：信任與領導（第 32 頁）">信任與領導</a></h3><p>正直是信任的核心；規則對訂規則的人同樣適用，最能證明正直</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E9%AD%85%E5%8A%9B%E5%9E%8B%E9%A0%98%E5%B0%8E%E7%9A%84%E5%BD%B1%E9%9F%BF%E6%A9%9F%E5%88%B6&amp;p=21" target="_blank" rel="noopener" title="開啟講義：魅力型領導的影響機制（第 21 頁）">魅力型領導的影響機制</a></h3><p>透過文字與行動傳達價值觀，以身作則是可以學會的領導行為</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%85%AC%E5%B9%B3%E7%9A%84%E9%A1%9E%E5%88%A5&amp;p=29" target="_blank" rel="noopener" title="開啟講義：公平的類別（第 29 頁）">組織公平：程序公平</a></h3><p>規則一致地適用在每個人身上，包括訂規則的人</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%A2%9E%E5%BC%B7%E7%90%86%E8%AB%96&amp;p=25" target="_blank" rel="noopener" title="開啟講義：增強理論（第 25 頁）">增強理論：典範學習</a></h3><p>部屬觀察典範的行為與後果來學習，領導者就是最顯眼的典範</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E4%B8%AD%E7%9A%84%E8%A6%8F%E7%AF%84&amp;p=12" target="_blank" rel="noopener" title="開啟講義：團體中的規範（第 12 頁）">團體中的規範</a></h3><p>準時是團體共同接受的行為標準；訂規則的人自己遵守，規範才站得住</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%B0%E4%BD%8D%EF%BC%88status%EF%BC%89%E8%88%87%E5%9C%98%E9%AB%94&amp;p=15" target="_blank" rel="noopener" title="開啟講義：地位（status）與團體（第 15 頁）">地位與規範</a></h3><p>高地位者通常較敢偏離規範，創辦人沒有動用這個特權</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E5%93%A1%E5%B7%A5%E5%A6%82%E4%BD%95%E5%AD%B8%E7%BF%92%E7%B5%84%E7%B9%94%E6%96%87%E5%8C%96&amp;p=8" target="_blank" rel="noopener" title="開啟講義：員工如何學習組織文化（第 8 頁）">組織文化：故事</a></h3><p>創辦人的事蹟是組織故事最常見的題材；罰站這件事被一再轉述，本身就在傳遞文化</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E6%96%87%E5%8C%96%E5%A6%82%E4%BD%95%E5%BD%A2%E6%88%90&amp;p=9" target="_blank" rel="noopener" title="開啟講義：文化如何形成（第 9 頁）">創辦人以身作則</a></h3><p>文化的根源是創辦人；創辦人的行為讓員工產生認同，把價值觀內化</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%9C%88%E6%9A%88%E6%95%88%E6%9E%9C&amp;p=14" target="_blank" rel="noopener" title="開啟講義：月暈效果（第 14 頁）">月暈效果</a></h3><p>員工可能由這一件事推到對創辦人的整體好印象（解釋的是觀察者，不是創辦人的行為）</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="10">
+  <div class="head">
+  <div class="kick"><span class="no">事例 03／10</span><span class="grp">第 3 組</span><span class="cnt">對應理論 10 項</span></div>
+  <h1>會議不超過兩小時，沒有結論就無效</h1>
+  <p class="detail">講者與團隊約定：除年度會議外，會議不超過兩小時；會議必須有結論，寫明誰在何時完成何事，否則視為無效。上任第一天也告訴部屬，任何建議或批評都可以私下提出。</p>
+  </div>
+  <ol class="tl" style="--rows:5">
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%80%A1%E5%B0%8E%E7%B5%90%E6%A7%8B%E8%88%87%E9%AB%94%E6%81%A4&amp;p=11" target="_blank" rel="noopener" title="開啟講義：倡導結構與體恤（第 11 頁）">倡導結構與體恤</a></h3><p>寫明誰在何時完成何事，是倡導結構（體恤只對應可以私下提意見這一點）</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E8%B7%AF%E5%BE%91-%E7%9B%AE%E6%A8%99%E7%90%86%E8%AB%96&amp;p=17" target="_blank" rel="noopener" title="開啟講義：路徑-目標理論（第 17 頁）">路徑-目標理論</a></h3><p>領導者替部屬釐清達成目標的途徑（任務不明確時，指導式領導較有效）</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E9%82%80%E8%AB%8B%E9%83%A8%E5%B1%AC%E5%BB%BA%E8%A8%80%EF%BC%8C%E6%9C%AA%E5%BF%85%E6%8F%9B%E4%BE%86%E5%BB%BA%E8%A8%80&amp;p=36" target="_blank" rel="noopener" title="開啟講義：邀請部屬建言，未必換來建言（第 36 頁）">建言徵詢</a></h3><p>上任第一天就說明建議或批評可以私下提出，降低了公開發言的風險</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E4%B8%AD%E7%9A%84%E8%A6%8F%E7%AF%84&amp;p=12" target="_blank" rel="noopener" title="開啟講義：團體中的規範（第 12 頁）">團體中的規範</a></h3><p>團體共同接受的行為標準，內化之後只需要最低限度的外部控制</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E8%A7%92%E8%89%B2%E8%88%87%E6%9C%9F%E6%9C%9B&amp;p=9" target="_blank" rel="noopener" title="開啟講義：角色與期望（第 9 頁）">角色與期望</a></h3><p>把誰負責什麼講清楚，減少角色認知與角色期望的落差</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%9A%8A%E7%A8%8B%E5%BA%8F%EF%BC%9A%E7%89%B9%E5%AE%9A%E7%9B%AE%E6%A8%99&amp;p=40" target="_blank" rel="noopener" title="開啟講義：團隊程序：特定目標（第 40 頁）">團隊程序：特定目標</a></h3><p>把共同目的轉成具體、可衡量的目標，成員才知道努力的方向與標準</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E8%A6%8F%E6%A8%A1%E5%B0%8D%E5%9C%98%E9%AB%94%E8%A1%8C%E7%82%BA%E7%9A%84%E5%BD%B1%E9%9F%BF&amp;p=16" target="_blank" rel="noopener" title="開啟講義：團體規模對團體行為的影響（第 16 頁）">防止社會閒散</a></h3><p>結論寫到個人，每個人的貢獻可以辨識，責任就不容易分散</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E7%9B%AE%E6%A8%99%E8%A8%AD%E5%AE%9A%E7%90%86%E8%AB%96&amp;p=18" target="_blank" rel="noopener" title="開啟講義：目標設定理論（第 18 頁）">目標設定理論</a></h3><p>具體、有期限的目標，比盡力而為更能帶動績效</p></div></li>
+<li><span class="ch">CH 11</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E9%81%B8%E6%93%87%E6%BA%9D%E9%80%9A%E6%96%B9%E6%B3%95%E8%88%87%E7%AE%A1%E9%81%93%E8%B1%90%E5%AF%8C%E5%BA%A6&amp;p=3" target="_blank" rel="noopener" title="開啟講義：選擇溝通方法與管道豐富度（第 3 頁）">管道豐富度</a></h3><p>會議豐富度高、成本也高，所以限時並要求結論；例行訊息適合走 email</p></div></li>
+<li><span class="ch">CH 5</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-03_personality.html#t=%E6%83%85%E5%A2%83%E5%BC%B7%E5%BA%A6%E7%9A%84%E8%A6%81%E7%B4%A0&amp;p=37" target="_blank" rel="noopener" title="開啟講義：情境強度的要素（第 37 頁）">情境強度的要素</a></h3><p>規則明確、後果清楚的情境下，個人差異的影響變小，行為更一致</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="8">
+  <div class="head">
+  <div class="kick"><span class="no">事例 04／10</span><span class="grp">第 4 組</span><span class="cnt">對應理論 8 項</span></div>
+  <h1>高階主管不願接受 360 度回饋</h1>
+  <p class="detail">一位績效與決策都很強的女性高階主管，在 360 度回饋中團隊面向的分數在區域墊底，總經理要求她接受教練輔導。她起初不願意接受，後來還哭了。多次對談後，她才理解自己的高標準和成長經驗有關，慢慢接受回饋。講者說，職位越高，部屬越少說實話。</p>
+  </div>
+  <ol class="tl" style="--rows:4">
+<li><span class="ch">CH 13</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-09_power.html#t=%E6%AC%8A%E5%8A%9B%E5%B0%8D%E4%BA%BA%E7%9A%84%E5%BD%B1%E9%9F%BF&amp;p=33" target="_blank" rel="noopener" title="開啟講義：權力對人的影響（第 33 頁）">權力對人的影響</a></h3><p>權力會帶來自我防衛與過度自信</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E8%87%AA%E5%88%A9%E6%80%A7%E5%81%8F%E5%B7%AE&amp;p=12" target="_blank" rel="noopener" title="開啟講義：自利性偏差（第 12 頁）">自利性偏差</a></h3><p>接受正面回饋、否認負面回饋</p></div></li>
+<li><span class="ch">CH 3</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-02_attitudes.html#t=%E6%85%8B%E5%BA%A6%E8%88%87%E8%A1%8C%E7%82%BA%E7%9A%84%E9%97%9C%E4%BF%82&amp;p=6" target="_blank" rel="noopener" title="開啟講義：態度與行為的關係（第 6 頁）">認知失調</a></h3><p>自認是優秀的主管，卻拿到墊底的團隊分數；先不接受，是降低失調的常見方式</p></div></li>
+<li><span class="ch">CH 3</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-02_attitudes.html#t=%E6%85%8B%E5%BA%A6%E7%9A%84%E5%AE%9A%E7%BE%A9%E8%88%87%E7%B5%84%E6%88%90%E8%A6%81%E7%B4%A0&amp;p=3" target="_blank" rel="noopener" title="開啟講義：態度的定義與組成要素（第 3 頁）">態度的三個要素</a></h3><p>認知是自己帶得很好，情感是難過到落淚，行為是拒絕教練輔導</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E8%A7%92%E8%89%B2%E8%88%87%E6%9C%9F%E6%9C%9B&amp;p=9" target="_blank" rel="noopener" title="開啟講義：角色與期望（第 9 頁）">角色認知與角色期望</a></h3><p>主管認為自己的角色是交出績效，部屬期望的是帶好團隊；回饋把落差攤開</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E4%B8%BB%E7%AE%A1%E8%87%AA%E5%B7%B1%E6%B1%82%E5%9B%9E%E9%A5%8B%EF%BC%8C%E6%95%88%E6%9E%9C%E6%9C%89%E4%B8%80%E5%80%8B%E7%94%9C%E8%9C%9C%E9%BB%9E&amp;p=37" target="_blank" rel="noopener" title="開啟講義：主管自己求回饋，效果有一個甜蜜點（第 37 頁）">主管求回饋與建言徵詢</a></h3><p>360 度回饋是制度化的徵詢；主管真誠地求回饋，部屬才會說實話</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E7%89%B9%E8%B3%AA%E7%90%86%E8%AB%96%E5%92%8C%E8%A1%8C%E7%82%BA%E7%90%86%E8%AB%96%E7%9A%84%E7%B8%BD%E7%B5%90&amp;p=12" target="_blank" rel="noopener" title="開啟講義：特質理論和行為理論的總結（第 12 頁）">特質理論與行為理論</a></h3><p>教練輔導的前提是領導行為可以訓練（高標準則較接近特質與成長經驗）</p></div></li>
+<li><span class="ch">CH 4</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-05_emotions.html#t=%E6%83%85%E7%B7%92%E8%AA%BF%E7%AF%80%E6%8A%80%E5%B7%A7&amp;p=22" target="_blank" rel="noopener" title="開啟講義：情緒調節技巧（第 22 頁）">情緒調節：認知重評</a></h3><p>重新理解高標準從何而來，情緒反應才跟著調整</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="10">
+  <div class="head">
+  <div class="kick"><span class="no">事例 05／10</span><span class="grp">第 5 組</span><span class="cnt">對應理論 10 項</span></div>
+  <h1>陪部屬第一次授課，整天記錄、逐條回饋</h1>
+  <p class="detail">講者帶一位部屬轉任講師。部屬第一次獨立授課時，講者整天在場記錄觀察，課後逐條給回饋。多年後這位部屬傳訊感謝，所屬公司也獲得國家人才發展獎。</p>
+  </div>
+  <ol class="tl" style="--rows:5">
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E8%87%AA%E6%88%91%E6%95%88%E8%83%BD%E7%90%86%E8%AB%96&amp;p=23" target="_blank" rel="noopener" title="開啟講義：自我效能理論（第 23 頁）">自我效能理論</a></h3><p>成功經驗是最強的來源，言語說服與回饋可以再推高信念</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E7%9B%AE%E6%A8%99%E8%A8%AD%E5%AE%9A%E7%90%86%E8%AB%96&amp;p=18" target="_blank" rel="noopener" title="開啟講義：目標設定理論（第 18 頁）">目標設定理論：回饋</a></h3><p>適時的回饋讓人知道自己的進展；逐條、具體的回饋比籠統的鼓勵有用</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E8%87%AA%E6%88%91%E6%B1%BA%E5%AE%9A%E7%90%86%E8%AB%96&amp;p=10" target="_blank" rel="noopener" title="開啟講義：自我決定理論（第 10 頁）">自我決定理論</a></h3><p>人喜歡能掌控自己行動的感受（主管整天在場可能是支持，也可能被感受成監控，關鍵在回饋怎麼給）</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E4%BA%A4%E6%98%93%E5%9E%8B%E9%A0%98%E5%B0%8E%E8%88%87%E8%BD%89%E6%8F%9B%E5%9E%8B%E9%A0%98%E5%B0%8E&amp;p=24" target="_blank" rel="noopener" title="開啟講義：交易型領導與轉換型領導（第 24 頁）">轉換型領導</a></h3><p>個別關懷：依每位部屬的發展需要給予支持與指導</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E6%83%85%E5%A2%83%E9%A0%98%E5%B0%8E%E7%90%86%E8%AB%96%EF%BC%88SLT%EF%BC%89&amp;p=16" target="_blank" rel="noopener" title="開啟講義：情境領導理論（SLT）（第 16 頁）">情境領導理論</a></h3><p>第一次獨立授課，意願高、能力還在建立，先多指導多支持，熟練後再放手</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%B0%8B%E6%89%BE%E8%88%87%E5%9F%B9%E9%A4%8A%E6%9C%89%E6%95%88%E7%9A%84%E9%A0%98%E5%B0%8E%E8%80%85&amp;p=44" target="_blank" rel="noopener" title="開啟講義：尋找與培養有效的領導者（第 44 頁）">師徒關係</a></h3><p>師徒指導屬於可以訓練的領導行為</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E8%A3%9C%E5%85%85%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%BE%92%E5%BC%9F%E4%B8%8D%E9%96%8B%E5%8F%A3%E6%B1%82%E6%95%99%EF%BC%8C%E6%98%AF%E6%80%95%E6%88%90%E7%82%BA%E8%B2%A0%E6%93%94&amp;p=49" target="_blank" rel="noopener" title="開啟講義：補充研究：徒弟不開口求教，是怕成為負擔（第 49 頁）">徒弟不開口求教</a></h3><p>求教者怕成為負擔；主管主動陪同，等於替部屬拿掉這道門檻</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E7%A4%BE%E6%9C%83%E5%8C%96%E7%9A%84%E5%90%84%E7%A8%AE%E5%81%9A%E6%B3%95&amp;p=14" target="_blank" rel="noopener" title="開啟講義：社會化的各種做法（第 14 頁）">循序社會化</a></h3><p>由榜樣人物培訓與鼓勵新人，師徒制就是例子（循序指有榜樣帶領，不是按步驟進行）</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E8%A3%9C%E5%85%85%E7%A0%94%E7%A9%B6%EF%BC%9A%E7%B5%84%E7%B9%94%E5%A6%82%E4%BD%95%E5%9F%B9%E9%A4%8A%E6%A9%9F%E7%B7%A3&amp;p=25" target="_blank" rel="noopener" title="開啟講義：補充研究：組織如何培養機緣（第 25 頁）">心理安全感</a></h3><p>相信提問與犯錯不會被懲罰，才聽得進逐條回饋</p></div></li>
+<li><span class="ch">CH 18</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-10_stress.html#t=%E7%A4%BE%E6%9C%83%E6%94%AF%E6%8C%81%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7&amp;p=16" target="_blank" rel="noopener" title="開啟講義：社會支持的重要性（第 16 頁）">社會支持的重要性</a></h3><p>上司的理解和支持是壓力最一致的緩衝因子之一</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="8">
+  <div class="head">
+  <div class="kick"><span class="no">事例 06／10</span><span class="grp">第 6 組</span><span class="cnt">對應理論 8 項</span></div>
+  <h1>三位主管，只能先培育一位</h1>
+  <p class="detail">A 專業強但脾氣硬、常與同事爭執；B 學習意願高，但技術與策略思考較弱；C 技術沒問題，但積極性不足。講者先用一張光譜說明：有些特質和原生家庭、成長環境有關，上幾堂課也難改；有些能力給對訓練就能明顯進步。</p>
+  </div>
+  <ol class="tl" style="--rows:4">
+<li><span class="ch">CH 5</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-03_personality.html#t=%E4%BA%BA%E6%A0%BC%E7%9A%84%E6%B1%BA%E5%AE%9A%E5%9B%A0%E7%B4%A0&amp;p=7" target="_blank" rel="noopener" title="開啟講義：人格的決定因素（第 7 頁）">人格的決定因素</a></h3><p>遺傳約可解釋人格差異的一半：先天給範圍，後天決定落點</p></div></li>
+<li><span class="ch">CH 5</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-03_personality.html#t=%E5%A4%A7%E4%BA%94%E4%BA%BA%E6%A0%BC%E6%A8%A1%E5%BC%8F&amp;p=15" target="_blank" rel="noopener" title="開啟講義：大五人格模式（第 15 頁）">大五人格模式</a></h3><p>A 脾氣硬、常與同事爭執，對應親和性；親和性低者較難團隊合作</p></div></li>
+<li><span class="ch">CH 4</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-05_emotions.html#t=%E6%83%85%E7%B7%92%E8%AA%BF%E7%AF%80%E6%8A%80%E5%B7%A7&amp;p=22" target="_blank" rel="noopener" title="開啟講義：情緒調節技巧（第 22 頁）">情緒調節</a></h3><p>A 的爭執涉及情緒調節（要判斷它屬於可以訓練的能力，還是較難改變的特質）</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E8%83%8C%E6%99%AF%E5%9B%A0%E7%B4%A0%EF%BC%9A%E7%B5%84%E6%88%90%E6%80%A7%E8%B3%AA&amp;p=38" target="_blank" rel="noopener" title="開啟講義：背景因素：組成性質（第 38 頁）">團隊組成：成員的人格</a></h3><p>一位極端不合作的成員，就足以拖垮整個團隊的表現</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E6%83%85%E5%A2%83%E9%A0%98%E5%B0%8E%E7%90%86%E8%AB%96%EF%BC%88SLT%EF%BC%89&amp;p=16" target="_blank" rel="noopener" title="開啟講義：情境領導理論（SLT）（第 16 頁）">情境領導理論</a></h3><p>B 有意願、能力不足，C 有能力、意願不足，要搭配不同的領導風格</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=Fiedler%20%E6%AC%8A%E8%AE%8A%E6%A8%A1%E5%BC%8F&amp;p=14" target="_blank" rel="noopener" title="開啟講義：Fiedler 權變模式（第 14 頁）">Fiedler 權變模式</a></h3><p>假定個人的領導風格不變，主張替人找適合的情境（方向與情境領導理論相反）</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%B0%8B%E6%89%BE%E8%88%87%E5%9F%B9%E9%A4%8A%E6%9C%89%E6%95%88%E7%9A%84%E9%A0%98%E5%B0%8E%E8%80%85&amp;p=44" target="_blank" rel="noopener" title="開啟講義：尋找與培養有效的領導者（第 44 頁）">尋找與培養有效的領導者</a></h3><p>可以訓練的是具體行為，不是人格</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=McClelland%20%E7%9A%84%E9%9C%80%E6%B1%82%E7%90%86%E8%AB%96&amp;p=9" target="_blank" rel="noopener" title="開啟講義：McClelland 的需求理論（第 9 頁）">McClelland 的需求理論</a></h3><p>11/8 課堂上有同學用需求理論說明自己改變選擇的理由</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="11">
+  <div class="head">
+  <div class="kick"><span class="no">事例 07／10</span><span class="grp off">課堂未抽到</span><span class="cnt">對應理論 11 項</span></div>
+  <h1>開會請資淺的人先發言</h1>
+  <p class="detail">講者開會時鼓勵每個人提出看法，想法不成熟也不當場否定；並請資淺的成員先發言，避免資深成員說完之後，資淺者只能附和。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%B0%E4%BD%8D%EF%BC%88status%EF%BC%89%E8%88%87%E5%9C%98%E9%AB%94&amp;p=15" target="_blank" rel="noopener" title="開啟講義：地位（status）與團體（第 15 頁）">地位與團體</a></h3><p>低地位者傾向沉默以自保，地位落差過大時，好點子浮不上檯面</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E8%BF%B7%E6%80%9D%E8%88%87%E5%9C%98%E9%AB%94%E5%81%8F%E7%A7%BB&amp;p=25" target="_blank" rel="noopener" title="開啟講義：團體迷思與團體偏移（第 25 頁）">團體迷思</a></h3><p>領導者先表態是好發條件；對策是領導者先聽後說、鼓勵所有成員發言</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E6%B1%BA%E7%AD%96%E7%9A%84%E4%B8%89%E7%A8%AE%E6%8A%80%E8%A1%93&amp;p=26" target="_blank" rel="noopener" title="開啟講義：團體決策的三種技術（第 26 頁）">團體決策的三種技術</a></h3><p>名義團體法先各自寫下、輪流陳述，避免少數人主導與從眾</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E8%A3%9C%E5%85%85%E7%A0%94%E7%A9%B6%EF%BC%9A%E5%80%8B%E4%BA%BA%E8%88%87%E5%9C%98%E9%9A%8A%E7%8D%8E%E9%85%AC%E9%83%BD%E6%8E%A8%E9%AB%98%E9%BB%9E%E5%AD%90%E5%90%A6%E6%B1%BA&amp;p=47" target="_blank" rel="noopener" title="開啟講義：補充研究：個人與團隊獎酬都推高點子否決（第 47 頁）">點子否決</a></h3><p>不合常規的點子容易被提早否決，否決愈多，團隊創意愈低</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E9%82%80%E8%AB%8B%E9%83%A8%E5%B1%AC%E5%BB%BA%E8%A8%80%EF%BC%8C%E6%9C%AA%E5%BF%85%E6%8F%9B%E4%BE%86%E5%BB%BA%E8%A8%80&amp;p=36" target="_blank" rel="noopener" title="開啟講義：邀請部屬建言，未必換來建言（第 36 頁）">邀請部屬建言，未必換來建言</a></h3><p>部屬若覺得主管支配性高，邀請反而讀成威脅，焦慮升高而沉默</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E6%B1%BA%E7%AD%96%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E7%BC%BA%E9%BB%9E&amp;p=24" target="_blank" rel="noopener" title="開啟講義：團體決策的優點與缺點（第 24 頁）">團體決策的優點與缺點</a></h3><p>團體決策會帶進從眾壓力；資淺者先說，資深者的看法還沒形成壓力</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%B1%BA%E7%AD%96%E4%B8%AD%E5%B8%B8%E8%A6%8B%E7%9A%84%E5%81%8F%E5%B7%AE%E5%8F%8A%E9%8C%AF%E8%AA%A4%EF%BC%88%E4%B8%80%EF%BC%89&amp;p=27" target="_blank" rel="noopener" title="開啟講義：決策中常見的偏差及錯誤（一）（第 27 頁）">定錨偏差</a></h3><p>最先出現的訊息會成為錨點；資深成員先講，後面的討論容易被鎖住</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%80%A1%E5%B0%8E%E7%B5%90%E6%A7%8B%E8%88%87%E9%AB%94%E6%81%A4&amp;p=11" target="_blank" rel="noopener" title="開啟講義：倡導結構與體恤（第 11 頁）">體恤</a></h3><p>鼓勵每個人提出看法，是尊重部屬意見、注重部屬感受的體恤行為</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E5%9F%B9%E9%A4%8A%E5%89%B5%E6%96%B0%E6%96%87%E5%8C%96&amp;p=23" target="_blank" rel="noopener" title="開啟講義：培養創新文化（第 23 頁）">培養創新文化</a></h3><p>成員不擔心因為犯錯受罰，比較願意提出並嘗試新想法</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E8%A3%9C%E5%85%85%E7%A0%94%E7%A9%B6%EF%BC%9A%E7%B5%84%E7%B9%94%E5%A6%82%E4%BD%95%E5%9F%B9%E9%A4%8A%E6%A9%9F%E7%B7%A3&amp;p=25" target="_blank" rel="noopener" title="開啟講義：補充研究：組織如何培養機緣（第 25 頁）">自我審查與心理安全感</a></h3><p>想法沒想清楚就不敢講，是自我審查；不當場否定，員工才敢講還沒想清楚的想法</p></div></li>
+<li><span class="ch">CH 2</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-11_diversity.html#t=Hofstede%20%E7%9A%84%E5%85%AD%E5%80%8B%E6%96%87%E5%8C%96%E9%9D%A2%E5%90%91&amp;p=16" target="_blank" rel="noopener" title="開啟講義：Hofstede 的六個文化面向（第 16 頁）">權力距離</a></h3><p>權力距離高的環境把階層差距視為理所當然，資淺者更不容易開口（請資淺者先發言是刻意抵銷這個傾向）</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="11">
+  <div class="head">
+  <div class="kick"><span class="no">事例 08／10</span><span class="grp off">課堂未抽到</span><span class="cnt">對應理論 11 項</span></div>
+  <h1>主廚把自己列進懲處名單</h1>
+  <p class="detail">衛生單位稽查時，在飯店廚房冰箱發現個人飲料，列為重大缺失。主廚提報的懲處名單寫的是自己管理不當、記過一次。在很講究上下層級的廚房裡，部屬因此願意追隨。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E8%87%AA%E5%88%A9%E6%80%A7%E5%81%8F%E5%B7%AE&amp;p=12" target="_blank" rel="noopener" title="開啟講義：自利性偏差（第 12 頁）">自利性偏差</a></h3><p>成功歸功自己、失敗歸咎外界是常態，主廚的做法正好相反</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%83%95%E4%BA%BA%E5%BC%8F%E9%A0%98%E5%B0%8E&amp;p=34" target="_blank" rel="noopener" title="開啟講義：僕人式領導（第 34 頁）">僕人式領導</a></h3><p>把照顧部屬視為受託的責任</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E4%BF%A1%E4%BB%BB%E8%88%87%E9%A0%98%E5%B0%8E&amp;p=32" target="_blank" rel="noopener" title="開啟講義：信任與領導（第 32 頁）">信任與領導</a></h3><p>善意是信任的三個特徵之一：把追隨者的利益放在心上</p></div></li>
+<li><span class="ch">CH 1</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-01_intro.html#t=%E8%AA%B2%E5%A0%82%E7%9B%A4%E9%BB%9E%EF%BC%9A%E5%A5%BD%E4%B8%BB%E7%AE%A1%E8%88%87%E4%B8%8D%E5%A5%BD%E7%9A%84%E4%B8%BB%E7%AE%A1&amp;p=33" target="_blank" rel="noopener" title="開啟講義：課堂盤點：好主管與不好的主管（第 33 頁）">課堂盤點：好主管與不好的主管</a></h3><p>第一次上課大家列的好主管有承擔，不好的主管有甩鍋</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%80%AB%E7%90%86%E9%A0%98%E5%B0%8E&amp;p=33" target="_blank" rel="noopener" title="開啟講義：倫理領導（第 33 頁）">倫理領導</a></h3><p>領導者自己展現合乎規範的行為，高層的基調會沿著層級往下傳</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E5%9F%B9%E9%A4%8A%E5%80%AB%E7%90%86%E6%96%87%E5%8C%96&amp;p=22" target="_blank" rel="noopener" title="開啟講義：培養倫理文化（第 22 頁）">培養倫理文化</a></h3><p>員工以主管的行為作為判斷標準；懲處公開運用，主管自己也在適用範圍內</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%AD%B8%E5%9B%A0%E7%90%86%E8%AB%96&amp;p=7" target="_blank" rel="noopener" title="開啟講義：歸因理論（第 7 頁）">歸因理論</a></h3><p>主廚把缺失歸因於自己可以掌控的管理，沒有推給部屬個人或外在環境</p></div></li>
+<li><span class="ch">CH 13</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-09_power.html#t=%E5%80%8B%E4%BA%BA%E6%AC%8A%E5%8A%9B%E7%9A%84%E5%85%A9%E7%A8%AE%E9%A1%9E%E5%9E%8B&amp;p=6" target="_blank" rel="noopener" title="開啟講義：個人權力的兩種類型（第 6 頁）">參考權</a></h3><p>部屬願意追隨，來自對主廚的尊敬，不是職位給的合法權；個人權力是最有效的權力基礎</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%85%AC%E5%B9%B3%E7%9A%84%E9%A1%9E%E5%88%A5&amp;p=29" target="_blank" rel="noopener" title="開啟講義：公平的類別（第 29 頁）">分配公平</a></h3><p>懲處落在該負責的人身上，部屬較容易認為結果公平</p></div></li>
+<li><span class="ch">CH 2</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-11_diversity.html#t=Hofstede%20%E7%9A%84%E5%85%AD%E5%80%8B%E6%96%87%E5%8C%96%E9%9D%A2%E5%90%91&amp;p=16" target="_blank" rel="noopener" title="開啟講義：Hofstede 的六個文化面向（第 16 頁）">權力距離</a></h3><p>很講究上下層級的廚房，權力距離高；主管主動承擔，和部屬的預期相反，效果因此更明顯</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E5%93%A1%E5%B7%A5%E5%A6%82%E4%BD%95%E5%AD%B8%E7%BF%92%E7%B5%84%E7%B9%94%E6%96%87%E5%8C%96&amp;p=8" target="_blank" rel="noopener" title="開啟講義：員工如何學習組織文化（第 8 頁）">組織文化：故事</a></h3><p>對過去錯誤的省思是組織故事常見的題材（前提：這件事在組織裡被轉述）</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="12">
+  <div class="head">
+  <div class="kick"><span class="no">事例 09／10</span><span class="grp off">課堂未抽到</span><span class="cnt">對應理論 12 項</span></div>
+  <h1>老闆把員工的報告交給 AI 改，再要員工照做</h1>
+  <p class="detail">講者朋友的老闆把員工交的報告交給 AI 修改，再要求員工照 AI 的指示執行。講者認為順序顛倒了：AI 協助產出，人負責查證、取捨與承擔責任。他也引述研究：對 AI 越信任，投入批判性思考的程度越低。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%9C%89%E9%99%90%E7%90%86%E6%80%A7&amp;p=24" target="_blank" rel="noopener" title="開啟講義：有限理性（第 24 頁）">有限理性</a></h3><p>人會簡化問題，找到夠好的方案就停下，AI 讓這條捷徑更省力</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%B1%BA%E7%AD%96%E4%B8%AD%E5%B8%B8%E8%A6%8B%E7%9A%84%E5%81%8F%E5%B7%AE%E5%8F%8A%E9%8C%AF%E8%AA%A4%EF%BC%88%E4%B8%80%EF%BC%89&amp;p=27" target="_blank" rel="noopener" title="開啟講義：決策中常見的偏差及錯誤（一）（第 27 頁）">決策中常見的偏差</a></h3><p>過度自信與肯證偏差：AI 有時會迎合使用者，等於替原本的想法找支持證據</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E9%99%8D%E4%BD%8E%E5%81%8F%E8%AA%A4%E8%88%87%E9%8C%AF%E8%AA%A4%E7%9A%84%E6%96%B9%E6%B3%95&amp;p=32" target="_blank" rel="noopener" title="開啟講義：降低偏誤與錯誤的方法（第 32 頁）">降低偏誤與錯誤的方法</a></h3><p>主動尋找反證資訊，公開思考自己可能錯在哪裡</p></div></li>
+<li><span class="ch">CH 1</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-01_intro.html#t=%E7%B3%BB%E7%B5%B1%E5%8C%96%E7%A0%94%E7%A9%B6%E8%88%87%E5%BE%AA%E8%AD%89%E7%AE%A1%E7%90%86&amp;p=8" target="_blank" rel="noopener" title="開啟講義：系統化研究與循證管理（第 8 頁）">系統化研究與循證管理</a></h3><p>AI 輔助決策時，仍要評估證據品質，留意資料品質與演算法偏誤</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%9F%BA%E6%9C%AC%E5%BF%83%E7%90%86%E7%A4%BE%E6%9C%83%E9%9C%80%E6%B1%82&amp;p=15" target="_blank" rel="noopener" title="開啟講義：基本心理社會需求（第 15 頁）">自我決定理論：自主性</a></h3><p>被強加的目標與控制會抑制自主性；報告被改掉再被要求照做，掌控感下降</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%B7%A5%E4%BD%9C%E7%89%B9%E6%80%A7%E6%A8%A1%E5%BC%8F&amp;p=32" target="_blank" rel="noopener" title="開啟講義：工作特性模式（第 32 頁）">工作特性模式</a></h3><p>自主性與回饋性都降低：員工不能決定做法，也得不到主管對自己判斷的回饋</p></div></li>
+<li><span class="ch">CH 3</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-02_attitudes.html#t=%E4%B8%BB%E8%A6%81%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%85%8B%E5%BA%A6&amp;p=8" target="_blank" rel="noopener" title="開啟講義：主要的工作態度（第 8 頁）">心理賦權</a></h3><p>心理賦權是員工相信自己能影響工作環境與工作意義的程度；這種做法把它往下拉</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E5%85%AC%E5%B9%B3%E7%9A%84%E9%A1%9E%E5%88%A5&amp;p=29" target="_blank" rel="noopener" title="開啟講義：公平的類別（第 29 頁）">程序公平與資訊公平</a></h3><p>員工沒有發言機會，主管也沒有說明修改的理由</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E4%BF%A1%E4%BB%BB%E8%88%87%E9%A0%98%E5%B0%8E&amp;p=32" target="_blank" rel="noopener" title="開啟講義：信任與領導（第 32 頁）">信任與領導</a></h3><p>能力是信任的三個特徵之一；把報告交給 AI 改，傳達的是不信任部屬的判斷</p></div></li>
+<li><span class="ch">CH 13</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-09_power.html#t=%E5%93%AA%E4%B8%80%E9%A0%85%E6%AC%8A%E5%8A%9B%E5%9F%BA%E7%A4%8E%E6%9C%80%E6%9C%89%E6%95%88%EF%BC%9F&amp;p=7" target="_blank" rel="noopener" title="開啟講義：哪一項權力基礎最有效？（第 7 頁）">合法權</a></h3><p>員工照做靠的是職位給的權力；研究顯示正式權力換不到真心的投入與認同</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E5%8C%96%E8%A7%A3%E8%AE%8A%E9%9D%A9%E9%98%BB%E5%8A%9B%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89&amp;p=32" target="_blank" rel="noopener" title="開啟講義：化解變革阻力的方法（一）（第 32 頁）">化解變革阻力：溝通與參與</a></h3><p>導入 AI 也是變革；說明理由、讓有專業的人參與決策，可降低抗拒並改善決策品質</p></div></li>
+<li><span class="ch">CH 18</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-10_stress.html#t=%E5%B7%A5%E4%BD%9C%E8%A6%81%E6%B1%82%E8%88%87%E8%B3%87%E6%BA%90%EF%BC%88JD-R%EF%BC%89&amp;p=12" target="_blank" rel="noopener" title="開啟講義：工作要求與資源（JD-R）（第 12 頁）">工作要求與資源</a></h3><p>照 AI 的指示做，結果卻要自己承擔：要求增加，可動用的職權（資源）減少</p></div></li>
+  </ol>
+</section>
+<section class="pg" data-n="11">
+  <div class="head">
+  <div class="kick"><span class="no">事例 10／10</span><span class="grp off">課堂未抽到</span><span class="cnt">對應理論 11 項</span></div>
+  <h1>業務冠軍升主管，未必是好主管</h1>
+  <p class="detail">現在做得好不代表未來做得好，一流業務升為主管後未必適任，因為需要的能力不同。講者建議同時看過去績效、潛力與學習敏捷度。講者自己早年應徵外商藥廠，也曾因為不是藥學系而落選。他建議看潛力時，並介紹評鑑中心：讓候選人在模擬辦公室裡扮演虛擬公司的副總，由評鑑人員觀察評分。</p>
+  </div>
+  <ol class="tl" style="--rows:6">
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E6%9C%88%E6%9A%88%E6%95%88%E6%9E%9C&amp;p=14" target="_blank" rel="noopener" title="開啟講義：月暈效果（第 14 頁）">月暈效果</a></h3><p>單一亮點渲染整體評價：業績亮眼，就被推定適合帶人</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1&amp;p=16" target="_blank" rel="noopener" title="開啟講義：刻板印象（第 16 頁）">刻板印象</a></h3><p>講者早年因為不是藥學系而落選，學歷標籤代替了對個人的判斷</p></div></li>
+<li><span class="ch">CH 5</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-03_personality.html#t=%E5%80%8B%E4%BA%BA%E8%88%87%E5%B7%A5%E4%BD%9C%E7%9A%84%E9%81%A9%E9%85%8D&amp;p=41" target="_blank" rel="noopener" title="開啟講義：個人與工作的適配（第 41 頁）">個人與工作的適配</a></h3><p>不同工作需要不同的特質，業務與管理是兩種工作</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%B0%8B%E6%89%BE%E8%88%87%E5%9F%B9%E9%A4%8A%E6%9C%89%E6%95%88%E7%9A%84%E9%A0%98%E5%B0%8E%E8%80%85&amp;p=44" target="_blank" rel="noopener" title="開啟講義：尋找與培養有效的領導者（第 44 頁）">尋找與培養有效的領導者</a></h3><p>評鑑中心觀察模擬情境中的實際行為，比自陳可靠</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=%E6%A1%88%E4%BE%8B%EF%BC%9AEY%20US%20%E6%8A%8A%E7%8D%8E%E9%85%AC%E7%B6%81%E5%88%B0%E6%9C%AA%E4%BE%86%E6%8A%80%E8%83%BD%E8%88%87%E8%A1%8C%E7%82%BA&amp;p=62" target="_blank" rel="noopener" title="開啟講義：案例：EY US 把獎酬綁到未來技能與行為（第 62 頁）">EY 把獎酬綁到未來技能</a></h3><p>快速學習與好奇心被列為要獎勵的行為，和學習敏捷度是同一件事</p></div></li>
+<li><span class="ch">CH 7·8</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-06_motivation.html#t=McClelland%20%E7%9A%84%E9%9C%80%E6%B1%82%E7%90%86%E8%AB%96&amp;p=9" target="_blank" rel="noopener" title="開啟講義：McClelland 的需求理論（第 9 頁）">McClelland 的需求理論</a></h3><p>高成就需求者未必是好的管理者；優秀管理者常見的組合是高權力需求搭配低親和需求</p></div></li>
+<li><span class="ch">CH 1</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-01_intro.html#t=%E7%AE%A1%E7%90%86%E8%A7%92%E8%89%B2%E8%88%87%E7%B5%84%E7%B9%94%E8%A1%8C%E7%82%BA&amp;p=5" target="_blank" rel="noopener" title="開啟講義：管理角色與組織行為（第 5 頁）">管理角色與人際性技能</a></h3><p>管理者的工作是規劃、組織、領導、控制；從基層晉升時，規劃的重要性增加最多</p></div></li>
+<li><span class="ch">CH 12</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-08_leadership.html#t=%E5%A5%BD%E7%9A%84%E9%A0%98%E5%B0%8E%E8%80%85%E7%89%B9%E8%B3%AA&amp;p=7" target="_blank" rel="noopener" title="開啟講義：好的領導者特質（第 7 頁）">好的領導者特質</a></h3><p>外向、勤勉盡責、開放與情緒智力和領導效能有關；業績好只說明其中一部分</p></div></li>
+<li><span class="ch">CH 9·10</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-07_teams.html#t=%E8%A7%92%E8%89%B2%E8%88%87%E6%9C%9F%E6%9C%9B&amp;p=9" target="_blank" rel="noopener" title="開啟講義：角色與期望（第 9 頁）">角色與期望</a></h3><p>升任主管後角色期望改變：從自己把事做好，變成帶別人把事做好</p></div></li>
+<li><span class="ch">CH 6</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-04_perception.html#t=%E4%BA%BA%E9%9A%9B%E7%9F%A5%E8%A6%BA%E5%9C%A8%E7%B5%84%E7%B9%94%E4%B8%AD%E7%9A%84%E6%87%89%E7%94%A8&amp;p=20" target="_blank" rel="noopener" title="開啟講義：人際知覺在組織中的應用（第 20 頁）">人際知覺在組織中的應用</a></h3><p>第一印象形成之後，後續資訊常被用來確認而不是修正；評鑑中心用結構化的觀察降低這類偏差</p></div></li>
+<li><span class="ch">CH 16</span><div><h3><a href="https://yhwjoanna.github.io/OB/lectures/OB-12_culture.html#t=%E6%96%87%E5%8C%96%E7%9A%84%E7%B6%AD%E8%AD%B7&amp;p=11" target="_blank" rel="noopener" title="開啟講義：文化的維護（第 11 頁）">文化的維護：甄選與升遷</a></h3><p>升遷也是甄選；什麼樣的表現會獲得升遷，是高階主管向全體傳達的訊息</p></div></li>
+  </ol>
+</section>
+</main>
+<nav id="nav" aria-label="換頁">
+  <button id="prev" type="button" aria-label="上一則">←</button>
+  <div id="dots"></div>
+  <span id="cnt" aria-hidden="true"></span>
+  <span class="tip">方向鍵或空白鍵換頁　·　點理論名稱開講義</span>
+  <button id="next" type="button" aria-label="下一則">→</button>
+</nav>
+<script>
+(function () {
+  var P = [].slice.call(document.querySelectorAll('.pg')), N = P.length, cur = 0;
+  var dots = document.getElementById('dots'), prev = document.getElementById('prev'), next = document.getElementById('next');
+  var NARROW = matchMedia('(max-width:820px)');
+  P.forEach(function (_, k) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = k + 1;
+    b.setAttribute('aria-label', '第 ' + (k + 1) + ' 則'); b.addEventListener('click', function () { show(k); }); dots.appendChild(b);
+  });
+  /* 字級配適：十頁共用同一個倍率，取每一頁都放得下的最大值，換頁時字級與版位不會變動。
+     頁首區塊的高度取十頁中最高的那一頁，底線與理論清單的起點因此每頁相同 */
+  var deck = document.getElementById('deck');
+  function fitAll() {
+    if (NARROW.matches) { deck.style.removeProperty('--f'); deck.style.setProperty('--head', '0px'); return; }
+    function ok(f) {
+      deck.style.setProperty('--f', f.toFixed(3)); deck.style.setProperty('--head', '0px');
+      var hh = 0; P.forEach(function (pg) { hh = Math.max(hh, pg.querySelector('.head').getBoundingClientRect().height); });
+      deck.style.setProperty('--head', Math.ceil(hh) + 'px');
+      return P.every(function (pg) { return pg.scrollHeight <= pg.clientHeight + 1 && pg.scrollWidth <= pg.clientWidth + 1; });
+    }
+    var lo = 0.5, hi = 2.1;
+    if (ok(hi)) return;
+    for (var i = 0; i < 12; i++) { var m = (lo + hi) / 2; if (ok(m)) lo = m; else hi = m; }
+    ok(lo * 0.985 < 0.5 ? 0.5 : lo * 0.985);
+  }
+  function show(k) {
+    cur = Math.max(0, Math.min(N - 1, k));
+    P.forEach(function (p, i) { p.classList.toggle('on', i === cur); });
+    [].forEach.call(dots.children, function (b, i) { if (i === cur) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    prev.disabled = cur === 0; next.disabled = cur === N - 1;
+    document.getElementById('cnt').textContent = (cur + 1) + '／' + N;
+    if (NARROW.matches) scrollTo(0, 0);
+    try { history.replaceState(null, '', '#' + (cur + 1)); } catch (_) {}
+  }
+  prev.addEventListener('click', function () { show(cur - 1); });
+  next.addEventListener('click', function () { show(cur + 1); });
+  addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var onLink = document.activeElement && document.activeElement.tagName === 'A';
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && !onLink)) { e.preventDefault(); show(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(N - 1);
+    else if (e.key >= '1' && e.key <= '9') show(+e.key - 1);
+    else if (e.key === '0') show(9);
+  });
+  /* 點連結開新分頁後放掉焦點，空白鍵才不會重複開啟 */
+  document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('.tl a'); if (a) setTimeout(function () { a.blur(); }, 0); });
+  /* 斷詞：用瀏覽器內建的 Intl.Segmenter 把每個詞包成不換行的 span，換行只發生在詞與詞之間。
+     收尾標點併入前一個詞，起始括號併入後一個詞。瀏覽器不支援時維持原樣 */
+  (function () {
+    if (!window.Intl || !Intl.Segmenter) return;
+    var sg = new Intl.Segmenter('zh-Hant', { granularity: 'word' });
+    var KEEP = ["六小時", "兩小時", "豐富度", "管道豐富度", "好印象", "需求理論", "需求層次理論", "看得到", "知覺組織支持", "程序公平", "人際公平", "心理賦權", "員工敬業", "二因子理論", "保健因素", "激勵因素", "倫理領導", "真誠領導", "月暈效果", "倡導結構", "路徑-目標理論", "指導式領導", "社會閒散", "目標設定理論", "情境強度", "自利性偏差", "認知失調", "角色認知", "角色期望", "特質理論", "行為理論", "認知重評", "自我效能", "自我決定理論", "轉換型領導", "情境領導理論", "循序社會化", "心理安全感", "社會支持", "大五人格", "親和性", "情緒調節", "權變模式", "團體迷思", "名義團體法", "有限理性", "肯證偏差", "過度自信", "刻板印象", "評鑑中心", "學習敏捷度", "僕人式領導", "魅力型領導", "典範學習", "組織公平", "個別關懷", "師徒制", "教練輔導", "以身作則", "團隊分數", "證據品質", "重大缺失", "提早否決", "主動陪同", "還在建立", "共同目的", "工作滿足感", "組織文化", "團隊組成", "領導風格", "控制感", "外部控制", "整體風格", "高階主管", "一級主管", "好主管", "不好的主管", "記過一次", "座談六小時", "定錨偏差", "從眾壓力", "自我審查", "權力距離", "歸因理論", "參考權", "合法權", "分配公平", "資訊公平", "工作特性模式", "自主性", "回饋性", "成就需求", "權力需求", "親和需求", "第一印象", "創新文化", "倫理文化", "權力基礎", "個人權力", "正式權力", "人際性技能", "情緒智力", "勤勉盡責", "決策品質", "新想法", "掌控感", "研究顯示", "職位給的"].map(function (t) { return new RegExp(t.split('').map(function (c) { return c.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); }).join('\u0001?'), 'g'); });
+    var CLOSE = /^[，。；：、）」』！？％,.;:!?)\s]+$/, OPEN = /^[（「『(]+$/;
+    [].forEach.call(document.querySelectorAll('.pg h1, .pg .detail, .tl h3 a, .tl p'), function (el) {
+      var out = [], cur = '', pre = '';
+      Array.from(sg.segment(el.textContent)).forEach(function (x) {
+        var t = x.segment;
+        if (CLOSE.test(t)) { cur += t; return; }
+        if (OPEN.test(t)) { if (cur) out.push(cur); cur = ''; pre += t; return; }
+        if (cur) out.push(cur); cur = pre + t; pre = '';
+      });
+      if (cur || pre) out.push(cur + pre);
+      /* 專有名詞與固定說法不拆開：把落在這些詞中間的斷點拿掉 */
+      var j = out.join('\u0001');
+      KEEP.forEach(function (re) { j = j.replace(re, function (m) { return m.replace(/\u0001/g, ''); }); });
+      out = j.split('\u0001');
+      el.textContent = '';
+      out.forEach(function (c) { var sp = document.createElement('span'); sp.className = 'w'; sp.textContent = c; el.appendChild(sp); });
+    });
+  })();
+  var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fitAll, 80); });
+  var h = parseInt(location.hash.slice(1), 10);
+  show(h >= 1 && h <= N ? h - 1 : 0);
+  fitAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  addEventListener('load', fitAll);
+})();
+</script>
 </body>
 </html>
