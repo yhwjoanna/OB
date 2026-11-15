@@ -192,17 +192,18 @@
     display:flex; flex-direction:column; gap:8px; min-height:0; }
   .endtag { font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--paper);
     background:var(--red); display:inline-block; align-self:flex-start; padding:4px 9px; }
-  .endtitle { font-weight:900; font-size:25px; line-height:1.28; }
+  /* ENDFIT v1：結局頁的字級乘上 --ef，英文內容較長、放不下面板時由腳本逐步縮小 */
+  .endtitle { font-weight:900; font-size:calc(25px * var(--ef, 1)); line-height:1.28; }
   .endtitle .r { color:var(--red); }
-  #endBody, #endBody2 { font-size:15px; line-height:1.7; }
+  #endBody, #endBody2 { font-size:calc(15px * var(--ef, 1)); line-height:1.7; }
   .logbox { padding-top:8px; border-top:3px solid var(--ink); }
   .logbox .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); display:block; margin-bottom:5px; }
-  .log p { font-size:13.2px; line-height:1.55; margin-bottom:3px; display:grid; grid-template-columns:40px 1fr; }
+  .log p { font-size:calc(13.2px * var(--ef, 1)); line-height:1.55; margin-bottom:3px; display:grid; grid-template-columns:40px 1fr; }
   .log p b { font-family:var(--mono); font-weight:700; font-size:11px; color:var(--red); padding-top:2px; }
   .chartbox { flex:1; min-height:0; }
   .chartbox svg { width:100%; height:100%; display:block; }
-  .note { border-top:2px dashed var(--hair); padding-top:8px; font-size:14px; line-height:1.68; color:#5F5A4C; }
-  .closer { margin-top:auto; padding-top:9px; border-top:2px dashed var(--hair); font-size:13.4px; line-height:1.64; color:#5F5A4C; }
+  .note { border-top:2px dashed var(--hair); padding-top:8px; font-size:calc(14px * var(--ef, 1)); line-height:1.68; color:#5F5A4C; }
+  .closer { margin-top:auto; padding-top:9px; border-top:2px dashed var(--hair); font-size:calc(13.4px * var(--ef, 1)); line-height:1.64; color:#5F5A4C; }
 
   .kbd { font-family:var(--mono); font-weight:700; border:2px solid var(--ink); background:var(--yellow); padding:1px 6px; font-size:11px; }
   .tm { font-family:var(--mono); font-weight:700; font-size:12.5px; width:62px; vertical-align:top; padding:3px 0; color:var(--red); }
@@ -1032,7 +1033,25 @@ function showEnd() {
   }).join('');
   drawChart();
   go(5);
+  fitEnd();
 }
+/* ENDFIT v1：結局文字加上五輪的選擇紀錄，英文版最長的組合會超出左欄面板。每一欄各自量，超出就以 0.02 為一階縮小字級，最低 0.8；
+   手機流式模式高度不受限，不縮 */
+function fitEnd() {
+  document.querySelectorAll('#endSlide .endgrid > div').forEach(function (col) {
+    col.style.removeProperty('--ef');
+    if (document.body.classList.contains('flow') || !col.clientHeight) return;
+    /* 以面板內緣為準：內容只要伸進下方內距就算超出（scrollHeight 量不到這一段） */
+    var cs = getComputedStyle(col), pad = parseFloat(cs.paddingBottom) + parseFloat(cs.borderBottomWidth), s = 1;
+    function over() {
+      var box = col.getBoundingClientRect(), k = box.height / col.offsetHeight, last = null;
+      for (var i = col.children.length - 1; i >= 0 && !last; i--) if (col.children[i].getBoundingClientRect().height > 0) last = col.children[i];
+      return !!last && last.getBoundingClientRect().bottom > box.bottom - pad * k + 0.5;
+    }
+    while (s > 0.8 && over()) { s -= 0.02; col.style.setProperty('--ef', s.toFixed(2)); }
+  });
+}
+addEventListener('resize', fitEnd);
 
 function drawChart() {
   var W = 520, H = 340, L = 54, R = 34, T = 34, B = 56;

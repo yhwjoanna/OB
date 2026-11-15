@@ -292,13 +292,13 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .ix-fb .lb:not(:first-of-type)::before { content: ''; display: block; height: 3px; }
     .ix-fb b + .lb { margin-left: 10px; }
     /* 判斷題與自我檢核（一次一題） */
-    .ix-card { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 48px 14px; gap: 18px; min-height: 0; }
-    .ix-stmt { border: 2px solid var(--ink); padding: 24px 30px; font-size: 28px; font-weight: 900; line-height: 1.38; letter-spacing: -0.016em; }
+    .ix-card { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 48px 14px; gap: calc(18px * var(--ixs, 1)); min-height: 0; }
+    .ix-stmt { border: 2px solid var(--ink); padding: calc(24px * var(--ixs, 1)) 30px; font-size: calc(28px * var(--ixs, 1)); font-weight: 900; line-height: 1.38; letter-spacing: -0.016em; }
     .ix-stmt .q { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--gray); display: block; margin-bottom: 8px; font-weight: 400; }
     .ix-opts { display: grid; gap: 10px; }
     .ix-opts.c3 { grid-template-columns: 1fr 1fr 1fr; }
     .ix-opts.c2 { grid-template-columns: 1fr 1fr; }
-    .ix-opt { border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; font-weight: 700; padding: 14px 18px; text-align: left; cursor: pointer; line-height: 1.5; display: flex; gap: 12px; align-items: flex-start; }
+    .ix-opt { border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: calc(17px * var(--ixs, 1)); font-weight: 700; padding: calc(14px * var(--ixs, 1)) 18px; text-align: left; cursor: pointer; line-height: 1.5; display: flex; gap: 12px; align-items: flex-start; }
     .ix-opt .k { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--gray); padding-top: 4px; flex: none; }
     .ix-opt { touch-action: manipulation; transition: transform 100ms ease-out, background 120ms ease; }
     .ix-opt:hover { background: #E4E4DE; }
@@ -307,11 +307,11 @@ body.flow .rs-grid .cell { padding: 22px 26px; }
     .ix-card.answered .ix-opt:hover { background: var(--paper); }
     .ix-card.answered .ix-opt.right { background: var(--ink); color: var(--paper); }
     .ix-card.answered .ix-opt.right .k { color: var(--paper); }
-    .ix-card.answered .ix-opt.wrong { border: 2px solid var(--red); padding: 13px 17px; }
+    .ix-card.answered .ix-opt.wrong { border: 2px solid var(--red); padding: calc(14px * var(--ixs, 1) - 1px) 17px; }
     .ix-card.answered .ix-opt.wrong .k::after { content: ' ✗'; color: var(--red); }
     .ix-card.answered .ix-opt.right .k::after { content: ' ✓'; color: var(--red); }
     .ix-card.answered .ix-opt:not(.right):not(.wrong) { opacity: .45; }
-    .ix-fb { border-top: 2px solid var(--ink); padding: 12px 0 0; font-size: 15.5px; line-height: 1.7; visibility: hidden; min-height: 96px; }
+    .ix-fb { border-top: 2px solid var(--ink); padding: 12px 0 0; font-size: calc(15.5px * var(--ixs, 1)); line-height: 1.7; visibility: hidden; min-height: 96px; }
     .ix-card.answered .ix-fb { visibility: visible; }
     .ix-fb b { font-weight: 900; }
     .ix-fb .topic { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; color: var(--gray); text-transform: uppercase; margin-top: 4px; display: block; }
@@ -3038,14 +3038,27 @@ html[lang="en"] body:not(.flow) .slide:nth-child(27) .axis-row .k, html[lang="en
         b.addEventListener('click', () => { if (picks[n] !== null) return; picks[n] = k; paint(); });
         opts.appendChild(b);
       });
+      paint(); fit();
+    }
+    /* IXFIT v1：英文題目與解說較長，放不下時整張卡等比縮小字級（最多縮到 0.62）。
+       量完由 paint() 還原成實際作答狀態，作答前後字級相同；手機流式模式高度不受限，不縮 */
+    function fbHTML(it) { return (it.o ? '' : '<b>Verdict: ' + labels[it.a] + '</b>　') + it.fb + '<span class="topic">Related topic: ' + it.t + '</span>'; }
+    function fit() {
+      card.style.removeProperty('--ixs');
+      if (finalEl || document.body.classList.contains('flow') || !card.clientHeight) return;
+      /* 以作答後最占空間的樣子來量：解說出現、每個選項都帶對錯記號（記號會讓選項多折一行） */
+      fb.innerHTML = fbHTML(items[n]); card.classList.add('answered');
+      $$(opts, '.ix-opt').forEach((b, k) => b.classList.add(k === items[n].a ? 'right' : 'wrong'));
+      let s = 1;
+      while (s > 0.62 && card.scrollHeight > card.clientHeight) { s -= 0.02; card.style.setProperty('--ixs', s.toFixed(2)); }
       paint();
     }
+    if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(card);   /* 翻到這一頁、視窗改變時重算 */
     function paint() {
       const it = items[n], p = picks[n], bs = $$(opts, '.ix-opt');
       card.classList.toggle('answered', p !== null);
       bs.forEach((b, k) => { b.classList.toggle('right', p !== null && k === it.a); b.classList.toggle('wrong', p !== null && k === p && k !== it.a); });
-      const verdict = it.o ? '' : '<b>Verdict: ' + labels[it.a] + '</b>　';
-      fb.innerHTML = p === null ? '' : verdict + it.fb + '<span class="topic">Related topic: ' + it.t + '</span>';
+      fb.innerHTML = p === null ? '' : fbHTML(it);
       cur.textContent = n + 1; score.textContent = count();
       prevB.disabled = n === 0; nextB.disabled = p === null;
       nextB.textContent = (n === items.length - 1) ? (card.dataset.final ? 'See score' : 'Next question') : 'Next question';
