@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／Class Discussion: GHRM Culture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#F4F4F0; --ink:#0A0A0A; --red:#E61919; --gray:#5E5E58; --hair:#CFCFC8; --soft:#E9E9E3; --green:#1F7A4D;
+    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:#2b2b2b; }
+  body { font-family:var(--sans); color:var(--ink); display:flex; align-items:center; justify-content:center; min-height:100vh; overflow:hidden; }
+  #stage { width:1280px; height:720px; background:var(--paper); border:2px solid var(--ink); position:relative; transform-origin:center center; flex:none; }
+  .pg { position:absolute; inset:0; display:none; flex-direction:column; }
+  .pg.on { display:flex; }
+  .meta { display:flex; justify-content:space-between; padding:12px 28px; border-bottom:1.5px solid var(--ink); font:500 12px/1 var(--mono); letter-spacing:.12em; color:var(--gray); }
+  .meta .g { color:var(--ink); }
+  .head { display:grid; grid-template-columns:1fr auto; align-items:end; padding:16px 28px 13px; border-bottom:1.5px solid var(--ink); gap:24px; }
+  h1 { margin:0; font-weight:900; font-size:28px; line-height:1.12; letter-spacing:-.02em; }
+  h1 .r { color:var(--red); }
+  .sub { margin-top:7px; font:500 12px/1 var(--mono); letter-spacing:.14em; color:var(--gray); text-transform:uppercase; }
+  .note { font-size:13px; line-height:1.5; color:var(--gray); max-width:430px; text-align:right; }
+  .main { flex:1; min-height:0; padding:0 28px; display:flex; flex-direction:column; }
+  /* page 1 matrix */
+  .mx { flex:1; min-height:0; display:grid; grid-template-columns:102px repeat(5, 1fr) 1.3fr; grid-template-rows:auto repeat(4, auto) 1fr; }
+  .mx > div { padding:7px 9px 8px; border-bottom:1px solid var(--hair); font-size:13.4px; line-height:1.38; }
+  .mx .fill { border:0 !important; padding:0 !important; }
+  .mx .prop li { padding-left:0; }
+  .mx .prop li::before { display:none; }
+  .mx .g6 { grid-column:7; grid-row:2 / span 5; background:#FFFDF6; border-left:1.5px solid var(--ink) !important; border-bottom:0; padding:4px 12px; }
+  .mx .g6h { border-left:1.5px solid var(--ink) !important; background:#FFFDF6; color:var(--red); }
+  .prop { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; height:100%; }
+  .prop li { display:grid; grid-template-columns:20px 1fr; gap:2px 6px; padding:6px 0; border-bottom:1px solid var(--hair); flex:1; align-content:center; }
+  .prop li:last-child { border-bottom:0; }
+  .prop .n { font:900 19px/1 Archivo, var(--sans); color:var(--red); grid-row:span 2; padding-top:1px; }
+  .prop .t { font-weight:900; font-size:14.6px; line-height:1.3; }
+  .prop .d { font-size:13px; line-height:1.4; color:#333; }
+  .mx > div { padding:8px 10px 9px; border-bottom:1px solid var(--hair); font-size:14.2px; line-height:1.42; }
+  .mx > div + div:not(.rh) { border-left:1px solid var(--hair); }
+  .mx .ch { font:700 12px/1 var(--mono); letter-spacing:.1em; padding:12px 10px 9px; border-bottom:1.5px solid var(--ink); text-transform:uppercase; }
+  .mx .ch b { font:900 20px/1 Archivo, var(--sans); letter-spacing:-.01em; margin-right:6px; vertical-align:-2px; }
+  .mx .rh { font-weight:900; font-size:17px; padding-top:9px; }
+  .mx .rh span { display:block; font:500 10.5px/1.3 var(--mono); letter-spacing:.08em; color:var(--gray); margin-top:3px; font-weight:500; text-transform:uppercase; }
+  .mx ul { margin:0; padding:0; list-style:none; }
+  .mx li { padding-left:11px; position:relative; }
+  .mx li::before { content:''; position:absolute; left:0; top:.62em; width:5px; height:5px; background:var(--ink); }
+  .mx li li::before { background:none; border:1px solid var(--ink); width:4px; height:4px; }
+  .mx li ul { margin-top:1px; }
+  .mx .k { font-weight:700; }
+  .mx em { font-style:normal; color:var(--gray); }
+  .foot { display:flex; justify-content:space-between; align-items:center; padding:7px 28px; border-top:1.5px solid var(--ink); font:500 11px/1 var(--mono); letter-spacing:.12em; color:var(--gray); }
+  .pager { display:flex; align-items:center; gap:10px; }
+  .pager button { font:700 12px/1 var(--mono); background:none; border:1.5px solid var(--ink); color:var(--ink); width:26px; height:22px; cursor:pointer; padding:0; }
+  .pager button:active { transform:scale(.95); }
+  @media print {
+    @page { size:1280px 720px; margin:0; }
+    html,body { background:#fff; display:block; min-height:0; overflow:visible; }
+    #stage { transform:none !important; border:0; height:auto; }
+    .pg { position:relative; display:flex !important; width:1280px; height:720px; }
+    .pg + .pg { break-before:page; }
+    .pager button { display:none; }
+  }
+  /* phones: one column, each answer labelled with its group */
+  .gl { display:none; }
+  @media (max-width:899px) {
+    body { display:block; overflow:auto; background:var(--paper); }
+    #stage { width:auto; height:auto; border:0; transform:none !important; }
+    .pg { position:static; }
+    .meta { flex-direction:column; gap:6px; padding:12px 16px; }
+    .head { grid-template-columns:1fr; padding:14px 16px; gap:10px; }
+    h1 { font-size:25px; }
+    .note { text-align:left; max-width:none; }
+    .main { padding:0 16px; }
+    .mx { display:flex; flex-direction:column; }
+    .mx .g6 { order:99; }
+    .mx .fill { display:none; }
+    .mx > div { border:0 !important; padding:6px 0 8px; font-size:15px; }
+    .mx .ch { display:none; }
+    .mx .rh { margin-top:16px; padding:8px 0; border-bottom:1.5px solid var(--ink) !important; font-size:19px; }
+    .mx .g6 { margin-top:16px; padding:10px 12px; border:1.5px solid var(--ink) !important; }
+    .mx .g6::before { content:'Group 6 ── Build up'; display:block; font:700 12px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--red); margin-bottom:4px; }
+    .gl { display:block; font:700 11.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gray); margin-bottom:4px; }
+    .prop .t { font-size:16px; } .prop .d { font-size:14.5px; }
+    .foot { flex-direction:column; gap:6px; padding:12px 16px; margin-top:16px; }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="pg on">
+  <div class="meta"><span>OB ── CH 16 ORGANIZATIONAL CULTURE</span><span class="g">CLASS DISCUSSION ── 23 NOV 2026</span><span>GHRM ── ORGANIZATIONAL BEHAVIOR</span></div>
+  <div class="head">
+    <div><h1>How can we <span class="r">show</span> and <span class="r">build up</span> NSYSU (GHRM) culture?</h1><div class="sub">How employees learn culture: stories, rituals, symbols, language</div></div>
+    <div class="note">As written on the whiteboard. Group 5 numbered its answers 1 to 4; they are placed in the four rows in that order. Group 6 answered the build-up question.</div>
+  </div>
+  <div class="main">
+    <div class="mx">
+      <div class="ch"></div>
+      <div class="ch"><b>1</b>Group</div>
+      <div class="ch"><b>2</b>Group</div>
+      <div class="ch"><b>3</b>Group</div>
+      <div class="ch"><b>4</b>Group</div>
+      <div class="ch"><b>5</b>Group</div>
+      <div class="ch g6h"><b>6</b>Build up</div>
+
+      <div class="rh">Stories<span>who tells what</span></div>
+      <div><ul><li>Mentoring</li><li>Senior sharing sessions</li></ul></div>
+      <div><ul><li>Alumni &amp; current students: experience sharing</li><li>Achievements</li></ul></div>
+      <div><ul><li>Historical heritage: bunker, President Chiang and Mr Sun</li><li>Competition with the other Chung universities (中字輩)</li></ul></div>
+      <div><ul><li>Real insights, positive and negative, about some courses</li></ul></div>
+      <div><ul><li>Share experience: internship, exchange, dual degree</li></ul></div>
+      <div class="g6">
+        <ol class="prop">
+          <li><span class="n">1</span><span class="t">Stop gatekeeping: share the info</span><span class="d">Make videos about the university, its activities and websites</span></li>
+          <li><span class="n">2</span><span class="t">Buddy programs</span></li>
+          <li><span class="n">3</span><span class="t">Promote more international activities</span></li>
+          <li><span class="n">4</span><span class="t">After class: drinks &amp; food</span><span class="d">Share your stories; give the new students a guide to the professors</span></li>
+          <li><span class="n">5</span><span class="t">Share a document in class</span><span class="d">Helping each other</span></li>
+        </ol>
+      </div>
+
+      <div class="rh">Rituals<span>repeated activities</span></div>
+      <div><ul><li>Activities with IBMBA<ul><li>Orientation</li><li>Water activity</li><li>Halloween</li></ul></li></ul></div>
+      <div><ul><li><span class="k">NSYSU:</span> company tour, culture event, career development</li><li><span class="k">GHRM, in class:</span> open discussion, teamwork, group brainstorming</li></ul></div>
+      <div><ul><li>Swimming lesson, tied to the Sizihwan (西子灣) ocean</li><li>Early-grad picture: many students go on exchange</li></ul></div>
+      <div><ul><li>Receiving stickers as encouragement</li><li>Sharing opinions in front of the class</li><li>Group work &amp; presentation</li></ul></div>
+      <div><ul><li>Activities held by SA</li><li>Discussions in class</li><li>Group project</li><li>Exchange program</li></ul></div>
+
+      <div class="rh">Symbols<span>what can be seen</span></div>
+      <div><ul><li>Discussion lab for students to use</li></ul></div>
+      <div><ul><li>Mountain &amp; sea</li><li>Convenient transportation: YouBike, bus, scooter</li></ul></div>
+      <div><ul><li>0038</li><li>Monkeys</li><li>The bay</li></ul></div>
+      <div><ul><li>Sticker</li><li>Monkey</li></ul></div>
+      <div><ul><li>Headshot</li><li>Study room</li></ul></div>
+
+      <div class="rh">Language<span>words in use</span></div>
+      <div><ul><li>SUPER!!</li></ul></div>
+      <div><ul><li>The acronym GHRM, read as international</li><li>Using English with one another</li></ul></div>
+      <div><ul><li>Psychological safety</li><li>English</li></ul></div>
+      <div><ul><li>Psychological safety</li><li>Academic terms</li></ul></div>
+      <div><ul><li>International learning environment</li><li>Cross-cultural communication</li><li>Teamwork</li></ul></div>
+      <div class="fill"></div><div class="fill"></div><div class="fill"></div><div class="fill"></div><div class="fill"></div><div class="fill"></div>
+    </div>
+  </div>
+  <div class="foot"><span>NSYSU ── HRM</span><span>WHITEBOARD NOTES, SIX GROUPS</span><span>YU-HSUAN WANG</span></div>
+</section>
+
+</div>
+<script>
+  /* label each answer with its group for the phone layout */
+  (function () {
+    var cells = [].slice.call(document.querySelectorAll('.mx > div')), g = 0;
+    cells.forEach(function (c) {
+      if (c.classList.contains('ch') || c.classList.contains('g6') || c.classList.contains('fill')) return;
+      if (c.classList.contains('rh')) { g = 0; return; }
+      g++; var l = document.createElement('span'); l.className = 'gl'; l.textContent = 'Group ' + g; c.insertBefore(l, c.firstChild);
+    });
+  })();
+  function fit() {
+    if (window.innerWidth < 900) { document.getElementById('stage').style.transform = ''; return; }
+    var s = Math.min(window.innerWidth / 1300, window.innerHeight / 740);
+    document.getElementById('stage').style.transform = 'scale(' + Math.min(s, 2) + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+  var PGS = [].slice.call(document.querySelectorAll('.pg')), cur = 0;
+  function go(i) { cur = Math.max(0, Math.min(PGS.length - 1, i)); PGS.forEach(function (p, k) { p.classList.toggle('on', k === cur); }); }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+  });
+  [].slice.call(document.querySelectorAll('[data-go]')).forEach(function (b) { b.addEventListener('click', function () { go(cur + (+b.getAttribute('data-go'))); }); });
+</script>
+</body>
+</html>
