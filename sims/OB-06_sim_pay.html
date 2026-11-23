@@ -305,6 +305,19 @@
   body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
   @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
   @media print { .pgbtn { display: none !important; } }
+
+  .setchip { margin-top: auto; align-self: flex-start; background: var(--ink); color: var(--cream); font-family: var(--sans); font-size: 14px; font-weight: 500; padding: 6px 12px; letter-spacing: .02em; }
+  .setchip b { color: var(--sun); font-family: var(--num); font-weight: 700; }
+  .card ul b, .callout b { font-family: var(--num); font-weight: 700; }
+  table.fun.ex { box-shadow: 4px 4px 0 var(--ink); }
+  table.fun.ex th { padding: 8px 12px; }
+  table.fun.ex td { padding: 7px 12px; font-size: 15.6px; line-height: 1.45; }
+  table.fun.ex td.n, table.fun.ex td.pts { font-family: var(--num); font-weight: 700; white-space: nowrap; }
+  table.fun.ex td.pts { text-align: right; }
+  table.fun.ex th.r { text-align: right; }
+  table.fun.ex td.how { color: var(--slate); font-size: 14.6px; }
+  table.fun.ex tr.zero td.pts { color: var(--coral); }
+  .ex-note { margin-top: 10px; font-size: 14.6px !important; line-height: 1.6 !important; color: var(--slate); }
 </style>
 <style>
   /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
@@ -356,7 +369,7 @@
 
     <!-- P.01 封面 -->
     <section class="slide active">
-      <div class="meta"><span>OB-6 ── SIMULATION GAME</span><span class="chip">NSYSU HRM</span><span>王豫萱</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>OB-6 ── SIMULATION GAME</span><span class="chip">NSYSU HRM</span><span>王豫萱</span><span class="rev">REV 2026.11</span></div>
       <div class="cover-body">
         <div class="cover-left">
           <span class="cover-kicker">Paper Plane Factory</span>
@@ -394,9 +407,44 @@
       <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.01／13</span></div>
     </section>
 
-    <!-- P.02 遊戲怎麼玩 -->
+    <!-- P.02 本場設定 -->
     <section class="slide">
-      <div class="meta"><span>HOW TO PLAY</span><span class="chip">流程</span><span>P.02</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>SESSION SETUP</span><span class="chip" style="background: var(--pink);">本場設定</span><span>P.02</span><span class="rev">REV 2026.11</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">SET TEAMS AND TEAM SIZE FIRST</div>
+          <h2 class="h-title">本場設定：<span class="accent">先定組數與人數，再看方案</span></h2>
+        </div>
+        <div class="calc-wrap">
+          <div class="calc-panel">
+            <label>組數
+              <input type="number" id="pG" min="2" max="10" value="5">
+            </label>
+            <label>每組人數
+              <input type="number" id="pM" min="2" max="10" value="5">
+            </label>
+            <div class="calc-note">基準產量＝每人 4 架 × 每組人數。各方案的門檻都由基準產量換算，利潤分享的佔比門檻另依組數換算。之後的方案頁與結算計算器都使用這裡的設定。</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; min-height:0; overflow:auto;">
+            <table class="fun" id="paramTable">
+              <tr><th>方案</th><th>本場的門檻與獎勵</th></tr>
+              <tr><td class="k">基準產量</td><td class="num" id="oNs">——</td></tr>
+              <tr><td class="k">計件組</td><td id="oPiece">——</td></tr>
+              <tr><td class="k">績效組</td><td id="oMerit">——</td></tr>
+              <tr><td class="k">獎金組</td><td id="oBonus">——</td></tr>
+              <tr><td class="k">利潤分享組</td><td id="oProfit">——</td></tr>
+              <tr><td class="k">員工持股</td><td id="oEsop">——</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="callout">設定會記在網址上，例如 ?g=6&amp;m=4，重新整理或課後再開，數字不會跑掉。每個方案頁左下角都標示目前的設定。</div>
+      </div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.02／13</span></div>
+    </section>
+
+    <!-- P.03 遊戲怎麼玩 -->
+    <section class="slide">
+      <div class="meta"><span>HOW TO PLAY</span><span class="chip">流程</span><span>P.03</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">GAME FLOW</div>
@@ -411,12 +459,12 @@
         </div>
         <div class="callout">保密提醒：拿到方案卡後請妥善保管，結算前不要打探、也不要透露其他組的方案內容。揭曉時刻自有驚喜。</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.02／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.03／13</span></div>
     </section>
 
-    <!-- P.03 共同規則 -->
+    <!-- P.04 共同規則 -->
     <section class="slide">
-      <div class="meta"><span>GROUND RULES</span><span class="chip">共同規則</span><span>P.03</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>GROUND RULES</span><span class="chip">共同規則</span><span>P.04</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">SAME RULES FOR EVERYONE</div>
@@ -452,12 +500,12 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.03／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.04／13</span></div>
     </section>
 
-    <!-- P.04 摺法示意 -->
+    <!-- P.05 摺法示意 -->
     <section class="slide">
-      <div class="meta"><span>FOLDING GUIDE</span><span class="chip">摺法示意</span><span>P.04</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>FOLDING GUIDE</span><span class="chip">摺法示意</span><span>P.05</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">STANDARD SPEC ── CLASSIC DART</div>
@@ -527,12 +575,12 @@
         </div>
         <div class="callout">圖例：紅色虛線＝摺線、綠色箭頭＝摺的方向、淺色區塊＝摺好的紙面。摺線壓得越實、左右越對稱，航道越穩；合格線 3 公尺、額外獎勵線 5 公尺。</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.04／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.05／13</span></div>
     </section>
 
-    <!-- P.05 方案總覽 -->
+    <!-- P.06 方案總覽 -->
     <section class="slide">
-      <div class="meta"><span>PAY PLANS</span><span class="chip">方案總覽</span><span>P.05</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PAY PLANS</span><span class="chip">方案總覽</span><span>P.06</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">FOUR PLANS ＋ ONE ADD-ON</div>
@@ -572,12 +620,12 @@
         </div>
         <div class="callout">小提醒：每個方案的規則不同，但任務條件完全相同。拿到方案卡後，先把規則讀懂，再決定小組的生產策略。</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.05／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.06／13</span></div>
     </section>
 
-    <!-- P.06 計件組 -->
+    <!-- P.07 計件組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN A</span><span class="chip" style="background: var(--coral); color:#fff;">計件薪酬組</span><span>P.06</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN A</span><span class="chip" style="background: var(--coral); color:#fff;">計件薪酬組</span><span>P.07</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">PIECE-RATE PAY</div>
@@ -588,27 +636,27 @@
             <span class="pill coral">規則</span>
             <h3>獎勵怎麼算？</h3>
             <ul>
-              <li>基本計件：每架合格紙飛機 80 點</li>
-              <li>加速獎勵：自第 11 架起，每架再加 40 點（即每架 120 點）</li>
-              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+              <li>前 <b data-v="half">10</b> 架：每架 80 點</li>
+              <li>第 <b data-v="half1">11</b> 架起：每架 120 點（加速獎勵）</li>
+              <li>浪費：領取後完全未使用的紙，每張扣 50 點</li>
             </ul>
-            <p class="calc-note">以 5 人組為例；門檻＝基準產量的一半，人數不同時請用參數計算器換算。</p>
+            <div class="setchip">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架／組</div>
           </div>
           <div class="card">
-            <span class="pill sun">範例</span>
-            <h3>試算：完成 20 架</h3>
-            <p>前 10 架：10 × 80 ＝ 800 點<br>第 11-20 架：10 × 120 ＝ 1200 點<br>合計 2000 點</p>
-            <div class="formula">總點數 ＝ min(N, 10) × 80 ＋ max(N − 10, 0) × <span class="hl">120</span> − 浪費 × 50</div>
+            <span class="pill sun">試算</span>
+            <h3>同樣的產量，各得幾點</h3>
+            <table class="fun ex" data-ex="piece"></table>
+            <p class="ex-note" data-exnote="piece">試算的產量依本場基準換算：基準的一半、四分之三、一倍與一又四分之一。</p>
           </div>
         </div>
         <div class="callout">策略提示：多做多得、每一架都算錢。不過別忘了——不合格的飛機一點都拿不到，衝數量之前先確保品質過關。</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.06／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.07／13</span></div>
     </section>
 
-    <!-- P.07 績效組 -->
+    <!-- P.08 績效組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN B</span><span class="chip" style="background: var(--teal); color:#fff;">績效薪酬組</span><span>P.07</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN B</span><span class="chip" style="background: var(--teal); color:#fff;">績效薪酬組</span><span>P.08</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">MERIT-BASED PAY</div>
@@ -619,27 +667,28 @@
             <span class="pill teal">規則</span>
             <h3>獎勵怎麼算？</h3>
             <ul>
-              <li>基本獎勵：每架合格紙飛機 60 點</li>
-              <li>品質獎勵：試飛超過 5 公尺（額外獎勵距離），每架再加 40 點</li>
-              <li>里程碑獎勵：達 20 架，加發 400 點</li>
-              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+              <li>每架合格紙飛機：60 點</li>
+              <li>試飛超過 5 公尺：每架再加 40 點</li>
+              <li>達 <b data-v="Ns">20</b> 架（本場基準）：再加 400 點</li>
+              <li>浪費：領取後完全未使用的紙，每張扣 50 點</li>
             </ul>
+            <div class="setchip">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架／組</div>
           </div>
           <div class="card">
-            <span class="pill sun">範例</span>
-            <h3>試算：完成 20 架、其中 10 架飛超過 5 公尺</h3>
-            <p>基本：20 × 60 ＝ 1200 點<br>品質：10 × 40 ＝ 400 點<br>里程碑：＋400 點<br>合計 2000 點</p>
-            <div class="formula">總點數 ＝ N × 60 ＋ 達標架數 × <span class="hl">40</span> ＋ 400（若 N ≥ 20）− 浪費 × 50</div>
+            <span class="pill sun">試算</span>
+            <h3>同樣的產量，各得幾點</h3>
+            <table class="fun ex" data-ex="merit"></table>
+            <p class="ex-note" data-exnote="merit">試算假設其中一半的飛機飛超過 5 公尺。</p>
           </div>
         </div>
         <div class="callout">策略提示：時間有限，資源要放在求快還是求遠？多花幾秒把摺線壓實，換一個品質加給，划算嗎？</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.07／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.08／13</span></div>
     </section>
 
-    <!-- P.08 獎金組 -->
+    <!-- P.09 獎金組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN C</span><span class="chip">獎金組</span><span>P.08</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN C</span><span class="chip">獎金組</span><span>P.09</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">BONUS PAY</div>
@@ -650,28 +699,29 @@
             <span class="pill sun">規則</span>
             <h3>階梯式目標獎金（按組計酬）</h3>
             <ul>
-              <li>達 12 架：獲得 800 點</li>
-              <li>達 16 架：再加 600 點（累計 1400）</li>
-              <li>達 20 架：再加 600 點（累計 2000）</li>
-              <li>達 24 架：再加 400 點（累計 2400，上限）</li>
-              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+              <li>達 <b data-v="r1">12</b> 架：800 點</li>
+              <li>達 <b data-v="r2">16</b> 架：再加 600 點（累計 1,400）</li>
+              <li>達 <b data-v="r3">20</b> 架：再加 600 點（累計 2,000）</li>
+              <li>達 <b data-v="r4">24</b> 架：再加 400 點（累計 2,400，上限）</li>
+              <li>浪費：領取後完全未使用的紙，每張扣 50 點</li>
             </ul>
+            <div class="setchip">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架／組</div>
           </div>
           <div class="card">
-            <span class="pill coral">範例</span>
-            <h3>試算</h3>
-            <p>完成 11 架：0 點（未達第一階）<br>完成 20 架：2000 點<br>完成 30 架：2400 點（超過 24 架後不再增加）</p>
-            <div class="formula">總點數 ＝ 800·(N≥12) ＋ 600·(N≥16) ＋ 600·(N≥20) ＋ <span class="hl">400·(N≥24)</span> − 浪費 × 50</div>
+            <span class="pill sun">試算</span>
+            <h3>同樣的產量，各得幾點</h3>
+            <table class="fun ex" data-ex="bonus"></table>
+            <p class="ex-note" data-exnote="bonus">只看跨過第幾階，同一階內多做幾架點數不變。</p>
           </div>
         </div>
         <div class="callout">策略提示：獎金只在跨過門檻時發放，隨時盯緊進度——離下一個門檻還差幾架？時間夠不夠再衝一階？</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.08／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.09／13</span></div>
     </section>
 
-    <!-- P.09 利潤分享組 -->
+    <!-- P.10 利潤分享組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN D</span><span class="chip" style="background: var(--sky); color:#fff;">利潤分享組</span><span>P.09</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN D</span><span class="chip" style="background: var(--sky); color:#fff;">利潤分享組</span><span>P.10</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">PROFIT SHARING</div>
@@ -682,28 +732,29 @@
             <span class="pill sky">規則</span>
             <h3>獎金池與分配</h3>
             <ul>
-              <li>獎金池 ＝ 全班合格總架數 × 100 點</li>
-              <li>分配 ＝ 獎金池 × （小組完成數 ÷ 全班完成數）</li>
-              <li>參與門檻：小組佔比須達 12％（＝平均佔比的六成，以 5 組計），未達門檻不分配，該份額不再發放</li>
-              <li>額外獎勵：小組佔比達 30％，再加 500 點</li>
-              <li>浪費處罰：每張未使用的紙扣 50 點</li>
+              <li>獎金池：全班合格總架數 × 100 點</li>
+              <li>依小組佔全班的比例分配</li>
+              <li>佔比未達 <b data-v="th">12</b>％：不分配（平均佔比的六成，本場 <b data-v="G">5</b> 組）</li>
+              <li>佔比達 <b data-v="ex">30</b>％：再加 500 點</li>
+              <li>浪費：領取後完全未使用的紙，每張扣 50 點</li>
             </ul>
+            <div class="setchip">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架／組</div>
           </div>
           <div class="card">
-            <span class="pill sun">範例</span>
-            <h3>試算：小組 20 架、全班 100 架</h3>
-            <p>獎金池：100 × 100 ＝ 10000 點<br>小組佔比：20％（達門檻）<br>分配：10000 × 20％ ＝ 2000 點</p>
-            <div class="formula">總點數 ＝ 全班總數 × 100 × <span class="hl">（組完成數 ÷ 全班總數）</span> ＋ 500·(佔比≥30％) − 浪費 × 50</div>
+            <span class="pill sun">試算</span>
+            <h3>同樣的產量，各得幾點</h3>
+            <table class="fun ex" data-ex="profit"></table>
+            <p class="ex-note" data-exnote="profit">試算假設其他 <b data-v="G1">4</b> 組都做到基準 <b data-v="Ns">20</b> 架。</p>
           </div>
         </div>
-        <div class="callout">策略提示：全班折得越多，獎金池越大；但分到多少，看的是佔比。先確保跨過參與門檻，行有餘力再衝 30％。</div>
+        <div class="callout">策略提示：全班折得越多，獎金池越大；但分到多少，看的是佔比。先確保跨過 <b data-v="th">12</b>％ 的參與門檻，行有餘力再衝 <b data-v="ex">30</b>％。</div>
       </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.09／13</span></div>
+      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.10／13</span></div>
     </section>
 
-    <!-- P.10 員工持股 -->
+    <!-- P.11 員工持股 -->
     <section class="slide">
-      <div class="meta"><span>ADD-ON</span><span class="chip" style="background: var(--grape); color:#fff;">員工持股計劃</span><span>P.10</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>ADD-ON</span><span class="chip" style="background: var(--grape); color:#fff;">員工持股計劃</span><span>P.11</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">EMPLOYEE STOCK OWNERSHIP PLAN</div>
@@ -715,61 +766,28 @@
             <h3>加購項目（所有小組適用）</h3>
             <ul>
               <li>開賽前決定，遊戲開始後不得加購或退股</li>
-              <li>每組有 200 點起始資本，可購買 0-4 股，每股 50 點</li>
-              <li>全班達 80 架：每股配息 75 點</li>
-              <li>全班達 100 架：每股再配息 75 點</li>
-              <li>全班未達 80 架：股票歸零，資本拿不回來</li>
+              <li>每組 200 點起始資本，可買 0 至 4 股，每股 50 點</li>
+              <li>全班達 <b data-v="t1">80</b> 架：每股配息 75 點</li>
+              <li>全班達 <b data-v="t2">100</b> 架：每股再配息 75 點</li>
+              <li>全班未達 <b data-v="t1">80</b> 架：股票歸零，資本拿不回來</li>
             </ul>
+            <div class="setchip">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架／組</div>
           </div>
           <div class="card">
-            <span class="pill sun">範例</span>
-            <h3>試算：買滿 4 股（花費 200 點）</h3>
-            <p>全班 100 架：配息 4 × 150 ＝ 600 點，淨賺 400 點<br>全班 85 架：配息 4 × 75 ＝ 300 點，淨賺 100 點<br>全班 75 架：配息 0，淨賠 200 點</p>
-            <div class="formula">持股收益 ＝ 股數 × 75·(全班≥80) ＋ 股數 × 75·(全班≥100) − <span class="hl">股數 × 50</span></div>
+            <span class="pill sun">試算</span>
+            <h3>買滿 4 股（成本 200 點）</h3>
+            <table class="fun ex" data-ex="esop"></table>
+            <p class="ex-note" data-exnote="esop">全班門檻＝組數 × 基準產量（第二個門檻），第一個門檻為其八成。</p>
           </div>
         </div>
         <div class="callout">策略提示：配息看的是全班總表現，不是單一小組的努力。開賽前只有一次決定機會——要下注，還是把資本留在口袋？</div>
-      </div>
-      <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.10／13</span></div>
-    </section>
-
-    <!-- P.11 參數計算器 -->
-    <section class="slide">
-      <div class="meta"><span>CALIBRATION</span><span class="chip" style="background: var(--pink);">參數計算器</span><span>P.11</span><span class="rev">REV 2026.08</span></div>
-      <div class="body-wrap">
-        <div>
-          <div class="h-sub">SCALE TO CLASS SIZE</div>
-          <h2 class="h-title">本場遊戲設定：<span class="accent">門檻與獎勵一覽</span></h2>
-        </div>
-        <div class="calc-wrap">
-          <div class="calc-panel">
-            <label>組數（G）
-              <input type="number" id="pG" min="2" max="10" value="5">
-            </label>
-            <label>每組人數（M）
-              <input type="number" id="pM" min="2" max="10" value="5">
-            </label>
-            <div class="calc-note">輸入本場遊戲的組數與每組人數，右表會自動顯示各方案適用的門檻與獎勵數字。開賽前請以此表為準。</div>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:10px; min-height:0; overflow:auto;">
-            <table class="fun" id="paramTable">
-              <tr><th>方案</th><th>換算後的門檻與獎勵</th></tr>
-              <tr><td class="k">基準產量</td><td class="num" id="oNs">——</td></tr>
-              <tr><td class="k">計件組</td><td id="oPiece">——</td></tr>
-              <tr><td class="k">績效組</td><td id="oMerit">——</td></tr>
-              <tr><td class="k">獎金組</td><td id="oBonus">——</td></tr>
-              <tr><td class="k">利潤分享組</td><td id="oProfit">——</td></tr>
-              <tr><td class="k">員工持股</td><td id="oEsop">——</td></tr>
-            </table>
-          </div>
-        </div>
       </div>
       <div class="foot"><span>OB-6 ── 工作動機與激勵</span><span>變動薪資計劃：教學模擬</span><span class="pg">P.11／13</span></div>
     </section>
 
     <!-- P.12 結算計算器 -->
     <section class="slide">
-      <div class="meta"><span>SETTLEMENT</span><span class="chip" style="background: var(--teal); color:#fff;">結算計算器</span><span>P.12</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>SETTLEMENT</span><span class="chip" style="background: var(--teal); color:#fff;">結算計算器</span><span>P.12</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">SCORE YOUR TEAM</div>
@@ -777,6 +795,7 @@
         </div>
         <div class="calc-wrap">
           <div class="calc-panel">
+            <div class="setchip" style="margin:0">本場設定：<b data-v="G">5</b> 組 × 每組 <b data-v="M">5</b> 人，基準 <b data-v="Ns">20</b> 架；修改請回 P.02</div>
             <label>方案
               <select id="sPlan">
                 <option value="piece">計件薪酬組</option>
@@ -788,7 +807,7 @@
             <label>小組完成數（架）
               <input type="number" id="sN" min="0" value="20">
             </label>
-            <label id="rowQ">品質達標數（超過 5 公尺）
+            <label id="rowQ">超過 5 公尺的架數
               <input type="number" id="sQ" min="0" value="10">
             </label>
             <label id="rowC">全班完成總數（架）
@@ -815,7 +834,7 @@
 
     <!-- P.13 反思與理論連結 -->
     <section class="slide">
-      <div class="meta"><span>DEBRIEF</span><span class="chip" style="background: var(--grape); color:#fff;">反思討論</span><span>P.13</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>DEBRIEF</span><span class="chip" style="background: var(--grape); color:#fff;">反思討論</span><span>P.13</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">FROM GAME TO THEORY</div>
@@ -893,23 +912,66 @@
   }
   addEventListener('resize', fit);
 
-  /* ── 參數計算器 ── */
+  /* ── 本場設定：組數與每組人數決定所有門檻（P.02），方案頁與結算計算器共用 ── */
   const pG = document.getElementById('pG'), pM = document.getElementById('pM');
   function fmt(n) { return Math.round(n); }
+  function num(n) { return Math.round(n).toLocaleString('en-US'); }
+  function clampInt(v, d) { const x = parseInt(v); return isNaN(x) ? d : Math.min(10, Math.max(2, x)); }
+  (function initFromUrl() {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get('g')) pG.value = clampInt(q.get('g'), 5);
+      if (q.get('m')) pM.value = clampInt(q.get('m'), 5);
+    } catch (e) {}
+  })();
+  function P() {
+    const G = clampInt(pG.value, 5), M = clampInt(pM.value, 5), Ns = 4 * M, half = Math.ceil(Ns / 2);
+    return { G, M, Ns, half, r: [fmt(0.6 * Ns), fmt(0.8 * Ns), Ns, fmt(1.2 * Ns)],
+             th: 0.6 / G, ex: 1.5 / G, t1: fmt(0.8 * G * Ns), t2: G * Ns };
+  }
+  function pts(plan, N, Q, C, p) {
+    if (plan === 'piece') return Math.min(N, p.half) * 80 + Math.max(N - p.half, 0) * 120;
+    if (plan === 'merit') return N * 60 + Q * 40 + (N >= p.Ns ? 400 : 0);
+    if (plan === 'bonus') return (N >= p.r[0] ? 800 : 0) + (N >= p.r[1] ? 600 : 0) + (N >= p.r[2] ? 600 : 0) + (N >= p.r[3] ? 400 : 0);
+    const share = C > 0 ? N / C : 0;
+    return (share >= p.th ? Math.round(C * 100 * share) : 0) + (share >= p.ex ? 500 : 0);
+  }
+  function exTables(p) {
+    const L = [fmt(0.5 * p.Ns), fmt(0.75 * p.Ns), p.Ns, fmt(1.25 * p.Ns)];
+    const head = '<tr><th>完成架數</th><th class="r">點數</th><th>怎麼算</th></tr>';
+    const row = (n, v, how) => '<tr' + (v === 0 ? ' class="zero"' : '') + '><td class="n">' + n + ' 架</td><td class="pts">' + num(v) + '</td><td class="how">' + how + '</td></tr>';
+    const T = {};
+    T.piece = head + L.map(N => row(N, pts('piece', N, 0, 0, p),
+      N <= p.half ? N + ' × 80' : p.half + ' × 80 ＋ ' + (N - p.half) + ' × 120')).join('');
+    T.merit = head + L.map(N => { const Q = Math.floor(N / 2); return row(N, pts('merit', N, Q, 0, p),
+      N + ' × 60 ＋ ' + Q + ' × 40' + (N >= p.Ns ? ' ＋ 400' : '')); }).join('');
+    T.bonus = head + L.map(N => { const k = p.r.filter(x => N >= x).length; return row(N, pts('bonus', N, 0, 0, p),
+      k === 0 ? '未達第一階（' + p.r[0] + ' 架）' : '跨過第 ' + k + ' 階（' + p.r[k - 1] + ' 架）'); }).join('');
+    T.profit = head + L.map(N => { const C = N + (p.G - 1) * p.Ns, sh = N / C, v = pts('profit', N, 0, C, p);
+      return row(N, v, '全班 ' + C + ' 架，佔比 ' + (sh * 100).toFixed(1) + '％' + (sh < p.th ? '，未達門檻' : (sh >= p.ex ? '，再加 500' : ''))); }).join('');
+    const E = [p.t2, p.t1, fmt(0.7 * p.t2)];
+    T.esop = '<tr><th>全班完成</th><th class="r">淨收益</th><th>怎麼算</th></tr>' + E.map(C => {
+      const div = (C >= p.t1 ? 300 : 0) + (C >= p.t2 ? 300 : 0), net = div - 200;
+      return '<tr' + (net < 0 ? ' class="zero"' : '') + '><td class="n">' + C + ' 架</td><td class="pts">' + (net >= 0 ? '＋' : '−') + num(Math.abs(net)) + '</td><td class="how">配息 ' + div + ' − 成本 200</td></tr>';
+    }).join('');
+    document.querySelectorAll('table[data-ex]').forEach(t => { t.innerHTML = T[t.dataset.ex] || ''; });
+  }
   function updateParams() {
-    const G = Math.max(2, parseInt(pG.value) || 5);
-    const M = Math.max(2, parseInt(pM.value) || 5);
-    const Ns = 4 * M;
-    const half = Math.ceil(Ns / 2);
-    const r1 = fmt(0.6 * Ns), r2 = fmt(0.8 * Ns), r3 = Ns, r4 = fmt(1.2 * Ns);
-    const thPct = (60 / G).toFixed(0), exPct = (150 / G).toFixed(0);
-    const t1 = fmt(0.8 * G * Ns), t2 = G * Ns;
-    document.getElementById('oNs').textContent = 'N＊ ＝ ' + Ns + ' 架／組（每人 4 架 × ' + M + ' 人）';
-    document.getElementById('oPiece').textContent = '每架 80 點；自第 ' + (half + 1) + ' 架起每架 120 點';
-    document.getElementById('oMerit').textContent = '每架 60 點；超過 5 公尺每架＋40 點；達 ' + Ns + ' 架＋400 點';
-    document.getElementById('oBonus').textContent = '達 ' + r1 + ' 架→800；達 ' + r2 + ' 架→＋600；達 ' + r3 + ' 架→＋600；達 ' + r4 + ' 架→＋400（上限）';
-    document.getElementById('oProfit').textContent = '獎金池＝全班總架數×100；參與門檻 佔比 ' + thPct + '％；佔比 ' + exPct + '％→＋500 點';
-    document.getElementById('oEsop').textContent = '全班達 ' + t1 + ' 架→每股配息 75；達 ' + t2 + ' 架→每股再配 75；未達 ' + t1 + ' 架股票歸零';
+    const p = P();
+    const V = { G: p.G, M: p.M, Ns: p.Ns, half: p.half, half1: p.half + 1, r1: p.r[0], r2: p.r[1], r3: p.r[2], r4: p.r[3],
+                th: Math.round(p.th * 100), ex: Math.round(p.ex * 100), t1: p.t1, t2: p.t2, G1: p.G - 1 };
+    document.querySelectorAll('[data-v]').forEach(el => { if (el.dataset.v in V) el.textContent = V[el.dataset.v]; });
+    document.getElementById('oNs').textContent = p.Ns + ' 架／組（每人 4 架 × ' + p.M + ' 人）';
+    document.getElementById('oPiece').textContent = '前 ' + p.half + ' 架每架 80 點；第 ' + (p.half + 1) + ' 架起每架 120 點';
+    document.getElementById('oMerit').textContent = '每架 60 點；超過 5 公尺每架再加 40 點；達 ' + p.Ns + ' 架再加 400 點';
+    document.getElementById('oBonus').textContent = '達 ' + p.r[0] + ' 架 800 點；達 ' + p.r[1] + '、' + p.r[2] + '、' + p.r[3] + ' 架各再加 600、600、400 點（上限 2,400）';
+    document.getElementById('oProfit').textContent = '獎金池＝全班總架數 × 100；佔比未達 ' + V.th + '％ 不分配；佔比達 ' + V.ex + '％ 再加 500 點';
+    document.getElementById('oEsop').textContent = '全班達 ' + p.t1 + ' 架每股配息 75；達 ' + p.t2 + ' 架每股再配 75；未達 ' + p.t1 + ' 架股票歸零';
+    exTables(p);
+    try {
+      const q = new URLSearchParams(location.search); q.set('g', p.G); q.set('m', p.M);
+      history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash);
+    } catch (e) {}
     updateSettle();
   }
   pG.addEventListener('input', updateParams);
@@ -920,9 +982,7 @@
   const sN = document.getElementById('sN'), sQ = document.getElementById('sQ'),
         sC = document.getElementById('sC'), sW = document.getElementById('sW'), sS = document.getElementById('sS');
   function updateSettle() {
-    const G = Math.max(2, parseInt(pG.value) || 5);
-    const M = Math.max(2, parseInt(pM.value) || 5);
-    const Ns = 4 * M, half = Math.ceil(Ns / 2);
+    const pp = P(), G = pp.G, Ns = pp.Ns, half = pp.half;
     const N = Math.max(0, parseInt(sN.value) || 0);
     const q = Math.min(Math.max(0, parseInt(sQ.value) || 0), N);
     const C = Math.max(N, parseInt(sC.value) || 0);
@@ -944,7 +1004,7 @@
     } else if (plan === 'merit') {
       const base = N * 60, qual = q * 40, mile = (N >= Ns) ? 400 : 0;
       lines.push('基本獎勵（' + N + ' × 60）＝ ' + base + ' 點');
-      lines.push('品質獎勵（' + q + ' × 40）＝ ' + qual + ' 點');
+      lines.push('超過 5 公尺（' + q + ' × 40）＝ ' + qual + ' 點');
       lines.push('里程碑（達 ' + Ns + ' 架）＝ ' + mile + ' 點');
       total = base + qual + mile;
     } else if (plan === 'bonus') {

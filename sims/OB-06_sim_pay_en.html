@@ -305,6 +305,19 @@
   body.flow .pgbtn:active:not(:disabled) { transform: scale(0.96); }
   @media (prefers-reduced-motion: reduce) { body.flow .pgbtn { transition: none; } body.flow .pgbtn:active { transform: none; } }
   @media print { .pgbtn { display: none !important; } }
+
+  .setchip { margin-top: auto; align-self: flex-start; background: var(--ink); color: var(--cream); font-family: var(--sans); font-size: 14px; font-weight: 500; padding: 6px 12px; letter-spacing: .02em; }
+  .setchip b { color: var(--sun); font-family: var(--num); font-weight: 700; }
+  .card ul b, .callout b { font-family: var(--num); font-weight: 700; }
+  table.fun.ex { box-shadow: 4px 4px 0 var(--ink); }
+  table.fun.ex th { padding: 8px 12px; }
+  table.fun.ex td { padding: 7px 12px; font-size: 15.6px; line-height: 1.45; }
+  table.fun.ex td.n, table.fun.ex td.pts { font-family: var(--num); font-weight: 700; white-space: nowrap; }
+  table.fun.ex td.pts { text-align: right; }
+  table.fun.ex th.r { text-align: right; }
+  table.fun.ex td.how { color: var(--slate); font-size: 14.6px; }
+  table.fun.ex tr.zero td.pts { color: var(--coral); }
+  .ex-note { margin-top: 10px; font-size: 14.6px !important; line-height: 1.6 !important; color: var(--slate); }
 </style>
 <style>
   /* ── FSBTN v2：右下角的小方鈕，只有圖示，每一頁都在 ── */
@@ -356,7 +369,7 @@
 
     <!-- P.01 封面 -->
     <section class="slide active">
-      <div class="meta"><span>OB-6 ── SIMULATION GAME</span><span class="chip">NSYSU HRM</span><span>Yu-Hsuan Wang</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>OB-6 ── SIMULATION GAME</span><span class="chip">NSYSU HRM</span><span>Yu-Hsuan Wang</span><span class="rev">REV 2026.11</span></div>
       <div class="cover-body">
         <div class="cover-left">
           <span class="cover-kicker">Paper Plane Factory</span>
@@ -394,9 +407,44 @@
       <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.01 / 13</span></div>
     </section>
 
-    <!-- P.02 遊戲怎麼玩 -->
+    <!-- P.02 本場設定 -->
     <section class="slide">
-      <div class="meta"><span>HOW TO PLAY</span><span class="chip">Procedure</span><span>P.02</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>SESSION SETUP</span><span class="chip" style="background: var(--pink);">Session setup</span><span>P.02</span><span class="rev">REV 2026.11</span></div>
+      <div class="body-wrap">
+        <div>
+          <div class="h-sub">SET TEAMS AND TEAM SIZE FIRST</div>
+          <h2 class="h-title">Session setup: <span class="accent">set teams and team size before the plans</span></h2>
+        </div>
+        <div class="calc-wrap">
+          <div class="calc-panel">
+            <label>Number of teams
+              <input type="number" id="pG" min="2" max="10" value="5">
+            </label>
+            <label>Members per team
+              <input type="number" id="pM" min="2" max="10" value="5">
+            </label>
+            <div class="calc-note">Baseline output = 4 planes per person × members per team. Every plan threshold is scaled from the baseline; the profit-sharing share thresholds also depend on the number of teams. The plan pages and the settlement calculator all use this setting.</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; min-height:0; overflow:auto;">
+            <table class="fun" id="paramTable">
+              <tr><th>Plan</th><th>Thresholds and rewards for this session</th></tr>
+              <tr><td class="k">Baseline output</td><td class="num" id="oNs">——</td></tr>
+              <tr><td class="k">Piece-Rate Team</td><td id="oPiece">——</td></tr>
+              <tr><td class="k">Merit Pay Team</td><td id="oMerit">——</td></tr>
+              <tr><td class="k">Bonus Team</td><td id="oBonus">——</td></tr>
+              <tr><td class="k">Profit-Sharing Team</td><td id="oProfit">——</td></tr>
+              <tr><td class="k">ESOP</td><td id="oEsop">——</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="callout">The setting is saved in the address, for example ?g=6&amp;m=4, so the numbers stay the same after a reload or when the page is reopened after class. Each plan page shows the current setting at the bottom left.</div>
+      </div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.02 / 13</span></div>
+    </section>
+
+    <!-- P.03 遊戲怎麼玩 -->
+    <section class="slide">
+      <div class="meta"><span>HOW TO PLAY</span><span class="chip">Procedure</span><span>P.03</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">GAME FLOW</div>
@@ -411,12 +459,12 @@
         </div>
         <div class="callout">Confidentiality: keep the plan card safe once received. Before settlement, do not ask about or reveal any team's plan. The reveal holds a surprise.</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.02 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.03 / 13</span></div>
     </section>
 
-    <!-- P.03 共同規則 -->
+    <!-- P.04 共同規則 -->
     <section class="slide">
-      <div class="meta"><span>GROUND RULES</span><span class="chip">Common Rules</span><span>P.03</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>GROUND RULES</span><span class="chip">Common Rules</span><span>P.04</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">SAME RULES FOR EVERYONE</div>
@@ -452,12 +500,12 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.03 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.04 / 13</span></div>
     </section>
 
-    <!-- P.04 摺法示意 -->
+    <!-- P.05 摺法示意 -->
     <section class="slide">
-      <div class="meta"><span>FOLDING GUIDE</span><span class="chip">Folding Steps</span><span>P.04</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>FOLDING GUIDE</span><span class="chip">Folding Steps</span><span>P.05</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">STANDARD SPEC ── CLASSIC DART</div>
@@ -527,12 +575,12 @@
         </div>
         <div class="callout">Legend: red dashed line = fold line; green arrow = fold direction; light area = folded paper. Firmer creases and better left-right symmetry give a steadier flight path. Pass line 3 m; bonus line 5 m.</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.04 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.05 / 13</span></div>
     </section>
 
-    <!-- P.05 方案總覽 -->
+    <!-- P.06 方案總覽 -->
     <section class="slide">
-      <div class="meta"><span>PAY PLANS</span><span class="chip">Plan Overview</span><span>P.05</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PAY PLANS</span><span class="chip">Plan Overview</span><span>P.06</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">FOUR PLANS + ONE ADD-ON</div>
@@ -572,12 +620,12 @@
         </div>
         <div class="callout">Note: each plan has different rules, but task conditions are identical. After receiving the plan card, read the rules first, then decide the team's production strategy.</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.05 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.06 / 13</span></div>
     </section>
 
-    <!-- P.06 計件組 -->
+    <!-- P.07 計件組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN A</span><span class="chip" style="background: var(--coral); color:#fff;">Piece-Rate Team</span><span>P.06</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN A</span><span class="chip" style="background: var(--coral); color:#fff;">Piece-Rate Team</span><span>P.07</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">PIECE-RATE PAY</div>
@@ -588,27 +636,27 @@
             <span class="pill coral">Rules</span>
             <h3>How are rewards calculated?</h3>
             <ul>
-              <li>Base piece rate: 80 points per plane that passes inspection</li>
-              <li>Speed bonus: from the 11th plane on, 40 extra points per plane (120 points per plane)</li>
-              <li>Waste penalty: 50 points deducted per unused sheet</li>
+              <li>First <b data-v="half">10</b> planes: 80 points each</li>
+              <li>From plane <b data-v="half1">11</b> on: 120 points each (speed bonus)</li>
+              <li>Waste: 50 points deducted per sheet taken but left completely unused</li>
             </ul>
-            <p class="calc-note">Based on a 5-person team; threshold = half the baseline output. For other team sizes, use the parameter calculator.</p>
+            <div class="setchip">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes per team</div>
           </div>
           <div class="card">
-            <span class="pill sun">Example</span>
-            <h3>Example: 20 planes completed</h3>
-            <p>First 10 planes: 10 × 80 = 800 points<br>Planes 11-20: 10 × 120 = 1200 points<br>Total 2000 points</p>
-            <div class="formula">Total points = min(N, 10) × 80 + max(N − 10, 0) × <span class="hl">120</span> − waste × 50</div>
+            <span class="pill sun">Worked examples</span>
+            <h3>Points at the same output levels</h3>
+            <table class="fun ex" data-ex="piece"></table>
+            <p class="ex-note" data-exnote="piece">Example outputs are scaled to this session: half, three quarters, one and one and a quarter times the baseline.</p>
           </div>
         </div>
         <div class="callout">Strategy tip: more planes, more pay; every plane counts. But planes that fail inspection earn nothing, so secure quality before pushing quantity.</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.06 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.07 / 13</span></div>
     </section>
 
-    <!-- P.07 績效組 -->
+    <!-- P.08 績效組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN B</span><span class="chip" style="background: var(--teal); color:#fff;">Merit Pay Team</span><span>P.07</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN B</span><span class="chip" style="background: var(--teal); color:#fff;">Merit Pay Team</span><span>P.08</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">MERIT-BASED PAY</div>
@@ -619,27 +667,28 @@
             <span class="pill teal">Rules</span>
             <h3>How are rewards calculated?</h3>
             <ul>
-              <li>Base reward: 60 points per plane that passes inspection</li>
-              <li>Quality bonus: 40 extra points per plane flying beyond 5 m (bonus distance)</li>
-              <li>Milestone bonus: 400 extra points at 20 planes</li>
-              <li>Waste penalty: 50 points deducted per unused sheet</li>
+              <li>Each plane that passes inspection: 60 points</li>
+              <li>Each plane flying beyond 5 m: 40 more points</li>
+              <li>Reaching <b data-v="Ns">20</b> planes (the baseline): 400 more points</li>
+              <li>Waste: 50 points deducted per sheet taken but left completely unused</li>
             </ul>
+            <div class="setchip">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes per team</div>
           </div>
           <div class="card">
-            <span class="pill sun">Example</span>
-            <h3>Example: 20 planes completed, 10 of them beyond 5 m</h3>
-            <p>Base: 20 × 60 = 1200 points<br>Quality: 10 × 40 = 400 points<br>Milestone: +400 points<br>Total 2000 points</p>
-            <div class="formula">Total points = N × 60 + planes beyond 5 m × <span class="hl">40</span> + 400 (if N ≥ 20) − waste × 50</div>
+            <span class="pill sun">Worked examples</span>
+            <h3>Points at the same output levels</h3>
+            <table class="fun ex" data-ex="merit"></table>
+            <p class="ex-note" data-exnote="merit">The examples assume half of the planes fly beyond 5 m.</p>
           </div>
         </div>
         <div class="callout">Strategy tip: time is limited; should effort go to speed or distance? Is spending a few extra seconds pressing creases firm worth a quality bonus?</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.07 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.08 / 13</span></div>
     </section>
 
-    <!-- P.08 獎金組 -->
+    <!-- P.09 獎金組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN C</span><span class="chip">Bonus Team</span><span>P.08</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN C</span><span class="chip">Bonus Team</span><span>P.09</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">BONUS PAY</div>
@@ -650,28 +699,29 @@
             <span class="pill sun">Rules</span>
             <h3>Tiered target bonus (paid per team)</h3>
             <ul>
-              <li>12 planes: 800 points</li>
-              <li>16 planes: 600 more points (1400 cumulative)</li>
-              <li>20 planes: 600 more points (2000 cumulative)</li>
-              <li>24 planes: 400 more points (2400 cumulative, cap)</li>
-              <li>Waste penalty: 50 points deducted per unused sheet</li>
+              <li><b data-v="r1">12</b> planes: 800 points</li>
+              <li><b data-v="r2">16</b> planes: 600 more (1,400 in total)</li>
+              <li><b data-v="r3">20</b> planes: 600 more (2,000 in total)</li>
+              <li><b data-v="r4">24</b> planes: 400 more (2,400 in total, the cap)</li>
+              <li>Waste: 50 points deducted per sheet taken but left completely unused</li>
             </ul>
+            <div class="setchip">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes per team</div>
           </div>
           <div class="card">
-            <span class="pill coral">Example</span>
-            <h3>Examples</h3>
-            <p>11 planes: 0 points (first tier not reached)<br>20 planes: 2000 points<br>30 planes: 2400 points (no increase beyond 24 planes)</p>
-            <div class="formula">Total points = 800·(N≥12) + 600·(N≥16) + 600·(N≥20) + <span class="hl">400·(N≥24)</span> − waste × 50</div>
+            <span class="pill sun">Worked examples</span>
+            <h3>Points at the same output levels</h3>
+            <table class="fun ex" data-ex="bonus"></table>
+            <p class="ex-note" data-exnote="bonus">Only the highest tier crossed counts; extra planes within a tier add nothing.</p>
           </div>
         </div>
         <div class="callout">Strategy tip: bonuses are paid only when a threshold is crossed, so track progress closely. How many planes to the next threshold? Is there time for one more tier?</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.08 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.09 / 13</span></div>
     </section>
 
-    <!-- P.09 利潤分享組 -->
+    <!-- P.10 利潤分享組 -->
     <section class="slide">
-      <div class="meta"><span>PLAN D</span><span class="chip" style="background: var(--sky); color:#fff;">Profit-Sharing Team</span><span>P.09</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>PLAN D</span><span class="chip" style="background: var(--sky); color:#fff;">Profit-Sharing Team</span><span>P.10</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">PROFIT SHARING</div>
@@ -682,28 +732,29 @@
             <span class="pill sky">Rules</span>
             <h3>Bonus pool and allocation</h3>
             <ul>
-              <li>Bonus pool = total class planes that pass inspection × 100 points</li>
-              <li>Allocation = bonus pool × (team output ÷ class output)</li>
-              <li>Participation threshold: team share must reach 12% (= 60% of the average share, with 5 teams); teams below it receive nothing, and that portion is not paid out</li>
-              <li>Extra bonus: 500 more points if team share reaches 30%</li>
-              <li>Waste penalty: 50 points deducted per unused sheet</li>
+              <li>Bonus pool: class total of planes passing inspection × 100 points</li>
+              <li>Shared by each team&#39;s share of the class total</li>
+              <li>Share below <b data-v="th">12</b>%: nothing paid (60% of the average share, <b data-v="G">5</b> teams this session)</li>
+              <li>Share of <b data-v="ex">30</b>% or more: 500 more points</li>
+              <li>Waste: 50 points deducted per sheet taken but left completely unused</li>
             </ul>
+            <div class="setchip">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes per team</div>
           </div>
           <div class="card">
-            <span class="pill sun">Example</span>
-            <h3>Example: team 20 planes, class 100 planes</h3>
-            <p>Bonus pool: 100 × 100 = 10000 points<br>Team share: 20% (threshold met)<br>Allocation: 10000 × 20% = 2000 points</p>
-            <div class="formula">Total points = class total × 100 × <span class="hl">(team output ÷ class total)</span> + 500·(share≥30%) − waste × 50</div>
+            <span class="pill sun">Worked examples</span>
+            <h3>Points at the same output levels</h3>
+            <table class="fun ex" data-ex="profit"></table>
+            <p class="ex-note" data-exnote="profit">The examples assume the other <b data-v="G1">4</b> teams each reach the baseline of <b data-v="Ns">20</b> planes.</p>
           </div>
         </div>
-        <div class="callout">Strategy tip: the more the class folds, the larger the bonus pool; but each team's payout depends on its share. Secure the participation threshold first, then push for 30% if capacity allows.</div>
+        <div class="callout">Strategy tip: the more the class folds, the larger the bonus pool; but each team&#39;s payout depends on its share. Secure the <b data-v="th">12</b>% participation threshold first, then push for <b data-v="ex">30</b>% if capacity allows.</div>
       </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.09 / 13</span></div>
+      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.10 / 13</span></div>
     </section>
 
-    <!-- P.10 員工持股 -->
+    <!-- P.11 員工持股 -->
     <section class="slide">
-      <div class="meta"><span>ADD-ON</span><span class="chip" style="background: var(--grape); color:#fff;">ESOP</span><span>P.10</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>ADD-ON</span><span class="chip" style="background: var(--grape); color:#fff;">ESOP</span><span>P.11</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">EMPLOYEE STOCK OWNERSHIP PLAN</div>
@@ -715,61 +766,28 @@
             <h3>Add-on (open to all teams)</h3>
             <ul>
               <li>Decide before the game starts; no buying or selling shares once play begins</li>
-              <li>Each team has 200 points of starting capital and may buy 0-4 shares at 50 points each</li>
-              <li>Class reaches 80 planes: dividend of 75 points per share</li>
-              <li>Class reaches 100 planes: another 75 points per share</li>
-              <li>Class below 80 planes: shares worth zero, capital lost</li>
+              <li>Each team has 200 points of starting capital and may buy 0 to 4 shares at 50 points each</li>
+              <li>Class reaches <b data-v="t1">80</b> planes: 75 points per share</li>
+              <li>Class reaches <b data-v="t2">100</b> planes: another 75 points per share</li>
+              <li>Class below <b data-v="t1">80</b> planes: shares worth zero, capital lost</li>
             </ul>
+            <div class="setchip">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes per team</div>
           </div>
           <div class="card">
-            <span class="pill sun">Example</span>
-            <h3>Example: buy all 4 shares (cost 200 points)</h3>
-            <p>Class 100 planes: dividends 4 × 150 = 600 points, net gain 400 points<br>Class 85 planes: dividends 4 × 75 = 300 points, net gain 100 points<br>Class 75 planes: no dividends, net loss 200 points</p>
-            <div class="formula">Share payoff = shares × 75·(class≥80) + shares × 75·(class≥100) − <span class="hl">shares × 50</span></div>
+            <span class="pill sun">Worked examples</span>
+            <h3>Buying all 4 shares (cost 200 points)</h3>
+            <table class="fun ex" data-ex="esop"></table>
+            <p class="ex-note" data-exnote="esop">The second class threshold = number of teams × baseline; the first is 80% of it.</p>
           </div>
         </div>
-        <div class="callout">Strategy tip: dividends depend on the whole class, not on one team's effort. There is only one decision, made before the game: place the bet, or keep the capital?</div>
-      </div>
-      <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.10 / 13</span></div>
-    </section>
-
-    <!-- P.11 參數計算器 -->
-    <section class="slide">
-      <div class="meta"><span>CALIBRATION</span><span class="chip" style="background: var(--pink);">Parameter calculator</span><span>P.11</span><span class="rev">REV 2026.08</span></div>
-      <div class="body-wrap">
-        <div>
-          <div class="h-sub">SCALE TO CLASS SIZE</div>
-          <h2 class="h-title">Game settings: <span class="accent">thresholds and rewards</span></h2>
-        </div>
-        <div class="calc-wrap">
-          <div class="calc-panel">
-            <label>Number of teams (G)
-              <input type="number" id="pG" min="2" max="10" value="5">
-            </label>
-            <label>Members per team (M)
-              <input type="number" id="pM" min="2" max="10" value="5">
-            </label>
-            <div class="calc-note">Enter the number of teams and members per team; the table shows the thresholds and rewards for each plan. Use this table as the reference before the game starts.</div>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:10px; min-height:0; overflow:auto;">
-            <table class="fun" id="paramTable">
-              <tr><th>Plan</th><th>Adjusted thresholds and rewards</th></tr>
-              <tr><td class="k">Baseline output</td><td class="num" id="oNs">——</td></tr>
-              <tr><td class="k">Piece-Rate Team</td><td id="oPiece">——</td></tr>
-              <tr><td class="k">Merit Pay Team</td><td id="oMerit">——</td></tr>
-              <tr><td class="k">Bonus Team</td><td id="oBonus">——</td></tr>
-              <tr><td class="k">Profit-Sharing Team</td><td id="oProfit">——</td></tr>
-              <tr><td class="k">ESOP</td><td id="oEsop">——</td></tr>
-            </table>
-          </div>
-        </div>
+        <div class="callout">Strategy tip: dividends depend on the whole class, not on one team&#39;s effort. There is only one decision, made before the game: place the bet, or keep the capital?</div>
       </div>
       <div class="foot"><span>OB-6 ── Motivation</span><span>Variable Pay Plans: Classroom Simulation</span><span class="pg">P.11 / 13</span></div>
     </section>
 
     <!-- P.12 結算計算器 -->
     <section class="slide">
-      <div class="meta"><span>SETTLEMENT</span><span class="chip" style="background: var(--teal); color:#fff;">Settlement calculator</span><span>P.12</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>SETTLEMENT</span><span class="chip" style="background: var(--teal); color:#fff;">Settlement calculator</span><span>P.12</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">SCORE YOUR TEAM</div>
@@ -777,6 +795,7 @@
         </div>
         <div class="calc-wrap">
           <div class="calc-panel">
+            <div class="setchip" style="margin:0">This session: <b data-v="G">5</b> teams × <b data-v="M">5</b> members; baseline <b data-v="Ns">20</b> planes. Change it on P.02</div>
             <label>Plan
               <select id="sPlan">
                 <option value="piece">Piece-Rate Team</option>
@@ -788,7 +807,7 @@
             <label>Team planes completed
               <input type="number" id="sN" min="0" value="20">
             </label>
-            <label id="rowQ">Planes over 5 m (quality)
+            <label id="rowQ">Planes beyond 5 m
               <input type="number" id="sQ" min="0" value="10">
             </label>
             <label id="rowC">Class total planes completed
@@ -815,7 +834,7 @@
 
     <!-- P.13 反思與理論連結 -->
     <section class="slide">
-      <div class="meta"><span>DEBRIEF</span><span class="chip" style="background: var(--grape); color:#fff;">Debrief</span><span>P.13</span><span class="rev">REV 2026.08</span></div>
+      <div class="meta"><span>DEBRIEF</span><span class="chip" style="background: var(--grape); color:#fff;">Debrief</span><span>P.13</span><span class="rev">REV 2026.11</span></div>
       <div class="body-wrap">
         <div>
           <div class="h-sub">FROM GAME TO THEORY</div>
@@ -893,23 +912,66 @@
   }
   addEventListener('resize', fit);
 
-  /* ── 參數計算器 ── */
+  /* ── 本場設定：組數與每組人數決定所有門檻（P.02），方案頁與結算計算器共用 ── */
   const pG = document.getElementById('pG'), pM = document.getElementById('pM');
   function fmt(n) { return Math.round(n); }
+  function num(n) { return Math.round(n).toLocaleString('en-US'); }
+  function clampInt(v, d) { const x = parseInt(v); return isNaN(x) ? d : Math.min(10, Math.max(2, x)); }
+  (function initFromUrl() {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get('g')) pG.value = clampInt(q.get('g'), 5);
+      if (q.get('m')) pM.value = clampInt(q.get('m'), 5);
+    } catch (e) {}
+  })();
+  function P() {
+    const G = clampInt(pG.value, 5), M = clampInt(pM.value, 5), Ns = 4 * M, half = Math.ceil(Ns / 2);
+    return { G, M, Ns, half, r: [fmt(0.6 * Ns), fmt(0.8 * Ns), Ns, fmt(1.2 * Ns)],
+             th: 0.6 / G, ex: 1.5 / G, t1: fmt(0.8 * G * Ns), t2: G * Ns };
+  }
+  function pts(plan, N, Q, C, p) {
+    if (plan === 'piece') return Math.min(N, p.half) * 80 + Math.max(N - p.half, 0) * 120;
+    if (plan === 'merit') return N * 60 + Q * 40 + (N >= p.Ns ? 400 : 0);
+    if (plan === 'bonus') return (N >= p.r[0] ? 800 : 0) + (N >= p.r[1] ? 600 : 0) + (N >= p.r[2] ? 600 : 0) + (N >= p.r[3] ? 400 : 0);
+    const share = C > 0 ? N / C : 0;
+    return (share >= p.th ? Math.round(C * 100 * share) : 0) + (share >= p.ex ? 500 : 0);
+  }
+  function exTables(p) {
+    const L = [fmt(0.5 * p.Ns), fmt(0.75 * p.Ns), p.Ns, fmt(1.25 * p.Ns)];
+    const head = '<tr><th>Planes</th><th class="r">Points</th><th>How</th></tr>';
+    const row = (n, v, how) => '<tr' + (v === 0 ? ' class="zero"' : '') + '><td class="n">' + n + '</td><td class="pts">' + num(v) + '</td><td class="how">' + how + '</td></tr>';
+    const T = {};
+    T.piece = head + L.map(N => row(N, pts('piece', N, 0, 0, p),
+      N <= p.half ? N + ' × 80' : p.half + ' × 80 + ' + (N - p.half) + ' × 120')).join('');
+    T.merit = head + L.map(N => { const Q = Math.floor(N / 2); return row(N, pts('merit', N, Q, 0, p),
+      N + ' × 60 + ' + Q + ' × 40' + (N >= p.Ns ? ' + 400' : '')); }).join('');
+    T.bonus = head + L.map(N => { const k = p.r.filter(x => N >= x).length; return row(N, pts('bonus', N, 0, 0, p),
+      k === 0 ? 'Below tier 1 (' + p.r[0] + ' planes)' : 'Tier ' + k + ' crossed (' + p.r[k - 1] + ' planes)'); }).join('');
+    T.profit = head + L.map(N => { const C = N + (p.G - 1) * p.Ns, sh = N / C, v = pts('profit', N, 0, C, p);
+      return row(N, v, 'Class ' + C + ', share ' + (sh * 100).toFixed(1) + '%' + (sh < p.th ? ', below threshold' : (sh >= p.ex ? ', +500' : ''))); }).join('');
+    const E = [p.t2, p.t1, fmt(0.7 * p.t2)];
+    T.esop = '<tr><th>Class total</th><th class="r">Net</th><th>How</th></tr>' + E.map(C => {
+      const div = (C >= p.t1 ? 300 : 0) + (C >= p.t2 ? 300 : 0), net = div - 200;
+      return '<tr' + (net < 0 ? ' class="zero"' : '') + '><td class="n">' + C + '</td><td class="pts">' + (net >= 0 ? '+' : '−') + num(Math.abs(net)) + '</td><td class="how">dividends ' + div + ' − cost 200</td></tr>';
+    }).join('');
+    document.querySelectorAll('table[data-ex]').forEach(t => { t.innerHTML = T[t.dataset.ex] || ''; });
+  }
   function updateParams() {
-    const G = Math.max(2, parseInt(pG.value) || 5);
-    const M = Math.max(2, parseInt(pM.value) || 5);
-    const Ns = 4 * M;
-    const half = Math.ceil(Ns / 2);
-    const r1 = fmt(0.6 * Ns), r2 = fmt(0.8 * Ns), r3 = Ns, r4 = fmt(1.2 * Ns);
-    const thPct = (60 / G).toFixed(0), exPct = (150 / G).toFixed(0);
-    const t1 = fmt(0.8 * G * Ns), t2 = G * Ns;
-    document.getElementById('oNs').textContent = 'N＊ = ' + Ns + ' planes/team (4 per person × ' + M + ' people)';
-    document.getElementById('oPiece').textContent = '80 points per plane; from plane ' + (half + 1) + ' on, 120 points per plane';
-    document.getElementById('oMerit').textContent = '60 points per plane; +40 per plane over 5 m; at ' + Ns + ' planes, +400 points';
-    document.getElementById('oBonus').textContent = 'At ' + r1 + ' planes → 800; at ' + r2 + ' planes → +600; at ' + r3 + ' planes → +600; at ' + r4 + ' planes → +400 (cap)';
-    document.getElementById('oProfit').textContent = 'Bonus pool = class total × 100; participation threshold: share ' + thPct + '%; share ' + exPct + '% → +500 points';
-    document.getElementById('oEsop').textContent = 'Class reaches ' + t1 + ' planes → dividend of 75 per share; at ' + t2 + ' planes → another 75 per share; below ' + t1 + ' planes, shares worth zero';
+    const p = P();
+    const V = { G: p.G, M: p.M, Ns: p.Ns, half: p.half, half1: p.half + 1, r1: p.r[0], r2: p.r[1], r3: p.r[2], r4: p.r[3],
+                th: Math.round(p.th * 100), ex: Math.round(p.ex * 100), t1: p.t1, t2: p.t2, G1: p.G - 1 };
+    document.querySelectorAll('[data-v]').forEach(el => { if (el.dataset.v in V) el.textContent = V[el.dataset.v]; });
+    document.getElementById('oNs').textContent = p.Ns + ' planes per team (4 per person × ' + p.M + ' members)';
+    document.getElementById('oPiece').textContent = 'First ' + p.half + ' planes 80 points each; from plane ' + (p.half + 1) + ' on, 120 points each';
+    document.getElementById('oMerit').textContent = '60 points per plane; 40 more per plane beyond 5 m; 400 more at ' + p.Ns + ' planes';
+    document.getElementById('oBonus').textContent = p.r[0] + ' planes: 800 points; ' + p.r[1] + ', ' + p.r[2] + ' and ' + p.r[3] + ' planes: 600, 600 and 400 more (cap 2,400)';
+    document.getElementById('oProfit').textContent = 'Pool = class total × 100; nothing below a ' + V.th + '% share; 500 more at a ' + V.ex + '% share';
+    document.getElementById('oEsop').textContent = 'Class reaches ' + p.t1 + ' planes: 75 per share; ' + p.t2 + ' planes: another 75; below ' + p.t1 + ', shares worth zero';
+    exTables(p);
+    try {
+      const q = new URLSearchParams(location.search); q.set('g', p.G); q.set('m', p.M);
+      history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash);
+    } catch (e) {}
     updateSettle();
   }
   pG.addEventListener('input', updateParams);
@@ -920,9 +982,7 @@
   const sN = document.getElementById('sN'), sQ = document.getElementById('sQ'),
         sC = document.getElementById('sC'), sW = document.getElementById('sW'), sS = document.getElementById('sS');
   function updateSettle() {
-    const G = Math.max(2, parseInt(pG.value) || 5);
-    const M = Math.max(2, parseInt(pM.value) || 5);
-    const Ns = 4 * M, half = Math.ceil(Ns / 2);
+    const pp = P(), G = pp.G, Ns = pp.Ns, half = pp.half;
     const N = Math.max(0, parseInt(sN.value) || 0);
     const q = Math.min(Math.max(0, parseInt(sQ.value) || 0), N);
     const C = Math.max(N, parseInt(sC.value) || 0);
@@ -944,7 +1004,7 @@
     } else if (plan === 'merit') {
       const base = N * 60, qual = q * 40, mile = (N >= Ns) ? 400 : 0;
       lines.push('Base reward (' + N + ' × 60) = ' + base + ' points');
-      lines.push('Quality reward (' + q + ' × 40) = ' + qual + ' points');
+      lines.push('Beyond 5 m (' + q + ' × 40) = ' + qual + ' points');
       lines.push('Milestone (reach ' + Ns + ' planes) = ' + mile + ' points');
       total = base + qual + mile;
     } else if (plan === 'bonus') {
