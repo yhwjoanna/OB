@@ -77,23 +77,29 @@
   .card .grp { font-size:13.5px; color:var(--red); font-weight:700; }
   .card ul { margin:0; padding-left:18px; font-size:16px; line-height:1.5; text-wrap:pretty; }
   .card .f { margin-top:auto; background:#E9E9E3; border-left:3px solid var(--ink); padding:10px 12px; font:500 14px/1.55 var(--mono); color:var(--ink); }
-  .p3 td { padding:7px 6px; }
+  .p3 .g3 { flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:28px; align-items:stretch; }
+  .p3 .t3 { font-size:16px; }
+  .p3 .t3 td { padding:11px 6px; }
+  .p3 .t3 th .en { font:500 11px/1.3 var(--sans); letter-spacing:0; }
   .p3 .rate { font:700 17px/1 Archivo, var(--sans); }
-  .p3 .rate small { display:block; margin-top:4px; font:500 11.5px/1 var(--mono); color:var(--gray); }
-  .p3 td.orig3 { font:700 17px/1 Archivo, var(--sans); }
-  .p3 td.sch { font:700 18px/1 Archivo, var(--sans); width:132px; }
-  .p3 td.sch .d { display:inline-block; margin-top:6px; margin-left:8px; font:700 12px/1 var(--mono); }
-  .p3 td.sch .d.up { color:var(--green); } .p3 td.sch .d.dn { color:var(--red); } .p3 td.sch .d.eq { color:var(--gray); }
-  .p3 td.sch .rk { display:inline-block; margin-left:8px; font:500 11.5px/1 var(--sans); color:var(--gray); }
-  .p3 .chg { font:700 15px/1 var(--mono); letter-spacing:.04em; }
+  .p3 td.sch { font:700 19px/1 Archivo, var(--sans); }
+  .p3 td.sch.top { color:var(--red); font-weight:900; }
+  .p3 td.sch.low { color:#9a9a92; }
+  .p3 .bump { border-left:1.5px solid var(--ink); padding-left:24px; display:flex; flex-direction:column; }
+  .p3 .bt { font-weight:900; font-size:17px; margin-bottom:4px; }
+  .p3 #bump3 { flex:1; min-height:0; width:100%; }
+  .p3 .bl { display:flex; gap:16px; font-size:12.5px; color:var(--gray); }
+  .p3 .bl .up { color:var(--green); } .p3 .bl .dn { color:var(--red); }
   .p3 .f3 { background:#E9E9E3; border-left:3px solid var(--ink); padding:7px 12px; font:500 13px/1.6 var(--mono); }
-  .p4 table { font-size:15.5px; }
-  .p4 td { text-align:left; vertical-align:top; padding:10px 10px; line-height:1.5; text-wrap:pretty; }
-  .p4 td.mk { font-weight:900; font-size:18px; white-space:nowrap; }
+  .p4 table { font-size:16.5px; }
+  .p4 td { text-align:left; vertical-align:top; padding:8px 10px; line-height:1.5; text-wrap:pretty; }
+  .p4 td.mk { font-weight:900; font-size:19px; white-space:nowrap; }
   .p4 td.mk small { display:block; font:500 11.5px/1.4 var(--sans); color:var(--gray); margin-top:3px; white-space:normal; }
   .p4 td.th { color:#2a2a2a; }
   .p4 td.here { color:#2a2a2a; }
+  .p4 td.th a { color:var(--ink); font-weight:700; text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
   .p4 th { text-align:left; padding-left:10px; }
+  .p4 .note a { color:inherit; word-break:break-all; }
   .p4 .bottom ol { margin:0; padding-left:20px; font-size:13.5px; line-height:1.55; }
 </style>
 </head>
@@ -233,23 +239,28 @@
     </div>
   </div>
   <div class="main">
-    <table>
-      <thead>
-        <tr>
-          <th rowspan="2" style="width:56px">組別</th>
-          <th rowspan="2" style="width:70px">基本<span class="en">BASIC</span></th>
-          <th rowspan="2" style="width:76px">卓越<span class="en">EXCELLENT</span></th>
-          <th rowspan="2" style="width:120px">原料達成率<span class="en">BASIC ÷ 20</span></th>
-          <th rowspan="2" style="width:120px">卓越比例<span class="en">EXC. ÷ BASIC</span></th>
-          <th rowspan="2" style="width:104px">原方案<br>實得點數</th>
-          <th colspan="3" class="grp">兩項指標、三種權重的獎酬（與原方案差距、排名）</th>
-          <th rowspan="2" style="width:130px">排名變化</th>
-        </tr>
-        <tr><th>只看數量<span class="en">100 / 0</span></th><th>數量為主<span class="en">70 / 30</span></th><th>品質為主<span class="en">30 / 70</span></th></tr>
-      </thead>
-      <tbody id="rows3"></tbody>
-    </table>
-    <div class="f3">獎酬＝ 2,000 ×〔 數量權重 × 原料達成率 ＋ 品質權重 ×（卓越比例 ÷ 25%）〕；兩項指標各以 150% 為上限</div>
+    <div class="g3">
+      <table class="t3">
+        <thead>
+          <tr>
+            <th rowspan="2" style="width:50px">組別</th>
+            <th rowspan="2">基本</th>
+            <th rowspan="2">卓越</th>
+            <th rowspan="2">原料<br>達成率</th>
+            <th rowspan="2">卓越<br>比例</th>
+            <th colspan="3" class="grp">三種權重下的獎酬點數</th>
+          </tr>
+          <tr><th>只看數量<span class="en">數量 100%</span></th><th>數量為主<span class="en">數量 70%＋品質 30%</span></th><th>品質為主<span class="en">數量 30%＋品質 70%</span></th></tr>
+        </thead>
+        <tbody id="rows3"></tbody>
+      </table>
+      <div class="bump">
+        <div class="bt">排名怎麼變</div>
+        <svg id="bump3" viewBox="0 0 440 330" role="img" aria-label="三種權重下各組排名"></svg>
+        <div class="bl"><span class="up">● 名次上升</span><span class="dn">● 名次下降</span><span class="eq">● 不變</span></div>
+      </div>
+    </div>
+    <div class="f3">獎酬＝ 2,000 ×〔 數量權重 × 原料達成率 ＋ 品質權重 ×（卓越比例 ÷ 25%）〕；兩項指標各以 150% 為上限。每一欄的紅字為該權重下的第 1 名。</div>
   </div>
   <div class="bottom">
     <div>
@@ -278,20 +289,20 @@
   <div class="main">
     <table>
       <thead><tr>
-        <th style="width:150px">指標</th><th style="width:220px">鼓勵的行為</th><th style="width:270px">可能的副作用</th><th style="width:270px">相關理論</th><th>本場可對照</th>
+        <th style="width:180px">指標</th><th style="width:290px">鼓勵的行為</th><th style="width:360px">可能的副作用</th><th>相關理論</th>
       </tr></thead>
       <tbody>
-        <tr><td class="mk">數量<small>基本架數、計件</small></td><td>加快速度、多做</td><td>品質只求剛好飛過 3 公尺；不願花時間改良摺法</td><td class="th">期望理論：表現與獎酬的連結清楚；Kerr 獎勵 A 卻期待 B</td><td class="here">第 2 組 23 架中 1 架卓越</td></tr>
-        <tr><td class="mk">門檻<small>獎金方案</small></td><td>在門檻前衝刺</td><td>確定達不到時放棄；過了最後一個門檻就停</td><td class="th">目標設定理論：目標難度與承諾；期望理論：判斷達不到時，期望值趨近 0</td><td class="here">第 3 組 9 架，差 1 架未達 10 架門檻，點數為 0</td></tr>
-        <tr><td class="mk">卓越比例<small>品質</small></td><td>改良摺法、只交有把握的飛機</td><td>比例可以靠少做來提高，做 1 架成功就是 100%</td><td class="th">目標過度聚焦的副作用（Ordóñez 等，2009）</td><td class="here">第 6 組 30 架中 21 架卓越（70%），數量與品質同時最高</td></tr>
-        <tr><td class="mk">原料達成率<small>對 20 張原料</small></td><td>珍惜原料、減少失敗品</td><td>不敢試新摺法，少了試作與學習</td><td class="th">目標設定理論：學習新任務時，表現目標可能壓過學習</td><td class="here">本場未記錄實際用紙數，無法對照</td></tr>
-        <tr><td class="mk">全班分享<small>利潤分享</small></td><td>組間交流做法、在乎全班總量</td><td>搭便車；單組多做的回報被全班稀釋</td><td class="th">社會惰化（CH 9·10）；公平理論</td><td class="here">第 4 組 29 架，佔全班 24%，未達 25% 加碼</td></tr>
+        <tr><td class="mk">數量<small>基本架數、計件</small></td><td>加快速度、多做</td><td>品質只求剛好飛過 3 公尺；不願花時間改良摺法</td><td class="th"><a href="OB-06_motivation.html#t=%E6%9C%9F%E6%9C%9B%E7%90%86%E8%AB%96&amp;p=30" target="_blank" rel="noopener">期望理論</a>：表現與獎酬的連結清楚；只獎勵數量卻期待品質（Kerr，1975）</td></tr>
+        <tr><td class="mk">門檻<small>獎金方案</small></td><td>在門檻前衝刺</td><td>確定達不到時放棄；過了最後一個門檻就停</td><td class="th"><a href="OB-06_motivation.html#t=%E7%9B%AE%E6%A8%99%E8%A8%AD%E5%AE%9A%E7%90%86%E8%AB%96&amp;p=18" target="_blank" rel="noopener">目標設定理論</a>：目標難度與承諾；<a href="OB-06_motivation.html#t=%E6%9C%9F%E6%9C%9B%E7%90%86%E8%AB%96&amp;p=30" target="_blank" rel="noopener">期望理論</a>：判斷達不到時，期望值趨近 0</td></tr>
+        <tr><td class="mk">卓越比例<small>品質</small></td><td>改良摺法、只交有把握的飛機</td><td>比例可以靠少做來提高，做 1 架成功就是 100%</td><td class="th">目標過度聚焦的副作用（Ordóñez 等，2009）</td></tr>
+        <tr><td class="mk">原料達成率<small>對 20 張原料</small></td><td>珍惜原料、減少失敗品</td><td>不敢試新摺法，少了試作與學習</td><td class="th"><a href="OB-06_motivation.html#t=%E7%9B%AE%E6%A8%99%E8%A8%AD%E5%AE%9A%E7%90%86%E8%AB%96&amp;p=18" target="_blank" rel="noopener">目標設定理論</a>：學習新任務時，表現目標可能壓過學習</td></tr>
+        <tr><td class="mk">全班分享<small>利潤分享</small></td><td>組間交流做法、在乎全班總量</td><td>搭便車；單組多做的回報被全班稀釋</td><td class="th"><a href="OB-07_teams.html#t=%E5%9C%98%E9%AB%94%E8%A6%8F%E6%A8%A1%E5%B0%8D%E5%9C%98%E9%AB%94%E8%A1%8C%E7%82%BA%E7%9A%84%E5%BD%B1%E9%9F%BF&amp;p=16" target="_blank" rel="noopener">社會閒散</a>（CH 9·10）；<a href="OB-06_motivation.html#t=%E5%85%AC%E5%B9%B3%E7%90%86%E8%AB%96&amp;p=26" target="_blank" rel="noopener">公平理論</a></td></tr>
       </tbody>
     </table>
   </div>
   <div class="bottom">
     <div>
-      <h2>FOR DISCUSSION</h2>
+      <h2>延伸思考</h2>
       <ol>
         <li>若事先公布品質為主的權重，第 2 組的做法可能有什麼不同？</li>
         <li>指標越多越公平嗎？權重由誰決定、何時公布，會影響投入程度嗎？</li>
@@ -301,9 +312,9 @@
     <div class="note">
       <h2>SOURCES</h2>
       <ul>
-        <li>Kerr, S. (1975). On the folly of rewarding A, while hoping for B. <i>Academy of Management Journal, 18</i>(4), 769–783.</li>
-        <li>Ordóñez, L. D., Schweitzer, M. E., Galinsky, A. D., &amp; Bazerman, M. H. (2009). Goals gone wild. <i>Academy of Management Perspectives, 23</i>(1), 6–16.</li>
-        <li>期望理論、目標設定理論、公平理論見 CH 7·8 講義；社會惰化見 CH 9·10。</li>
+        <li>Kerr, S. (1975). On the folly of rewarding A, while hoping for B. <i>Academy of Management Journal, 18</i>(4), 769–783. <a href="https://doi.org/10.2307/255378" target="_blank" rel="noopener">https://doi.org/10.2307/255378</a></li>
+        <li>Ordóñez, L. D., Schweitzer, M. E., Galinsky, A. D., &amp; Bazerman, M. H. (2009). Goals gone wild: The systematic side effects of overprescribing goal setting. <i>Academy of Management Perspectives, 23</i>(1), 6–16. <a href="https://doi.org/10.5465/amp.2009.37007999" target="_blank" rel="noopener">https://doi.org/10.5465/amp.2009.37007999</a></li>
+        <li>理論名稱可點，連到 CH 7·8、CH 9·10 講義的對應頁；Kerr 與 Ordóñez 等兩篇不在講義內。</li>
       </ul>
     </div>
   </div>
@@ -388,17 +399,29 @@
     var r = {}; P3.forEach(function (o) { r[o.x.g] = 1 + srt.filter(function (z) { return z.v[k] > o.v[k]; }).length; }); return r;
   });
   var h3 = '';
+  var MX = W.map(function (w, k) { return Math.max.apply(null, P3.map(function (o) { return o.v[k]; })); });
   P3.forEach(function (o) {
     var x = o.x, ar = Math.round(x.N / BASE * 100), er = Math.round(x.Q / x.N * 100);
     h3 += '<tr><td><span class="gno">' + x.g + '</span></td><td><span class="num">' + x.N + '</span></td><td><span class="num">' + x.Q + '</span></td>' +
-      '<td><span class="rate">' + ar + '%</span></td><td><span class="rate">' + er + '%</span></td>' +
-      '<td class="orig3">' + fmt(o.orig) + '<span class="pct" style="display:block;margin-top:5px">' + x.plan + '</span></td>';
-    o.v.forEach(function (v, k) {
-      var d = v - o.orig, c = d > 0 ? 'up' : (d < 0 ? 'dn' : 'eq');
-      h3 += '<td class="sch">' + fmt(v) + '<span class="d ' + c + '">' + (d > 0 ? '+' : (d < 0 ? '−' : '±')) + fmt(Math.abs(d)) + '</span><span class="rk">第 ' + RK[k][x.g] + ' 名</span></td>';
-    });
-    h3 += '<td><span class="chg">' + RK.map(function (r) { return r[x.g]; }).join(' → ') + '</span></td></tr>';
+      '<td><span class="rate">' + ar + '%</span></td><td><span class="rate">' + er + '%</span></td>';
+    o.v.forEach(function (v, k) { h3 += '<td class="sch' + (v === MX[k] ? ' top' : '') + '">' + fmt(v) + '</td>'; });
+    h3 += '</tr>';
   });
+  (function () {
+    var X = [70, 220, 370], Y = function (r) { return 22 + (r - 1) * 50; }, svg = '';
+    var COL = { up: '#1F7A4D', dn: '#E61919', eq: '#9a9a92' };
+    for (var r = 1; r <= 6; r++) svg += '<text x="8" y="' + (Y(r) + 5) + '" font-size="13" fill="#666">第 ' + r + ' 名</text>';
+    ['只看數量', '數量為主', '品質為主'].forEach(function (t, k) { svg += '<text x="' + X[k] + '" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="#0A0A0A">' + t + '</text>'; });
+    var lines = '', dots = '';
+    P3.forEach(function (o) {
+      var g = o.x.g, rs = RK.map(function (rk) { return rk[g]; });
+      var c = rs[2] < rs[0] ? 'up' : (rs[2] > rs[0] ? 'dn' : 'eq');
+      lines += '<polyline points="' + rs.map(function (r, k) { return X[k] + ',' + Y(r); }).join(' ') + '" fill="none" stroke="' + COL[c] + '" stroke-width="' + (c === 'eq' ? 2 : 3.5) + '"/>';
+      rs.forEach(function (r, k) { dots += '<circle cx="' + X[k] + '" cy="' + Y(r) + '" r="14" fill="' + COL[c] + '"/><text x="' + X[k] + '" y="' + (Y(r) + 5) + '" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">' + g + '</text>'; });
+      dots += '<text x="' + (X[2] + 22) + '" y="' + (Y(rs[2]) + 5) + '" font-size="13" fill="' + COL[c] + '" font-weight="700">第 ' + g + ' 組</text>';
+    });
+    document.getElementById('bump3').innerHTML = svg + lines + dots;
+  })();
   document.getElementById('rows3').innerHTML = h3;
   function o3(g) { return P3.filter(function (o) { return o.x.g === g; })[0]; }
   var g1 = o3(1), g2 = o3(2), g5 = o3(5);
