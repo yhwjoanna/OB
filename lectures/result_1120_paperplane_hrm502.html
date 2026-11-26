@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OB／紙飛機工廠獎金計算結果｜HRM502 高雄一般班</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#F4F4F0; --ink:#0A0A0A; --red:#E61919; --gray:#666666; --hair:#CFCFC8; --soft:#E9E9E3; --green:#1F7A4D;
+    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:#2b2b2b; }
+  body { font-family:var(--sans); color:var(--ink); display:flex; align-items:center; justify-content:center; min-height:100vh; }
+  #stage { width:1280px; height:720px; background:var(--paper); border:2px solid var(--ink); display:flex; flex-direction:column; transform-origin:center center; flex:none; }
+  .meta { display:flex; justify-content:space-between; padding:12px 28px; border-bottom:1.5px solid var(--ink); font:500 12px/1 var(--mono); letter-spacing:.12em; color:var(--gray); }
+  .meta .g { color:var(--ink); }
+  .head { display:grid; grid-template-columns:1fr auto; align-items:end; padding:18px 28px 14px; border-bottom:1.5px solid var(--ink); gap:24px; }
+  h1 { margin:0; font-weight:900; font-size:34px; line-height:1.12; letter-spacing:-.02em; }
+  .sub { margin-top:6px; font:500 12px/1 var(--mono); letter-spacing:.14em; color:var(--gray); }
+  .kpis { display:flex; gap:26px; text-align:right; }
+  .kpi b { display:block; font:900 30px/1 Archivo, var(--sans); letter-spacing:-.02em; }
+  .kpi span { display:block; margin-top:4px; font-size:12.5px; color:var(--gray); }
+  .main { flex:1; min-height:0; padding:14px 28px 0; display:flex; flex-direction:column; gap:12px; }
+  table { width:100%; border-collapse:collapse; font-size:15px; }
+  th { font:700 12px/1.25 var(--sans); color:var(--gray); text-align:center; padding:6px 6px 8px; border-bottom:1.5px solid var(--ink); vertical-align:bottom; }
+  th .en { display:block; font:500 10px/1.2 var(--mono); letter-spacing:.08em; margin-top:2px; }
+  th.grp { text-align:center; color:var(--ink); border-bottom:1px solid var(--hair); padding-bottom:4px; }
+  td { padding:10px 6px; border-bottom:1px solid var(--hair); text-align:center; font-variant-numeric:tabular-nums; }
+  td.l { text-align:left; }
+  .gno { font:900 20px/1 Archivo, var(--sans); }
+  .plan { font-weight:700; }
+  .self { font-size:11.5px; color:var(--gray); margin-left:4px; font-weight:500; }
+  .num { font:700 17px/1 Archivo, var(--sans); }
+  .pct { font-size:12px; color:var(--gray); margin-left:3px; }
+  .bar { position:relative; height:14px; width:150px; margin:0 auto; }
+  .bar .axis { position:absolute; left:50%; top:-3px; bottom:-3px; width:1.5px; background:var(--ink); }
+  .bar i { position:absolute; top:0; height:14px; display:block; }
+  .bar i.pos { left:50%; background:var(--green); }
+  .bar i.neg { right:50%; background:var(--red); }
+  .vs { font:700 14px/1 var(--mono); margin-top:5px; display:block; }
+  .vs.pos { color:var(--green); } .vs.neg { color:var(--red); }
+  td.sc { font:500 16px/1 Archivo, var(--sans); color:#444; width:84px; }
+  td.sc.orig { outline:2px solid var(--ink); outline-offset:-5px; color:var(--ink); font-weight:700; }
+  td.sc.best { color:var(--red); font-weight:900; }
+  td.sc.zero { color:#9a9a92; }
+  .bestname { font-weight:700; color:var(--red); }
+  .gap { font:700 15px/1 Archivo, var(--sans); }
+  .gap.none { color:var(--gray); font:500 13px/1 var(--sans); }
+  .legend { display:flex; gap:20px; font-size:12.5px; color:var(--gray); align-items:center; }
+  .legend .box { display:inline-block; width:22px; height:14px; outline:2px solid var(--ink); outline-offset:-2px; vertical-align:-2px; margin-right:6px; }
+  .legend .red { color:var(--red); font-weight:900; margin-right:4px; }
+  .bottom { display:grid; grid-template-columns:1.25fr 1fr; gap:1px; background:var(--ink); border-top:1.5px solid var(--ink); margin-top:auto; }
+  .bottom > div { background:var(--paper); padding:11px 28px 12px; }
+  .bottom h2 { margin:0 0 6px; font:700 11px/1 var(--mono); letter-spacing:.14em; color:var(--red); }
+  .bottom ul { margin:0; padding-left:18px; font-size:13.5px; line-height:1.55; text-wrap:pretty; }
+  .bottom .note ul { font-size:12px; color:#3a3a3a; line-height:1.5; }
+  .foot { display:flex; justify-content:space-between; padding:9px 28px; border-top:1.5px solid var(--ink); font:500 11px/1 var(--mono); letter-spacing:.12em; color:var(--gray); }
+
+  #stage { display:block; position:relative; }
+  .pg { display:none; height:100%; flex-direction:column; }
+  .pg.on { display:flex; }
+  #p1 .main { padding-bottom:14px; }
+  .pager { display:flex; gap:10px; align-items:center; }
+  .pager button { font:700 11px/1 var(--mono); letter-spacing:.08em; background:none; border:1.5px solid var(--ink); color:var(--ink); padding:4px 8px; cursor:pointer; }
+  .pager button:active { transform:scale(.96); }
+  .defs { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--ink); border:1.5px solid var(--ink); }
+  .defs > div { background:var(--paper); padding:10px 14px; }
+  .defs b { display:block; font-size:16px; font-weight:900; margin-bottom:3px; }
+  .defs b em { font-style:normal; font:500 10.5px/1 var(--mono); letter-spacing:.1em; color:var(--gray); margin-left:6px; }
+  .defs span { font-size:13.5px; line-height:1.5; color:#2a2a2a; text-wrap:pretty; display:block; }
+  .cards { flex:1; min-height:0; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--ink); border:1.5px solid var(--ink); }
+  .card { background:var(--paper); padding:11px 14px 12px; display:flex; flex-direction:column; gap:6px; min-height:0; }
+  .card .tag { font:500 10.5px/1 var(--mono); letter-spacing:.12em; color:var(--gray); }
+  .card h3 { margin:0; font-size:26px; font-weight:900; }
+  .card .grp { font-size:13.5px; color:var(--red); font-weight:700; }
+  .card ul { margin:0; padding-left:18px; font-size:16px; line-height:1.5; text-wrap:pretty; }
+  .card .f { margin-top:auto; background:#E9E9E3; border-left:3px solid var(--ink); padding:10px 12px; font:500 14px/1.55 var(--mono); color:var(--ink); }
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="pg on" id="p1">
+  <div class="meta"><span>OB／CH 7·8</span><span class="g">SIM ── PAPER PLANE FACTORY ── RULES RECAP</span><span>HRM502 ── 2026.11.20</span></div>
+  <div class="head">
+    <div>
+      <h1>紙飛機工廠：計分規則與本場設定</h1>
+      <div class="sub">RULES RECAP ── 6 TEAMS × 4 MEMBERS</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>6</b><span>組數</span></div>
+      <div class="kpi"><b>4</b><span>每組人數</span></div>
+      <div class="kpi"><b>16</b><span>每組基準架數</span></div>
+      <div class="kpi"><b>20</b><span>每組原料張數</span></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="defs">
+      <div><b>基本<em>BASIC</em></b><span>飛越 3 公尺合格線的架數，以 N 表示。</span></div>
+      <div><b>卓越<em>EXCELLENT</em></b><span>基本架數中飛越 5 公尺的架數，包含在 N 之內。</span></div>
+      <div><b>基準架數<em>N＊</em></b><span>每人 4 架 × 每組 4 人＝ 16 架，各方案門檻依此換算。</span></div>
+      <div><b>浪費<em>WASTE</em></b><span>領取後完全未使用的紙，每張扣 50 點。</span></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">PLAN A ── PIECE-RATE</div><h3>計件</h3><div class="grp">第 1 組；第 5、6 組自選</div>
+        <ul><li>前 8 架每架 80 點</li><li>第 9 架起每架 120 點</li></ul>
+        <div class="f">min(N, 8) × 80<br>＋ max(N − 8, 0) × 120</div>
+      </div>
+      <div class="card">
+        <div class="tag">PLAN B ── MERIT-BASED</div><h3>績效</h3><div class="grp">第 2 組</div>
+        <ul><li>每架 60 點</li><li>卓越每架再加 40 點</li><li>達 16 架加 400 點</li></ul>
+        <div class="f">N × 60 ＋ 卓越 × 40<br>＋ 400（N ≥ 16）</div>
+      </div>
+      <div class="card">
+        <div class="tag">PLAN C ── BONUS</div><h3>獎金</h3><div class="grp">第 3 組</div>
+        <ul><li>達 10 架：800 點</li><li>達 13 架：再加 600 點</li><li>達 16 架：再加 600 點</li><li>達 19 架：再加 400 點</li><li>累計上限 2,400 點</li></ul>
+        <div class="f">800（N≥10）＋ 600（N≥13）<br>＋ 600（N≥16）＋ 400（N≥19）</div>
+      </div>
+      <div class="card">
+        <div class="tag">PLAN D ── PROFIT SHARING</div><h3>利潤分享</h3><div class="grp">第 4 組</div>
+        <ul><li>獎金池＝全班基本架數 × 100 點</li><li>依小組佔比分配</li><li>佔比未達 10% 不分配</li><li>佔比達 25% 再加 500 點</li></ul>
+        <div class="f">獎金池 ×（N ÷ 全班總數）<br>＋ 500（佔比 ≥ 25%）</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>
+      <h2>HOW THRESHOLDS SCALE</h2>
+      <ul>
+        <li>計件加速點＝基準架數的一半（8 架）；獎金四個門檻＝基準架數的 0.6、0.8、1.0、1.2 倍，四捨五入為 10、13、16、19 架。</li>
+        <li>利潤分享參與門檻＝平均佔比的六成，60% ÷ 6 組＝ 10%；加碼門檻＝ 150% ÷ 6 組＝ 25%。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h2>THIS SESSION</h2>
+      <ul>
+        <li>每組領 20 張原料，結果頁以 20 架為比較基準。</li>
+        <li>本場未採用員工持股；結算未計浪費扣點。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">1／2</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+</section>
+<section class="pg" id="p2">
+  <div class="meta"><span>OB／CH 7·8</span><span class="g">SIM ── PAPER PLANE FACTORY ── DEBRIEF</span><span>HRM502 ── 2026.11.20</span></div>
+  <div class="head">
+    <div>
+      <h1>紙飛機工廠獎金計算結果：各組成績與四種方案的點數比較</h1>
+      <div class="sub">SAME OUTPUT, FOUR PAY PLANS ── WHICH PLAN WOULD HAVE PAID MOST?</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>123</b><span>全班基本架數</span></div>
+      <div class="kpi"><b>33</b><span>全班卓越架數</span></div>
+      <div class="kpi"><b>1／6</b><span>原方案即最高</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" style="width:56px">組別</th>
+          <th rowspan="2" style="width:120px;text-align:left">原方案</th>
+          <th rowspan="2" style="width:84px">基本<span class="en">BASIC</span></th>
+          <th rowspan="2" style="width:104px">卓越<span class="en">EXCELLENT</span></th>
+          <th rowspan="2" style="width:176px">對 20 張原料<span class="en">VS. 20 SHEETS</span></th>
+          <th colspan="4" class="grp">以同樣成績換算四種方案的點數</th>
+          <th rowspan="2" style="width:96px">點數最高</th>
+          <th rowspan="2" style="width:84px">與原方案<br>差距</th>
+        </tr>
+        <tr><th>計件</th><th>績效</th><th>獎金</th><th>利潤分享</th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="legend">
+      <span><span class="box"></span>黑框＝原方案的實得點數</span>
+      <span><span class="red">紅色數字</span>＝同樣成績下點數最高的方案</span>
+      <span>長條綠色＝超過 20 架、紅色＝不足 20 架，百分比＝（基本架數 − 20）÷ 20</span>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div>
+      <h2>OBSERVATIONS</h2>
+      <ul>
+        <li>六組中四組換成計件點數最高，第 1 組換成利潤分享、第 5 組換成獎金；原方案即最高的只有第 6 組。</li>
+        <li>第 3 組 9 架，未達獎金組第一個門檻 10 架，點數為 0；同樣 9 架在計件方案可得 760 點。</li>
+        <li>第 6 組 30 架中 21 架卓越（70%）；第 2 組 23 架中只有 1 架卓越。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h2>HOW IT WAS CALCULATED</h2>
+      <ul>
+        <li>第 1 至 4 組依序為計件、績效、獎金、利潤分享；第 5、6 組自選計件。</li>
+        <li>門檻依每組 4 人、共 6 組換算，計分公式見前一頁；利潤分享以全班 123 架計。</li>
+        <li>卓越（飛越 5 公尺）包含在基本架數內；未計浪費扣點，本場未採用員工持股。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">2／2</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+</section>
+</div>
+
+<script>
+  var G = [
+    { g:1, plan:'計件', self:false, N:15, Q:4 },
+    { g:2, plan:'績效', self:false, N:23, Q:1 },
+    { g:3, plan:'獎金', self:false, N:9,  Q:0 },
+    { g:4, plan:'利潤分享', self:false, N:29, Q:7 },
+    { g:5, plan:'計件', self:true,  N:17, Q:0 },
+    { g:6, plan:'計件', self:true,  N:30, Q:21 }
+  ];
+  var BASE = 20;
+  var T = G.reduce(function (s, x) { return s + x.N; }, 0);
+  var PLANS = ['計件', '績效', '獎金', '利潤分享'];
+  /* 依模擬遊戲參數計算器換算：每組 M 人、共 NG 組；基準產量 Ns = 4 × M */
+  var M = 4, NG = 6, Ns = 4 * M, HALF = Math.ceil(Ns / 2);
+  var R = [Math.round(0.6 * Ns), Math.round(0.8 * Ns), Ns, Math.round(1.2 * Ns)];
+  var TH = 0.6 / NG, EX = 1.5 / NG;
+  function score(p, N, Q) {
+    if (p === '計件') return 80 * Math.min(N, HALF) + 120 * Math.max(N - HALF, 0);
+    if (p === '績效') return 60 * N + 40 * Q + (N >= Ns ? 400 : 0);
+    if (p === '獎金') return (N >= R[0] ? 800 : 0) + (N >= R[1] ? 600 : 0) + (N >= R[2] ? 600 : 0) + (N >= R[3] ? 400 : 0);
+    var share = N / T;
+    return (share >= TH ? Math.round(T * 100 * share) : 0) + (share >= EX ? 500 : 0);
+  }
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  var html = '';
+  G.forEach(function (x) {
+    var sc = {}; PLANS.forEach(function (p) { sc[p] = score(p, x.N, x.Q); });
+    var best = PLANS.reduce(function (a, b) { return sc[b] > sc[a] ? b : a; });
+    var diff = x.N - BASE, pct = Math.round(diff / BASE * 100);
+    var w = Math.min(Math.abs(pct), 60) / 60 * 75;
+    var cls = diff >= 0 ? 'pos' : 'neg';
+    var gap = sc[best] - sc[x.plan];
+    html += '<tr>' +
+      '<td><span class="gno">' + x.g + '</span></td>' +
+      '<td class="l"><span class="plan">' + x.plan + '</span>' + (x.self ? '<span class="self">自選</span>' : '') + '</td>' +
+      '<td><span class="num">' + x.N + '</span></td>' +
+      '<td><span class="num">' + x.Q + '</span><span class="pct">' + Math.round(x.Q / x.N * 100) + '%</span></td>' +
+      '<td><div class="bar"><span class="axis"></span><i class="' + cls + '" style="width:' + w + 'px"></i></div>' +
+        '<span class="vs ' + cls + '">' + (diff >= 0 ? '+' : '−') + Math.abs(diff) + ' 架　' + (pct >= 0 ? '+' : '−') + Math.abs(pct) + '%</span></td>';
+    PLANS.forEach(function (p) {
+      var c = 'sc' + (p === x.plan ? ' orig' : '') + (p === best ? ' best' : '') + (sc[p] === 0 ? ' zero' : '');
+      html += '<td class="' + c + '">' + fmt(sc[p]) + '</td>';
+    });
+    html += '<td><span class="bestname">' + best + '</span></td>' +
+      '<td>' + (gap === 0 ? '<span class="gap none">已是最高</span>' : '<span class="gap">+' + fmt(gap) + '</span>') + '</td></tr>';
+  });
+  document.getElementById('rows').innerHTML = html;
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1300, window.innerHeight / 740);
+    document.getElementById('stage').style.transform = 'scale(' + Math.min(s, 2) + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+  var PGS = [].slice.call(document.querySelectorAll('.pg')), cur = 0;
+  function go(i) { cur = Math.max(0, Math.min(PGS.length - 1, i)); PGS.forEach(function (p, k) { p.classList.toggle('on', k === cur); }); }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+  });
+  [].slice.call(document.querySelectorAll('[data-go]')).forEach(function (b) { b.addEventListener('click', function () { go(cur + (+b.getAttribute('data-go'))); }); });
+  if (location.hash === '#p2') go(1);
+
+</script>
+</body>
+</html>
