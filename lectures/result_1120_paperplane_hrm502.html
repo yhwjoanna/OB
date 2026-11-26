@@ -127,6 +127,15 @@
   .p6 #p6main { padding-bottom:14px; }
   .p6 .bottom ol { margin:0; padding-left:20px; font-size:13.5px; line-height:1.55; }
   .p6 .note a, .p6 .card a { color:inherit; font-weight:700; text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
+  /* 紙飛機符號：標示解讀時要注意的地方 */
+  li.pl { list-style:none; position:relative; }
+  li.pl::before, .pli { content:""; width:15px; height:15px; background:var(--red);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1.5 11.2 22.5 2 16 22l-4.6-7.4L22.5 2 9.2 12.9l.3 6.3-2.9-5.6z'/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1.5 11.2 22.5 2 16 22l-4.6-7.4L22.5 2 9.2 12.9l.3 6.3-2.9-5.6z'/%3E%3C/svg%3E") center/contain no-repeat; }
+  li.pl::before { position:absolute; left:-20px; top:.2em; }
+  .pli { display:inline-block; vertical-align:-2px; margin-right:6px; }
+  .eq .pli { background:#FFD23F; }
+  .pli.ink { background:var(--ink); }
+  td .pli { margin-right:5px; }
 </style>
 </head>
 <body>
@@ -188,6 +197,7 @@
       <ul>
         <li>每組領 20 張原料，結果頁以 20 架為比較基準。</li>
         <li>本場未採用員工持股；結算未計浪費扣點。</li>
+        <li>後面各頁的紙飛機符號<span class="pli" style="margin-left:6px;margin-right:4px"></span>標示值得注意的數字。</li>
       </ul>
     </div>
   </div>
@@ -228,6 +238,7 @@
       <span><span class="box"></span>黑框＝原方案的實得點數</span>
       <span><span class="red">紅色數字</span>＝同樣成績下點數最高的方案</span>
       <span>長條綠色＝超過 20 架、紅色＝不足 20 架，百分比＝（基本架數 − 20）÷ 20</span>
+      <span><span class="pli"></span>有成績卻領 0 點、原方案已是最高</span>
     </div>
   </div>
 
@@ -286,7 +297,7 @@
         <div class="bl"><span class="up">● 名次上升</span><span class="dn">● 名次下降</span><span class="eq">● 不變</span></div>
       </div>
     </div>
-    <div class="f3">獎酬＝ 2,000 ×〔 數量權重 × 原料達成率 ＋ 品質權重 ×（卓越比例 ÷ 25%）〕；兩項指標各以 150% 為上限。每一欄的紅字為該權重下的第 1 名。</div>
+    <div class="f3">獎酬＝ 2,000 ×〔 數量權重 × 原料達成率 ＋ 品質權重 ×（卓越比例 ÷ 25%）〕；兩項指標各以 150% 為上限。每一欄的紅字為該權重下的第 1 名；紙飛機標示排名有變動的組。</div>
   </div>
   <div class="bottom">
     <div>
@@ -377,7 +388,7 @@
       <ul>
         <li>每架成本＝總支出 ÷ 全班基本架數 123；每架卓越成本＝總支出 ÷ 全班卓越架數 33。</li>
         <li>各付法都用本場六組的實際成績計算，假設換了付法後產出不變；紅字為該欄最低。</li>
-        <li>品質指標的試算方式見第 3 頁。</li>
+        <li>品質指標的試算方式見第 3 頁。紅色紙飛機＝七種付法中支出最低；黑色紙飛機＝現行四種方案中支出最低。</li>
       </ul>
     </div>
   </div>
@@ -392,7 +403,7 @@
     </div>
   </div>
   <div class="main" id="p6main">
-    <div class="eq">資方的獲利 ＝ 基本架數 × 每架價值 ＋ 卓越架數 × 卓越加值 − 獎酬總支出<small>支出最低的付法未必獲利最高；若產出跟著下降，省下的支出可能少於損失的價值</small></div>
+    <div class="eq">資方的獲利 ＝ 基本架數 × 每架價值 ＋ 卓越架數 × 卓越加值 − 獎酬總支出<small><span class="pli"></span>支出最低的付法未必獲利最高；若產出跟著下降，省下的支出可能少於損失的價值</small></div>
     <div class="cards">
       <div class="card">
         <div class="tag">STEP 1 ── VALUE</div><h3>先算每架的價值</h3>
@@ -478,10 +489,10 @@
         '<span class="vs ' + cls + '">' + (diff >= 0 ? '+' : '−') + Math.abs(diff) + ' 架　' + (pct >= 0 ? '+' : '−') + Math.abs(pct) + '%</span></td>';
     PLANS.forEach(function (p) {
       var c = 'sc' + (p === x.plan ? ' orig' : '') + (p === best ? ' best' : '') + (sc[p] === 0 ? ' zero' : '');
-      html += '<td class="' + c + '">' + fmt(sc[p]) + '</td>';
+      html += '<td class="' + c + '">' + (sc[p] === 0 && x.N > 0 ? '<span class="pli"></span>' : '') + fmt(sc[p]) + '</td>';
     });
     html += '<td><span class="bestname">' + best + '</span></td>' +
-      '<td>' + (gap === 0 ? '<span class="gap none">已是最高</span>' : '<span class="gap">+' + fmt(gap) + '</span>') + '</td></tr>';
+      '<td>' + (gap === 0 ? '<span class="pli"></span><span class="gap none">已是最高</span>' : '<span class="gap">+' + fmt(gap) + '</span>') + '</td></tr>';
   });
   document.getElementById('rows').innerHTML = html;
 
@@ -521,7 +532,7 @@
     var x = o.x, ar = Math.round(x.N / BASE * 100), er = Math.round(x.Q / x.N * 100);
     h3 += '<tr><td><span class="gno">' + x.g + '</span></td><td><span class="num">' + x.N + '</span></td><td><span class="num">' + x.Q + '</span></td>' +
       '<td><span class="rate">' + ar + '%</span></td><td><span class="rate">' + er + '%</span></td>';
-    o.v.forEach(function (v, k) { h3 += '<td class="sch' + (v === MX[k] ? ' top' : '') + '">' + fmt(v) + '</td>'; });
+    o.v.forEach(function (v, k) { h3 += '<td class="sch' + (v === MX[k] ? ' top' : '') + '">' + (k === 2 && RK[2][x.g] !== RK[0][x.g] ? '<span class="pli"></span>' : '') + fmt(v) + '</td>'; });
     h3 += '</tr>';
   });
   (function () {
@@ -558,6 +569,7 @@
     rows.forEach(function (r) { r.tot = r.v.reduce(function (a, b) { return a + b; }, 0); r.zero = r.v.filter(function (z) { return z === 0; }).length; });
     act.tot = act.v.reduce(function (a, b) { return a + b; }, 0);
     var minT = Math.min.apply(null, rows.map(function (r) { return r.tot; })), maxT = Math.max.apply(null, rows.map(function (r) { return r.tot; }));
+    var min4 = Math.min.apply(null, rows.slice(0, 4).map(function (r) { return r.tot; }));
     var all = rows.concat([act]), h = '', prev = '';
     all.forEach(function (r, i) {
       var low = !r.act && r.tot === minT, c1 = (r.tot / T).toFixed(1), c2 = Math.round(r.tot / TQ);
@@ -565,7 +577,7 @@
       h += '<tr' + (last ? ' class="last"' : '') + '>';
       if (r.grp !== prev) { var n = all.filter(function (z) { return z.grp === r.grp; }).length; h += '<td class="grp5" rowspan="' + n + '">' + r.grp + '</td>'; prev = r.grp; }
       h += '<td class="nm">' + r.nm + (r.sub ? '<small>' + r.sub + '</small>' : '') + '</td>' +
-        '<td class="n' + (low ? ' low' : '') + '">' + fmt(r.tot) + '</td>' +
+        '<td class="n' + (low ? ' low' : '') + '">' + (low ? '<span class="pli"></span>' : (!r.act && r.grp === '現行四種方案' && r.tot === min4 ? '<span class="pli ink"></span>' : '')) + fmt(r.tot) + '</td>' +
         '<td class="n' + (low ? ' low' : '') + '">' + c1 + '</td>' +
         '<td class="barc"><span class="b5' + (low ? ' low' : '') + '" style="width:' + Math.round(r.tot / maxT * 220) + 'px"></span></td>' +
         '<td class="n' + (low ? ' low' : '') + '">' + fmt(c2) + '</td></tr>';
