@@ -77,6 +77,24 @@
   .card .grp { font-size:13.5px; color:var(--red); font-weight:700; }
   .card ul { margin:0; padding-left:18px; font-size:16px; line-height:1.5; text-wrap:pretty; }
   .card .f { margin-top:auto; background:#E9E9E3; border-left:3px solid var(--ink); padding:10px 12px; font:500 14px/1.55 var(--mono); color:var(--ink); }
+  .p3 td { padding:7px 6px; }
+  .p3 .rate { font:700 17px/1 Archivo, var(--sans); }
+  .p3 .rate small { display:block; margin-top:4px; font:500 11.5px/1 var(--mono); color:var(--gray); }
+  .p3 td.orig3 { font:700 17px/1 Archivo, var(--sans); }
+  .p3 td.sch { font:700 18px/1 Archivo, var(--sans); width:132px; }
+  .p3 td.sch .d { display:inline-block; margin-top:6px; margin-left:8px; font:700 12px/1 var(--mono); }
+  .p3 td.sch .d.up { color:var(--green); } .p3 td.sch .d.dn { color:var(--red); } .p3 td.sch .d.eq { color:var(--gray); }
+  .p3 td.sch .rk { display:inline-block; margin-left:8px; font:500 11.5px/1 var(--sans); color:var(--gray); }
+  .p3 .chg { font:700 15px/1 var(--mono); letter-spacing:.04em; }
+  .p3 .f3 { background:#E9E9E3; border-left:3px solid var(--ink); padding:7px 12px; font:500 13px/1.6 var(--mono); }
+  .p4 table { font-size:15.5px; }
+  .p4 td { text-align:left; vertical-align:top; padding:10px 10px; line-height:1.5; text-wrap:pretty; }
+  .p4 td.mk { font-weight:900; font-size:18px; white-space:nowrap; }
+  .p4 td.mk small { display:block; font:500 11.5px/1.4 var(--sans); color:var(--gray); margin-top:3px; white-space:normal; }
+  .p4 td.th { color:#2a2a2a; }
+  .p4 td.here { color:#2a2a2a; }
+  .p4 th { text-align:left; padding-left:10px; }
+  .p4 .bottom ol { margin:0; padding-left:20px; font-size:13.5px; line-height:1.55; }
 </style>
 </head>
 <body>
@@ -141,7 +159,7 @@
       </ul>
     </div>
   </div>
-  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">1／2</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">1／4</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
 </section>
 <section class="pg" id="p2">
   <div class="meta"><span>OB／CH 7·8</span><span class="g">SIM ── PAPER PLANE FACTORY ── DEBRIEF</span><span>HRM502 ── 2026.11.20</span></div>
@@ -199,7 +217,97 @@
       </ul>
     </div>
   </div>
-  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">2／2</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">2／4</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+</section>
+<section class="pg p3" id="p3">
+  <div class="meta"><span>OB／CH 7·8</span><span class="g">SIM ── PAPER PLANE FACTORY ── MORE METRICS</span><span>HRM502 ── 2026.11.20</span></div>
+  <div class="head">
+    <div>
+      <h1>加入更多績效指標：同樣成績下的獎酬與排名</h1>
+      <div class="sub">SAME OUTPUT, TWO METRICS ── HOW THE WEIGHTS CHANGE PAY</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>20</b><span>原料目標架數</span></div>
+      <div class="kpi"><b>25%</b><span>卓越比例目標</span></div>
+      <div class="kpi"><b>2,000</b><span>獎金基數</span></div>
+    </div>
+  </div>
+  <div class="main">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" style="width:56px">組別</th>
+          <th rowspan="2" style="width:70px">基本<span class="en">BASIC</span></th>
+          <th rowspan="2" style="width:76px">卓越<span class="en">EXCELLENT</span></th>
+          <th rowspan="2" style="width:120px">原料達成率<span class="en">BASIC ÷ 20</span></th>
+          <th rowspan="2" style="width:120px">卓越比例<span class="en">EXC. ÷ BASIC</span></th>
+          <th rowspan="2" style="width:104px">原方案<br>實得點數</th>
+          <th colspan="3" class="grp">兩項指標、三種權重的獎酬（與原方案差距、排名）</th>
+          <th rowspan="2" style="width:130px">排名變化</th>
+        </tr>
+        <tr><th>只看數量<span class="en">100 / 0</span></th><th>數量為主<span class="en">70 / 30</span></th><th>品質為主<span class="en">30 / 70</span></th></tr>
+      </thead>
+      <tbody id="rows3"></tbody>
+    </table>
+    <div class="f3">獎酬＝ 2,000 ×〔 數量權重 × 原料達成率 ＋ 品質權重 ×（卓越比例 ÷ 25%）〕；兩項指標各以 150% 為上限</div>
+  </div>
+  <div class="bottom">
+    <div>
+      <h2>OBSERVATIONS</h2>
+      <ul id="obs3"></ul>
+    </div>
+    <div class="note">
+      <h2>HOW IT WAS CALCULATED</h2>
+      <ul>
+        <li>原料目標：每組領 20 張，以做出 20 架合格為目標；本場沒有記錄實際用掉幾張，無法計算原料利用率。</li>
+        <li>卓越比例目標 25%，約等於全班整體比例（33 ÷ 123 ＝ 27%）。</li>
+        <li>獎金基數 2,000 約等於計件做到 20 架的點數（2,080）；目標與權重皆為試算假設。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">3／4</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
+</section>
+<section class="pg p4" id="p4">
+  <div class="meta"><span>OB／CH 7·8</span><span class="g">SIM ── PAPER PLANE FACTORY ── METRICS AND BEHAVIOR</span><span>HRM502 ── 2026.11.20</span></div>
+  <div class="head">
+    <div>
+      <h1>不同績效指標引發的行為與動機</h1>
+      <div class="sub">WHAT GETS MEASURED ── BEHAVIOR, SIDE EFFECTS, AND THEORY</div>
+    </div>
+  </div>
+  <div class="main">
+    <table>
+      <thead><tr>
+        <th style="width:150px">指標</th><th style="width:220px">鼓勵的行為</th><th style="width:270px">可能的副作用</th><th style="width:270px">相關理論</th><th>本場可對照</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="mk">數量<small>基本架數、計件</small></td><td>加快速度、多做</td><td>品質只求剛好飛過 3 公尺；不願花時間改良摺法</td><td class="th">期望理論：表現與獎酬的連結清楚；Kerr 獎勵 A 卻期待 B</td><td class="here">第 2 組 23 架中 1 架卓越</td></tr>
+        <tr><td class="mk">門檻<small>獎金方案</small></td><td>在門檻前衝刺</td><td>確定達不到時放棄；過了最後一個門檻就停</td><td class="th">目標設定理論：目標難度與承諾；期望理論：判斷達不到時，期望值趨近 0</td><td class="here">第 3 組 9 架，差 1 架未達 10 架門檻，點數為 0</td></tr>
+        <tr><td class="mk">卓越比例<small>品質</small></td><td>改良摺法、只交有把握的飛機</td><td>比例可以靠少做來提高，做 1 架成功就是 100%</td><td class="th">目標過度聚焦的副作用（Ordóñez 等，2009）</td><td class="here">第 6 組 30 架中 21 架卓越（70%），數量與品質同時最高</td></tr>
+        <tr><td class="mk">原料達成率<small>對 20 張原料</small></td><td>珍惜原料、減少失敗品</td><td>不敢試新摺法，少了試作與學習</td><td class="th">目標設定理論：學習新任務時，表現目標可能壓過學習</td><td class="here">本場未記錄實際用紙數，無法對照</td></tr>
+        <tr><td class="mk">全班分享<small>利潤分享</small></td><td>組間交流做法、在乎全班總量</td><td>搭便車；單組多做的回報被全班稀釋</td><td class="th">社會惰化（CH 9·10）；公平理論</td><td class="here">第 4 組 29 架，佔全班 24%，未達 25% 加碼</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bottom">
+    <div>
+      <h2>FOR DISCUSSION</h2>
+      <ol>
+        <li>若事先公布品質為主的權重，第 2 組的做法可能有什麼不同？</li>
+        <li>指標越多越公平嗎？權重由誰決定、何時公布，會影響投入程度嗎？</li>
+        <li>工作中有哪些指標容易出現衝數字、卻沒有把事情做好的情況？</li>
+      </ol>
+    </div>
+    <div class="note">
+      <h2>SOURCES</h2>
+      <ul>
+        <li>Kerr, S. (1975). On the folly of rewarding A, while hoping for B. <i>Academy of Management Journal, 18</i>(4), 769–783.</li>
+        <li>Ordóñez, L. D., Schweitzer, M. E., Galinsky, A. D., &amp; Bazerman, M. H. (2009). Goals gone wild. <i>Academy of Management Perspectives, 23</i>(1), 6–16.</li>
+        <li>期望理論、目標設定理論、公平理論見 CH 7·8 講義；社會惰化見 CH 9·10。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>NSYSU ── HRM</span><span class="pager"><button type="button" data-go="-1">◀</button><span class="pno">4／4</span><button type="button" data-go="1">▶</button></span><span>OB-6 變動薪資計劃獎勵</span></div>
 </section>
 </div>
 
@@ -264,6 +372,40 @@
   });
   [].slice.call(document.querySelectorAll('[data-go]')).forEach(function (b) { b.addEventListener('click', function () { go(cur + (+b.getAttribute('data-go'))); }); });
   if (location.hash === '#p2') go(1);
+  if (location.hash === '#p3') go(2);
+  if (location.hash === '#p4') go(3);
+
+  /* 第三頁：加入原料達成率與卓越比例兩項指標 */
+  var W = [[1, 0], [0.7, 0.3], [0.3, 0.7]], WN = ['只看數量', '數量為主', '品質為主'];
+  var QT = 0.25, BASEPT = 2000, CAP = 1.5;
+  function pay3(x, w) {
+    var a = Math.min(x.N / BASE, CAP), q = x.N ? Math.min((x.Q / x.N) / QT, CAP) : 0;
+    return Math.round(BASEPT * (w[0] * a + w[1] * q));
+  }
+  var P3 = G.map(function (x) { return { x: x, orig: score(x.plan, x.N, x.Q), v: W.map(function (w) { return pay3(x, w); }) }; });
+  var RK = W.map(function (w, k) {
+    var srt = P3.slice().sort(function (a, b) { return b.v[k] - a.v[k]; });
+    var r = {}; P3.forEach(function (o) { r[o.x.g] = 1 + srt.filter(function (z) { return z.v[k] > o.v[k]; }).length; }); return r;
+  });
+  var h3 = '';
+  P3.forEach(function (o) {
+    var x = o.x, ar = Math.round(x.N / BASE * 100), er = Math.round(x.Q / x.N * 100);
+    h3 += '<tr><td><span class="gno">' + x.g + '</span></td><td><span class="num">' + x.N + '</span></td><td><span class="num">' + x.Q + '</span></td>' +
+      '<td><span class="rate">' + ar + '%</span></td><td><span class="rate">' + er + '%</span></td>' +
+      '<td class="orig3">' + fmt(o.orig) + '<span class="pct" style="display:block;margin-top:5px">' + x.plan + '</span></td>';
+    o.v.forEach(function (v, k) {
+      var d = v - o.orig, c = d > 0 ? 'up' : (d < 0 ? 'dn' : 'eq');
+      h3 += '<td class="sch">' + fmt(v) + '<span class="d ' + c + '">' + (d > 0 ? '+' : (d < 0 ? '−' : '±')) + fmt(Math.abs(d)) + '</span><span class="rk">第 ' + RK[k][x.g] + ' 名</span></td>';
+    });
+    h3 += '<td><span class="chg">' + RK.map(function (r) { return r[x.g]; }).join(' → ') + '</span></td></tr>';
+  });
+  document.getElementById('rows3').innerHTML = h3;
+  function o3(g) { return P3.filter(function (o) { return o.x.g === g; })[0]; }
+  var g1 = o3(1), g2 = o3(2), g5 = o3(5);
+  document.getElementById('obs3').innerHTML =
+    '<li>第 2 組 ' + g2.x.N + ' 架、卓越 ' + g2.x.Q + ' 架：只看數量 ' + fmt(g2.v[0]) + ' 點、排第 ' + RK[0][2] + '；品質為主降到 ' + fmt(g2.v[2]) + ' 點、排第 ' + RK[2][2] + '。</li>' +
+    '<li>第 1 組 ' + g1.x.N + ' 架、卓越 ' + g1.x.Q + ' 架：只看數量 ' + fmt(g1.v[0]) + ' 點、排第 ' + RK[0][1] + '；品質為主升到 ' + fmt(g1.v[2]) + ' 點、排第 ' + RK[2][1] + '。</li>' +
+    '<li>第 5 組沒有卓越架數，品質權重提高後由 ' + fmt(g5.v[0]) + ' 點降到 ' + fmt(g5.v[2]) + ' 點；第 6 組三種權重都是第 1 名。</li>';
 
 </script>
 </body>
