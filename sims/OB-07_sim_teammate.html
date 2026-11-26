@@ -66,6 +66,9 @@
   .g3 { grid-template-columns:repeat(3,1fr); }
   .g32 { grid-template-columns:repeat(3,1fr); grid-template-rows:1fr 1fr; }
   .g22 { grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; }
+  /* TEAMFIT v1：團隊頁兩列依內容分配高度，避免上排被裁 */
+  body:not(.flow) .g32.teamgrid { grid-template-rows:auto auto; align-content:space-between; }
+  body:not(.flow) .g32.teamgrid .cell { padding:11px 17px; }
   .cell { background:var(--panel); border:var(--bd); padding:13px 17px; display:flex; flex-direction:column;
     gap:5px; min-height:0; overflow:hidden; position:relative; }
   .cell .tag { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
@@ -532,7 +535,7 @@
   </div>
   <div class="main">
     <div class="band">睿宇科技做的是企業級雲端訂閱服務。平台工程組編制六人，負責核心系統的更新、監控與夜間值班，線上付款、訂單與客戶資料庫都由這一組管理。<b>系統一當機，三千家企業客戶會同時無法使用；合約也約定，停機超過一定時間公司要賠償。</b></div>
-    <div class="grid g32">
+    <div class="grid g32 teamgrid">
       <div class="cell">
         <span class="tag">You</span>
         <h3>陳彥廷</h3><span class="en-term">資深後端工程師／年資 8 年</span>
@@ -542,7 +545,7 @@
       <div class="cell">
         <span class="tag">The Problem</span>
         <h3>林柏睿</h3><span class="en-term">後端工程師／轉調 3 年</span>
-        <p>原本在 IT 支援部門，面試兩次才轉調成功。三年下來仍不熟系統更新與出錯時還原的流程，交辦的工作常拖過期限，值班時收到系統警報就丟回群組求救，也不肯接手重要系統。</p>
+        <p>原本在 IT 支援部門，面試兩次才轉調成功。三年來仍不熟系統更新與還原的流程，工作常拖過期限，值班收到警報就丟到群組求救，也不肯接重要系統。</p>
         <div class="foot-note">全組都跟他談過，也都跟組長反映過，情況沒有改變。</div>
       </div>
       <div class="cell">
